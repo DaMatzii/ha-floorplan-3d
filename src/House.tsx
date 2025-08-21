@@ -2,7 +2,6 @@ import { useThree } from "@react-three/fiber";
 import { Shape, Vector3, PerspectiveCamera, Box3, MathUtils } from "three";
 import { useEffect, useState, useRef } from "react";
 import React from "react";
-import "./App.css";
 import { useControls, button, folder } from "leva";
 import Light from "./Light";
 import type Home from "./Home.ts";
@@ -15,31 +14,6 @@ import {
   Environment,
 } from "@react-three/drei";
 import Room from "./Room";
-
-function BoxWithLabel() {
-  return (
-    <mesh position={[0, 300, 0]}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="skyblue" />
-
-      {/* HTML overlay */}
-      <Html center>
-        <div
-          style={{
-            background: "white",
-            padding: "5px 10px",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-            fontSize: "14px",
-            zIndex: 0,
-          }}
-        >
-          Hello, I'm an overlay!
-        </div>
-      </Html>
-    </mesh>
-  );
-}
 
 /**
  * Calculates the required camera distance to fit all given 3D points into the view.

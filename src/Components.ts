@@ -1,15 +1,17 @@
 import Wall from './Components/Wall'
 import Light from './Components/Light'
 import Room from './Components/Room'
+import TemperatureDisplay from './Components/TempDisplay'
+import BoxWithLabel from './Components/BoxWithLabel'
 export interface ComponentProps {
 	[key: string]: string | number | boolean;
 }
 
 // Parser type: React component accepting ComponentProps
-type ComponentParser<T extends ComponentProps = ComponentProps> =
+export type ComponentParser<T extends ComponentProps = ComponentProps> =
 	React.ComponentType<T>;
 
-class ComponentRegistry {
+export class ComponentRegistry {
 	private parsers = new Map<string, ComponentParser<any>>();
 
 	register<T extends ComponentProps>(
@@ -31,6 +33,8 @@ const registry = new ComponentRegistry();
 registry.register("wall", Wall);
 registry.register("light", Light);
 registry.register("room", Room);
+registry.register("room-temperatureDisplay", TemperatureDisplay);
+registry.register("room-boxWithLabel", BoxWithLabel);
 export default registry;
 
 

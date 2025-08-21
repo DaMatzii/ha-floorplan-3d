@@ -2,7 +2,6 @@ import { useThree } from "@react-three/fiber";
 import { Shape, Vector3, PerspectiveCamera, Box3, MathUtils } from "three";
 import { useEffect, useState, useRef } from "react";
 import React from "react";
-import "./App.css";
 import { useControls, button, folder } from "leva";
 import { Html, OrbitControls, MeshReflectorMaterial } from "@react-three/drei";
 import Light from "./Light.tsx";

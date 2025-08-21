@@ -45,6 +45,7 @@ const Button = ({ onClick, children }) => {
         left: 20,
         padding: "0.5rem 1rem",
         fontSize: "1rem",
+        color: "white",
       }}
     >
       {children}

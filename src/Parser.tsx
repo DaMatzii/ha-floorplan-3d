@@ -5,7 +5,6 @@ import type { JSX } from "react/jsx-runtime";
 
 export function renderHome(root: any): any {
   const renderList: JSX.Element[] = [];
-  console.log(root);
   let runningNumber = 0;
   for (const type in root) {
     if (typeof root[type] === "object") {
