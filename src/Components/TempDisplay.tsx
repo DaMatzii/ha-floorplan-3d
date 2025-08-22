@@ -2,8 +2,10 @@ import React from "react";
 import type { ComponentProps } from "../Components.ts";
 import Light from "../Light.tsx";
 import { Html } from "@react-three/drei";
+import { HassConnect, useEntity, useEntities, useDevice } from "@hakit/core";
 
 type Point = { x: number; y: number };
+type TemperatureSensor = { temperature: number; humidity: number };
 interface TemperatureDisplayProps extends ComponentProps {
   hassId: any;
   room: any;
@@ -13,7 +15,23 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
   hassId,
   room,
 }) => {
+  const [reading, setReading] = React.useState<TemperatureSensor>({
+    temperature: 0,
+    humidity: 0,
+  }); // default to debug view
   // console.log(hassId);
+
+  const lightStrip = useEntities([
+    "sensor.atc_651c_temperature",
+    "sensor.atc_651c_humidity",
+  ]);
+  React.useEffect(() => {
+    console.log("LIGHTSTRIP ", lightStrip);
+    setReading({
+      temperature: Number(lightStrip[0]["state"]),
+      humidity: Number(lightStrip[1]["state"]),
+    });
+  }, []);
   console.log(room);
   const middlePoint: Point = React.useMemo(() => {
     // console.log(room);
@@ -34,7 +52,7 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
     <>
       <mesh>
         <Html
-          position={[middlePoint.x + 0.55555, 0.1, middlePoint.y - 0.4]}
+          position={[middlePoint.x - 0.22, 0.01, middlePoint.y - 0.4]}
           rotation={[-Math.PI / 2, 0, 0]}
           distanceFactor={1}
           transform
@@ -50,12 +68,14 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
           >
             <div className="flex flex-col items-center justify-center ">
               <div className="flex items-start text-white">
-                <span className="text-[500px] font-bold">23.4</span>
+                <span className="text-[500px] font-bold">
+                  {reading.temperature}
+                </span>
                 <span className="text-[100px] mt-30">°C</span>
               </div>
 
               <div className="flex items-start -mt-40 text-white">
-                <span className="text-[300px]">47.3</span>
+                <span className="text-[300px]">{reading.humidity}</span>
                 <span className="text-[80] font-bold mt-20">%</span>
               </div>
             </div>
