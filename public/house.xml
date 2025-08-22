@@ -129,8 +129,8 @@
   <wall id='wall-a546dacd-a784-4db4-a766-91b23a97b47c' wallAtStart='wall-2c99c066-edc0-4567-8d5a-9ec48d694e46' xStart='2596.799' yStart='1472.5455' xEnd='2307.799' yEnd='1472.5455' height='243.84' thickness='13.0' pattern='hatchUp'/>
   <room id='room-a8239ead-614a-4d1e-9c8c-686e5a12d0a9' name='Makuuhuone' areaVisible='true' ceilingVisible='false' ceilingFlat='true'>
     <temperatureDisplay hassId="184148184" xOffset='69' yOffset='69' />
-    <boxWithLabel hassId='6969' xOffset='2' yOffset='0' /> 
-    <boxWithLabel hassId='6969' xOffset='-3' yOffset='0' /> 
+    <!-- <boxWithLabel hassId='6969' xOffset='2' yOffset='0' />  -->
+    <!-- <boxWithLabel hassId='6969' xOffset='-3' yOffset='0' />  -->
     <point x='496.95502' y='598.7223'/>
     <point x='1164.9548' y='598.7223'/>
     <point x='1164.9548' y='756.7223'/>

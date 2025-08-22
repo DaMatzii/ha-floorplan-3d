@@ -66,7 +66,7 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
               cursor: "default",
             }}
           >
-            <div className="flex flex-col items-center justify-center ">
+            <div className="flex flex-col items-center justify-center z-0">
               <div className="flex items-start text-white">
                 <span className="text-[500px] font-bold">
                   {reading.temperature}
