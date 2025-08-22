@@ -34,7 +34,7 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
     <>
       <mesh>
         <Html
-          position={[middlePoint.x + 0.55555, 1, middlePoint.y - 0.4]}
+          position={[middlePoint.x + 0.55555, 0.1, middlePoint.y - 0.4]}
           rotation={[-Math.PI / 2, 0, 0]}
           distanceFactor={1}
           transform
