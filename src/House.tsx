@@ -130,7 +130,7 @@ function House({ mainCamera }) {
     const fetchXML = async () => {
       try {
         // const response = await fetch("http://localhost:5173/house.xml");
-        fetch("http://192.168.2.61:5173/house.xml")
+        fetch("/house.xml")
           .then((response) => response.text())
           .then((str) => {
             setHome(parseHome(str));

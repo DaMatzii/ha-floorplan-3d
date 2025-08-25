@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import HomeView from "./HomeView";
+import TestView from "./TestView";
 import { HassConnect, useStore } from "@hakit/core";
 
 const About = () => {
@@ -15,7 +16,6 @@ const About = () => {
   return (
     <>
       <div className="flex flex-col h-screen bg-gray-100">
-        {/* Top area */}
         <div className="flex-1 flex items-center justify-center p-6">
           <h1 className="text-2xl font-bold text-gray-800">Top Area Content</h1>
         </div>
@@ -40,15 +40,16 @@ const About = () => {
 const App: React.FC = () => {
   return (
     <>
-      <HassConnect
-        hassUrl="http://192.168.2.101:8123"
-        hassToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwZjJiMzgyMWQzYjA0M2M5OWI0ODI2NmFkZDk2MWEzNiIsImlhdCI6MTc1NTg3NjA2MiwiZXhwIjoyMDcxMjM2MDYyfQ.YaVKgKD5dhxWg4nSQSa-1mphzG2rXXj_yAXg1sQP9VU"
-      >
-        <Routes>
-          <Route path="/" element={<HomeView />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      </HassConnect>
+      {/* <HassConnect */}
+      {/* hassUrl="http://192.168.2.101:8123" */}
+      {/* hassToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwZjJiMzgyMWQzYjA0M2M5OWI0ODI2NmFkZDk2MWEzNiIsImlhdCI6MTc1NTg3NjA2MiwiZXhwIjoyMDcxMjM2MDYyfQ.YaVKgKD5dhxWg4nSQSa-1mphzG2rXXj_yAXg1sQP9VU" */}
+      {/* > */}
+      <Routes>
+        <Route path="/" element={<HomeView />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/test" element={<TestView />} />
+      </Routes>
+      {/* </HassConnect> */}
     </>
   );
 };
