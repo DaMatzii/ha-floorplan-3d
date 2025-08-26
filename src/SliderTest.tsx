@@ -19,6 +19,7 @@ const SliderTest = ({
     "Guest Room",
     "Study",
   ],
+  setCurrentIndex,
 }) => {
   const x = useMotionValue(0);
 
@@ -65,6 +66,7 @@ const SliderTest = ({
 
           setCurrentItem(currentItem);
           console.log(rooms[currentItem]);
+          setCurrentIndex(currentItem);
 
           console.log("ON DRAG", drag);
         }}

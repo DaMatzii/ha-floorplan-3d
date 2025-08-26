@@ -1,6 +1,8 @@
 import SliderTest from "./SliderTest";
 
 export default function TestView() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   return (
     <>
       <div className="flex flex-col h-screen bg-gray-100">
@@ -21,7 +23,7 @@ export default function TestView() {
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-semibold">Bottom Sheet</h2>
           </div>
-          <SliderTest />
+          <SliderTest setCurrentIndex={setCurrentIndex} />
         </div>
       </div>
       ;

@@ -40,16 +40,16 @@ const About = () => {
 const App: React.FC = () => {
   return (
     <>
-      {/* <HassConnect */}
-      {/* hassUrl="http://192.168.2.101:8123" */}
-      {/* hassToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwZjJiMzgyMWQzYjA0M2M5OWI0ODI2NmFkZDk2MWEzNiIsImlhdCI6MTc1NTg3NjA2MiwiZXhwIjoyMDcxMjM2MDYyfQ.YaVKgKD5dhxWg4nSQSa-1mphzG2rXXj_yAXg1sQP9VU" */}
-      {/* > */}
-      <Routes>
-        <Route path="/" element={<HomeView />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/test" element={<TestView />} />
-      </Routes>
-      {/* </HassConnect> */}
+      <HassConnect
+        hassUrl="http://192.168.2.101:8123"
+        hassToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwZjJiMzgyMWQzYjA0M2M5OWI0ODI2NmFkZDk2MWEzNiIsImlhdCI6MTc1NTg3NjA2MiwiZXhwIjoyMDcxMjM2MDYyfQ.YaVKgKD5dhxWg4nSQSa-1mphzG2rXXj_yAXg1sQP9VU"
+      >
+        <Routes>
+          <Route path="/" element={<HomeView />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/test" element={<TestView />} />
+        </Routes>
+      </HassConnect>
     </>
   );
 };

@@ -11,6 +11,7 @@ import * as THREE from "three";
 import House from "./House";
 import { Routes, Route, Link } from "react-router-dom";
 import { HassConnect, useEntity } from "@hakit/core";
+import SliderTest from "./SliderTest";
 
 import { backgroundBlurriness } from "three/src/nodes/TSL.js";
 type DebugCameraProps = {
@@ -58,6 +59,7 @@ const Button = ({ onClick, children }) => {
 export default function HomeView() {
   const [activeCamera, setActiveCamera] = useState(0); // default to debug view
   const camera = useRef<THREE.PerspectiveCamera>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
     <>
@@ -142,12 +144,11 @@ export default function HomeView() {
           style={{ height: `${0.4 * 100}vh` }}
         >
           <div className="flex justify-between items-center">
-            <h2 className="text-lg font-semibold">Bottom Sheet</h2>
+            <h2 className="text-lg font-semibold">
+              Bottom Sheet {currentIndex}
+            </h2>
           </div>
-          <p className="mt-2 text-gray-600">
-            This is some content inside the bottom sheet. You can put anything
-            here.
-          </p>
+          <SliderTest setCurrentIndex={setCurrentIndex} />
         </div>
       </div>
 
