@@ -8,19 +8,7 @@ const box: React.CSSProperties = {
   backgroundColor: "black",
 };
 
-const SliderTest = ({
-  rooms = [
-    "Living Room",
-    "Kitchen",
-    "Bedroom",
-    "Bathroom",
-    "Office",
-    "Dining Room",
-    "Guest Room",
-    "Study",
-  ],
-  setCurrentIndex,
-}) => {
+const SliderTest = ({ rooms, setCurrentIndex }) => {
   const x = useMotionValue(0);
 
   const itemWidth = 120;
@@ -33,19 +21,16 @@ const SliderTest = ({
   return (
     <>
       <div className="bg-black w-32 h-32 absolute top-80 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
-      <p>Current item: {rooms[currentItem]}</p>
-      <p>Current item: {currentItem}</p>
-      <p>: {pos}</p>
-      <p>anim_pos: {anim_pos}</p>
-      <p>x: {x.get()}</p>
+      {/* <p>Current item: {rooms[currentItem]}</p> */}
+      {/* <p>Current item: {currentItem}</p> */}
+      {/* <p>: {pos}</p> */}
+      {/* <p>anim_pos: {anim_pos}</p> */}
+      {/* <p>x: {x.get()}</p> */}
       <motion.div
         drag="x"
         dragDirectionLock
-        onDirectionLock={(direction) =>
-          console.log("SET DIRECTION LOCK ", direction)
-        }
         onDragEnd={() => {
-          console.log("drag end");
+          // console.log("drag end");
           let to = currentItem * (120 + 40) * -1;
           animate(x, to, {
             type: "spring",
@@ -55,20 +40,20 @@ const SliderTest = ({
           setAnimPos(to);
         }}
         onDrag={(drag) => {
-          console.log(drag);
+          // console.log(drag);
           if (ref.current === null) {
             return;
           }
           let currentScroll = x.get();
           setPos(currentScroll);
-          console.log(currentScroll);
+          // console.log(currentScroll);
           let currentItem = Math.round(Math.abs(currentScroll) / (120 + 40));
 
           setCurrentItem(currentItem);
-          console.log(rooms[currentItem]);
+          // console.log(rooms[currentItem]);
           setCurrentIndex(currentItem);
 
-          console.log("ON DRAG", drag);
+          // console.log("ON DRAG", drag);
         }}
         style={{ x }}
         dragConstraints={{
@@ -78,13 +63,19 @@ const SliderTest = ({
         dragTransition={{ bounceStiffness: 500, bounceDamping: 15 }}
         dragElastic={0.2}
         whileDrag={{ cursor: "grabbing" }}
-        className="absolute flex items-center left-[140px]  mt-[-100px] h-full gap-10 "
+        className="absolute flex items-center left-[140px]  mt-[-10px] h-full gap-10 "
       >
         {rooms.map((room, index) => {
+          {
+            /* console.log(room); */
+          }
+          if (room.name === undefined) {
+            return;
+          }
           return (
             <motion.div
               ref={ref}
-              key={room}
+              key={index}
               className="flex-shrink-0 flex items-center justify-center cursor-pointer select-none bg-gray-300"
               style={{ width: itemWidth }}
               transition={{
@@ -94,7 +85,7 @@ const SliderTest = ({
               }}
             >
               <div className="text-sm font-medium whitespace-nowrap">
-                {room} {index}
+                {room.name}
               </div>
             </motion.div>
           );

@@ -14,6 +14,7 @@ import {
   Environment,
 } from "@react-three/drei";
 import Room from "./Room";
+import { useHome } from "./HomeContext";
 
 /**
  * Calculates the required camera distance to fit all given 3D points into the view.
@@ -61,70 +62,39 @@ interface RoomMeshProps {
   points: Point[];
   color?: string;
 }
-function RoomButtons({ rooms, mainCameraRef }) {
-  // const { camera } = useThree();
+const focusRoom = (room: Room, mainCameraRef: any) => {
+  const x_vals = room.point.map((p) => p.x / 100);
+  const y_vals = room.point.map((p) => p.y / 100);
+  const min_x = Math.min(...x_vals);
+  const max_x = Math.max(...x_vals);
+  const min_y = Math.min(...y_vals);
+  const max_y = Math.max(...y_vals);
+  const width = max_x - min_x;
+  const height = max_y - min_y;
+  const center_x = min_x + width / 2;
+  const center_y = min_y + height / 2;
 
-  const focusRoom = (room: Room) => {
-    const x_vals = room.point.map((p) => p.x / 100);
-    const y_vals = room.point.map((p) => p.y / 100);
-    const min_x = Math.min(...x_vals);
-    const max_x = Math.max(...x_vals);
-    const min_y = Math.min(...y_vals);
-    const max_y = Math.max(...y_vals);
-    const width = max_x - min_x;
-    const height = max_y - min_y;
-    const center_x = min_x + width / 2;
-    const center_y = min_y + height / 2;
+  const points: Vector3[] = room.point.map((p) => new Vector3(p.x, 0, p.y));
+  // console.log(mainCameraRef);
+  // Set camera position and look
+  // console.log("setting 89");
+  // const { distance, center } = getCameraDistanceToFitPoints(
+  // points,
+  // mainCameraRef.current,
+  // 1.2,
+  // );
 
-    const points: Vector3[] = room.point.map((p) => new Vector3(p.x, 0, p.y));
-    // console.log(mainCameraRef);
-    // Set camera position and look
-    // console.log("setting 89");
-    // const { distance, center } = getCameraDistanceToFitPoints(
-    // points,
-    // mainCameraRef.current,
-    // 1.2,
-    // );
+  mainCameraRef.current.position.set(center_x, 15, center_y + 2);
+  mainCameraRef.current.rotation.set(-Math.PI / 2, 0, 0);
+};
 
-    mainCameraRef.current.position.set(center_x, 8, center_y + 2);
-    mainCameraRef.current.rotation.set(-Math.PI / 2.8, 0, 0);
-  };
-  // console.log(rooms);
-  let controlsConfig2 = {};
-  if (rooms !== undefined) {
-    for (let room of Object.values(rooms)) {
-      controlsConfig2[room.name] = button(() => focusRoom(room));
-      // console.log(room.name);
-    }
-
-    // controlsConfig = rooms.reduce(
-    //   (
-    //     acc: Record<string, ReturnType<typeof button>>,
-    //     room: Room,
-    //   ): Record<string, ReturnType<typeof button>> => {
-    //     acc[room.name] = button(() => focusRoom(room));
-    //     return acc;
-    //   },
-    //   {} as Record<string, ReturnType<typeof button>>,
-    // );
-
-    // console.log("config2:", controlsConfig2);
-  }
-  // Create a Leva button for each room
-
-  // useControls(() => ({
-  // Rooms: folder(controlsConfig2),
-  // Test: button(() => alert("TEEST")),
-  // }));
-
-  return null;
-}
-function House({ mainCamera }) {
+function House({ mainCamera, currentRoom }) {
   const [xml, setXml] = useState<XMLDocument>();
-  const [home, setHome] = useState<Home>();
+  // const [home, setHome] = useState<Home>();
   const [elems, setElems] = useState();
+  const { home, setHome } = useHome();
 
-  console.log(mainCamera);
+  // console.log(mainCamera);
 
   useEffect(() => {
     const fetchXML = async () => {
@@ -153,9 +123,16 @@ function House({ mainCamera }) {
   }, [xml]);
   const targetRef = useRef();
 
+  useEffect(() => {
+    if (home === undefined) {
+      return;
+    }
+    focusRoom(home.room[currentRoom], mainCamera);
+  });
+
   return (
     <>
-      <RoomButtons rooms={home?.room} mainCameraRef={mainCamera} />
+      {/* <RoomButtons rooms={home?.room} mainCameraRef={mainCamera} /> */}
       {elems}
       <Environment preset="apartment" />
       <Light

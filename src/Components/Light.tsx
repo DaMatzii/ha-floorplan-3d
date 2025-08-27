@@ -1,6 +1,7 @@
 import React from "react";
 import type { ComponentProps } from "../Components.ts";
 import Light from "../Light.tsx";
+
 interface LightProps extends ComponentProps {
   x: number;
   y: number;

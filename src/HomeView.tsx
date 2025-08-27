@@ -13,6 +13,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import { HassConnect, useEntity } from "@hakit/core";
 import SliderTest from "./SliderTest";
 
+import { useHome } from "./HomeContext";
+
 import { backgroundBlurriness } from "three/src/nodes/TSL.js";
 type DebugCameraProps = {
   makeDefault?: boolean;
@@ -60,6 +62,11 @@ export default function HomeView() {
   const [activeCamera, setActiveCamera] = useState(0); // default to debug view
   const camera = useRef<THREE.PerspectiveCamera>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { home } = useHome();
+
+  useEffect(() => {
+    console.log("HomeVIEW::: ", currentIndex);
+  }, [currentIndex]);
 
   return (
     <>
@@ -132,7 +139,7 @@ export default function HomeView() {
               {/* <ambientLight intensity={0.5} /> */}
               {/* <directionalLight position={[0, 500, 500]} /> */}
               {/* <OrbitControls enableRotate={true} /> */}
-              <House mainCamera={camera} />
+              <House mainCamera={camera} currentRoom={currentIndex} />
               {/* <gridHelper args={[2000, 20]} /> */}
               {activeCamera === NORMAL_CAMERA ? <OrbitControls /> : <></>}
             </Canvas>
@@ -141,14 +148,18 @@ export default function HomeView() {
 
         <div
           className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-lg p-4 z-30"
-          style={{ height: `${0.4 * 100}vh` }}
+          style={{ height: `${0.2 * 100}vh` }}
         >
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-semibold">
               Bottom Sheet {currentIndex}
             </h2>
           </div>
-          <SliderTest setCurrentIndex={setCurrentIndex} />
+          {home !== undefined ? (
+            <SliderTest setCurrentIndex={setCurrentIndex} rooms={home.room} />
+          ) : (
+            0
+          )}
         </div>
       </div>
 
