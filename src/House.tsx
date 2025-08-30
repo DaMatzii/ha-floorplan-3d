@@ -133,7 +133,7 @@ function House({ mainCamera, currentRoom }) {
   return (
     <>
       {/* <RoomButtons rooms={home?.room} mainCameraRef={mainCamera} /> */}
-      {elems}
+      {/* {elems} */}
       <Environment preset="apartment" />
       <Light
         type="directional"
@@ -146,7 +146,7 @@ function House({ mainCamera, currentRoom }) {
         target-position={[2, 2, 2]}
         castShadow
       />
-      <TempTest />
+      {/* <TempTest /> */}
 
       <object3D ref={targetRef} position={[5, 4, 2]} />
 

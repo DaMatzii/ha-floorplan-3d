@@ -1,10 +1,33 @@
 import SliderTest from "./SliderTest";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { useHome } from "./HomeContext";
+import { useState, useEffect } from "react";
+import { parseHome } from "./Parser";
 
 export default function TestView() {
   // const [currentIndex, setCurrentIndex] = useState(0);
+  const { home, setHome } = useHome();
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const y = useMotionValue(300);
+
+  // console.log(mainCamera);
+
+  useEffect(() => {
+    const fetchXML = async () => {
+      try {
+        // const response = await fetch("http://localhost:5173/house.xml");
+        fetch("/house.xml")
+          .then((response) => response.text())
+          .then((str) => {
+            setHome(parseHome(str));
+          });
+      } catch (error) {
+        console.error("Error fetching XML:", error);
+      }
+    };
+    fetchXML();
+  }, []);
 
   return (
     <>
@@ -29,7 +52,7 @@ export default function TestView() {
           onDrag={(drag) => {}}
           dragConstraints={{
             top: 400,
-            bottom: 750,
+            bottom: 600,
           }}
           dragTransition={{ bounceStiffness: 500, bounceDamping: 15 }}
           dragElastic={0.2}
@@ -53,8 +76,15 @@ export default function TestView() {
             </div>
           )}
         </motion.div>
-        <div className="bottom-0 absolute z-10">
-          <div className="w-screen h-16 bg-yellow-800 z-5" />
+        <div className="bottom-0  absolute z-10">
+          <div className="left-0 w-screen h-16 bg-white z-5 justify-center">
+            {/* <p>Pro</p> */}
+            {home !== undefined ? (
+              <SliderTest setCurrentIndex={setCurrentIndex} rooms={home.room} />
+            ) : (
+              0
+            )}
+          </div>
         </div>
       </div>
       ;

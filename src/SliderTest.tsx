@@ -8,30 +8,50 @@ const box: React.CSSProperties = {
   backgroundColor: "black",
 };
 
+function getRotateY(index: any, currentItem: any) {
+  if (index === currentItem - 1) return -50;
+  if (index === currentItem + 1) return 50;
+  return 0;
+}
+
 const SliderTest = ({ rooms, setCurrentIndex }) => {
   const x = useMotionValue(0);
 
-  const itemWidth = 120;
+  const itemWidth = 96;
   const [currentItem, setCurrentItem] = useState(0); // default to debug view
   const [pos, setPos] = useState(0); // store absolute position
   const [anim_pos, setAnimPos] = useState(0); // store absolute position
+
+  // let real_rooms = rooms.map((p: any) => {
+  //   if (p !== undefined && p.name !== undefined) {
+  //     console.log(p);
+  //     return p;
+  //   }
+  // });
+  const real_rooms = rooms.filter(
+    (el: any) =>
+      el !== "" && el !== null && el !== undefined && el.name !== undefined,
+  );
+  console.log(real_rooms);
 
   const ref = useRef(null);
 
   return (
     <>
-      <div className="bg-black w-32 h-32 absolute top-80 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+      <div className="bg-gray-300 w-32 h-32 absolute top-80 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+      {/* <div className="absolute left-1/2 bg-yellow-200 w-32 h-32 -translate-x-1/2"></div> */}
+
       {/* <p>Current item: {rooms[currentItem]}</p> */}
-      {/* <p>Current item: {currentItem}</p> */}
-      {/* <p>: {pos}</p> */}
-      {/* <p>anim_pos: {anim_pos}</p> */}
-      {/* <p>x: {x.get()}</p> */}
+      <p>Current item: {currentItem}</p>
+      <p>: {pos}</p>
+      <p>anim_pos: {anim_pos}</p>
+      <p>x: {x.get()}</p>
       <motion.div
         drag="x"
         dragDirectionLock
         onDragEnd={() => {
           // console.log("drag end");
-          let to = currentItem * (120 + 40) * -1;
+          let to = currentItem * itemWidth * -1;
           animate(x, to, {
             type: "spring",
             stiffness: 300,
@@ -47,7 +67,7 @@ const SliderTest = ({ rooms, setCurrentIndex }) => {
           let currentScroll = x.get();
           setPos(currentScroll);
           // console.log(currentScroll);
-          let currentItem = Math.round(Math.abs(currentScroll) / (120 + 40));
+          let currentItem = Math.round(Math.abs(currentScroll) / itemWidth);
 
           setCurrentItem(currentItem);
           // console.log(rooms[currentItem]);
@@ -57,35 +77,65 @@ const SliderTest = ({ rooms, setCurrentIndex }) => {
         }}
         style={{ x }}
         dragConstraints={{
-          left: -120 * 12,
-          right: 10,
+          left: -128 * real_rooms.lenght,
+          right: 0,
         }}
         dragTransition={{ bounceStiffness: 500, bounceDamping: 15 }}
         dragElastic={0.2}
         whileDrag={{ cursor: "grabbing" }}
-        className="absolute flex items-center left-[140px]  mt-[-10px] h-full gap-10 "
+        className="absolute flex items-center left-1/2 h-32 w-24 -translate-x-1/2 "
       >
-        {rooms.map((room, index) => {
+        {real_rooms.map((room, index) => {
           {
-            /* console.log(room); */
-          }
-          if (room.name === undefined) {
-            return;
+            console.log(room);
           }
           return (
             <motion.div
               ref={ref}
               key={index}
-              className="flex-shrink-0 flex items-center justify-center cursor-pointer select-none bg-gray-300"
-              style={{ width: itemWidth }}
+              className={`flex-shrink-0 gap-10 flex w-24 justify-center cursor-pointer select-none  ${
+                index === currentItem - 1 ||
+                index === currentItem + 1 ||
+                index === currentItem
+                  ? "bg-green-200 "
+                  : "bg-yellow-200 opacity-0"
+              }`}
+              // style={{ width: itemWidth }}
               transition={{
                 type: "spring",
                 stiffness: 400,
                 damping: 30,
               }}
+              animate={
+                {
+                  // rotateY: getRotateY(index, currentItem),
+                }
+              }
             >
-              <div className="text-sm font-medium whitespace-nowrap">
-                {room.name}
+              {/* <div className="text-3sm font-medium whitespace-nowrap"> */}
+              <div className="flex items-center justify-center gap-1">
+                {/* {room.name} */}
+                {room.name.split("").map((char, i) => {
+                  return (
+                    <motion.span
+                      key={i}
+                      className="absolute"
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 30,
+                      }}
+                      animate={
+                        {
+                          // rotateY: 90,
+                          // rotateX: 10,
+                        }
+                      }
+                    >
+                      {char}
+                    </motion.span>
+                  );
+                })}
               </div>
             </motion.div>
           );

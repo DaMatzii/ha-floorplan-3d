@@ -147,10 +147,10 @@ export default function HomeView() {
         </div>
 
         <div
-          className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-lg p-4 z-30"
-          style={{ height: `${0.2 * 100}vh` }}
+          className="fixed bottom-0 w-screen left-0  bg-white rounded-t-2xl shadow-lg z-30"
+          style={{ height: `${0.5 * 100}vh` }}
         >
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center ">
             <h2 className="text-lg font-semibold">
               Bottom Sheet {currentIndex}
             </h2>

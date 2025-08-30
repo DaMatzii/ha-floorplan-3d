@@ -138,7 +138,7 @@
     <point x='1094.9548' y='888.7223'/>
     <point x='496.95502' y='888.72235'/>
   </room>
-  <room id='room-5b8093c1-d412-4447-ac37-f9c11f8d39fd' name='KÃ¤ytÃ¤vÃ¤' areaVisible='true' ceilingVisible='false' ceilingFlat='true'>
+  <room id='room-5b8093c1-d412-4447-ac37-f9c11f8d39fd' name='Käytävä' areaVisible='true' ceilingVisible='false' ceilingFlat='true'>
     <point x='1164.9551' y='901.7223'/>
     <point x='1164.9551' y='1021.7223'/>
     <point x='748.9551' y='1021.7223'/>
@@ -162,7 +162,7 @@
     <point x='1177.9551' y='888.7223'/>
     <point x='1107.9551' y='888.7223'/>
   </room>
-  <room id='room-bab82013-8dc3-4ec0-9e23-000d8b0ec03d' name='TyÃ¶huone' areaVisible='true' ceilingVisible='false' ceilingFlat='true'>
+  <room id='room-bab82013-8dc3-4ec0-9e23-000d8b0ec03d' name='Työhuone' areaVisible='true' ceilingVisible='false' ceilingFlat='true'>
     <point x='867.955' y='1034.7223'/>
     <point x='1164.9551' y='1034.7223'/>
     <point x='1164.9551' y='1326.7223'/>
