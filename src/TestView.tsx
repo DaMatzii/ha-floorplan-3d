@@ -52,7 +52,7 @@ export default function TestView() {
           onDrag={(drag) => {}}
           dragConstraints={{
             top: 400,
-            bottom: 600,
+            bottom: 620,
           }}
           dragTransition={{ bounceStiffness: 500, bounceDamping: 15 }}
           dragElastic={0.2}
@@ -64,19 +64,19 @@ export default function TestView() {
             left-0
             right-0
             bg-white
-            rounded-t-2xl shadow-lg p-4 z-5
+            rounded-t-2xl shadow-lg z-5
             h-screen
 	    "
         >
-          {y.get() === 750 ? (
-            ""
-          ) : (
-            <div className="bottom">
-              <h1>slider</h1>
-            </div>
-          )}
+          <div className="w-full flex justify-center">
+            <div className="w-16 h-1.5 bg-gray-400 mt-1 rounded-full cursor-grab" />
+          </div>
+
+          <div className="bottom z-1 mt-4 ml-4">
+            <h1>slider</h1>
+          </div>
         </motion.div>
-        <div className="bottom-0 h-12 left-0 w-screen absolute z-10">
+        <div className="bottom-0 h-12 left-0 w-screen bg-white absolute z-10">
           {/* <p>Pro</p> */}
           {home !== undefined ? (
             <SliderTest setCurrentIndex={setCurrentIndex} rooms={home.room} />

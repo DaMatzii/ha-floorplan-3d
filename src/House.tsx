@@ -1,7 +1,9 @@
 import { useThree } from "@react-three/fiber";
 import { Shape, Vector3, PerspectiveCamera, Box3, MathUtils } from "three";
+import { a, useSpring } from "@react-spring/three";
 import { useEffect, useState, useRef } from "react";
 import React from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { useControls, button, folder } from "leva";
 import Light from "./Light";
 import type Home from "./Home.ts";
@@ -62,39 +64,42 @@ interface RoomMeshProps {
   points: Point[];
   color?: string;
 }
-const focusRoom = (room: Room, mainCameraRef: any) => {
-  const x_vals = room.point.map((p) => p.x / 100);
-  const y_vals = room.point.map((p) => p.y / 100);
-  const min_x = Math.min(...x_vals);
-  const max_x = Math.max(...x_vals);
-  const min_y = Math.min(...y_vals);
-  const max_y = Math.max(...y_vals);
-  const width = max_x - min_x;
-  const height = max_y - min_y;
-  const center_x = min_x + width / 2;
-  const center_y = min_y + height / 2;
-
-  const points: Vector3[] = room.point.map((p) => new Vector3(p.x, 0, p.y));
-  // console.log(mainCameraRef);
-  // Set camera position and look
-  // console.log("setting 89");
-  // const { distance, center } = getCameraDistanceToFitPoints(
-  // points,
-  // mainCameraRef.current,
-  // 1.2,
-  // );
-
-  mainCameraRef.current.position.set(center_x, 15, center_y + 2);
-  mainCameraRef.current.rotation.set(-Math.PI / 2, 0, 0);
-};
-
 function House({ mainCamera, currentRoom }) {
   const [xml, setXml] = useState<XMLDocument>();
   // const [home, setHome] = useState<Home>();
   const [elems, setElems] = useState();
   const { home, setHome } = useHome();
+  const [target, setTarget] = useState([0, 0, 10]);
 
+  // Spring for camera position
+  const { position } = useSpring({
+    position: target,
+    config: { mass: 1, tension: 200, friction: 26, duration: 30 },
+  });
+
+  // Update camera position every frame
+  useFrame(() => {
+    if (mainCamera.current) {
+      const [x, y, z] = position.get();
+      mainCamera.current.position.set(x, y, z);
+    }
+  });
   // console.log(mainCamera);
+  const focus = (room: Room) => {
+    const x_vals = room.point.map((p) => p.x / 100);
+    const y_vals = room.point.map((p) => p.y / 100);
+    const min_x = Math.min(...x_vals);
+    const max_x = Math.max(...x_vals);
+    const min_y = Math.min(...y_vals);
+    const max_y = Math.max(...y_vals);
+    const width = max_x - min_x;
+    const height = max_y - min_y;
+    const center_x = min_x + width / 2;
+    const center_y = min_y + height / 2;
+
+    setTarget([center_x, 15, center_y + 2]);
+    mainCamera.current.rotation.set(-Math.PI / 2, 0, 0);
+  };
 
   useEffect(() => {
     const fetchXML = async () => {
@@ -127,13 +132,13 @@ function House({ mainCamera, currentRoom }) {
     if (home === undefined) {
       return;
     }
-    focusRoom(home.room[currentRoom], mainCamera);
+    focus(home.room[currentRoom]);
   });
 
   return (
     <>
       {/* <RoomButtons rooms={home?.room} mainCameraRef={mainCamera} /> */}
-      {/* {elems} */}
+      {elems}
       <Environment preset="apartment" />
       <Light
         type="directional"

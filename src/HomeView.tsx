@@ -12,7 +12,7 @@ import House from "./House";
 import { Routes, Route, Link } from "react-router-dom";
 import { HassConnect, useEntity } from "@hakit/core";
 import SliderTest from "./SliderTest";
-
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { useHome } from "./HomeContext";
 
 import { backgroundBlurriness } from "three/src/nodes/TSL.js";
@@ -59,10 +59,12 @@ const Button = ({ onClick, children }) => {
 };
 
 export default function HomeView() {
-  const [activeCamera, setActiveCamera] = useState(0); // default to debug view
+  const [activeCamera, setActiveCamera] = useState(1); // default to debug view
   const camera = useRef<THREE.PerspectiveCamera>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { home } = useHome();
+
+  const y = useMotionValue(300);
 
   useEffect(() => {
     console.log("HomeVIEW::: ", currentIndex);
@@ -81,35 +83,35 @@ export default function HomeView() {
           gap: "10px", // space between buttons
         }}
       >
-        <Button
-          onClick={() => {
-            setActiveCamera((prev) =>
-              prev === DEBUG_CAMERA ? NORMAL_CAMERA : DEBUG_CAMERA,
-            );
-          }}
-        >
-          Switch Camera ({activeCamera})
-        </Button>
-        <Button
-          onClick={() => {
-            if (camera.current !== null) {
-              camera.current.position.set(0, 5, 0);
-              camera.current.rotation.set(-Math.PI / 2, 0, 0);
-            }
-          }}
-        >
-          Pro
-        </Button>
-        <Button
-          onClick={() => {
-            if (camera.current !== null) {
-              camera.current.position.set(0, 0, 0);
-              camera.current.rotation.set(Math.PI, 0, 0);
-            }
-          }}
-        >
-          Pro
-        </Button>
+        {/* <Button */}
+        {/*   onClick={() => { */}
+        {/*     setActiveCamera((prev) => */}
+        {/*       prev === DEBUG_CAMERA ? NORMAL_CAMERA : DEBUG_CAMERA, */}
+        {/*     ); */}
+        {/*   }} */}
+        {/* > */}
+        {/*   Switch Camera ({activeCamera}) */}
+        {/* </Button> */}
+        {/* <Button */}
+        {/*   onClick={() => { */}
+        {/*     if (camera.current !== null) { */}
+        {/*       camera.current.position.set(0, 5, 0); */}
+        {/*       camera.current.rotation.set(-Math.PI / 2, 0, 0); */}
+        {/*     } */}
+        {/*   }} */}
+        {/* > */}
+        {/*   Pro */}
+        {/* </Button> */}
+        {/* <Button */}
+        {/* onClick={() => { */}
+        {/* if (camera.current !== null) { */}
+        {/* camera.current.position.set(0, 0, 0); */}
+        {/* camera.current.rotation.set(Math.PI, 0, 0); */}
+        {/* } */}
+        {/* }} */}
+        {/* > */}
+        {/* Pro */}
+        {/* </Button> */}
       </div>
       <div className="flex flex-col h-screen bg-gray-100">
         {/* Top area */}
@@ -145,16 +147,42 @@ export default function HomeView() {
             </Canvas>
           </div>
         </div>
-
-        <div
-          className="fixed bottom-0 w-screen left-0  bg-white rounded-t-2xl shadow-lg z-30"
-          style={{ height: `${0.5 * 100}vh` }}
+        <div className="flex justify-between items-center">
+          <h2 className="text-lg font-semibold">Bottom Sheet</h2>
+        </div>
+        <motion.div
+          drag="y"
+          dragDirectionLock
+          onDragEnd={() => {}}
+          onDrag={(drag) => {}}
+          dragConstraints={{
+            top: 400,
+            bottom: 680,
+          }}
+          dragTransition={{ bounceStiffness: 500, bounceDamping: 15 }}
+          dragElastic={0.2}
+          style={{ y }}
+          whileDrag={{ cursor: "grabbing" }}
+          className="
+            fixed
+            bottom-0
+            left-0
+            right-0
+            bg-white
+            rounded-t-2xl shadow-lg z-5
+            h-screen
+	    "
         >
-          <div className="flex justify-between items-center ">
-            <h2 className="text-lg font-semibold">
-              Bottom Sheet {currentIndex}
-            </h2>
+          <div className="w-full flex justify-center">
+            <div className="w-16 h-1.5 bg-gray-400 mt-1 rounded-full cursor-grab" />
           </div>
+
+          <div className="bottom z-1 mt-4 ml-4">
+            <h1>slider</h1>
+          </div>
+        </motion.div>
+        <div className="bottom-0 h-12 left-0 w-screen bg-white absolute z-10">
+          {/* <p>Pro</p> */}
           {home !== undefined ? (
             <SliderTest setCurrentIndex={setCurrentIndex} rooms={home.room} />
           ) : (

@@ -15,7 +15,7 @@ interface FitCameraResult {
   distance: number;
   center: Vector3;
 }
-type Room = { name: string; points: Point[] };
+export type Room = { name: string; points: Point[] };
 interface RoomMeshProps {
   points: Point[];
   color?: string;

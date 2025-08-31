@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import type { Room } from "./Room";
 const box: React.CSSProperties = {
   width: 52,
   height: 52,
@@ -18,35 +19,18 @@ const SliderTest = ({ rooms, setCurrentIndex }) => {
   const x = useMotionValue(0);
 
   const itemWidth = 96 + 40;
-  const [currentItem, setCurrentItem] = useState(0); // default to debug view
-  const [pos, setPos] = useState(0); // store absolute position
-  const [anim_pos, setAnimPos] = useState(0); // store absolute position
-  const radius = 120;
+  const [currentItem, setCurrentItem] = useState(0);
+  const [pos, setPos] = useState(0);
+  const [anim_pos, setAnimPos] = useState(0);
 
-  // let real_rooms = rooms.map((p: any) => {
-  //   if (p !== undefined && p.name !== undefined) {
-  //     console.log(p);
-  //     return p;
-  //   }
-  // });
   const real_rooms = rooms.filter(
     (el: any) =>
       el !== "" && el !== null && el !== undefined && el.name !== undefined,
   );
-  console.log(real_rooms);
-
   const ref = useRef(null);
 
   return (
     <>
-      {/* <div className="bg-gray-300 w-32 h-32 absolute top-80 left-1/2 -translate-x-1/2 -translate-y-1/2"></div> */}
-      {/* <div className="absolute left-1/2 bg-yellow-200 w-32 h-32 -translate-x-1/2"></div> */}
-
-      {/* <p>Current item: {rooms[currentItem]}</p> */}
-      {/* <p>Current item: {currentItem}</p> */}
-      {/* <p>: {pos}</p> */}
-      {/* <p>anim_pos: {anim_pos}</p> */}
-      {/* <p>x: {x.get()}</p> */}
       <motion.div
         drag="x"
         dragDirectionLock
@@ -81,10 +65,7 @@ const SliderTest = ({ rooms, setCurrentIndex }) => {
         whileDrag={{ cursor: "grabbing" }}
         className="absolute flex items-center left-1/2 h-12 w-24 gap-10 -translate-x-1/2 "
       >
-        {real_rooms.map((room, index) => {
-          {
-            console.log(room);
-          }
+        {real_rooms.map((room: Room, index: number) => {
           return (
             <motion.div
               ref={ref}
@@ -96,11 +77,21 @@ const SliderTest = ({ rooms, setCurrentIndex }) => {
                   ? ""
                   : "bg-yellow-200 opacity-0"
               }`}
-              // style={{ width: itemWidth }}
               transition={{
                 type: "spring",
                 stiffness: 400,
                 damping: 30,
+              }}
+              onClick={() => {
+                let to = index * itemWidth * -1;
+                animate(x, to, {
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30,
+                });
+                setAnimPos(to);
+                setCurrentItem(index);
+                setCurrentIndex(index);
               }}
             >
               <div
