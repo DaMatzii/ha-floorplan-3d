@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import type { Room } from "./Room";
+import { useHome } from "./HomeContext";
 const box: React.CSSProperties = {
   width: 52,
   height: 52,
@@ -15,13 +16,15 @@ function getRotateY(index: any, currentItem: any) {
   return 0;
 }
 
-const SliderTest = ({ rooms, setCurrentIndex }) => {
+const SliderTest = ({ rooms }) => {
   const x = useMotionValue(0);
 
   const itemWidth = 96 + 40;
   const [currentItem, setCurrentItem] = useState(0);
   const [pos, setPos] = useState(0);
   const [anim_pos, setAnimPos] = useState(0);
+
+  const { setCurrentRoom } = useHome();
 
   const real_rooms = rooms.filter(
     (el: any) =>
@@ -53,7 +56,7 @@ const SliderTest = ({ rooms, setCurrentIndex }) => {
           let currentItem = Math.round(Math.abs(currentScroll) / itemWidth);
 
           setCurrentItem(currentItem);
-          setCurrentIndex(currentItem);
+          setCurrentRoom(currentItem);
         }}
         style={{ x }}
         dragConstraints={{
@@ -91,7 +94,7 @@ const SliderTest = ({ rooms, setCurrentIndex }) => {
                 });
                 setAnimPos(to);
                 setCurrentItem(index);
-                setCurrentIndex(index);
+                setCurrentRoom(index);
               }}
             >
               <div

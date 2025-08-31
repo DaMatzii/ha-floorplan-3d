@@ -61,14 +61,13 @@ const Button = ({ onClick, children }) => {
 export default function HomeView() {
   const [activeCamera, setActiveCamera] = useState(1); // default to debug view
   const camera = useRef<THREE.PerspectiveCamera>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const { home } = useHome();
+  const { home, currentRoom } = useHome();
 
   const y = useMotionValue(300);
 
   useEffect(() => {
-    console.log("HomeVIEW::: ", currentIndex);
-  }, [currentIndex]);
+    console.log("HomeVIEW::: ", currentRoom);
+  }, [currentRoom]);
 
   return (
     <>
@@ -82,37 +81,7 @@ export default function HomeView() {
           flexDirection: "column",
           gap: "10px", // space between buttons
         }}
-      >
-        {/* <Button */}
-        {/*   onClick={() => { */}
-        {/*     setActiveCamera((prev) => */}
-        {/*       prev === DEBUG_CAMERA ? NORMAL_CAMERA : DEBUG_CAMERA, */}
-        {/*     ); */}
-        {/*   }} */}
-        {/* > */}
-        {/*   Switch Camera ({activeCamera}) */}
-        {/* </Button> */}
-        {/* <Button */}
-        {/*   onClick={() => { */}
-        {/*     if (camera.current !== null) { */}
-        {/*       camera.current.position.set(0, 5, 0); */}
-        {/*       camera.current.rotation.set(-Math.PI / 2, 0, 0); */}
-        {/*     } */}
-        {/*   }} */}
-        {/* > */}
-        {/*   Pro */}
-        {/* </Button> */}
-        {/* <Button */}
-        {/* onClick={() => { */}
-        {/* if (camera.current !== null) { */}
-        {/* camera.current.position.set(0, 0, 0); */}
-        {/* camera.current.rotation.set(Math.PI, 0, 0); */}
-        {/* } */}
-        {/* }} */}
-        {/* > */}
-        {/* Pro */}
-        {/* </Button> */}
-      </div>
+      ></div>
       <div className="flex flex-col h-screen bg-gray-100">
         {/* Top area */}
         <div className="flex-1 flex items-center justify-center  z-0">
@@ -141,7 +110,7 @@ export default function HomeView() {
               {/* <ambientLight intensity={0.5} /> */}
               {/* <directionalLight position={[0, 500, 500]} /> */}
               {/* <OrbitControls enableRotate={true} /> */}
-              <House mainCamera={camera} currentRoom={currentIndex} />
+              <House mainCamera={camera} />
               {/* <gridHelper args={[2000, 20]} /> */}
               {activeCamera === NORMAL_CAMERA ? <OrbitControls /> : <></>}
             </Canvas>
@@ -183,11 +152,7 @@ export default function HomeView() {
         </motion.div>
         <div className="bottom-0 h-12 left-0 w-screen bg-white absolute z-10">
           {/* <p>Pro</p> */}
-          {home !== undefined ? (
-            <SliderTest setCurrentIndex={setCurrentIndex} rooms={home.room} />
-          ) : (
-            0
-          )}
+          {home !== undefined ? <SliderTest rooms={home.room} /> : 0}
         </div>
       </div>
 

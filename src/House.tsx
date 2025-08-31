@@ -14,9 +14,12 @@ import {
   OrbitControls,
   MeshReflectorMaterial,
   Environment,
+  Bounds,
 } from "@react-three/drei";
 import Room from "./Room";
 import { useHome } from "./HomeContext";
+
+import * as THREE from "three";
 
 /**
  * Calculates the required camera distance to fit all given 3D points into the view.
@@ -64,17 +67,17 @@ interface RoomMeshProps {
   points: Point[];
   color?: string;
 }
-function House({ mainCamera, currentRoom }) {
+function House({ mainCamera }) {
   const [xml, setXml] = useState<XMLDocument>();
   // const [home, setHome] = useState<Home>();
   const [elems, setElems] = useState();
-  const { home, setHome } = useHome();
+  const { home, setHome, currentRoom } = useHome();
   const [target, setTarget] = useState([0, 0, 10]);
 
   // Spring for camera position
   const { position } = useSpring({
     position: target,
-    config: { mass: 1, tension: 200, friction: 26, duration: 30 },
+    config: { mass: 100, tension: 10, friction: 0, duration: 100 },
   });
 
   // Update camera position every frame
@@ -88,16 +91,23 @@ function House({ mainCamera, currentRoom }) {
   const focus = (room: Room) => {
     const x_vals = room.point.map((p) => p.x / 100);
     const y_vals = room.point.map((p) => p.y / 100);
-    const min_x = Math.min(...x_vals);
-    const max_x = Math.max(...x_vals);
-    const min_y = Math.min(...y_vals);
-    const max_y = Math.max(...y_vals);
-    const width = max_x - min_x;
-    const height = max_y - min_y;
-    const center_x = min_x + width / 2;
-    const center_y = min_y + height / 2;
+    const points = x_vals.map((x, i) => new THREE.Vector3(x, y_vals[i], 0)); // z = 0
 
-    setTarget([center_x, 15, center_y + 2]);
+    const box = new THREE.Box3();
+    points.forEach((point) => box.expandByPoint(point));
+
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
+
+    const maxDim = Math.max(size.x, size.y, size.z);
+
+    const fov = mainCamera.current.fov * (Math.PI / 180);
+
+    const offset = 1.25;
+    const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * offset;
+    console.log(cameraZ);
+
+    setTarget([center.x, cameraZ + 5, center.y]);
     mainCamera.current.rotation.set(-Math.PI / 2, 0, 0);
   };
 
@@ -133,7 +143,7 @@ function House({ mainCamera, currentRoom }) {
       return;
     }
     focus(home.room[currentRoom]);
-  });
+  }, [currentRoom]);
 
   return (
     <>

@@ -4,9 +4,11 @@ import ReactDOM from "react-dom/client";
 import Light from "../Light.tsx";
 import { Shape } from "three";
 import * as THREE from "three";
-import { Html } from "@react-three/drei";
+import { useBounds } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
 import registry from "../Components.ts";
 import type { JSX } from "react/jsx-runtime";
+import { useHome } from "../HomeContext";
 
 type Point = { x: number; y: number };
 interface RoomMeshProps {
@@ -58,12 +60,15 @@ function renderRoomItems(root: any) {
 
 const Room: React.FC<RoomProps> = (room) => {
   const [elems, setElems] = useState();
+  const ref = useRef(0);
+
   useEffect(() => {
     setElems(renderRoomItems(room));
   }, [room]);
   // let real_x = x / 100;
   // let real_y = y / 100;
   // return <>{name === "" ? 0 : <RoomMesh points={point} color={name} />}</>;
+
   return (
     <>
       {elems}
