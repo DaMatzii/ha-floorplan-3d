@@ -28,35 +28,37 @@ function SomeComponent() {
 function Error() {
   return <p>erroororor</p>;
 }
+
 function RotationTest() {
   const text = "HELLO WORLD";
-  const radius = 120; // distance from center
-  const chars = text.split("");
-  const angleStep = 180 / chars.length;
+  const radius = 140; // radius of the 3D circle
+  const fontSize = 24;
+
+  const angleStep = 80 / text.length; // even angular spacing
 
   return (
-    <div
-      className="relative left-0 h-screen w-screen flex items-center justify-center"
-      style={{ perspective: "1000px" }}
-    >
-      {chars.map((char, i) => {
-        const angle = i * angleStep;
-        return (
-          <span
-            key={i}
-            style={{
-              position: "absolute",
-              transform: `
-		translateX(${i * 20 - 75}px)
-		 rotateY(${(i + 5) * 3.5}deg)
-		translateZ(${(i ^ 0.01) * -10}px)
-              `,
-            }}
-          >
-            {char}
-          </span>
-        );
-      })}
+    <div className="flex items-center justify-center h-screen bg-gray-900 perspective-[1000px]">
+      <div
+        className="relative"
+        style={{ transformStyle: "preserve-3d", width: 0, height: 0 }}
+      >
+        {Array.from(text).map((char, i) => {
+          const angle = i * angleStep;
+          return (
+            <span
+              key={i}
+              className="absolute font-bold text-white"
+              style={{
+                fontSize: fontSize,
+                transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
+                transformOrigin: "center center",
+              }}
+            >
+              {char}
+            </span>
+          );
+        })}
+      </div>
     </div>
   );
 }

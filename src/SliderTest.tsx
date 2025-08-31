@@ -17,10 +17,11 @@ function getRotateY(index: any, currentItem: any) {
 const SliderTest = ({ rooms, setCurrentIndex }) => {
   const x = useMotionValue(0);
 
-  const itemWidth = 96;
+  const itemWidth = 96 + 40;
   const [currentItem, setCurrentItem] = useState(0); // default to debug view
   const [pos, setPos] = useState(0); // store absolute position
   const [anim_pos, setAnimPos] = useState(0); // store absolute position
+  const radius = 120;
 
   // let real_rooms = rooms.map((p: any) => {
   //   if (p !== undefined && p.name !== undefined) {
@@ -38,19 +39,18 @@ const SliderTest = ({ rooms, setCurrentIndex }) => {
 
   return (
     <>
-      <div className="bg-gray-300 w-32 h-32 absolute top-80 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+      {/* <div className="bg-gray-300 w-32 h-32 absolute top-80 left-1/2 -translate-x-1/2 -translate-y-1/2"></div> */}
       {/* <div className="absolute left-1/2 bg-yellow-200 w-32 h-32 -translate-x-1/2"></div> */}
 
       {/* <p>Current item: {rooms[currentItem]}</p> */}
-      <p>Current item: {currentItem}</p>
-      <p>: {pos}</p>
-      <p>anim_pos: {anim_pos}</p>
-      <p>x: {x.get()}</p>
+      {/* <p>Current item: {currentItem}</p> */}
+      {/* <p>: {pos}</p> */}
+      {/* <p>anim_pos: {anim_pos}</p> */}
+      {/* <p>x: {x.get()}</p> */}
       <motion.div
         drag="x"
         dragDirectionLock
         onDragEnd={() => {
-          // console.log("drag end");
           let to = currentItem * itemWidth * -1;
           animate(x, to, {
             type: "spring",
@@ -60,7 +60,6 @@ const SliderTest = ({ rooms, setCurrentIndex }) => {
           setAnimPos(to);
         }}
         onDrag={(drag) => {
-          // console.log(drag);
           if (ref.current === null) {
             return;
           }
@@ -70,10 +69,7 @@ const SliderTest = ({ rooms, setCurrentIndex }) => {
           let currentItem = Math.round(Math.abs(currentScroll) / itemWidth);
 
           setCurrentItem(currentItem);
-          // console.log(rooms[currentItem]);
           setCurrentIndex(currentItem);
-
-          // console.log("ON DRAG", drag);
         }}
         style={{ x }}
         dragConstraints={{
@@ -83,7 +79,7 @@ const SliderTest = ({ rooms, setCurrentIndex }) => {
         dragTransition={{ bounceStiffness: 500, bounceDamping: 15 }}
         dragElastic={0.2}
         whileDrag={{ cursor: "grabbing" }}
-        className="absolute flex items-center left-1/2 h-32 w-24 -translate-x-1/2 "
+        className="absolute flex items-center left-1/2 h-12 w-24 gap-10 -translate-x-1/2 "
       >
         {real_rooms.map((room, index) => {
           {
@@ -93,11 +89,11 @@ const SliderTest = ({ rooms, setCurrentIndex }) => {
             <motion.div
               ref={ref}
               key={index}
-              className={`flex-shrink-0 gap-10 flex w-24 justify-center cursor-pointer select-none  ${
+              className={`flex-shrink-0 w-24 cursor-pointer select-none  ${
                 index === currentItem - 1 ||
                 index === currentItem + 1 ||
                 index === currentItem
-                  ? "bg-green-200 "
+                  ? ""
                   : "bg-yellow-200 opacity-0"
               }`}
               // style={{ width: itemWidth }}
@@ -106,36 +102,19 @@ const SliderTest = ({ rooms, setCurrentIndex }) => {
                 stiffness: 400,
                 damping: 30,
               }}
-              animate={
-                {
-                  // rotateY: getRotateY(index, currentItem),
-                }
-              }
             >
-              {/* <div className="text-3sm font-medium whitespace-nowrap"> */}
-              <div className="flex items-center justify-center gap-1">
-                {/* {room.name} */}
-                {room.name.split("").map((char, i) => {
-                  return (
-                    <motion.span
-                      key={i}
-                      className="absolute"
-                      transition={{
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 30,
-                      }}
-                      animate={
-                        {
-                          // rotateY: 90,
-                          // rotateX: 10,
-                        }
-                      }
-                    >
-                      {char}
-                    </motion.span>
-                  );
-                })}
+              <div
+                className={`text-sm text-center font-medium whitespace-nowrap ${
+                  index === currentItem
+                    ? "text-black bg-none" // current item is black
+                    : index === currentItem + 1
+                      ? "bg-clip-text text-transparent bg-[linear-gradient(to_left,_#f3f4f6_0%,_#f3f4f6_20%,_#000000_100%)]" // next item, fade starts fast
+                      : index === currentItem - 1
+                        ? "bg-clip-text text-transparent bg-[linear-gradient(to_right,_#f3f4f6_0%,_#f3f4f6_20%,_#000000_100%)]" // previous item, colors swapped, fade starts fast
+                        : "" // other items
+                }`}
+              >
+                {room.name}
               </div>
             </motion.div>
           );

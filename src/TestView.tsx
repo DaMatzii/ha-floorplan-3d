@@ -76,15 +76,13 @@ export default function TestView() {
             </div>
           )}
         </motion.div>
-        <div className="bottom-0  absolute z-10">
-          <div className="left-0 w-screen h-16 bg-white z-5 justify-center">
-            {/* <p>Pro</p> */}
-            {home !== undefined ? (
-              <SliderTest setCurrentIndex={setCurrentIndex} rooms={home.room} />
-            ) : (
-              0
-            )}
-          </div>
+        <div className="bottom-0 h-12 left-0 w-screen absolute z-10">
+          {/* <p>Pro</p> */}
+          {home !== undefined ? (
+            <SliderTest setCurrentIndex={setCurrentIndex} rooms={home.room} />
+          ) : (
+            0
+          )}
         </div>
       </div>
       ;
