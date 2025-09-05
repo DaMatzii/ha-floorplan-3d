@@ -3,12 +3,14 @@ import { Shape, Vector3, PerspectiveCamera, Box3, MathUtils } from "three";
 import { a, useSpring } from "@react-spring/three";
 import { useEffect, useState, useRef } from "react";
 import React from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { useControls, button, folder } from "leva";
 import Light from "./Light";
 import type Home from "./Home.ts";
 import { parseHome, renderHome } from "./Parser";
 import TempTest from "./TempTest";
+import { OBJLoader } from "three-stdlib";
+
 import {
   Html,
   OrbitControls,
@@ -16,7 +18,6 @@ import {
   Environment,
   Bounds,
 } from "@react-three/drei";
-import Room from "./Room";
 import { useHome } from "./HomeContext";
 
 import * as THREE from "three";
@@ -66,6 +67,11 @@ type Room = {
 interface RoomMeshProps {
   points: Point[];
   color?: string;
+}
+function Model() {
+  const obj = useLoader(OBJLoader, "/models/armchair.obj"); // path to your OBJ
+
+  return <primitive object={obj} scale={0.5} />;
 }
 function House({ mainCamera }) {
   const [xml, setXml] = useState<XMLDocument>();

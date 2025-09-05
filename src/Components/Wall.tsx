@@ -47,35 +47,57 @@ const Wall: React.FC<WallProps> = ({
       return undefined;
     }
     // Create base meshes
-    const box1 = new THREE.Mesh(
-      new THREE.BoxGeometry(real_lenght, real_height, real_thickness),
+    const wallGeom = new THREE.BoxGeometry(
+      real_lenght,
+      real_height,
+      real_thickness,
     );
-    box1.rotation.set(0, angle, 0);
-    box1.updateMatrixWorld(true);
 
-    let sub = undefined;
+    // Apply world rotation & position
+    const wallMatrix = new THREE.Matrix4()
+      .makeRotationY(angle) // rotate wall in world
+      .setPosition(new THREE.Vector3(position[0], position[1], position[2])); // move wall in world
+    wallGeom.applyMatrix4(wallMatrix);
+    let wallMesh = new THREE.Mesh(wallGeom);
+
+    let sub = wallMesh;
+
     home.doorOrWindow.forEach((doorOrWindow: any) => {
-      const box2 = new THREE.Mesh(new THREE.BoxGeometry(2, 1, 1));
+      if (doorOrWindow.elevation === undefined) {
+        doorOrWindow.elevation = 0;
+      }
+      if (doorOrWindow.angle === undefined) {
+        doorOrWindow.angle = 0;
+      }
+      // console.log(doorOrWindow);
+      const box2 = new THREE.BoxGeometry(
+        doorOrWindow.width / 100,
+        doorOrWindow.height / 100,
+        doorOrWindow.depth / 100 + 0.2,
+      );
+      const boxMatrix = new THREE.Matrix4()
+        .makeRotationY(-doorOrWindow.angle)
+        // .makeRotationX(doorOrWindow.)
+        .setPosition(
+          new THREE.Vector3(
+            doorOrWindow.x / 100,
+            doorOrWindow.height / 100 / 2 + 0.01 + doorOrWindow.elevation / 100,
+            doorOrWindow.y / 100,
+          ),
+        ); // move wall in world
+      box2.applyMatrix4(boxMatrix);
 
-      // Convert door/window position into wall’s local space
-      const worldPos = new THREE.Vector3(
-        doorOrWindow.x / 100,
-        0.5, // vertical center of cutout
-        doorOrWindow.y / 100,
+      const wallBox = new THREE.Box3().setFromBufferAttribute(
+        wallGeom.attributes.position,
+      );
+      const cutBox = new THREE.Box3().setFromBufferAttribute(
+        box2.attributes.position,
       );
 
-      // Transform into box1 local space
-      const localPos = box1.worldToLocal(worldPos.clone());
-      box2.position.copy(localPos);
-
-      // Ensure rotation matches wall orientation
-      box2.rotation.set(0, angle, 0);
-
-      box2.updateMatrixWorld(true);
-
-      // Perform subtraction (not union if cutting hole)
-      const result = CSG.union(box1, box2);
-      sub = result;
+      if (wallBox.intersectsBox(cutBox)) {
+        let cutMesh = new THREE.Mesh(box2);
+        sub = CSG.subtract(sub, cutMesh);
+      }
     });
 
     // Perform subtraction
@@ -91,7 +113,7 @@ const Wall: React.FC<WallProps> = ({
 
   return (
     <>
-      <mesh position={position} geometry={geometry} rotation={[0, angle, 0]}>
+      <mesh geometry={geometry}>
         {/* <boxGeometry args={[real_lenght, real_height, real_thickness]} /> */}
         <meshStandardMaterial color="gray" />
       </mesh>

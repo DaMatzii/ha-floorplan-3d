@@ -4,6 +4,7 @@ import Room from './Components/Room'
 import TemperatureDisplay from './Components/TempDisplay'
 import BoxWithLabel from './Components/BoxWithLabel'
 import DoorOrWindow from './Components/DoorOrWindow'
+import Furniture from './Components/Furniture'
 export interface ComponentProps {
 	[key: string]: string | number | boolean;
 }
@@ -32,6 +33,7 @@ export class ComponentRegistry {
 }
 const registry = new ComponentRegistry();
 registry.register("wall", Wall);
+registry.register("pieceOfFurniture", Furniture);
 registry.register("light", Light);
 registry.register("room", Room);
 registry.register("room-temperatureDisplay", TemperatureDisplay);
