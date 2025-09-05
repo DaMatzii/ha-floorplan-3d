@@ -3,6 +3,7 @@ import Light from './Components/Light'
 import Room from './Components/Room'
 import TemperatureDisplay from './Components/TempDisplay'
 import BoxWithLabel from './Components/BoxWithLabel'
+import DoorOrWindow from './Components/DoorOrWindow'
 export interface ComponentProps {
 	[key: string]: string | number | boolean;
 }
@@ -35,6 +36,7 @@ registry.register("light", Light);
 registry.register("room", Room);
 registry.register("room-temperatureDisplay", TemperatureDisplay);
 registry.register("room-boxWithLabel", BoxWithLabel);
+registry.register("doorOrWindow", DoorOrWindow);
 export default registry;
 
 

@@ -81,7 +81,17 @@ export default function HomeView() {
           flexDirection: "column",
           gap: "10px", // space between buttons
         }}
-      ></div>
+      >
+        <Button
+          onClick={() => {
+            setActiveCamera((prev) =>
+              prev === DEBUG_CAMERA ? NORMAL_CAMERA : DEBUG_CAMERA,
+            );
+          }}
+        >
+          Switch Camera ({activeCamera})
+        </Button>
+      </div>
       <div className="flex flex-col h-screen bg-gray-100">
         {/* Top area */}
         <div className="flex-1 flex items-center justify-center  z-0">
