@@ -63,7 +63,7 @@ export default function HomeView() {
   const camera = useRef<THREE.PerspectiveCamera>(null);
   const { home, currentRoom } = useHome();
 
-  const y = useMotionValue(300);
+  const y = useMotionValue(700);
 
   useEffect(() => {
     console.log("HomeVIEW::: ", currentRoom);

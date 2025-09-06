@@ -2,6 +2,7 @@ import React from "react";
 import type { ComponentProps } from "../Components.ts";
 import Light from "../Light.tsx";
 import { Html } from "@react-three/drei";
+import { Lightbulb } from "lucide-react";
 
 type Point = { x: number; y: number };
 interface BoxWithLabelProps extends ComponentProps {
@@ -39,17 +40,8 @@ const BoxWithLabel: React.FC<BoxWithLabelProps> = ({
 
       {/* HTML overlay */}
       <Html position={[middlePoint.x, 3, middlePoint.y]}>
-        <div
-          style={{
-            background: "white",
-            padding: "5px 10px",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-            fontSize: "14px",
-            zIndex: 0,
-          }}
-        >
-          Hello, I'm an overlay!
+        <div className="bg-white p-2 rounded-full">
+          <Lightbulb color="red" size={24} />
         </div>
       </Html>
     </mesh>
