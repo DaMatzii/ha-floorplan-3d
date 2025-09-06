@@ -3,11 +3,15 @@ import { useLoader } from "@react-three/fiber";
 import { OBJLoader } from "three-stdlib";
 import React, { useMemo } from "react";
 import * as THREE from "three";
+import { useGLTF } from "@react-three/drei";
 
+import { tan } from "three/src/nodes/TSL.js";
 interface FurnitureProps extends ComponentProps {
   catalogId: string;
   x: number;
   y: number;
+  angle: number;
+  elevation: number;
 }
 const objCache = {};
 let catalog = {};
@@ -18,8 +22,19 @@ fetch("/Catalog.json")
     console.log(catalog);
   });
 
-const Furniture: React.FC<FurnitureProps> = ({ catalogId, x, y }) => {
-  // const response = await fh("http://localhost:5173/house.xml");
+const Furniture: React.FC<FurnitureProps> = ({
+  catalogId,
+  x,
+  y,
+  angle,
+  elevation,
+}) => {
+  if (elevation === undefined) {
+    elevation = 1;
+  }
+  if (angle === undefined) {
+    angle = 0;
+  }
 
   if (catalog === undefined) return;
   // console.log(catalog);
@@ -30,41 +45,37 @@ const Furniture: React.FC<FurnitureProps> = ({ catalogId, x, y }) => {
   // console.log(split);
   // console.log(objName);
 
-  const path = "/models/" + objName;
-  const obj = useLoader(OBJLoader, path);
-
-  // clone cached object for this instance
+  if (objName.toLowerCase().includes("texturable")) return;
+  // console.log(objName);
+  const path = "/models/" + objName.split(".")[0] + ".gltf";
+  // console.log(path);
+  const obj = useGLTF(path);
 
   const targetSize = {
     x: item.width / 100,
     y: item.height / 100,
     z: item.depth / 100,
   };
-  // ensure meshes retain geometry and materials
   if (obj === undefined) return;
+  const modelCopy = obj.scene.clone();
 
-  const bbox = new THREE.Box3().setFromObject(obj);
+  const bbox = new THREE.Box3().setFromObject(modelCopy);
   const currentSize = new THREE.Vector3();
   bbox.getSize(currentSize);
   if (currentSize === undefined) return;
 
-  // compute per-axis scale
   const scale = new THREE.Vector3(
     targetSize.x / currentSize.x,
     targetSize.y / currentSize.y,
     targetSize.z / currentSize.z,
   );
 
-  // apply scale to all child geometries
-  // apply non-uniform scale
-  // obj.scale.copy(1 / 100);
+  modelCopy.scale.copy(scale);
+  modelCopy.rotation.set(0, -angle, 0);
+  const el = item.height / 100 / 2 + elevation / 100;
   return (
     <>
-      <primitive
-        object={obj}
-        position={[x / 100, 0.5, y / 100]}
-        scale={scale}
-      />
+      <primitive object={modelCopy} position={[x / 100, el, y / 100]} />
     </>
   );
 };
