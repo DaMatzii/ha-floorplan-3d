@@ -15,6 +15,7 @@ interface FurnitureProps extends ComponentProps {
   width: number;
   height: number;
   depth: number;
+  name: string;
 }
 const objCache = {};
 let catalog = {};
@@ -34,18 +35,28 @@ const Furniture: React.FC<FurnitureProps> = ({
   width,
   height,
   depth,
+  name,
 }) => {
+  console.log("NAME: ", name);
   if (elevation === undefined) {
     elevation = 1;
   }
   if (angle === undefined) {
     angle = 0;
   }
+  fetch("/Catalog.json")
+    .then((response) => response.json())
+    .then((str) => {
+      catalog = str;
+      // console.log(catalog);
+    });
 
   if (catalog === undefined) return;
-  // console.log(catalog);
+  console.log(catalog);
+  console.log(catalogId);
   const item = catalog.items.find((item) => item.id === catalogId);
-  // console.log("ITEM", item);
+  console.log("ITEM", item);
+  if (item === undefined) return;
   const split = item.model.split("/");
   const objName = split[6];
   // console.log(split);
@@ -64,7 +75,6 @@ const Furniture: React.FC<FurnitureProps> = ({
     z: depth / 100,
   };
   if (obj === undefined) return;
-  // const geometry = obj.scene.geometry;
   const modelCopy = obj.scene.clone();
   console.log(modelCopy);
 
@@ -80,18 +90,20 @@ const Furniture: React.FC<FurnitureProps> = ({
   );
 
   modelCopy.scale.copy(scale);
-  if (x !== item.depth) {
-    modelCopy.position.set(-width / 100 / 2, 0, 0);
-  }
-  // modelCopy.rotation.set(0, -angle, 0);
-  console.log(catalogId);
-  console.log(modelCopy.position);
+  //SET POSITION TO CENTER AFTER SCALING (IMPORTANT AS FUCK)
+  const box = new THREE.Box3().setFromObject(modelCopy);
 
-  const el = item.height / 100 / 2 + elevation / 100;
+  const center = new THREE.Vector3();
+  box.getCenter(center);
+
+  modelCopy.position.x -= center.x;
+  modelCopy.position.z -= center.z;
+
+  const el = height / 100 / 2 + elevation / 100;
   return (
     <>
       <mesh position={[x / 100, el, y / 100]} rotation={[0, -angle, 0]}>
-        <boxGeometry args={[currentSize.x, currentSize.y, currentSize.z]} />
+        {/* <boxGeometry args={[currentSize.x, currentSize.y, currentSize.z]} /> */}
         <primitive object={modelCopy} />
       </mesh>
     </>

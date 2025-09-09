@@ -71,10 +71,11 @@
   <doorOrWindow id='doorOrWindow-4228fc42-2284-41b5-bc40-a94f64a443ad' catalogId='eTeks#fixedWindow85x123' name='Fixed window' creator='eTeks' model='5' icon='4' x='2226.4604' y='1000.2223' elevation='140.0' width='130.0' depth='13.00075' height='65.0' modelSize='2198' movable='false' dropOnTopElevation='-0.007463522' cutOutShape='M0,0 v1 h1 v-1 z' wallCutOutOnBothSides='true'/>
   <doorOrWindow id='doorOrWindow-898947a4-bda5-4cf6-889a-c5c401490388' catalogId='eTeks#doorFrame' name='Door frame' creator='eTeks' model='3' icon='2' x='828.4155' y='895.20074' angle='3.1415925' width='123.00001' depth='16.510748' height='209.90001' modelSize='1281' movable='false' dropOnTopElevation='-0.004801229' wallThickness='0.7874016' wallDistance='0.10498688' cutOutShape='M0,0 v1 h1 v-1 z' wallCutOutOnBothSides='true'/>
   <pieceOfFurniture id='pieceOfFurniture-79db6d57-b1f9-4c0e-86ae-de5023ffacc0' catalogId='eTeks#table' name='Table' creator='eTeks' model='7' icon='6' x='656.955' y='1286.7223' width='160.0' depth='80.0' height='73.9775' modelSize='5486' license='GNU GPL / CC-BY'/>
-  <pieceOfFurniture id='pieceOfFurniture-4233673b-4269-428a-b1bf-0b53ca2ddaa1' catalogId='eTeks#table' name='Table' creator='eTeks' model='7' icon='6' x='536.955' y='1243.7719' angle='4.712389' width='160.0' depth='80.0' height='73.9775' modelSize='5486' license='GNU GPL / CC-BY'/>
-  <pieceOfFurniture id='pieceOfFurniture-b360388c-7c6f-48be-a58a-4a821bbdb20e' catalogId='eTeks#bed' name='Bed' creator='eTeks' model='9' icon='8' x='597.89154' y='1079.7223' angle='4.712389' width='90.0' depth='200.0' height='52.8' modelSize='24868' license='GNU GPL / CC-BY' dropOnTopElevation='0.8390151'/>
-  <pieceOfFurniture id='pieceOfFurniture-73dc878f-a29a-49a1-b0ef-f9b4fa57427e' catalogId='eTeks#wardrobe' name='Wardrobe' creator='eTeks' model='11' icon='10' x='828.955' y='1227.7219' angle='1.5707964' width='198.0' depth='52.0' height='216.0' modelSize='23218' license='GNU GPL / CC-BY'/>
-  <wall id='wall-767928d9-79ff-409b-955e-c875e99ddf2e' wallAtStart='wall-3de17b26-3ff5-4d16-b060-5a48077749ba' wallAtEnd='wall-8e22e074-3c91-4699-96e1-9f762646a4f3' xStart='490.45502' yStart='592.2223' xEnd='1171.4551' yEnd='592.2223' height='243.84' thickness='13.0' pattern='hatchUp'/>
+<pieceOfFurniture id='pieceOfFurniture-4233673b-4269-428a-b1bf-0b53ca2ddaa1' catalogId='eTeks#table' name='Table' creator='eTeks' model='7' icon='6' x='536.955' y='1243.7719' angle='4.712389' width='160.0' depth='80.0' height='73.9775' modelSize='5486' license='GNU GPL / CC-BY'/>
+   <pieceOfFurniture id='pieceOfFurniture-b360388c-7c6f-48be-a58a-4a821bbdb20e' catalogId='eTeks#bed' name='Bed' creator='eTeks' model='9' icon='8' x='597.89154' y='1079.7223' angle='4.712389' width='90.0' depth='200.0' height='52.8' modelSize='24868' license='GNU GPL / CC-BY' dropOnTopElevation='0.8390151'/>
+   <pieceOfFurniture id='pieceOfFurniture-73dc878f-a29a-49a1-b0ef-f9b4fa57427e' catalogId='eTeks#wardrobe' name='Wardrobe' creator='eTeks' model='11' icon='10' x='828.955' y='1227.7219' angle='1.5707964' width='198.0' depth='52.0' height='216.0' modelSize='23218' license='GNU GPL / CC-BY'/>
+
+    <wall id='wall-767928d9-79ff-409b-955e-c875e99ddf2e' wallAtStart='wall-3de17b26-3ff5-4d16-b060-5a48077749ba' wallAtEnd='wall-8e22e074-3c91-4699-96e1-9f762646a4f3' xStart='490.45502' yStart='592.2223' xEnd='1171.4551' yEnd='592.2223' height='243.84' thickness='13.0' pattern='hatchUp'/>
   <wall id='wall-8e22e074-3c91-4699-96e1-9f762646a4f3' wallAtStart='wall-767928d9-79ff-409b-955e-c875e99ddf2e' wallAtEnd='wall-5eecd528-2f9f-407c-ab0a-ec2af9db48b9' xStart='1171.4551' yStart='592.2223' xEnd='1171.4551' yEnd='763.2223' height='243.84' thickness='13.0' pattern='hatchUp'/>
   <wall id='wall-5eecd528-2f9f-407c-ab0a-ec2af9db48b9' wallAtStart='wall-8e22e074-3c91-4699-96e1-9f762646a4f3' wallAtEnd='wall-42a52db8-b8a1-4c30-80bb-5d3d132f617b' xStart='1171.4551' yStart='763.2223' xEnd='1101.4551' yEnd='763.2223' height='243.84' thickness='13.0' pattern='hatchUp'/>
   <wall id='wall-42a52db8-b8a1-4c30-80bb-5d3d132f617b' wallAtStart='wall-5eecd528-2f9f-407c-ab0a-ec2af9db48b9' wallAtEnd='wall-8817447a-58d5-40a2-8cb6-95cdb99b3df0' xStart='1101.4551' yStart='763.2223' xEnd='1101.4551' yEnd='895.2223' height='243.84' thickness='13.0' pattern='hatchUp'/>
@@ -153,6 +154,9 @@
     <point x='496.95502' y='901.72235'/>
   </room>
   <room id='room-ae706306-67b2-4bf3-a5aa-b14c97cde769' name='Matiaksen huone' areaVisible='true' ceilingVisible='false' ceilingFlat='true'>
+
+    <temperatureDisplay hassId="184148184" xOffset='-0.2' yOffset='-0.1' fontSize='200'/>
+    <boxWithLabel hassEntity='light.hue_lightstrip_plus_1' xOffset='0' yOffset='1' /> 
     <point x='497.37677' y='1034.7223'/>
     <point x='497.37677' y='1326.7223'/>
     <point x='855.3768' y='1326.7223'/>

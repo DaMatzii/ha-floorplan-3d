@@ -9,11 +9,17 @@ type TemperatureSensor = { temperature: number; humidity: number };
 interface TemperatureDisplayProps extends ComponentProps {
   hassId: any;
   room: any;
+  xOffset: any;
+  yOffset: any;
+  fontSize: number;
   // points: Point[];
 }
 const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
   hassId,
   room,
+  xOffset,
+  yOffset,
+  fontSize,
 }) => {
   const [reading, setReading] = React.useState<TemperatureSensor>({
     temperature: 0,
@@ -52,7 +58,7 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
     <>
       <mesh>
         <Html
-          position={[middlePoint.x - 0.22, 0.01, middlePoint.y - 0.4]}
+          position={[middlePoint.x - xOffset, 0.01, middlePoint.y - yOffset]}
           rotation={[-Math.PI / 2, 0, 0]}
           distanceFactor={1}
           transform
@@ -61,22 +67,32 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
           <div
             style={{
               color: "white",
-              fontSize: "5rem",
+              fontSize: fontSize + "px",
               userSelect: "none",
               cursor: "default",
             }}
           >
             <div className="flex flex-col items-center justify-center z-0">
               <div className="flex items-start text-white">
-                <span className="text-[500px] font-bold">
+                <span className={"text-[" + fontSize + "px] font-bold"}>
                   {reading.temperature}
                 </span>
-                <span className="text-[100px] mt-30">°C</span>
+                <span className={"text-[" + (fontSize - 100) + "px] mt-30"}>
+                  °C
+                </span>
               </div>
 
-              <div className="flex items-start -mt-40 text-white">
-                <span className="text-[300px]">{reading.humidity}</span>
-                <span className="text-[80] font-bold mt-20">%</span>
+              <div className="flex items-start -mt-30 text-white">
+                <span className={"text-[" + fontSize + "px]"}>
+                  {reading.humidity}
+                </span>
+                <span
+                  className={
+                    "text-[" + (fontSize - 100) + "px] font-bold mt-40"
+                  }
+                >
+                  %
+                </span>
               </div>
             </div>
           </div>

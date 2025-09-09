@@ -4,21 +4,34 @@ import type Home from "./Home.ts";
 import type { JSX } from "react/jsx-runtime";
 
 export function renderHome(root: any): any {
+  console.log("RENDERHOME RUN");
   const renderList: JSX.Element[] = [];
   let runningNumber = 0;
   for (const type in root) {
     if (typeof root[type] === "object") {
-      for (const value in root[type]) {
-        let Comp = registry.getParser(type);
-        if (Comp) {
-          renderList.push(
-            <Comp
-              key={type + "-" + runningNumber}
-              {...(root[type][value] as any)}
-            />,
-          );
-          runningNumber += 1;
+      if (Array.isArray(root[type])) {
+        for (const value in root[type]) {
+          let Comp = registry.getParser(type);
+          if (Comp) {
+            renderList.push(
+              <Comp
+                key={type + "-" + runningNumber}
+                {...(root[type][value] as any)}
+              />,
+            );
+            runningNumber += 1;
+          }
         }
+        continue;
+      }
+      // console.log(type);
+      // console.log("Data", root[type]);
+      let Comp = registry.getParser(type);
+      if (Comp) {
+        renderList.push(
+          <Comp key={type + "-" + runningNumber} {...(root[type] as any)} />,
+        );
+        runningNumber += 1;
       }
     }
   }

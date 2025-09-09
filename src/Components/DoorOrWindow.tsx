@@ -36,13 +36,6 @@ const DoorOrWindow: React.FC<DoorOrWindowProps> = ({
       rotation={[0, angle, 0]}
     >
       {/* <boxGeometry args={[width / 100, height / 100, depth / 100]} /> */}
-
-      {name.toLowerCase().includes("door") ? (
-        <meshStandardMaterial color="red" />
-      ) : (
-        <meshStandardMaterial color="orange" />
-      )}
-      {/* HTML overlay */}
     </mesh>
   );
 };
