@@ -12,6 +12,9 @@ interface FurnitureProps extends ComponentProps {
   y: number;
   angle: number;
   elevation: number;
+  width: number;
+  height: number;
+  depth: number;
 }
 const objCache = {};
 let catalog = {};
@@ -28,6 +31,9 @@ const Furniture: React.FC<FurnitureProps> = ({
   y,
   angle,
   elevation,
+  width,
+  height,
+  depth,
 }) => {
   if (elevation === undefined) {
     elevation = 1;
@@ -50,14 +56,17 @@ const Furniture: React.FC<FurnitureProps> = ({
   const path = "/models/" + objName.split(".")[0] + ".gltf";
   // console.log(path);
   const obj = useGLTF(path);
+  // console.log(obj);
 
   const targetSize = {
-    x: item.width / 100,
-    y: item.height / 100,
-    z: item.depth / 100,
+    x: width / 100,
+    y: height / 100,
+    z: depth / 100,
   };
   if (obj === undefined) return;
+  // const geometry = obj.scene.geometry;
   const modelCopy = obj.scene.clone();
+  console.log(modelCopy);
 
   const bbox = new THREE.Box3().setFromObject(modelCopy);
   const currentSize = new THREE.Vector3();
@@ -71,11 +80,20 @@ const Furniture: React.FC<FurnitureProps> = ({
   );
 
   modelCopy.scale.copy(scale);
-  modelCopy.rotation.set(0, -angle, 0);
+  if (x !== item.depth) {
+    modelCopy.position.set(-width / 100 / 2, 0, 0);
+  }
+  // modelCopy.rotation.set(0, -angle, 0);
+  console.log(catalogId);
+  console.log(modelCopy.position);
+
   const el = item.height / 100 / 2 + elevation / 100;
   return (
     <>
-      <primitive object={modelCopy} position={[x / 100, el, y / 100]} />
+      <mesh position={[x / 100, el, y / 100]} rotation={[0, -angle, 0]}>
+        <boxGeometry args={[currentSize.x, currentSize.y, currentSize.z]} />
+        <primitive object={modelCopy} />
+      </mesh>
     </>
   );
 };

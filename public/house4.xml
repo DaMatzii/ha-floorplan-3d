@@ -1,18 +1,17 @@
-<?xml version='1.0'?>
-<home version='7400' name='keskikatu_21_ma_room.sh3d' camera='topCamera' wallHeight='243.84'>
-  <property name='com.eteks.sweethome3d.SweetHome3D.CatalogPaneDividerLocation' value='723'/>
-  <property name='com.eteks.sweethome3d.SweetHome3D.ColumnWidths' value='221,151,151,152,122,140'/>
-  <property name='com.eteks.sweethome3d.SweetHome3D.FrameHeight' value='1310'/>
-  <property name='com.eteks.sweethome3d.SweetHome3D.FrameMaximized' value='false'/>
-  <property name='com.eteks.sweethome3d.SweetHome3D.FrameWidth' value='2540'/>
-  <property name='com.eteks.sweethome3d.SweetHome3D.FrameX' value='8'/>
-  <property name='com.eteks.sweethome3d.SweetHome3D.FrameY' value='33'/>
-  <property name='com.eteks.sweethome3d.SweetHome3D.MainPaneDividerLocation' value='960'/>
-  <property name='com.eteks.sweethome3d.SweetHome3D.PlanPaneDividerLocation' value='685'/>
+<home version='7000' name='keskikatu 21.sh3d' camera='topCamera' wallHeight='243.84'>
+  <property name='com.eteks.sweethome3d.SweetHome3D.CatalogPaneDividerLocation' value='606'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.ColumnWidths' value='197,127,127,127,97,116'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.FrameHeight' value='1120'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.FrameMaximized' value='true'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.FrameWidth' value='1119'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.FrameX' value='-7'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.FrameY' value='-7'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.MainPaneDividerLocation' value='796'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.PlanPaneDividerLocation' value='977'/>
   <property name='com.eteks.sweethome3d.SweetHome3D.PlanScale' value='0.512332'/>
-  <property name='com.eteks.sweethome3d.SweetHome3D.PlanViewportX' value='0'/>
-  <property name='com.eteks.sweethome3d.SweetHome3D.PlanViewportY' value='1630'/>
-  <property name='com.eteks.sweethome3d.SweetHome3D.ScreenHeight' value='1330'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.PlanViewportX' value='265'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.PlanViewportY' value='478'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.ScreenHeight' value='1400'/>
   <property name='com.eteks.sweethome3d.SweetHome3D.ScreenWidth' value='2560'/>
   <furnitureVisibleProperty name='NAME'/>
   <furnitureVisibleProperty name='WIDTH'/>
@@ -23,7 +22,7 @@
   <environment groundColor='00A8A8A8' skyColor='00CCE4FC' lightColor='00D0D0D0' ceillingLightColor='00D0D0D0' photoWidth='400' photoHeight='300' photoAspectRatio='VIEW_3D_RATIO' photoQuality='0' videoWidth='320' videoAspectRatio='RATIO_4_3' videoQuality='0' videoFrameRate='25'/>
   <compass x='-100.0' y='50.0' diameter='100.0' northDirection='0.0' longitude='0.4351833' latitude='1.0502616' timeZone='Europe/Helsinki'/>
   <observerCamera attribute='observerCamera' lens='PINHOLE' x='726.0544' y='1185.5947' z='170.0' yaw='36.376648' pitch='0.13634974' fieldOfView='1.0995575' time='1676808000000'/>
-  <camera attribute='topCamera' lens='PINHOLE' x='1322.9722' y='2649.2314' z='3547.6177' yaw='3.2767901' pitch='1.1249996' fieldOfView='1.0995575' time='1676808000000'/>
+  <camera attribute='topCamera' lens='PINHOLE' x='257.51025' y='2934.623' z='1629.2015' yaw='-2.548371' pitch='0.5799999' fieldOfView='1.0995575' time='1676808000000'/>
   <doorOrWindow id='doorOrWindow-d1dcb59b-dd1a-471f-b757-4545e322ec1a' catalogId='eTeks#door' name='Door' creator='eTeks' model='1' icon='0' x='738.0308' y='981.359' angle='1.5707964' width='58.5' depth='25.316082' height='199.0' modelSize='14086' movable='false' dropOnTopElevation='-0.004801229' wallThickness='0.5135228' wallDistance='0.0684697' cutOutShape='M0,0 v1 h1 v-1 z' wallCutOutOnBothSides='true'>
     <sash xAxis='0.054680664' yAxis='0.5819925' width='0.89129484' startAngle='0.0' endAngle='-1.5707964'/>
   </doorOrWindow>
@@ -70,10 +69,6 @@
   <doorOrWindow id='doorOrWindow-ff06f0df-b10f-4bfc-91b8-ca575056c3f0' catalogId='eTeks#fixedWindow85x123' name='Fixed window' creator='eTeks' model='5' icon='4' x='1985.9004' y='1000.2223' elevation='140.0' width='130.0' depth='13.00075' height='65.0' modelSize='2198' movable='false' dropOnTopElevation='-0.007463522' cutOutShape='M0,0 v1 h1 v-1 z' wallCutOutOnBothSides='true'/>
   <doorOrWindow id='doorOrWindow-4228fc42-2284-41b5-bc40-a94f64a443ad' catalogId='eTeks#fixedWindow85x123' name='Fixed window' creator='eTeks' model='5' icon='4' x='2226.4604' y='1000.2223' elevation='140.0' width='130.0' depth='13.00075' height='65.0' modelSize='2198' movable='false' dropOnTopElevation='-0.007463522' cutOutShape='M0,0 v1 h1 v-1 z' wallCutOutOnBothSides='true'/>
   <doorOrWindow id='doorOrWindow-898947a4-bda5-4cf6-889a-c5c401490388' catalogId='eTeks#doorFrame' name='Door frame' creator='eTeks' model='3' icon='2' x='828.4155' y='895.20074' angle='3.1415925' width='123.00001' depth='16.510748' height='209.90001' modelSize='1281' movable='false' dropOnTopElevation='-0.004801229' wallThickness='0.7874016' wallDistance='0.10498688' cutOutShape='M0,0 v1 h1 v-1 z' wallCutOutOnBothSides='true'/>
-  <pieceOfFurniture id='pieceOfFurniture-79db6d57-b1f9-4c0e-86ae-de5023ffacc0' catalogId='eTeks#table' name='Table' creator='eTeks' model='7' icon='6' x='656.955' y='1286.7223' width='160.0' depth='80.0' height='73.9775' modelSize='5486' license='GNU GPL / CC-BY'/>
-  <pieceOfFurniture id='pieceOfFurniture-4233673b-4269-428a-b1bf-0b53ca2ddaa1' catalogId='eTeks#table' name='Table' creator='eTeks' model='7' icon='6' x='536.955' y='1243.7719' angle='4.712389' width='160.0' depth='80.0' height='73.9775' modelSize='5486' license='GNU GPL / CC-BY'/>
-  <pieceOfFurniture id='pieceOfFurniture-b360388c-7c6f-48be-a58a-4a821bbdb20e' catalogId='eTeks#bed' name='Bed' creator='eTeks' model='9' icon='8' x='597.89154' y='1079.7223' angle='4.712389' width='90.0' depth='200.0' height='52.8' modelSize='24868' license='GNU GPL / CC-BY' dropOnTopElevation='0.8390151'/>
-  <pieceOfFurniture id='pieceOfFurniture-73dc878f-a29a-49a1-b0ef-f9b4fa57427e' catalogId='eTeks#wardrobe' name='Wardrobe' creator='eTeks' model='11' icon='10' x='828.955' y='1227.7219' angle='1.5707964' width='198.0' depth='52.0' height='216.0' modelSize='23218' license='GNU GPL / CC-BY'/>
   <wall id='wall-767928d9-79ff-409b-955e-c875e99ddf2e' wallAtStart='wall-3de17b26-3ff5-4d16-b060-5a48077749ba' wallAtEnd='wall-8e22e074-3c91-4699-96e1-9f762646a4f3' xStart='490.45502' yStart='592.2223' xEnd='1171.4551' yEnd='592.2223' height='243.84' thickness='13.0' pattern='hatchUp'/>
   <wall id='wall-8e22e074-3c91-4699-96e1-9f762646a4f3' wallAtStart='wall-767928d9-79ff-409b-955e-c875e99ddf2e' wallAtEnd='wall-5eecd528-2f9f-407c-ab0a-ec2af9db48b9' xStart='1171.4551' yStart='592.2223' xEnd='1171.4551' yEnd='763.2223' height='243.84' thickness='13.0' pattern='hatchUp'/>
   <wall id='wall-5eecd528-2f9f-407c-ab0a-ec2af9db48b9' wallAtStart='wall-8e22e074-3c91-4699-96e1-9f762646a4f3' wallAtEnd='wall-42a52db8-b8a1-4c30-80bb-5d3d132f617b' xStart='1171.4551' yStart='763.2223' xEnd='1101.4551' yEnd='763.2223' height='243.84' thickness='13.0' pattern='hatchUp'/>
@@ -133,6 +128,8 @@
   <wall id='wall-2c99c066-edc0-4567-8d5a-9ec48d694e46' wallAtEnd='wall-a546dacd-a784-4db4-a766-91b23a97b47c' xStart='2596.799' yStart='1261.2223' xEnd='2596.799' yEnd='1472.5455' height='243.84' thickness='13.0' pattern='hatchUp'/>
   <wall id='wall-a546dacd-a784-4db4-a766-91b23a97b47c' wallAtStart='wall-2c99c066-edc0-4567-8d5a-9ec48d694e46' xStart='2596.799' yStart='1472.5455' xEnd='2307.799' yEnd='1472.5455' height='243.84' thickness='13.0' pattern='hatchUp'/>
   <room id='room-a8239ead-614a-4d1e-9c8c-686e5a12d0a9' name='Makuuhuone' areaVisible='true' ceilingVisible='false' ceilingFlat='true'>
+    <temperatureDisplay hassId="184148184" xOffset='69' yOffset='69' />
+    <!-- <boxWithLabel hassId='6969' xOffset='-3' yOffset='0' />  -->
     <point x='496.95502' y='598.7223'/>
     <point x='1164.9548' y='598.7223'/>
     <point x='1164.9548' y='756.7223'/>
@@ -153,6 +150,10 @@
     <point x='496.95502' y='901.72235'/>
   </room>
   <room id='room-ae706306-67b2-4bf3-a5aa-b14c97cde769' name='Matiaksen huone' areaVisible='true' ceilingVisible='false' ceilingFlat='true'>
+    <!-- <boxWithLabel hassId='6969' xOffset='0' yOffset='0' />  -->
+    <!-- <boxWithLabel hassId='6969' xOffset='-1' yOffset='-1' />  -->
+    <boxWithLabel hassEntity='light.hue_lightstrip_plus_1' xOffset='0' yOffset='0' /> 
+    <!-- <temperatureDisplay hassId="184148184" xOffset='69' yOffset='69' /> -->
     <point x='497.37677' y='1034.7223'/>
     <point x='497.37677' y='1326.7223'/>
     <point x='855.3768' y='1326.7223'/>
@@ -206,7 +207,7 @@
     <point x='1925.2991' y='1229.0455'/>
     <point x='1925.2991' y='1466.0455'/>
     <point x='1783.2991' y='1466.0455'/>
-    <point x='1783.2991' y='1341.5077'/>
+    <point x='1783.299'  y='1341.5077'/>
     <point x='1862.2991' y='1341.5077'/>
   </room>
   <room id='room-33c1e437-54d8-4488-97ce-930af75c810a' areaVisible='true' ceilingVisible='false' ceilingFlat='true'>
@@ -285,7 +286,7 @@
   <dimensionLine id='dimensionLine-44ee1864-d1e4-4ddb-a102-daba8f910e13' xStart='867.955' yStart='1326.7223' xEnd='1164.9551' yEnd='1326.7223' offset='-40.287476'/>
   <dimensionLine id='dimensionLine-6573600d-5b3d-44b2-8ce2-79fcccf4b3e9' xStart='1164.9551' yStart='1326.7223' xEnd='1164.9551' yEnd='1034.7223' offset='-46.428467'/>
   <dimensionLine id='dimensionLine-f2c636ec-af33-431a-b620-31897ddcec0e' xStart='867.955' yStart='1034.7223' xEnd='1164.9551' yEnd='1034.7223' offset='29.917725'/>
-  <dimensionLine id='dimensionLine-5495232f-34ae-4de1-9095-0c66c17f55fd' xStart='496.95502' yStart='1032.7704' xEnd='854.955' yEnd='1032.7704' offset='34.220093'/>
+  <dimensionLine id='dimensionLine-5495232f-34ae-4de1-9095-0c66c17f55fd' xStart='496.95502' yStart='1034.7223' xEnd='854.955' yEnd='1034.7223' offset='34.220093'/>
   <dimensionLine id='dimensionLine-e3bbfdf1-c8ee-4d0e-a2c4-b038e8720f2a' xStart='496.95502' yStart='1021.7223' xEnd='735.955' yEnd='1021.7223' offset='-21.983032'/>
   <dimensionLine id='dimensionLine-532147ed-0517-4d46-a439-286daf121860' xStart='1433.9551' yStart='720.7223' xEnd='1433.9551' yEnd='598.7223' offset='-11.102295'/>
   <dimensionLine id='dimensionLine-cc8d5b17-a046-4432-8ad3-bd94e05722e9' xStart='1298.9551' yStart='598.7223' xEnd='1433.9551' yEnd='598.7223' offset='92.21167'/>
