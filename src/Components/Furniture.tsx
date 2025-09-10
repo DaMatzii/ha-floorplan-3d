@@ -37,7 +37,7 @@ const Furniture: React.FC<FurnitureProps> = ({
   depth,
   name,
 }) => {
-  console.log("NAME: ", name);
+  // console.log("NAME: ", name);
   if (elevation === undefined) {
     elevation = 1;
   }
@@ -52,10 +52,10 @@ const Furniture: React.FC<FurnitureProps> = ({
     });
 
   if (catalog === undefined) return;
-  console.log(catalog);
-  console.log(catalogId);
+  // console.log(catalog);
+  // console.log(catalogId);
   const item = catalog.items.find((item) => item.id === catalogId);
-  console.log("ITEM", item);
+  // console.log("ITEM", item);
   if (item === undefined) return;
   const split = item.model.split("/");
   const objName = split[6];
@@ -76,7 +76,7 @@ const Furniture: React.FC<FurnitureProps> = ({
   };
   if (obj === undefined) return;
   const modelCopy = obj.scene.clone();
-  console.log(modelCopy);
+  // console.log(modelCopy);
 
   const bbox = new THREE.Box3().setFromObject(modelCopy);
   const currentSize = new THREE.Vector3();
@@ -98,6 +98,7 @@ const Furniture: React.FC<FurnitureProps> = ({
 
   modelCopy.position.x -= center.x;
   modelCopy.position.z -= center.z;
+  modelCopy.position.y -= center.y;
 
   const el = height / 100 / 2 + elevation / 100;
   return (

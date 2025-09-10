@@ -62,8 +62,29 @@ export default function HomeView() {
   const [activeCamera, setActiveCamera] = useState(1); // default to debug view
   const camera = useRef<THREE.PerspectiveCamera>(null);
   const { home, currentRoom } = useHome();
+  const targetRef = useRef<HTMLDivElement>(null);
+  const bottomBarHeightRem = 19; // 12px / 16px
+  const offsetRem = 0.25; // extra space above the bar, e.g., 4px / 16px
+  const y = useMotionValue(0);
+  const remToPx = (rem) =>
+    rem * parseFloat(getComputedStyle(document.documentElement).fontSize || 16);
 
-  const y = useMotionValue(700);
+  // const y = useMotionValue("5vh");
+  useEffect(() => {
+    function updatePosition() {
+      if (targetRef.current) {
+        const rect = targetRef.current.getBoundingClientRect();
+        console.log(rect.bottom - 30);
+        console.log("INNER: ", window.innerHeight);
+        // rect.bottom = distance from viewport top to bottom of div
+        // y.set("90vh");
+        console.log("RECT: ", rect.bottom - rect.top);
+        y.set(window.innerHeight - (rect.bottom - rect.top) / 2 - 48);
+      }
+    }
+
+    updatePosition(); // initial
+  }, [y]);
 
   useEffect(() => {
     console.log("HomeVIEW::: ", currentRoom);
@@ -135,21 +156,25 @@ export default function HomeView() {
           onDragEnd={() => {}}
           onDrag={(drag) => {}}
           dragConstraints={{
-            top: 400,
-            bottom: 680,
+            top: window.innerHeight * 0.25,
+            bottom:
+              window.innerHeight -
+              (targetRef.current?.getBoundingClientRect().bottom -
+                targetRef.current?.getBoundingClientRect().top) /
+                2 -
+              48,
           }}
           dragTransition={{ bounceStiffness: 500, bounceDamping: 15 }}
           dragElastic={0.2}
           style={{ y }}
           whileDrag={{ cursor: "grabbing" }}
           className="
-            fixed
-            bottom-0
+	  fixed
             left-0
             right-0
             bg-white
             rounded-t-2xl shadow-lg z-5
-            h-screen
+	    h-screen
 	    "
         >
           <div className="w-full flex justify-center">
@@ -160,7 +185,10 @@ export default function HomeView() {
             <h1>slider</h1>
           </div>
         </motion.div>
-        <div className="bottom-0 h-12 left-0 w-screen bg-white absolute z-10">
+        <div
+          ref={targetRef}
+          className="bottom-0 h-12 left-0 w-screen bg-white absolute z-10"
+        >
           {/* <p>Pro</p> */}
           {home !== undefined ? <SliderTest rooms={home.room} /> : 0}
         </div>

@@ -21,15 +21,20 @@ const SliderTest = ({ rooms }) => {
 
   const itemWidth = 96 + 40;
   const [currentItem, setCurrentItem] = useState(0);
-  const [pos, setPos] = useState(0);
-  const [anim_pos, setAnimPos] = useState(0);
 
   const { setCurrentRoom } = useHome();
+  console.log(rooms);
 
-  const real_rooms = rooms.filter(
-    (el: any) =>
-      el !== "" && el !== null && el !== undefined && el.name !== undefined,
-  );
+  const real_rooms = rooms
+    .map((room, originalIndex) => ({ room, originalIndex })) // attach original index
+    .filter(
+      ({ room }) =>
+        room !== "" &&
+        room !== null &&
+        room !== undefined &&
+        room.name !== undefined,
+    );
+
   const ref = useRef(null);
 
   return (
@@ -44,19 +49,16 @@ const SliderTest = ({ rooms }) => {
             stiffness: 300,
             damping: 30,
           });
-          setAnimPos(to);
         }}
-        onDrag={(drag) => {
+        onDrag={() => {
           if (ref.current === null) {
             return;
           }
           let currentScroll = x.get();
-          setPos(currentScroll);
-          // console.log(currentScroll);
           let currentItem = Math.round(Math.abs(currentScroll) / itemWidth);
 
           setCurrentItem(currentItem);
-          setCurrentRoom(currentItem);
+          setCurrentRoom(real_rooms[currentItem].originalIndex);
         }}
         style={{ x }}
         dragConstraints={{
@@ -66,9 +68,9 @@ const SliderTest = ({ rooms }) => {
         dragTransition={{ bounceStiffness: 500, bounceDamping: 15 }}
         dragElastic={0.2}
         whileDrag={{ cursor: "grabbing" }}
-        className="absolute flex items-center left-1/2 h-12 w-24 gap-10 -translate-x-1/2 "
+        className="absolute flex items-center left-1/2 h-12 w-24 bottom-0 gap-10 -translate-x-1/2 "
       >
-        {real_rooms.map((room: Room, index: number) => {
+        {real_rooms.map(({ room, originalIndex }, index: number) => {
           return (
             <motion.div
               ref={ref}
@@ -78,7 +80,7 @@ const SliderTest = ({ rooms }) => {
                 index === currentItem + 1 ||
                 index === currentItem
                   ? ""
-                  : "bg-yellow-200 opacity-0"
+                  : "opacity-0"
               }`}
               transition={{
                 type: "spring",
@@ -92,20 +94,19 @@ const SliderTest = ({ rooms }) => {
                   stiffness: 300,
                   damping: 30,
                 });
-                setAnimPos(to);
                 setCurrentItem(index);
-                setCurrentRoom(index);
+                setCurrentRoom(originalIndex);
               }}
             >
               <div
                 className={`text-sm text-center font-medium whitespace-nowrap ${
                   index === currentItem
-                    ? "text-black bg-none" // current item is black
+                    ? "text-black bg-none"
                     : index === currentItem + 1
-                      ? "bg-clip-text text-transparent bg-[linear-gradient(to_left,_#f3f4f6_0%,_#f3f4f6_20%,_#000000_100%)]" // next item, fade starts fast
+                      ? "bg-clip-text text-transparent bg-[linear-gradient(to_left,_#f3f4f6_0%,_#f3f4f6_20%,_#000000_100%)]"
                       : index === currentItem - 1
-                        ? "bg-clip-text text-transparent bg-[linear-gradient(to_right,_#f3f4f6_0%,_#f3f4f6_20%,_#000000_100%)]" // previous item, colors swapped, fade starts fast
-                        : "" // other items
+                        ? "bg-clip-text text-transparent bg-[linear-gradient(to_right,_#f3f4f6_0%,_#f3f4f6_20%,_#000000_100%)]"
+                        : ""
                 }`}
               >
                 {room.name}
