@@ -52,6 +52,33 @@ import * as THREE from "three";
 //   return { distance, center };
 //
 // }
+function TexturedBox() {
+  // const [colorMap, normalMap, roughnessMap, aoMap] = useLoader(
+  //   THREE.TextureLoader,
+  //   [
+  //     "models/tex/WoodenPlanks04_2K_BaseColor.png",
+  //     "models/tex/WoodenPlanks04_2K_Normal.png",
+  //     "models/tex/WoodenPlanks04_2K_Roughness.png",
+  //     "models/tex/WoodenPlanks04_2K_AO.png",
+  //   ],
+  // );
+  const texture = useLoader(
+    THREE.TextureLoader,
+    "/models/tex/WoodenPlanks04_2K_BaseColor.png",
+  );
+  return (
+    <mesh>
+      <boxGeometry args={[2, 2, 2]} />
+      {/* <meshStandardMaterial */}
+      {/*   map={colorMap} */}
+      {/*   normalMap={normalMap} */}
+      {/*   roughnessMap={roughnessMap} */}
+      {/*   aoMap={aoMap} */}
+      {/* /> */}
+      <meshBasicMaterial map={texture} />
+    </mesh>
+  );
+}
 type Point = { x: number; y: number };
 type Room = {
   areaVisible: "true" | "false"; // could also be boolean if you convert it
@@ -155,19 +182,32 @@ function House({ mainCamera }) {
     <>
       {/* <RoomButtons rooms={home?.room} mainCameraRef={mainCamera} /> */}
       {elems}
+
       <Environment preset="apartment" />
-      <Light
-        type="directional"
-        helper
-        size={2}
-        DebugColor="red"
-        position={[9, 10, 9]}
-        color="#fff2cc"
-        intensity={5}
-        target-position={[2, 2, 2]}
-        castShadow
-      />
+      <ambientLight intensity={5} color="0xffffff" />
+
+      <directionalLight position={[5, 25, 7]} intensity={5} castShadow />
+      <TexturedBox />
       {/* <TempTest /> */}
+      {/* <Light */}
+      {/*   type="point" */}
+      {/*   helper */}
+      {/*   size={0.5} */}
+      {/*   DebugColor="red" */}
+      {/*   position={[6.8, 2, 11.8]} */}
+      {/*   color="orange" */}
+      {/*   intensity={6} */}
+      {/*   decay={2} */}
+      {/*   distance={3} */}
+      {/*   castShadow */}
+      {/* /> */}
+      {/* <pointLight */}
+      {/* position={[5.8, 3, 11.8]} */}
+      {/* intensity={2} */}
+      {/* color="pink" */}
+      {/* distance={50} // how far the light reaches */}
+      {/* decay={2} // how fast intensity drops */}
+      {/* /> */}
 
       <object3D ref={targetRef} position={[5, 4, 2]} />
 

@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { CSG } from "three-csg-ts";
 import type { ComponentProps } from "../Components.ts";
 import { useHome } from "../HomeContext";
+import { palette } from "../Colorpalette.ts";
 
 import { sub } from "three/src/nodes/TSL.js";
 interface WallProps extends ComponentProps {
@@ -113,9 +114,10 @@ const Wall: React.FC<WallProps> = ({
 
   return (
     <>
-      <mesh geometry={geometry}>
+      <mesh castShadow receiveShadow geometry={geometry}>
         {/* <boxGeometry args={[real_lenght, real_height, real_thickness]} /> */}
-        <meshStandardMaterial color="gray" />
+        {/* <meshStandardMaterial color={palette.wall} /> */}
+        <meshStandardMaterial color={palette.wall} roughness={1} />
       </mesh>
     </>
   );

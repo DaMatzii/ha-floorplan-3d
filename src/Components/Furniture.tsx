@@ -1,5 +1,4 @@
 import type { ComponentProps } from "../Components.ts";
-import { useLoader } from "@react-three/fiber";
 import { OBJLoader } from "three-stdlib";
 import React, { useMemo } from "react";
 import * as THREE from "three";
@@ -99,13 +98,22 @@ const Furniture: React.FC<FurnitureProps> = ({
   modelCopy.position.x -= center.x;
   modelCopy.position.z -= center.z;
   modelCopy.position.y -= center.y;
+  modelCopy.traverse((child) => {
+    if (child.isMesh) {
+    }
+  });
 
   const el = height / 100 / 2 + elevation / 100;
   return (
     <>
-      <mesh position={[x / 100, el, y / 100]} rotation={[0, -angle, 0]}>
+      <mesh
+        castShadow
+        receiveShadow
+        position={[x / 100, el, y / 100]}
+        rotation={[0, -angle, 0]}
+      >
         {/* <boxGeometry args={[currentSize.x, currentSize.y, currentSize.z]} /> */}
-        <primitive object={modelCopy} />
+        <primitive object={modelCopy}></primitive>
       </mesh>
     </>
   );
