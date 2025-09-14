@@ -84,19 +84,13 @@ const RoomMesh: React.FC<RoomMeshProps> = ({ room, points }) => {
   //     "models/tex/WoodenPlanks04_2K_AO.png",
   //   ],
   // );
+  if (room.name !== "Makuuhuone") {
+    // return;
+  }
   const texture = useLoader(
     THREE.TextureLoader,
     "/models/tex/WoodenPlanks04_2K_BaseColor.png",
   );
-  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-
-  const tileX = 3; // number of times to repeat horizontally
-  const tileY = 1; // number of times to repeat vertically
-
-  // Repeat more to make the planks appear smaller
-  texture.repeat.set(1, 1); // 4 tiles horizontally and vertically
-
-  const [color, setColor] = useState("orange");
 
   let x_vals = points.map((p: Point) => p.x / 100);
   let y_vals = points.map((p: Point) => p.y / 100);
@@ -104,52 +98,47 @@ const RoomMesh: React.FC<RoomMeshProps> = ({ room, points }) => {
   let max_x = Math.max(...x_vals);
   let min_y = Math.min(...y_vals);
   let max_y = Math.max(...y_vals);
-
-  const shape = React.useMemo(() => {
-    const s = new Shape();
-    s.moveTo(points[0].x / 100, points[0].y / 100);
+  const [g, tex] = React.useMemo(() => {
+    const shape = new Shape();
+    shape.moveTo(points[0].x / 100, points[0].y / 100);
     for (let i = 1; i < points.length; i++) {
-      s.lineTo((points[i].x as number) / 100, (points[i].y as number) / 100);
-    }
-
-    return s;
-  }, [points]);
-
-  const geometry = React.useMemo(() => {
-    const g = new THREE.ShapeGeometry(shape);
-    g.computeBoundingBox();
-
-    const max = g.boundingBox.max;
-    const min = g.boundingBox.min;
-    const range = new THREE.Vector2().subVectors(max, min);
-
-    const uv = g.attributes.position.clone();
-    for (let i = 0; i < uv.count; i++) {
-      const x = g.attributes.position.getX(i);
-      const y = g.attributes.position.getY(i);
-      uv.setXY(
-        i,
-        ((x - min.x) / range.x) * tileX,
-        ((y - min.y) / range.y) * tileY,
+      shape.lineTo(
+        (points[i].x as number) / 100,
+        (points[i].y as number) / 100,
       );
     }
-    g.setAttribute("uv", uv);
-    return g;
-  }, [shape]);
+    const geometry = new THREE.ShapeGeometry(shape);
+    const mesh = new THREE.Mesh(geometry);
+    console.log(geometry);
+    var box = new THREE.Box3().setFromObject(mesh);
+    var size = new THREE.Vector3();
+    box.getSize(size);
+    var vec3 = new THREE.Vector3(); // temp vector
+    var attPos = mesh.geometry.attributes.position;
+    var attUv = mesh.geometry.attributes.uv;
+    const tex1 = texture.clone();
+    tex1.wrapS = THREE.RepeatWrapping;
+    tex1.wrapT = THREE.RepeatWrapping;
+
+    tex1.needsUpdate = true;
+    tex1.repeat.set(size.x / 1, size.y / 1);
+
+    for (let i = 0; i < attPos.count; i++) {
+      vec3.fromBufferAttribute(attPos, i);
+      attUv.setXY(
+        i,
+        (vec3.x - box.min.x) / size.x,
+        (vec3.y - box.min.y) / size.y,
+      );
+    }
+
+    return [mesh.geometry, tex1];
+  }, [points]);
+
   return (
     <>
-      <mesh geometry={geometry} receiveShadow rotation={[Math.PI / 2, 0, 0]}>
-        {/* <shapeGeometry args={[shape]} /> */}
-        {/* <meshStandardMaterial color={palette.floor} side={THREE.BackSide} /> */}
-        {/* <meshStandardMaterial */}
-        {/*   map={colorMap} */}
-        {/*   normalMap={normalMap} */}
-        {/*   roughnessMap={roughnessMap} */}
-        {/*   aoMap={aoMap} */}
-        {/*   side={THREE.BackSide} */}
-        {/* /> */}
-        {/* <meshBasicMaterial color="white" wireframe /> */}
-        <meshBasicMaterial map={texture} side={THREE.BackSide} />
+      <mesh geometry={g} rotation={[Math.PI / 2, 0, 0]}>
+        <meshBasicMaterial map={tex} side={THREE.BackSide} />
       </mesh>
     </>
   );

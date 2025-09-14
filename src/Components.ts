@@ -32,13 +32,13 @@ export class ComponentRegistry {
 	}
 }
 const registry = new ComponentRegistry();
-// registry.register("wall", Wall);
-// registry.register("pieceOfFurniture", Furniture);
+registry.register("wall", Wall);
+registry.register("pieceOfFurniture", Furniture);
 registry.register("light", Light);
 registry.register("room", Room);
-// registry.register("room-temperatureDisplay", TemperatureDisplay);
-// registry.register("room-boxWithLabel", BoxWithLabel);
-// registry.register("doorOrWindow", DoorOrWindow);
+registry.register("room-temperatureDisplay", TemperatureDisplay);
+registry.register("room-boxWithLabel", BoxWithLabel);
+registry.register("doorOrWindow", DoorOrWindow);
 export default registry;
 
 

@@ -62,22 +62,6 @@ function TexturedBox() {
   //     "models/tex/WoodenPlanks04_2K_AO.png",
   //   ],
   // );
-  const texture = useLoader(
-    THREE.TextureLoader,
-    "/models/tex/WoodenPlanks04_2K_BaseColor.png",
-  );
-  return (
-    <mesh>
-      <boxGeometry args={[2, 2, 2]} />
-      {/* <meshStandardMaterial */}
-      {/*   map={colorMap} */}
-      {/*   normalMap={normalMap} */}
-      {/*   roughnessMap={roughnessMap} */}
-      {/*   aoMap={aoMap} */}
-      {/* /> */}
-      <meshBasicMaterial map={texture} />
-    </mesh>
-  );
 }
 type Point = { x: number; y: number };
 type Room = {
