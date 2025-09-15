@@ -100,6 +100,8 @@ const Furniture: React.FC<FurnitureProps> = ({
   modelCopy.position.y -= center.y;
   modelCopy.traverse((child) => {
     if (child.isMesh) {
+      child.material.color.set("#0d1629");
+      child.material.side = THREE.DoubleSide;
     }
   });
 
@@ -113,7 +115,9 @@ const Furniture: React.FC<FurnitureProps> = ({
         rotation={[0, -angle, 0]}
       >
         {/* <boxGeometry args={[currentSize.x, currentSize.y, currentSize.z]} /> */}
-        <primitive object={modelCopy}></primitive>
+        <primitive object={modelCopy}>
+          <meshStandardMaterial color="#0d1629" />
+        </primitive>
       </mesh>
     </>
   );

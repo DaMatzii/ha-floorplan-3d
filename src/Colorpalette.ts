@@ -1,6 +1,6 @@
 
 export const palette = {
-	wall: "#6d6d6d",
+	wall: "#ffffffe8",
 	floor: "#3b3b3b",
 	doors: "blue",
 	windows: "red",

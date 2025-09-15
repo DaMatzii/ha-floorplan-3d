@@ -34,7 +34,7 @@ const Wall: React.FC<WallProps> = ({
 
   const dx = real_xEnd - real_xStart;
   const dy = real_yEnd - real_yStart;
-  const length = Math.sqrt(dx ** 2 + dy ** 2);
+  const length = Math.sqrt(dx ** 2 + dy ** 2) + 0.1;
   const real_lenght = length;
   const angle = Math.atan2(dy, dx);
 

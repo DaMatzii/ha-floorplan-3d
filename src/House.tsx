@@ -167,24 +167,49 @@ function House({ mainCamera }) {
       {/* <RoomButtons rooms={home?.room} mainCameraRef={mainCamera} /> */}
       {elems}
 
-      <Environment preset="apartment" />
-      <ambientLight intensity={5} color="0xffffff" />
+      {/* <Environment preset="apartment" /> */}
+      <ambientLight intensity={0.3} color="0xffffff" />
 
-      <directionalLight position={[5, 25, 7]} intensity={5} castShadow />
-      <TexturedBox />
+      {/* <directionalLight position={[6, 25, -4]} intensity={2} castShadow /> */}
+      {/* <TexturedBox /> */}
       {/* <TempTest /> */}
-      {/* <Light */}
-      {/*   type="point" */}
-      {/*   helper */}
-      {/*   size={0.5} */}
-      {/*   DebugColor="red" */}
-      {/*   position={[6.8, 2, 11.8]} */}
-      {/*   color="orange" */}
-      {/*   intensity={6} */}
-      {/*   decay={2} */}
-      {/*   distance={3} */}
-      {/*   castShadow */}
-      {/* /> */}
+      <Light
+        type="directional"
+        helper
+        size={0.5}
+        DebugColor="red"
+        position={[14, 15, 10]}
+        intensity={3}
+        decay={2}
+        distance={3}
+        castShadow
+        target-position={[14, 0, 10]}
+      />
+
+      <Light
+        type="directional"
+        helper
+        size={0.5}
+        DebugColor="red"
+        position={[5.5, 7, 15]}
+        intensity={2}
+        decay={2}
+        distance={3}
+        castShadow
+        target-position={[7, 0, 12]}
+      />
+      <Light
+        type="point"
+        helper
+        size={0.5}
+        DebugColor="red"
+        position={[7, 3, 12]}
+        intensity={1}
+        decay={2}
+        distance={3}
+        castShadow
+      />
+
       {/* <pointLight */}
       {/* position={[5.8, 3, 11.8]} */}
       {/* intensity={2} */}

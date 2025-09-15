@@ -138,7 +138,8 @@ const RoomMesh: React.FC<RoomMeshProps> = ({ room, points }) => {
   return (
     <>
       <mesh geometry={g} rotation={[Math.PI / 2, 0, 0]}>
-        <meshBasicMaterial map={tex} side={THREE.BackSide} />
+        {/* <meshBasicMaterial map={tex} side={THREE.BackSide} /> */}
+        <meshBasicMaterial color="gray" side={THREE.BackSide} />
       </mesh>
     </>
   );
