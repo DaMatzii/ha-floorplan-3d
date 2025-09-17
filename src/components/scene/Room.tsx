@@ -8,7 +8,7 @@ import { useBounds } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import registry from "../Components.ts";
 import type { JSX } from "react/jsx-runtime";
-import { useHome } from "../HomeContext";
+import { useHome } from "../HomeContext.ts";
 import { palette } from "../Colorpalette.ts";
 
 type Point = { x: number; y: number };
@@ -139,7 +139,7 @@ const RoomMesh: React.FC<RoomMeshProps> = ({ room, points }) => {
     <>
       <mesh geometry={g} rotation={[Math.PI / 2, 0, 0]}>
         {/* <meshBasicMaterial map={tex} side={THREE.BackSide} /> */}
-        <meshBasicMaterial color="gray" side={THREE.BackSide} />
+        <meshStandardMaterial color="#3d3d3d" side={THREE.BackSide} />
       </mesh>
     </>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import * as THREE from "three";
 import { CSG } from "three-csg-ts";
 import type { ComponentProps } from "../Components.ts";
-import { useHome } from "../HomeContext";
+import { useHome } from "../HomeContext.ts";
 import { palette } from "../Colorpalette.ts";
 
 import { sub } from "three/src/nodes/TSL.js";

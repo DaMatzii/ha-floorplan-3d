@@ -1,10 +1,10 @@
-import Wall from './Components/Wall'
-import Light from './Components/Light'
-import Room from './Components/Room'
-import TemperatureDisplay from './Components/TempDisplay'
-import BoxWithLabel from './Components/BoxWithLabel'
-import DoorOrWindow from './Components/DoorOrWindow'
-import Furniture from './Components/Furniture'
+// import Wall from './components/scene/Wall'
+// import Light from './components/scene/Light'
+// import Room from './components/scene/Room'
+// import TemperatureDisplay from './components/scene/TempDisplay'
+// import BoxWithLabel from './components/scene/BoxWithLabel'
+// import DoorOrWindow from './components/scene/DoorOrWindow'
+// import Furniture from './components/scene/Furniture'
 export interface ComponentProps {
 	[key: string]: string | number | boolean;
 }
@@ -32,13 +32,13 @@ export class ComponentRegistry {
 	}
 }
 const registry = new ComponentRegistry();
-registry.register("wall", Wall);
-registry.register("pieceOfFurniture", Furniture);
-registry.register("light", Light);
-registry.register("room", Room);
-registry.register("room-temperatureDisplay", TemperatureDisplay);
-registry.register("room-boxWithLabel", BoxWithLabel);
-registry.register("doorOrWindow", DoorOrWindow);
+// registry.register("wall", Wall);
+// registry.register("pieceOfFurniture", Furniture);
+// registry.register("light", Light);
+// registry.register("room", Room);
+// registry.register("room-temperatureDisplay", TemperatureDisplay);
+// registry.register("room-boxWithLabel", BoxWithLabel);
+// registry.register("doorOrWindow", DoorOrWindow);
 export default registry;
 
 

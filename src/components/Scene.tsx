@@ -22,68 +22,6 @@ import { useHome } from "./HomeContext";
 
 import * as THREE from "three";
 
-/**
- * Calculates the required camera distance to fit all given 3D points into the view.
- */
-// export function getCameraDistanceToFitPoints(
-//   points: Vector3[],
-//   camera: PerspectiveCamera,
-//   fitMargin: number = 1.2,
-// ): FitCameraResult {
-//   const boundingBox = new Box3().setFromPoints(points);
-//   const size = new Vector3();
-//   boundingBox.getSize(size);
-//
-//   const center = new Vector3();
-//   boundingBox.getCenter(center);
-//
-//   const fov = MathUtils.degToRad(camera.fov);
-//   const aspect = camera.aspect;
-//
-//   const height = size.y * fitMargin;
-//   const width = size.x * fitMargin;
-//
-//   const distanceY = height / (2 * Math.tan(fov / 2));
-//   const horizontalFOV = 2 * Math.atan(Math.tan(fov / 2) * aspect);
-//   const distanceX = width / (2 * Math.tan(horizontalFOV / 2));
-//
-//   const distance = Math.max(distanceX, distanceY);
-//
-//   return { distance, center };
-//
-// }
-function TexturedBox() {
-  // const [colorMap, normalMap, roughnessMap, aoMap] = useLoader(
-  //   THREE.TextureLoader,
-  //   [
-  //     "models/tex/WoodenPlanks04_2K_BaseColor.png",
-  //     "models/tex/WoodenPlanks04_2K_Normal.png",
-  //     "models/tex/WoodenPlanks04_2K_Roughness.png",
-  //     "models/tex/WoodenPlanks04_2K_AO.png",
-  //   ],
-  // );
-}
-type Point = { x: number; y: number };
-type Room = {
-  areaVisible: "true" | "false"; // could also be boolean if you convert it
-  areaXOffset: string;
-  areaYOffset: string;
-  floorColor: string;
-  id: string;
-  name: string;
-  nameXOffset: string;
-  nameYOffset: string;
-  point: Point[];
-};
-interface RoomMeshProps {
-  points: Point[];
-  color?: string;
-}
-function Model() {
-  const obj = useLoader(OBJLoader, "/models/armchair.obj"); // path to your OBJ
-
-  return <primitive object={obj} scale={0.5} />;
-}
 function House({ mainCamera }) {
   const [xml, setXml] = useState<XMLDocument>();
   // const [home, setHome] = useState<Home>();
@@ -129,24 +67,10 @@ function House({ mainCamera }) {
   };
 
   useEffect(() => {
-    const fetchXML = async () => {
-      try {
-        // const response = await fetch("http://localhost:5173/house.xml");
-        fetch("/house.xml")
-          .then((response) => response.text())
-          .then((str) => {
-            setHome(parseHome(str));
-          });
-      } catch (error) {
-        console.error("Error fetching XML:", error);
-      }
-    };
-    fetchXML();
-  }, []);
-  useEffect(() => {
     setElems(renderHome(home));
     console.log(home);
   }, [home]);
+
   useEffect(() => {
     console.log("xml updated:", xml);
     if (xml !== undefined) {
@@ -198,18 +122,18 @@ function House({ mainCamera }) {
         castShadow
         target-position={[7, 0, 12]}
       />
-      <Light
-        type="point"
-        helper
-        size={0.5}
-        DebugColor="red"
-        position={[7, 1, 12]}
-        color="orange"
-        intensity={4}
-        decay={2}
-        distance={3}
-        castShadow
-      />
+      {/* <Light */}
+      {/*   type="point" */}
+      {/*   helper */}
+      {/*   size={0.5} */}
+      {/*   DebugColor="red" */}
+      {/*   position={[7, 1, 12]} */}
+      {/*   color="orange" */}
+      {/*   intensity={4} */}
+      {/*   decay={2} */}
+      {/*   distance={3} */}
+      {/*   castShadow */}
+      {/* /> */}
 
       {/* <pointLight */}
       {/* position={[5.8, 3, 11.8]} */}
