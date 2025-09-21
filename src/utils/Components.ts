@@ -2,9 +2,10 @@ import Wall from '@/components/scene/Wall'
 // import Light from './components/scene/Light'
 import Room from '@/components/scene/Room'
 import TemperatureDisplay from '@/components/scene/TempDisplay'
-// import BoxWithLabel from '@/components/scene/BoxWithLabel'
+import BoxWithLabel from '@/components/scene/BoxWithLabel'
 import DoorOrWindow from '@/components/scene/DoorOrWindow'
 import Furniture from '@/components/scene/Furniture'
+import HassLight from '@/components/ui/HassLight'
 export interface ComponentProps {
 	[key: string]: string | number | boolean;
 }
@@ -37,8 +38,9 @@ registry.register("pieceOfFurniture", Furniture);
 // registry.register("light", Light);
 registry.register("room", Room);
 registry.register("room-temperatureDisplay", TemperatureDisplay);
-// registry.register("room-boxWithLabel", BoxWithLabel);
+registry.register("room-boxWithLabel", BoxWithLabel);
 registry.register("doorOrWindow", DoorOrWindow);
+registry.register("ui-hass-light", HassLight)
 export default registry;
 
 

@@ -18,6 +18,8 @@ import { useFloorplan } from "./hooks/useFloorplan.tsx";
 
 import { backgroundBlurriness } from "three/src/nodes/TSL.js";
 import Scene from "./components/Scene";
+import { BottomSheet } from "@/components/ui/Bottomsheet";
+import registry from "@/utils/Components";
 
 type DebugCameraProps = {
   makeDefault?: boolean;
@@ -65,8 +67,12 @@ export default function HomeView() {
   // if (loading) return null;
 
   const [activeCamera, setActiveCamera] = useState(1); // default to debug view
+
   const camera = useRef<THREE.PerspectiveCamera>(null);
-  const { home, currentRoom } = useHome();
+  const { home, currentRoom, focused } = useHome();
+
+  let Comp = registry.getParser("hass-ui-light");
+
   console.log(home);
   return (
     <>
@@ -116,17 +122,15 @@ export default function HomeView() {
                 makeDefault={activeCamera === DEBUG_CAMERA}
               />
 
-              {/* <ambientLight intensity={0.5} /> */}
-              {/* <directionalLight position={[0, 500, 500]} /> */}
-              {/* <OrbitControls enableRotate={true} /> */}
-              {/* <House mainCamera={camera} /> */}
-              <Scene mainCamera={camera} />
+              {/* <Scene mainCamera={camera} /> */}
 
-              {/* <gridHelper args={[2000, 20]} /> */}
               {activeCamera === NORMAL_CAMERA ? <OrbitControls /> : <></>}
             </Canvas>
           </div>
         </div>
+        <BottomSheet>
+          <Comp />,<p>lol</p>
+        </BottomSheet>
       </div>
     </>
   );

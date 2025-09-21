@@ -1,20 +1,7 @@
-import React, {
-  useRef,
-  useState,
-  useEffect,
-  createRef,
-  forwardRef,
-} from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera, useHelper } from "@react-three/drei";
-import * as THREE from "three";
-// import House from "./House";
-import { Routes, Route, Link } from "react-router-dom";
-import { HassConnect, useEntity } from "@hakit/core";
+import React, { useRef, useEffect } from "react";
 import SliderTest from "./SliderTest";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { useHome } from "./HomeContext";
-import { useFloorplan } from "./hooks/useFloorplan.tsx";
+import { useHome } from "@/context//HomeContext";
 
 type BottomSheetProps = {
   children: React.ReactNode;
@@ -25,7 +12,6 @@ export function BottomSheet({ children }: BottomSheetProps) {
   const targetRef = useRef<HTMLDivElement>(null);
   const y = useMotionValue(0);
 
-  // const y = useMotionValue("5vh");
   useEffect(() => {
     function updatePosition() {
       if (targetRef.current) {
@@ -88,7 +74,6 @@ export function BottomSheet({ children }: BottomSheetProps) {
         ref={targetRef}
         className="bottom-0 h-12 left-0 w-screen bg-white absolute z-10"
       >
-        {/* <p>Pro</p> */}
         {home !== undefined ? <SliderTest rooms={home.room} /> : 0}
       </div>
     </>

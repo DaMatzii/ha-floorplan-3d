@@ -6,6 +6,8 @@ interface HomeContextType {
   currentRoom: number;
   home: Home;
   setCurrentRoom: React.Dispatch<React.SetStateAction<number>>;
+  setFocus: React.Dispatch<React.SetStateAction<string>>;
+  focused: string;
   // setHome: React.Dispatch<React.SetStateAction<Home>>;
 }
 
@@ -20,9 +22,12 @@ export const HomeProvider: React.FC<HomeProviderProps> = ({
   children,
 }) => {
   const [currentRoom, setCurrentRoom] = useState<number>(0);
+  const [focused, setFocus] = useState<string>("");
 
   return (
-    <HomeContext.Provider value={{ currentRoom, home, setCurrentRoom }}>
+    <HomeContext.Provider
+      value={{ currentRoom, home, setCurrentRoom, focused, setFocus }}
+    >
       {children}
     </HomeContext.Provider>
   );
