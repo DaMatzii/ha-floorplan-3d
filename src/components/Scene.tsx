@@ -1,27 +1,26 @@
 import { a, useSpring } from "@react-spring/three";
 import { useEffect, useState, useRef } from "react";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import Light from "@/utils/Light";
-import type Home from "@/types/Home.ts";
 import { parseHome, renderHome } from "@/utils/Parser";
-
-import {
-  Html,
-  OrbitControls,
-  MeshReflectorMaterial,
-  Environment,
-  Bounds,
-} from "@react-three/drei";
-import { useHome } from "@/context/HomeContext";
-
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { OrbitControls, PerspectiveCamera, useHelper } from "@react-three/drei";
+import DebugCamera from "@/utils/DebugCamera";
 import * as THREE from "three";
 
-function Scene({ mainCamera }) {
+import { MeshReflectorMaterial } from "@react-three/drei";
+import { useHome } from "@/context/HomeContext";
+
+const DEBUG_CAMERA = 1;
+const NORMAL_CAMERA = 0;
+
+function Scene({ activeCamera }) {
   const [xml, setXml] = useState<XMLDocument>();
   // const [home, setHome] = useState<Home>();
   const [elems, setElems] = useState();
   const { home, setHome, currentRoom } = useHome();
   const [target, setTarget] = useState([0, 0, 10]);
+
+  const camera = useRef<THREE.PerspectiveCamera>(null);
 
   // Spring for camera position
   const { position } = useSpring({
@@ -29,14 +28,12 @@ function Scene({ mainCamera }) {
     config: { mass: 100, tension: 10, friction: 0, duration: 100 },
   });
 
-  // Update camera position every frame
   useFrame(() => {
-    if (mainCamera.current) {
+    if (camera.current) {
       const [x, y, z] = position.get();
-      mainCamera.current.position.set(x, y, z);
+      camera.current.position.set(x, y, z);
     }
   });
-  // console.log(mainCamera);
   const focus = (room: Room) => {
     const x_vals = room.point.map((p) => p.x / 100);
     const y_vals = room.point.map((p) => p.y / 100);
@@ -50,14 +47,14 @@ function Scene({ mainCamera }) {
 
     const maxDim = Math.max(size.x, size.y, size.z);
 
-    const fov = mainCamera.current.fov * (Math.PI / 180);
+    const fov = camera.current.fov * (Math.PI / 180);
 
     const offset = 1.25;
     const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * offset;
-    console.log(cameraZ);
+    // console.log(cameraZ);
 
     setTarget([center.x, cameraZ + 5, center.y]);
-    mainCamera.current.rotation.set(-Math.PI / 2, 0, 0);
+    camera.current.rotation.set(-Math.PI / 2, 0, 0);
   };
 
   useEffect(() => {
@@ -71,7 +68,6 @@ function Scene({ mainCamera }) {
       console.log((xml as XMLDocument).getElementsByName("room"));
     }
   }, [xml]);
-  const targetRef = useRef();
 
   useEffect(() => {
     if (home === undefined) {
@@ -82,6 +78,10 @@ function Scene({ mainCamera }) {
 
   return (
     <>
+      <PerspectiveCamera position={[0, 0, 10]} makeDefault />
+      <DebugCamera ref={camera} makeDefault={activeCamera === DEBUG_CAMERA} />
+
+      {activeCamera === NORMAL_CAMERA ? <OrbitControls /> : <></>}
       {/* <RoomButtons rooms={home?.room} mainCameraRef={mainCamera} /> */}
       {elems}
 
@@ -116,28 +116,6 @@ function Scene({ mainCamera }) {
         castShadow
         target-position={[7, 0, 12]}
       />
-      {/* <Light */}
-      {/*   type="point" */}
-      {/*   helper */}
-      {/*   size={0.5} */}
-      {/*   DebugColor="red" */}
-      {/*   position={[7, 1, 12]} */}
-      {/*   color="orange" */}
-      {/*   intensity={4} */}
-      {/*   decay={2} */}
-      {/*   distance={3} */}
-      {/*   castShadow */}
-      {/* /> */}
-
-      {/* <pointLight */}
-      {/* position={[5.8, 3, 11.8]} */}
-      {/* intensity={2} */}
-      {/* color="pink" */}
-      {/* distance={50} // how far the light reaches */}
-      {/* decay={2} // how fast intensity drops */}
-      {/* /> */}
-
-      <object3D ref={targetRef} position={[5, 4, 2]} />
 
       <fog attach="fog" args={["#17171b", 30, 100000]} />
       <mesh position={[0, -0.1, 0]} rotation={[-Math.PI / 2, 0, 0]}>

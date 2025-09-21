@@ -1,14 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import type { Room } from "./Room";
 import { useHome } from "@/context/HomeContext";
-const box: React.CSSProperties = {
-  width: 52,
-  height: 52,
-  border: "1px solid #f5f5f5",
-  position: "absolute",
-  backgroundColor: "black",
-};
 
 function getRotateY(index: any, currentItem: any) {
   if (index === currentItem - 1) return -50;
@@ -23,7 +15,7 @@ const SliderTest = ({ rooms }) => {
   const [currentItem, setCurrentItem] = useState(0);
 
   const { setCurrentRoom } = useHome();
-  console.log(rooms);
+  // console.log(rooms);
 
   const real_rooms = rooms
     .map((room, originalIndex) => ({ room, originalIndex })) // attach original index

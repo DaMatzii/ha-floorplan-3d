@@ -98,10 +98,10 @@ const Furniture: React.FC<FurnitureProps> = ({
   modelCopy.position.x -= center.x;
   modelCopy.position.z -= center.z;
   modelCopy.position.y -= center.y;
-  console.log("CATALOGID: ", catalogId);
+  // console.log("CATALOGID: ", catalogId);
   modelCopy.traverse((child) => {
     if (child.isMesh) {
-      console.log("	CHILD: ", child);
+      // console.log("	CHILD: ", child);
       child.material.color.set("gray");
       child.material.side = THREE.DoubleSide;
     }

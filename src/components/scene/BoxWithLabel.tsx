@@ -5,7 +5,9 @@ import { Html } from "@react-three/drei";
 import { Lightbulb } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEntity } from "@hakit/core";
+import { useHome } from "@/context/HomeContext";
 
+import { hash } from "three/src/nodes/TSL.js";
 type Point = { x: number; y: number };
 interface BoxWithLabelProps extends ComponentProps {
   room: any;
@@ -20,6 +22,8 @@ const BoxWithLabel: React.FC<BoxWithLabelProps> = ({
   hassEntity,
 }) => {
   const entity = useEntity(hassEntity);
+  const { setFocusedItem } = useHome();
+
   const [rotation, setRotation] = React.useState(0);
 
   const middlePoint: Point = React.useMemo(() => {
@@ -40,10 +44,32 @@ const BoxWithLabel: React.FC<BoxWithLabelProps> = ({
       y: center_y + Number(yOffset),
     };
   }, [room, xOffset, yOffset]);
+
   const toggleLight = () => {
     entity.service.toggle();
     setRotation(rotation + 360);
     console.log("LIIGHT");
+  };
+  const clickTimeout = React.useRef(null);
+
+  React.useEffect(() => {
+    return () => clearTimeout(clickTimeout.current);
+  }, []);
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+    if (e.detail === 1) {
+      clickTimeout.current = setTimeout(() => {
+        console.log("single click");
+        toggleLight();
+      }, 150);
+    } else if (e.detail === 2) {
+      clearTimeout(clickTimeout.current);
+      setFocusedItem({
+        type: entity.entity_id.split(".")[0],
+        hassID: entity.entity_id,
+      });
+    }
   };
   return (
     <mesh>
@@ -60,7 +86,7 @@ const BoxWithLabel: React.FC<BoxWithLabelProps> = ({
           }}
           whileHover={{ scale: 1.1 }}
           transition={{ type: "spring", stiffness: 100, damping: 20 }}
-          onClick={toggleLight}
+          onClick={handleClick}
         >
           <Lightbulb className={`font-bold`} size={24} strokeWidth={3} />
         </motion.div>

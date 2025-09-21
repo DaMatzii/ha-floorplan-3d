@@ -62,7 +62,10 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
           rotation={[-Math.PI / 2, 0, 0]}
           distanceFactor={1}
           transform
-          occlude
+          onClick={() => {
+            console.log("lol");
+          }}
+          // occlude
         >
           <div
             style={{
@@ -70,6 +73,8 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
               fontSize: fontSize + "px",
               userSelect: "none",
               cursor: "default",
+              // zIndex: -1,
+              pointerEvents: "none",
             }}
           >
             <div className="flex flex-col items-center justify-center z-0">

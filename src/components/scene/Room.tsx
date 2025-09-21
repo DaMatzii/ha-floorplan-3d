@@ -1,23 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import type { ComponentProps } from "../Components.ts";
-import ReactDOM from "react-dom/client";
-// import Light from "../Light.tsx";
 import { Shape } from "three";
 import * as THREE from "three";
-import { useBounds } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
-import registry from "@/utils/Components";
+import registry from "@/utils/Components.js";
 import type { JSX } from "react/jsx-runtime";
-// import { useHome } from "../HomeContext.ts";
+import type { Room } from "@/types/Room";
+
+import { useHome } from "@/context/HomeContext";
 // import { palette } from "../Colorpalette.ts";
 
 type Point = { x: number; y: number };
 interface RoomMeshProps {
   points: Point[];
   color: string;
-}
-interface RoomProps extends ComponentProps {
-  point: any;
 }
 
 function renderRoomItems(root: any) {
@@ -58,7 +54,88 @@ function renderRoomItems(root: any) {
   return renderList;
 }
 
-const Room: React.FC<RoomProps> = (room) => {
+function RoomClickBox({ room }: any) {
+  const colors = [
+    "#e74c3c",
+    "#3498db",
+    "#2ecc71",
+    "#9b59b6",
+    "#f1c40f",
+    "#1abc9c",
+    "#e67e22",
+    "#ecf0f1",
+  ];
+
+  const { setFocusedItem } = useHome();
+  const randomColor = React.useMemo(() => {
+    const idx = Math.floor(Math.random() * colors.length);
+    return colors[idx];
+  }, []);
+  // if (!room.point) {
+  // return;
+  // }
+
+  // console.log("ROOMBLICKBOX: ", room);
+  // console.log(room.point[0]);
+  const geometry = React.useMemo(() => {
+    const shape = new Shape();
+    shape.moveTo(room.point[0].x / 100, room.point[0].y / 100);
+    for (let i = 1; i < room.point.length; i++) {
+      shape.lineTo(
+        (room.point[i].x as number) / 100,
+        (room.point[i].y as number) / 100,
+      );
+    }
+    const extrudeSettings = {
+      steps: 2,
+      depth: -2.3,
+      bevelEnabled: true,
+      bevelThickness: 0.1,
+      bevelSize: 0.1,
+      bevelSegments: 1,
+    };
+
+    const geom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+    geom.computeBoundingBox();
+    geom.computeBoundingSphere();
+    geom.computeVertexNormals();
+
+    return geom;
+  }, []);
+
+  return (
+    <>
+      <mesh
+        geometry={geometry}
+        rotation={[Math.PI / 2, 0, 0]}
+        onClick={(e) => {
+          e.stopPropagation();
+          let id = room.hassAreaId ? room.hassAreaId : room.id;
+          console.log(room.name);
+          console.log(e);
+          setFocusedItem({
+            hassID: id,
+            type: "room",
+          });
+        }}
+      >
+        {/* <meshStandardMaterial color="orange" side={THREE.DoubleSide} /> */}
+        <meshBasicMaterial
+          color={randomColor}
+          transparent={true}
+          opacity={0} // fully invisible
+          // alphaTest={0} // allows raycasting
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+    </>
+  );
+}
+
+const Room: React.FC<Room> = (room) => {
+  if (!room) {
+    return <></>;
+  }
   const [elems, setElems] = useState();
   const ref = useRef(0);
 
@@ -67,26 +144,16 @@ const Room: React.FC<RoomProps> = (room) => {
   }, [room]);
   return (
     <>
-      {elems}
+      <RoomClickBox room={room} />
       {/* {room.name === "" ? 0 : <RoomMesh room={room} points={room.point} />} */}
+
+      {elems}
     </>
   );
 };
 export default Room;
 
 const RoomMesh: React.FC<RoomMeshProps> = ({ room, points }) => {
-  // const [colorMap, normalMap, roughnessMap, aoMap] = useLoader(
-  //   THREE.TextureLoader,
-  //   [
-  //     "models/tex/WoodenPlanks04_2K_BaseColor.png",
-  //     "models/tex/WoodenPlanks04_2K_Normal.png",
-  //     "models/tex/WoodenPlanks04_2K_Roughness.png",
-  //     "models/tex/WoodenPlanks04_2K_AO.png",
-  //   ],
-  // );
-  if (room.name !== "Makuuhuone") {
-    // return;
-  }
   const texture = useLoader(
     THREE.TextureLoader,
     "/models/tex/WoodenPlanks04_2K_BaseColor.png",
@@ -94,10 +161,6 @@ const RoomMesh: React.FC<RoomMeshProps> = ({ room, points }) => {
 
   let x_vals = points.map((p: Point) => p.x / 100);
   let y_vals = points.map((p: Point) => p.y / 100);
-  let min_x = Math.min(...x_vals);
-  let max_x = Math.max(...x_vals);
-  let min_y = Math.min(...y_vals);
-  let max_y = Math.max(...y_vals);
   const [g, tex] = React.useMemo(() => {
     const shape = new Shape();
     shape.moveTo(points[0].x / 100, points[0].y / 100);

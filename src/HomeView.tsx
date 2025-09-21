@@ -10,16 +10,16 @@ import { OrbitControls, PerspectiveCamera, useHelper } from "@react-three/drei";
 import * as THREE from "three";
 // import House from "./House";
 import { Routes, Route, Link } from "react-router-dom";
-import { HassConnect, useEntity } from "@hakit/core";
+import { HassConnect, useEntity, useAreas } from "@hakit/core";
 import SliderTest from "@/components/ui/SliderTest";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { useHome } from "@/context/HomeContext";
 import { useFloorplan } from "./hooks/useFloorplan.tsx";
 
 import { backgroundBlurriness } from "three/src/nodes/TSL.js";
-import Scene from "./components/Scene";
+import FloorplanView from "./components/FloorplanView";
 import { BottomSheet } from "@/components/ui/Bottomsheet";
-import registry from "@/utils/Components";
+import registry from "@/utils/Components.js";
 
 type DebugCameraProps = {
   makeDefault?: boolean;
@@ -67,13 +67,24 @@ export default function HomeView() {
   // if (loading) return null;
 
   const [activeCamera, setActiveCamera] = useState(1); // default to debug view
+  const [isBottomSheetToggled, setBottomSheetToggle] = useState(false); // default to debug view
+  const { home, focusedItem } = useHome();
 
-  const camera = useRef<THREE.PerspectiveCamera>(null);
-  const { home, currentRoom, focused } = useHome();
+  const sheetRef = useRef<{
+    open: () => void;
+    close: () => void;
+    toggle: () => void;
+  }>(null);
 
-  let Comp = registry.getParser("hass-ui-light");
+  const Comp =
+    focusedItem.type !== ""
+      ? registry.getParser("ui-hass-" + focusedItem.type)
+      : null;
 
-  console.log(home);
+  React.useLayoutEffect(() => {
+    sheetRef.current.open();
+  }, [focusedItem]);
+
   return (
     <>
       <div
@@ -106,31 +117,10 @@ export default function HomeView() {
               backgroundColor: "#000000",
             }}
           >
-            <Canvas
-              shadows
-              dpr={[1, 2]}
-              camera={{
-                fov: 45,
-                near: 0.1,
-                far: 1000000,
-                position: [10, 15, 20],
-              }}
-            >
-              <PerspectiveCamera position={[0, 0, 10]} makeDefault />
-              <DebugCamera
-                ref={camera}
-                makeDefault={activeCamera === DEBUG_CAMERA}
-              />
-
-              {/* <Scene mainCamera={camera} /> */}
-
-              {activeCamera === NORMAL_CAMERA ? <OrbitControls /> : <></>}
-            </Canvas>
+            <FloorplanView activeCamera={activeCamera} />
           </div>
         </div>
-        <BottomSheet>
-          <Comp />,<p>lol</p>
-        </BottomSheet>
+        <BottomSheet ref={sheetRef}>{Comp ? <Comp /> : 0}</BottomSheet>
       </div>
     </>
   );
