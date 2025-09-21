@@ -7,15 +7,14 @@ import React, {
 } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import HomeView from "./HomeView";
-import TestView from "./TestView";
 import { HassConnect, useStore } from "@hakit/core";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 
-import { HomeProvider } from "./HomeContext";
-import { parseHome, renderHome } from "./Parser";
-import type Home from "./Home.ts";
+import { HomeProvider } from "@/context/HomeContext";
+import { parseHome, renderHome } from "@/utils/Parser";
+import type Home from "@/types/Home.ts";
 
-import { useFloorplan } from "./hooks/useFloorplan.tsx";
+import { useFloorplan } from "./hooks/useFloorplan";
 
 function SomeComponent() {
   const connection = useStore((state) => state.connection);
@@ -61,7 +60,7 @@ const App: React.FC = () => {
             <Routes>
               <Route path="/" element={<HomeView />} />
               {/* <Route path="/about" element={<About />} /> */}
-              <Route path="/test" element={<TestView />} />
+              {/* <Route path="/test" element={<TestView />} /> */}
             </Routes>
           </HomeProvider>
         </HassConnect>

@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsx", // or "react" for older versions
+    "composite": true,
+    "jsx": "react-jsx",
     "esModuleInterop": true,
     "moduleResolution": "node",
     "module": "esnext",
     "target": "esnext",
-    "lib": ["dom", "esnext"]
+    "lib": ["dom", "esnext"],
+    "outDir": "./dist",           // required for composite projects
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  // "include": ["src"],
 }

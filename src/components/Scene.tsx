@@ -1,15 +1,9 @@
-import { useThree } from "@react-three/fiber";
-import { Shape, Vector3, PerspectiveCamera, Box3, MathUtils } from "three";
 import { a, useSpring } from "@react-spring/three";
 import { useEffect, useState, useRef } from "react";
-import React from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { useControls, button, folder } from "leva";
-import Light from "./Light";
-import type Home from "./Home.ts";
-import { parseHome, renderHome } from "./Parser";
-import TempTest from "./TempTest";
-import { OBJLoader } from "three-stdlib";
+import Light from "@/utils/Light";
+import type Home from "@/types/Home.ts";
+import { parseHome, renderHome } from "@/utils/Parser";
 
 import {
   Html,
@@ -18,11 +12,11 @@ import {
   Environment,
   Bounds,
 } from "@react-three/drei";
-import { useHome } from "./HomeContext";
+import { useHome } from "@/context/HomeContext";
 
 import * as THREE from "three";
 
-function House({ mainCamera }) {
+function Scene({ mainCamera }) {
   const [xml, setXml] = useState<XMLDocument>();
   // const [home, setHome] = useState<Home>();
   const [elems, setElems] = useState();
@@ -163,4 +157,4 @@ function House({ mainCamera }) {
     </>
   );
 }
-export default House;
+export default Scene;

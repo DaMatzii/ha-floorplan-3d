@@ -8,7 +8,7 @@ import React, {
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera, useHelper } from "@react-three/drei";
 import * as THREE from "three";
-import House from "./House";
+// import House from "./House";
 import { Routes, Route, Link } from "react-router-dom";
 import { HassConnect, useEntity } from "@hakit/core";
 import SliderTest from "./SliderTest";

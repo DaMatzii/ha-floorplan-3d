@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import type { Room } from "./Room";
-import { useHome } from "./HomeContext";
+import { useHome } from "@/context/HomeContext";
 const box: React.CSSProperties = {
   width: 52,
   height: 52,

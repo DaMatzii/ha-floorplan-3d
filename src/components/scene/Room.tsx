@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import type { ComponentProps } from "../Components.ts";
 import ReactDOM from "react-dom/client";
-import Light from "../Light.tsx";
+// import Light from "../Light.tsx";
 import { Shape } from "three";
 import * as THREE from "three";
 import { useBounds } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
-import registry from "../Components.ts";
+import registry from "@/utils/Components";
 import type { JSX } from "react/jsx-runtime";
-import { useHome } from "../HomeContext.ts";
-import { palette } from "../Colorpalette.ts";
+// import { useHome } from "../HomeContext.ts";
+// import { palette } from "../Colorpalette.ts";
 
 type Point = { x: number; y: number };
 interface RoomMeshProps {
@@ -68,7 +68,7 @@ const Room: React.FC<RoomProps> = (room) => {
   return (
     <>
       {elems}
-      {room.name === "" ? 0 : <RoomMesh room={room} points={room.point} />}
+      {/* {room.name === "" ? 0 : <RoomMesh room={room} points={room.point} />} */}
     </>
   );
 };

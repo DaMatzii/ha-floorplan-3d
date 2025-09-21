@@ -8,16 +8,17 @@ import React, {
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera, useHelper } from "@react-three/drei";
 import * as THREE from "three";
-import House from "./House";
+// import House from "./House";
 import { Routes, Route, Link } from "react-router-dom";
 import { HassConnect, useEntity } from "@hakit/core";
-import SliderTest from "./SliderTest";
+import SliderTest from "@/components/ui/SliderTest";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { useHome } from "./HomeContext";
+import { useHome } from "@/context/HomeContext";
 import { useFloorplan } from "./hooks/useFloorplan.tsx";
 
 import { backgroundBlurriness } from "three/src/nodes/TSL.js";
-import 
+import Scene from "./components/Scene";
+
 type DebugCameraProps = {
   makeDefault?: boolean;
 };
@@ -119,6 +120,7 @@ export default function HomeView() {
               {/* <directionalLight position={[0, 500, 500]} /> */}
               {/* <OrbitControls enableRotate={true} /> */}
               {/* <House mainCamera={camera} /> */}
+              <Scene mainCamera={camera} />
 
               {/* <gridHelper args={[2000, 20]} /> */}
               {activeCamera === NORMAL_CAMERA ? <OrbitControls /> : <></>}
