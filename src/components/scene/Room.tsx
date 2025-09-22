@@ -65,6 +65,8 @@ function RoomClickBox({ room }: any) {
     "#e67e22",
     "#ecf0f1",
   ];
+  const [color, setColor] = useState("orange");
+  const [opacity, setOpacity] = useState(0);
 
   const { setFocusedItem } = useHome();
   const randomColor = React.useMemo(() => {
@@ -113,6 +115,11 @@ function RoomClickBox({ room }: any) {
           let id = room.hassAreaId ? room.hassAreaId : room.id;
           console.log(room.name);
           console.log(e);
+
+          // setOpacity(1);
+          // setTimeout(() => {
+          // setOpacity(0);
+          // }, 500);
           setFocusedItem({
             hassID: id,
             type: "room",
@@ -123,8 +130,8 @@ function RoomClickBox({ room }: any) {
         <meshBasicMaterial
           color={randomColor}
           transparent={true}
-          opacity={0} // fully invisible
-          // alphaTest={0} // allows raycasting
+          opacity={opacity} // fully invisible
+          alphaTest={0} // allows raycasting
           side={THREE.DoubleSide}
         />
       </mesh>

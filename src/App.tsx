@@ -13,8 +13,10 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { HomeProvider } from "@/context/HomeContext";
 import { parseHome, renderHome } from "@/utils/Parser";
 import type Home from "@/types/Home.ts";
+import HassLight from "@/components/ui/HassLight_test";
 
 import { useFloorplan } from "./hooks/useFloorplan";
+import EditorView from "@/EditorView";
 
 function SomeComponent() {
   const connection = useStore((state) => state.connection);
@@ -59,6 +61,8 @@ const App: React.FC = () => {
           <HomeProvider home={home}>
             <Routes>
               <Route path="/" element={<HomeView />} />
+              <Route path="/light" element={<HassLight />} />
+              <Route path="/editor" element={<EditorView />} />
               {/* <Route path="/about" element={<About />} /> */}
               {/* <Route path="/test" element={<TestView />} /> */}
             </Routes>

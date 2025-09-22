@@ -21,28 +21,6 @@ import FloorplanView from "./components/FloorplanView";
 import { BottomSheet } from "@/components/ui/Bottomsheet";
 import registry from "@/utils/Components.js";
 
-type DebugCameraProps = {
-  makeDefault?: boolean;
-};
-const DebugCamera = forwardRef<THREE.PerspectiveCamera, DebugCameraProps>(
-  ({ makeDefault }, ref) => {
-    const internalRef = useRef<THREE.PerspectiveCamera>(null);
-
-    // Expose internal ref to parent if provided
-    React.useImperativeHandle(ref, () => internalRef.current!, []);
-
-    // Attach a CameraHelper
-    useHelper(internalRef, THREE.CameraHelper, "cyan");
-
-    return (
-      <PerspectiveCamera
-        ref={internalRef}
-        makeDefault={makeDefault}
-        position={[0, 0, 0]}
-      />
-    );
-  },
-);
 const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
 const Button = ({ onClick, children }) => {
@@ -70,20 +48,10 @@ export default function HomeView() {
   const [isBottomSheetToggled, setBottomSheetToggle] = useState(false); // default to debug view
   const { home, focusedItem } = useHome();
 
-  const sheetRef = useRef<{
-    open: () => void;
-    close: () => void;
-    toggle: () => void;
-  }>(null);
-
   const Comp =
     focusedItem.type !== ""
       ? registry.getParser("ui-hass-" + focusedItem.type)
       : null;
-
-  React.useLayoutEffect(() => {
-    sheetRef.current.open();
-  }, [focusedItem]);
 
   return (
     <>
@@ -95,7 +63,7 @@ export default function HomeView() {
           left: 20,
           display: "flex",
           flexDirection: "column",
-          gap: "10px", // space between buttons
+          gap: "10px",
         }}
       >
         <Button
@@ -120,7 +88,7 @@ export default function HomeView() {
             <FloorplanView activeCamera={activeCamera} />
           </div>
         </div>
-        <BottomSheet ref={sheetRef}>{Comp ? <Comp /> : 0}</BottomSheet>
+        <BottomSheet>{Comp ? <Comp /> : 0}</BottomSheet>
       </div>
     </>
   );

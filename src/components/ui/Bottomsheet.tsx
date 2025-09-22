@@ -2,60 +2,43 @@ import React, { useRef, useEffect } from "react";
 import SliderTest from "./SliderTest";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { useHome } from "@/context//HomeContext";
+import BottomSheetContext from "@/context/BottomSheetContext";
 
-interface BottomSheetHandle {
-  open: () => void;
-  close: () => void;
-  toggle: () => void;
-}
-type BottomSheetProps = {
-  children: React.ReactNode;
-  toggle?: () => void;
-};
-
-export const BottomSheet = React.forwardRef<
-  BottomSheetHandle,
-  BottomSheetProps
->(({ children }, ref) => {
-  const { home, currentRoom } = useHome();
+export const BottomSheet = ({ children }) => {
+  const { home } = useHome();
   const targetRef = useRef<HTMLDivElement>(null);
   const y = useMotionValue(0);
   const [isOpen, setIsOpen] = React.useState(false);
+  const [openY, setOpenY] = React.useState(0);
 
   const [constraints, setConstraints] = React.useState({
     top: 0,
-    bottom: 50,
+    bottom: 0,
   });
 
-  React.useImperativeHandle(ref, () => ({
-    open: () => setIsOpen(true),
-    close: () => setIsOpen(false),
-    toggle: () => setIsOpen((prev) => !prev),
-  }));
-
   useEffect(() => {
-    function updatePosition() {
-      if (targetRef.current) {
-        const rect = targetRef.current.getBoundingClientRect();
-        y.set(window.innerHeight - (rect.bottom - rect.top) / 2 - 48);
-        setConstraints({
-          top: window.innerHeight * 0.25,
-          bottom: window.innerHeight - (rect.bottom - rect.top) / 2 - 48,
-        });
-      }
-    }
+    if (targetRef.current) {
+      const rect = targetRef.current.getBoundingClientRect();
+      const newConstraints = {
+        top: window.innerHeight * 0.25,
+        bottom: window.innerHeight - (rect.bottom - rect.top) / 2 - 48,
+      };
 
-    updatePosition();
+      setOpenY(newConstraints.top);
+      setConstraints(newConstraints);
+      y.set(newConstraints.bottom);
+    }
   }, [y]);
 
   useEffect(() => {
-    const target = isOpen ? window.innerHeight * 0.25 : constraints.bottom;
+    const target = isOpen ? openY : constraints.bottom;
+
     animate(y, target, {
       type: "spring",
       stiffness: 300,
       damping: 30,
     });
-  }, [isOpen]);
+  }, [isOpen, constraints, openY]);
 
   const handleDragEnd = (_: any, info: { delta: { x: number; y: number } }) => {
     const isOpening = info.delta.y < 0;
@@ -86,7 +69,11 @@ export const BottomSheet = React.forwardRef<
           <div className="w-16 h-1.5 bg-gray-400 mt-1 rounded-full cursor-grab" />
         </div>
 
-        <div className="bottom z-1 mt-4 ml-4">{children}</div>
+        <BottomSheetContext.Provider
+          value={{ isOpen, openY, setIsOpen, setOpenY }}
+        >
+          <div className="mt-3">{children}</div>
+        </BottomSheetContext.Provider>
       </motion.div>
       <div
         ref={targetRef}
@@ -96,4 +83,4 @@ export const BottomSheet = React.forwardRef<
       </div>
     </>
   );
-});
+};

@@ -56,53 +56,49 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
   }, [room]);
   return (
     <>
-      <mesh>
-        <Html
-          position={[middlePoint.x - xOffset, 1, middlePoint.y - yOffset]}
-          rotation={[-Math.PI / 2, 0, 0]}
-          distanceFactor={1}
-          transform
-          onClick={() => {
-            console.log("lol");
+      <Html
+        position={[middlePoint.x - xOffset, 0, middlePoint.y - yOffset]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        distanceFactor={1}
+        transform
+        onClick={() => {
+          console.log("lol");
+        }}
+        key={"tempDislay" + room.id}
+        pointerEvents="none"
+        // occlude
+      >
+        <div
+          style={{
+            color: "white",
+            fontSize: fontSize + "px",
+            userSelect: "none",
+            cursor: "default",
           }}
-          // occlude
         >
-          <div
-            style={{
-              color: "white",
-              fontSize: fontSize + "px",
-              userSelect: "none",
-              cursor: "default",
-              // zIndex: -1,
-              pointerEvents: "none",
-            }}
-          >
-            <div className="flex flex-col items-center justify-center z-0">
-              <div className="flex items-start text-white">
-                <span className={"text-[" + fontSize + "px] font-bold"}>
-                  {reading.temperature}
-                </span>
-                <span className={"text-[" + (fontSize - 100) + "px] mt-30"}>
-                  °C
-                </span>
-              </div>
+          <div className="flex flex-col items-center justify-center z-0">
+            <div className="flex items-start text-white">
+              <span className={"text-[" + fontSize + "px] font-bold"}>
+                {reading.temperature}
+              </span>
+              <span className={"text-[" + (fontSize - 100) + "px] mt-30"}>
+                °C
+              </span>
+            </div>
 
-              <div className="flex items-start -mt-30 text-white">
-                <span className={"text-[" + fontSize + "px]"}>
-                  {reading.humidity}
-                </span>
-                <span
-                  className={
-                    "text-[" + (fontSize - 100) + "px] font-bold mt-40"
-                  }
-                >
-                  %
-                </span>
-              </div>
+            <div className="flex items-start -mt-30 text-white">
+              <span className={"text-[" + fontSize + "px]"}>
+                {reading.humidity}
+              </span>
+              <span
+                className={"text-[" + (fontSize - 100) + "px] font-bold mt-40"}
+              >
+                %
+              </span>
             </div>
           </div>
-        </Html>
-      </mesh>
+        </div>
+      </Html>
     </>
   );
 };
