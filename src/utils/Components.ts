@@ -33,6 +33,7 @@ export class ComponentRegistry {
 			| undefined;
 	}
 }
+
 const registry = new ComponentRegistry();
 registry.register("wall", Wall);
 registry.register("pieceOfFurniture", Furniture);

@@ -1,0 +1,32 @@
+building1:
+  title: "Home"
+  floorplan_name: "house.xml"
+
+  objects:
+    - type: light
+      entity: light.hue_lightstrip_plus_1
+      position: 
+        x: 0
+        y: 0
+        z: 0
+    - type: temperatureDisplay
+      position:
+        x: 0
+        y: 0
+        z: 0
+building2:
+  title: "Home"
+  floorplan_name: "house.xml"
+
+  objects:
+    - type: light
+      entity: light.hue_lightstrip_plus_1
+      position: 
+        x: 0
+        y: 0
+        z: 0
+    - type: temperatureDisplay
+      position:
+        x: 0
+        y: 0
+        z: 0

@@ -15,8 +15,10 @@ import { parseHome, renderHome } from "@/utils/Parser";
 import type Home from "@/types/Home.ts";
 import HassLight from "@/components/ui/HassLight_test";
 
-import { useFloorplan } from "./hooks/useFloorplan";
+import { useBuilding } from "./hooks/useFloorplan";
+
 import EditorView from "@/EditorView";
+import { useAppConfigs } from "./hooks/useConfig";
 
 function SomeComponent() {
   const connection = useStore((state) => state.connection);
@@ -31,20 +33,28 @@ function SomeComponent() {
 function Error() {
   return <p>erroororor</p>;
 }
-
+//Config
+//Load buildings
+//Add buildings to things to render
 const App: React.FC = () => {
-  const { floorplan, loading } = useFloorplan();
-  const [home, setHome] = useState<Home>();
+  const { floorplan, entities, loading } = useBuilding();
+  const [parsedFloorplan, setFloorplan] = useState<Home>();
+  const config = useAppConfigs();
+  // const [parsed_entities, setEntities] = useState<Home>();
 
   useEffect(() => {
     if (floorplan !== undefined) {
-      setHome(parseHome(floorplan));
+      // const [building, floorplan_entities] = parseHome(floorplan, entities);
+      // setFloorplan(building);
+      // console.log(floorplan_entities);
+      // setEntities(building.entities);
     }
-  }, [loading]);
+    console.log(config);
+  }, [config]);
 
   return (
     <>
-      {home === undefined ? (
+      {parsedFloorplan === undefined ? (
         "No home no page"
       ) : (
         <HassConnect
@@ -58,7 +68,7 @@ const App: React.FC = () => {
             },
           }}
         >
-          <HomeProvider home={home}>
+          <HomeProvider home={parsedFloorplan}>
             <Routes>
               <Route path="/" element={<HomeView />} />
               <Route path="/light" element={<HassLight />} />

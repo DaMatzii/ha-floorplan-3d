@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
-import type Home from "./Home";
+import type Home from "@/types/Home";
 
 interface FocusedItem {
   type: string;

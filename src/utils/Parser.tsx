@@ -2,6 +2,7 @@ import { XMLParser } from "fast-xml-parser";
 import registry from "./Components.ts";
 import type Home from "./Home.ts";
 import type { JSX } from "react/jsx-runtime";
+import YAML from "yaml";
 
 export function renderHome(root: any): any {
   console.log("RENDERHOME RUN");
@@ -37,12 +38,20 @@ export function renderHome(root: any): any {
   }
   return renderList;
 }
-export function parseHome(xmlText: string): Home {
+export function parseHome(
+  xmlText: string,
+  entitiesText: string,
+): [home: Home, entities: any] {
   const parser = new XMLParser({
     ignoreAttributes: false,
     attributeNamePrefix: "",
   });
   const jsonObj = parser.parse(xmlText);
+  const entities = YAML.parse(entitiesText);
+  const home: Home = {
+    entities: entities,
+    buildings: [jsonObj],
+  };
 
-  return jsonObj.home as Home;
+  return home;
 }
