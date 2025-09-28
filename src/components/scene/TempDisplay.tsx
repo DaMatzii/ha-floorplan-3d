@@ -8,17 +8,17 @@ type Point = { x: number; y: number };
 type TemperatureSensor = { temperature: number; humidity: number };
 interface TemperatureDisplayProps extends ComponentProps {
   hassId: any;
-  room: any;
-  xOffset: any;
-  yOffset: any;
+  topSensor: string;
+  bottomSensor: string;
+  position: any;
   fontSize: number;
   // points: Point[];
 }
 const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
   hassId,
-  room,
-  xOffset,
-  yOffset,
+  topSensor,
+  bottomSensor,
+  position,
   fontSize,
 }) => {
   const [reading, setReading] = React.useState<TemperatureSensor>({
@@ -27,10 +27,7 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
   }); // default to debug view
   // console.log(hassId);
 
-  const lightStrip = useEntities([
-    "sensor.atc_651c_temperature",
-    "sensor.atc_651c_humidity",
-  ]);
+  const lightStrip = useEntities([topSensor, bottomSensor]);
   React.useEffect(() => {
     console.log("LIGHTSTRIP ", lightStrip);
     setReading({
@@ -38,33 +35,17 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
       humidity: Number(lightStrip[1]["state"]),
     });
   }, []);
-  console.log(room);
-  const middlePoint: Point = React.useMemo(() => {
-    // console.log(room);
-    let x_vals = room.point.map((p: Point) => p.x / 100);
-    let y_vals = room.point.map((p: Point) => p.y / 100);
-    let min_x = Math.min(...x_vals);
-    let max_x = Math.max(...x_vals);
-    let min_y = Math.min(...y_vals);
-    let max_y = Math.max(...y_vals);
-    let width = max_x - min_x;
-    let height = max_y - min_y;
-    let center_x = min_x + width / 2;
-    let center_y = min_y + height / 2;
-    return { x: center_x, y: center_y };
-    // return { x: 10, y: 10 };
-  }, [room]);
+
   return (
     <>
       <Html
-        position={[middlePoint.x - xOffset, 0, middlePoint.y - yOffset]}
+        position={[position.x / 100, position.z / 100, position.y / 100]}
         rotation={[-Math.PI / 2, 0, 0]}
         distanceFactor={1}
         transform
         onClick={() => {
           console.log("lol");
         }}
-        key={"tempDislay" + room.id}
         pointerEvents="none"
         // occlude
       >
@@ -86,12 +67,12 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
               </span>
             </div>
 
-            <div className="flex items-start -mt-30 text-white">
+            <div className="flex items-start -mt-40 text-white">
               <span className={"text-[" + fontSize + "px]"}>
                 {reading.humidity}
               </span>
               <span
-                className={"text-[" + (fontSize - 100) + "px] font-bold mt-40"}
+                className={"text-[" + (fontSize - 100) + "px] font-bold mt-30"}
               >
                 %
               </span>

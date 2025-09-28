@@ -21,6 +21,7 @@ const Wall: React.FC<WallProps> = ({
   yStart,
   height,
   thickness,
+  building,
 }) => {
   const { home } = useHome();
   const real_xEnd = xEnd / 100;
@@ -63,7 +64,7 @@ const Wall: React.FC<WallProps> = ({
 
     let sub = wallMesh;
 
-    home.doorOrWindow.forEach((doorOrWindow: any) => {
+    building?.doorOrWindow.forEach((doorOrWindow: any) => {
       if (doorOrWindow.elevation === undefined) {
         doorOrWindow.elevation = 0;
       }
@@ -100,14 +101,6 @@ const Wall: React.FC<WallProps> = ({
         sub = CSG.subtract(sub, cutMesh);
       }
     });
-
-    // Perform subtraction
-
-    // Return BufferGeometry for R3F
-    // if (sub === undefined) {
-    // return box1.geometry;
-    // }
-    // console.log(cutting_boxes);
 
     return sub.geometry;
   }, [home]);

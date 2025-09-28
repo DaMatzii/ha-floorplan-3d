@@ -79,7 +79,7 @@ export const BottomSheet = ({ children }) => {
         ref={targetRef}
         className="bottom-0 h-12 left-0 w-screen bg-white absolute z-10"
       >
-        <SliderTest rooms={home.room} />
+        <SliderTest />
       </div>
     </>
   );

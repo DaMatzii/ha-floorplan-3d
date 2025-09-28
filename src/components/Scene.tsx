@@ -12,12 +12,31 @@ import { useHome } from "@/context/HomeContext";
 
 const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
+function Building({ building }) {
+  const [floorplanElems, setFloorplanElems] = useState();
+  const [entityElems, setEntityElems] = useState();
+  // const [target, setTarget] = useState([0, 0, 10]);
+
+  // const camera = useRef<THREE.PerspectiveCamera>(null);
+
+  useEffect(() => {
+    console.log(building.floorplan);
+    const [floorplan, entities] = renderHome(building);
+    setFloorplanElems(floorplan);
+    setEntityElems(entities);
+  }, [building]);
+
+  return (
+    <>
+      {floorplanElems}
+      {entityElems}
+    </>
+  );
+}
 
 function Scene({ activeCamera }) {
-  const [xml, setXml] = useState<XMLDocument>();
   // const [home, setHome] = useState<Home>();
-  const [elems, setElems] = useState();
-  const { home, setHome, currentRoom } = useHome();
+  const { home, currentRoom } = useHome();
   const [target, setTarget] = useState([0, 0, 10]);
 
   const camera = useRef<THREE.PerspectiveCamera>(null);
@@ -58,23 +77,19 @@ function Scene({ activeCamera }) {
   };
 
   useEffect(() => {
-    setElems(renderHome(home));
-    console.log(home);
-  }, [home]);
-
-  useEffect(() => {
-    console.log("xml updated:", xml);
-    if (xml !== undefined) {
-      console.log((xml as XMLDocument).getElementsByName("room"));
-    }
-  }, [xml]);
-
-  useEffect(() => {
     if (home === undefined) {
       return;
     }
-    focus(home.room[currentRoom]);
+    //move to useMemo or out of useEffect
+    let rooms = [];
+    for (let i = 0; i < home.buildings.length; i++) {
+      const building = home.buildings[i];
+      rooms.push(...building.floorplan?.room);
+    }
+
+    focus(rooms[currentRoom]);
   }, [currentRoom]);
+  console.log(home.buildings[0]);
 
   return (
     <>
@@ -83,10 +98,10 @@ function Scene({ activeCamera }) {
 
       {activeCamera === NORMAL_CAMERA ? <OrbitControls /> : <></>}
       {/* <RoomButtons rooms={home?.room} mainCameraRef={mainCamera} /> */}
-      {elems}
 
       {/* <Environment preset="apartment" /> */}
       <ambientLight intensity={0.3} color="0xffffff" />
+      <Building building={home.buildings[0]} />
 
       {/* <directionalLight position={[6, 25, -4]} intensity={2} castShadow /> */}
       {/* <TexturedBox /> */}

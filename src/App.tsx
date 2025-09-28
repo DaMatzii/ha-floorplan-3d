@@ -38,23 +38,12 @@ function Error() {
 //Add buildings to things to render
 const App: React.FC = () => {
   const { floorplan, entities, loading } = useBuilding();
-  const [parsedFloorplan, setFloorplan] = useState<Home>();
   const config = useAppConfigs();
   // const [parsed_entities, setEntities] = useState<Home>();
 
-  useEffect(() => {
-    if (floorplan !== undefined) {
-      // const [building, floorplan_entities] = parseHome(floorplan, entities);
-      // setFloorplan(building);
-      // console.log(floorplan_entities);
-      // setEntities(building.entities);
-    }
-    console.log(config);
-  }, [config]);
-
   return (
     <>
-      {parsedFloorplan === undefined ? (
+      {config === undefined ? (
         "No home no page"
       ) : (
         <HassConnect
@@ -68,7 +57,7 @@ const App: React.FC = () => {
             },
           }}
         >
-          <HomeProvider home={parsedFloorplan}>
+          <HomeProvider home={config}>
             <Routes>
               <Route path="/" element={<HomeView />} />
               <Route path="/light" element={<HassLight />} />

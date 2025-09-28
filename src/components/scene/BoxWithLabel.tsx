@@ -11,42 +11,21 @@ import { hash } from "three/src/nodes/TSL.js";
 type Point = { x: number; y: number };
 interface BoxWithLabelProps extends ComponentProps {
   room: any;
-  xOffset: number;
-  yOffset: number;
-  hassEntity: string;
+  position: any;
+  entity: string;
 }
 const BoxWithLabel: React.FC<BoxWithLabelProps> = ({
   room,
-  xOffset,
-  yOffset,
-  hassEntity,
+  position,
+  entity,
 }) => {
-  const entity = useEntity(hassEntity);
+  const hassEntity = useEntity(entity);
   const { setFocusedItem } = useHome();
 
   const [rotation, setRotation] = React.useState(0);
 
-  const middlePoint: Point = React.useMemo(() => {
-    // console.log(room);
-    console.log("OFFSETS:", xOffset, yOffset);
-    let x_vals = room.point.map((p: Point) => p.x / 100);
-    let y_vals = room.point.map((p: Point) => p.y / 100);
-    let min_x = Math.min(...x_vals);
-    let max_x = Math.max(...x_vals);
-    let min_y = Math.min(...y_vals);
-    let max_y = Math.max(...y_vals);
-    let width = max_x - min_x;
-    let height = max_y - min_y;
-    let center_x = min_x + width / 2;
-    let center_y = min_y + height / 2;
-    return {
-      x: center_x + Number(xOffset),
-      y: center_y + Number(yOffset),
-    };
-  }, [room, xOffset, yOffset]);
-
   const toggleLight = () => {
-    entity.service.toggle();
+    hassEntity.service.toggle();
     setRotation(rotation + 360);
     console.log("LIIGHT");
   };
@@ -66,8 +45,8 @@ const BoxWithLabel: React.FC<BoxWithLabelProps> = ({
     } else if (e.detail === 2) {
       clearTimeout(clickTimeout.current);
       setFocusedItem({
-        type: entity.entity_id.split(".")[0],
-        hassID: entity.entity_id,
+        type: hassEntity.entity_id.split(".")[0],
+        hassID: hassEntity.entity_id,
       });
     }
   };
@@ -77,12 +56,13 @@ const BoxWithLabel: React.FC<BoxWithLabelProps> = ({
       {/* <meshStandardMaterial color="skyblue" /> */}
 
       {/* HTML overlay */}
-      <Html position={[middlePoint.x, 3, middlePoint.y]}>
+      <Html position={[position.x / 100, position.z / 100, position.y / 100]}>
         <motion.div
           className="bg-white p-2 rounded-full"
           animate={{
             rotate: rotation,
-            color: entity.state.toLowerCase() === "on" ? "#fbbf24" : "#9ca3af",
+            color:
+              hassEntity.state.toLowerCase() === "on" ? "#fbbf24" : "#9ca3af",
           }}
           whileHover={{ scale: 1.1 }}
           transition={{ type: "spring", stiffness: 100, damping: 20 }}

@@ -8,14 +8,20 @@ function getRotateY(index: any, currentItem: any) {
   return 0;
 }
 
-const SliderTest = ({ rooms }) => {
+const SliderTest = () => {
   const x = useMotionValue(0);
 
   const itemWidth = 96 + 40;
   const [currentItem, setCurrentItem] = useState(0);
 
-  const { setCurrentRoom } = useHome();
+  const { setCurrentRoom, home } = useHome();
   // console.log(rooms);
+  let rooms = [];
+  for (let i = 0; i < home.buildings.length; i++) {
+    const building = home.buildings[i];
+    rooms.push(...building.floorplan?.room);
+  }
+  console.log(rooms);
 
   const real_rooms = rooms
     .map((room, originalIndex) => ({ room, originalIndex })) // attach original index

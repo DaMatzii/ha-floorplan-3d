@@ -6,27 +6,21 @@ building1:
     - type: light
       entity: light.hue_lightstrip_plus_1
       position: 
-        x: 0
-        y: 0
-        z: 0
-    - type: temperatureDisplay
-      position:
-        x: 0
-        y: 0
-        z: 0
-building2:
-  title: "Home"
-  floorplan_name: "house.xml"
-
-  objects:
+        x: 700 
+        y: 1290 
+        z: 150
     - type: light
-      entity: light.hue_lightstrip_plus_1
+      entity: light.hue_ambiance_candle_3
       position: 
-        x: 0
-        y: 0
-        z: 0
+        x: 520 
+        y: 1140 
+        z: 150 
     - type: temperatureDisplay
+      fontSize: 200 
+      topSensor: sensor.atc_651c_temperature
+      bottomSensor: sensor.atc_651c_humidity
       position:
-        x: 0
-        y: 0
+        x: 670 
+        y: 1190 
         z: 0
+

@@ -154,7 +154,7 @@ const Room: React.FC<Room> = (room) => {
       <RoomClickBox room={room} />
       {/* {room.name === "" ? 0 : <RoomMesh room={room} points={room.point} />} */}
 
-      {elems}
+      {/* {elems} */}
     </>
   );
 };

@@ -32,16 +32,16 @@ interface Property {
 	name: string;
 	value: string;
 }
-type Building = {
+export type Building = {
 	entities: any[]
-	floorlan: Floorlan[]
+	floorplan: Floorlan[]
 }
 type Home = {
 	buildings: Building[]
 };
 export default Home
 
-interface Floorlan {
+export interface Floorlan {
 	camera: string;
 	compass: Compass;
 	dimensionLine: any[]; // array of dimension line objects

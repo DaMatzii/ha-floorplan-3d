@@ -4,7 +4,7 @@ import type Home from "./Home.ts";
 import type { JSX } from "react/jsx-runtime";
 import YAML from "yaml";
 
-export function renderHome(root: any): any {
+function renderFloorplan(root) {
   console.log("RENDERHOME RUN");
   const renderList: JSX.Element[] = [];
   let runningNumber = 0;
@@ -17,6 +17,7 @@ export function renderHome(root: any): any {
             renderList.push(
               <Comp
                 key={type + "-" + runningNumber}
+                building={root}
                 {...(root[type][value] as any)}
               />,
             );
@@ -30,13 +31,46 @@ export function renderHome(root: any): any {
       let Comp = registry.getParser(type);
       if (Comp) {
         renderList.push(
-          <Comp key={type + "-" + runningNumber} {...(root[type] as any)} />,
+          <Comp
+            key={type + "-" + runningNumber}
+            building={root}
+            {...(root[type] as any)}
+          />,
         );
         runningNumber += 1;
       }
     }
   }
   return renderList;
+}
+function renderEntities(root, building) {
+  console.log("RENDERHOME2 RUN");
+  const renderList: JSX.Element[] = [];
+  let runningNumber = 0;
+  for (const i in root) {
+    // console.log(type);
+    console.log("renderEntieis", root[i]["type"]);
+    let Comp = registry.getParser("entity-" + root[i]?.type);
+    if (Comp) {
+      renderList.push(
+        <Comp
+          key={root[i]?.type + "-" + runningNumber}
+          building={building}
+          {...(root[i] as any)}
+        />,
+      );
+      runningNumber += 1;
+    }
+  }
+  console.log(renderList);
+  return renderList;
+}
+
+export function renderHome(building: any): any {
+  const root = building?.floorplan;
+  const renderList = renderFloorplan(root);
+  const entitiesList = renderEntities(building?.objects, building.floorplan);
+  return [renderList, entitiesList];
 }
 export function parseHome(
   xmlText: string,
