@@ -20,7 +20,6 @@ function Building({ building }) {
   // const camera = useRef<THREE.PerspectiveCamera>(null);
 
   useEffect(() => {
-    console.log(building.floorplan);
     const [floorplan, entities] = renderHome(building);
     setFloorplanElems(floorplan);
     setEntityElems(entities);
@@ -35,13 +34,11 @@ function Building({ building }) {
 }
 
 function Scene({ activeCamera }) {
-  // const [home, setHome] = useState<Home>();
   const { home, currentRoom } = useHome();
   const [target, setTarget] = useState([0, 0, 10]);
 
   const camera = useRef<THREE.PerspectiveCamera>(null);
 
-  // Spring for camera position
   const { position } = useSpring({
     position: target,
     config: { mass: 100, tension: 10, friction: 0, duration: 100 },
@@ -89,7 +86,6 @@ function Scene({ activeCamera }) {
 
     focus(rooms[currentRoom]);
   }, [currentRoom]);
-  console.log(home.buildings[0]);
 
   return (
     <>

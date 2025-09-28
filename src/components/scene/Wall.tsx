@@ -13,6 +13,7 @@ interface WallProps extends ComponentProps {
   yStart: number;
   height: number;
   thickness: number;
+  building: any;
 }
 const Wall: React.FC<WallProps> = ({
   xEnd,
@@ -64,7 +65,7 @@ const Wall: React.FC<WallProps> = ({
 
     let sub = wallMesh;
 
-    building?.doorOrWindow.forEach((doorOrWindow: any) => {
+    building?.floorplan.doorOrWindow.forEach((doorOrWindow: any) => {
       if (doorOrWindow.elevation === undefined) {
         doorOrWindow.elevation = 0;
       }

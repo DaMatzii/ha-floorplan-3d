@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import type { ComponentProps } from "../Components.ts";
 import { Shape } from "three";
 import * as THREE from "three";
 import { useLoader } from "@react-three/fiber";
-import registry from "@/utils/Components.js";
-import type { JSX } from "react/jsx-runtime";
 import type { Room } from "@/types/Room";
 
+import { useHass } from "@hakit/core";
+import { evaluateAction } from "@/utils/EvaluateAction";
+
+import type { ComponentProps } from "@/utils/Components";
+
 import { useHome } from "@/context/HomeContext";
-// import { palette } from "../Colorpalette.ts";
 
 type Point = { x: number; y: number };
 interface RoomMeshProps {
@@ -16,45 +17,7 @@ interface RoomMeshProps {
   color: string;
 }
 
-function renderRoomItems(root: any) {
-  const renderList: JSX.Element[] = [];
-  console.log("RENDER RUN!!");
-  let runningNumber = 0;
-  for (const type in root) {
-    if (typeof root[type] === "object") {
-      if (Array.isArray(root[type])) {
-        for (const value in root[type]) {
-          let Comp = registry.getParser("room-" + type);
-          if (Comp) {
-            renderList.push(
-              <Comp
-                key={type + "-" + runningNumber}
-                room={root}
-                {...(root[type][value] as any)}
-              />,
-            );
-            runningNumber += 1;
-          }
-        }
-        continue;
-      }
-      let Comp = registry.getParser("room-" + type);
-      if (Comp) {
-        renderList.push(
-          <Comp
-            key={type + "-" + runningNumber}
-            room={root}
-            {...(root[type] as any)}
-          />,
-        );
-        runningNumber += 1;
-      }
-    }
-  }
-  return renderList;
-}
-
-function RoomClickBox({ room }: any) {
+function RoomClickBox({ id, points, building }: any) {
   const colors = [
     "#e74c3c",
     "#3498db",
@@ -68,24 +31,21 @@ function RoomClickBox({ room }: any) {
   const [color, setColor] = useState("orange");
   const [opacity, setOpacity] = useState(0);
 
-  const { setFocusedItem } = useHome();
+  const { callService } = useHass();
+
+  const { setFocusedItem, home } = useHome();
   const randomColor = React.useMemo(() => {
     const idx = Math.floor(Math.random() * colors.length);
     return colors[idx];
   }, []);
-  // if (!room.point) {
-  // return;
-  // }
 
-  // console.log("ROOMBLICKBOX: ", room);
-  // console.log(room.point[0]);
   const geometry = React.useMemo(() => {
     const shape = new Shape();
-    shape.moveTo(room.point[0].x / 100, room.point[0].y / 100);
-    for (let i = 1; i < room.point.length; i++) {
+    shape.moveTo(points[0].x / 100, points[0].y / 100);
+    for (let i = 1; i < points.length; i++) {
       shape.lineTo(
-        (room.point[i].x as number) / 100,
-        (room.point[i].y as number) / 100,
+        (points[i].x as number) / 100,
+        (points[i].y as number) / 100,
       );
     }
     const extrudeSettings = {
@@ -105,56 +65,69 @@ function RoomClickBox({ room }: any) {
     return geom;
   }, []);
 
+  const clickTimeout = React.useRef(null);
+
+  function handleTapAction(actionType) {
+    let room = building.rooms.find((room) => room.id === id) || { hassId: id };
+
+    evaluateAction(room[actionType], callService, {
+      "more-info": () => {
+        setFocusedItem({
+          type: "room",
+          hassID: room.hassId,
+        });
+      },
+    });
+  }
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+    if (e.detail === 1) {
+      clickTimeout.current = setTimeout(() => {
+        handleTapAction("tap_action");
+      }, 150);
+    } else if (e.detail === 2) {
+      clearTimeout(clickTimeout.current);
+
+      handleTapAction("double_tap_action");
+    }
+  };
+
   return (
     <>
       <mesh
         geometry={geometry}
         rotation={[Math.PI / 2, 0, 0]}
-        onClick={(e) => {
-          e.stopPropagation();
-          let id = room.hassAreaId ? room.hassAreaId : room.id;
-          console.log(room.name);
-          console.log(e);
-
-          // setOpacity(1);
-          // setTimeout(() => {
-          // setOpacity(0);
-          // }, 500);
-          setFocusedItem({
-            hassID: id,
-            type: "room",
-          });
-        }}
+        onClick={(e) => handleClick(e)}
       >
-        {/* <meshStandardMaterial color="orange" side={THREE.DoubleSide} /> */}
         <meshBasicMaterial
           color={randomColor}
           transparent={true}
-          opacity={opacity} // fully invisible
-          alphaTest={0} // allows raycasting
+          opacity={opacity}
+          alphaTest={0}
           side={THREE.DoubleSide}
         />
       </mesh>
     </>
   );
 }
+interface RoomProps extends ComponentProps {
+  id: any;
+  points: any;
+  building: any;
+}
 
-const Room: React.FC<Room> = (room) => {
-  if (!room) {
-    return <></>;
-  }
-  const [elems, setElems] = useState();
-  const ref = useRef(0);
+const Room: React.FC<RoomProps> = ({ id, point, building }) => {
+  // console.log(room);
+  // if (!room) {
+  // return <></>;
+  // }
+  // console.log(room);
 
-  useEffect(() => {
-    setElems(renderRoomItems(room));
-  }, [room]);
   return (
     <>
-      <RoomClickBox room={room} />
+      <RoomClickBox id={id} points={point} building={building} />
       {/* {room.name === "" ? 0 : <RoomMesh room={room} points={room.point} />} */}
-
-      {/* {elems} */}
     </>
   );
 };

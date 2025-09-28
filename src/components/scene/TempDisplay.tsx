@@ -29,7 +29,6 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
 
   const lightStrip = useEntities([topSensor, bottomSensor]);
   React.useEffect(() => {
-    console.log("LIGHTSTRIP ", lightStrip);
     setReading({
       temperature: Number(lightStrip[0]["state"]),
       humidity: Number(lightStrip[1]["state"]),
@@ -43,10 +42,10 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
         rotation={[-Math.PI / 2, 0, 0]}
         distanceFactor={1}
         transform
-        onClick={() => {
-          console.log("lol");
-        }}
         pointerEvents="none"
+        style={{
+          userSelect: "none",
+        }}
         // occlude
       >
         <div

@@ -22,7 +22,6 @@ fetch("/Catalog.json")
   .then((response) => response.json())
   .then((str) => {
     catalog = str;
-    console.log(catalog);
   });
 
 const Furniture: React.FC<FurnitureProps> = ({

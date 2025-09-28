@@ -4,8 +4,7 @@ import type Home from "./Home.ts";
 import type { JSX } from "react/jsx-runtime";
 import YAML from "yaml";
 
-function renderFloorplan(root) {
-  console.log("RENDERHOME RUN");
+function renderFloorplan(root, building) {
   const renderList: JSX.Element[] = [];
   let runningNumber = 0;
   for (const type in root) {
@@ -17,7 +16,7 @@ function renderFloorplan(root) {
             renderList.push(
               <Comp
                 key={type + "-" + runningNumber}
-                building={root}
+                building={building}
                 {...(root[type][value] as any)}
               />,
             );
@@ -26,14 +25,12 @@ function renderFloorplan(root) {
         }
         continue;
       }
-      // console.log(type);
-      // console.log("Data", root[type]);
       let Comp = registry.getParser(type);
       if (Comp) {
         renderList.push(
           <Comp
             key={type + "-" + runningNumber}
-            building={root}
+            building={building}
             {...(root[type] as any)}
           />,
         );
@@ -44,12 +41,9 @@ function renderFloorplan(root) {
   return renderList;
 }
 function renderEntities(root, building) {
-  console.log("RENDERHOME2 RUN");
   const renderList: JSX.Element[] = [];
   let runningNumber = 0;
   for (const i in root) {
-    // console.log(type);
-    console.log("renderEntieis", root[i]["type"]);
     let Comp = registry.getParser("entity-" + root[i]?.type);
     if (Comp) {
       renderList.push(
@@ -62,14 +56,13 @@ function renderEntities(root, building) {
       runningNumber += 1;
     }
   }
-  console.log(renderList);
   return renderList;
 }
 
 export function renderHome(building: any): any {
   const root = building?.floorplan;
-  const renderList = renderFloorplan(root);
-  const entitiesList = renderEntities(building?.objects, building.floorplan);
+  const renderList = renderFloorplan(root, building);
+  const entitiesList = renderEntities(building?.objects, building);
   return [renderList, entitiesList];
 }
 export function parseHome(

@@ -21,7 +21,6 @@ const SliderTest = () => {
     const building = home.buildings[i];
     rooms.push(...building.floorplan?.room);
   }
-  console.log(rooms);
 
   const real_rooms = rooms
     .map((room, originalIndex) => ({ room, originalIndex })) // attach original index

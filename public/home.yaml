@@ -4,13 +4,25 @@ building1:
 
   objects:
     - type: light
-      entity: light.hue_lightstrip_plus_1
+      entity_id: light.hue_lightstrip_plus_1
+      tap_action:
+       action: more-info 
+      double_tap_action:
+        action: call-service
+        service: light.toggle
+        target:
+            entity_id: light.hue_lightstrip_plus_1
       position: 
         x: 700 
         y: 1290 
         z: 150
     - type: light
-      entity: light.hue_ambiance_candle_3
+      entity_id: light.hue_ambiance_candle_3
+      tap_action:
+        action: call-service
+        service: light.toggle
+        target:
+            entity_id: light.hue_ambiance_candle_3
       position: 
         x: 520 
         y: 1140 
@@ -23,4 +35,22 @@ building1:
         x: 670 
         y: 1190 
         z: 0
+  rooms:
+    - id: room-ae706306-67b2-4bf3-a5aa-b14c97cde769
+      hassId: area.matiaksen_huone
+      tap_action:
+        action: more-info 
+      double_tap_action:
+        action: call-service
+        service: light.toggle
+        target:
+            entity_id: light.matiaksen_huone_2
+    - id: room-a8239ead-614a-4d1e-9c8c-686e5a12d0a9
+      hassId: test
+      tap_action:
+        action: call-service
+        service: light.toggle
+        target:
+            entity_id: light.makuuhuone_2
+
 
