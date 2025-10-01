@@ -33,6 +33,43 @@ function SomeComponent() {
 function Error() {
   return <p>erroororor</p>;
 }
+function Test() {
+  const [leftWidth, setLeftWidth] = useState(48); // Tailwind width units (rem)
+  const [isDragging, setIsDragging] = useState(false);
+
+  const startDrag = () => setIsDragging(true);
+  const stopDrag = () => setIsDragging(false);
+
+  const onDrag = (e) => {
+    if (!isDragging) return;
+    const containerWidth = window.innerWidth;
+    const minWidth = 12; // Tailwind units (3rem)
+    const maxWidth = containerWidth / 16 - minWidth; // convert px to rem
+    const newWidth = Math.min(Math.max(e.clientX / 16, minWidth), maxWidth);
+    setLeftWidth(newWidth);
+  };
+
+  return (
+    <div
+      className="flex w-full h-64 select-none"
+      onMouseMove={onDrag}
+      onMouseUp={stopDrag}
+      onMouseLeave={stopDrag}
+    >
+      <div
+        className="bg-blue-300 p-4 h-screen"
+        style={{ width: `${leftWidth}rem` }}
+      >
+        Left
+      </div>
+      <div
+        className="w-2 bg-gray-500 cursor-ew-resize h-screen"
+        onMouseDown={startDrag}
+      />
+      <div className="flex-1 bg-green-300 p-4 h-screen">Right</div>
+    </div>
+  );
+}
 //Config
 //Load buildings
 //Add buildings to things to render
@@ -62,6 +99,7 @@ const App: React.FC = () => {
               <Route path="/" element={<HomeView />} />
               <Route path="/light" element={<HassLight />} />
               <Route path="/editor" element={<EditorView />} />
+              <Route path="/test" element={<Test />} />
               {/* <Route path="/about" element={<About />} /> */}
               {/* <Route path="/test" element={<TestView />} /> */}
             </Routes>
