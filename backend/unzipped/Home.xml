@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<home version='7400' name='Untitled.sh3d' camera='topCamera' wallHeight='243.84'>
+  <property name='com.eteks.sweethome3d.SweetHome3D.CatalogPaneDividerLocation' value='479'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.ColumnWidths' value='170,100,100,99,91'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.FrameHeight' value='1069'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.FrameWidth' value='1894'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.FrameX' value='159'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.FrameY' value='190'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.MainPaneDividerLocation' value='583'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.PlanPaneDividerLocation' value='497'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.PlanViewportX' value='0'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.PlanViewportY' value='0'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.ScreenHeight' value='1330'/>
+  <property name='com.eteks.sweethome3d.SweetHome3D.ScreenWidth' value='2560'/>
+  <furnitureVisibleProperty name='NAME'/>
+  <furnitureVisibleProperty name='WIDTH'/>
+  <furnitureVisibleProperty name='DEPTH'/>
+  <furnitureVisibleProperty name='HEIGHT'/>
+  <furnitureVisibleProperty name='VISIBLE'/>
+  <environment groundColor='00A8A8A8' skyColor='00CCE4FC' lightColor='00D0D0D0' ceillingLightColor='00D0D0D0' photoWidth='400' photoHeight='300' photoAspectRatio='VIEW_3D_RATIO' photoQuality='0' videoWidth='320' videoAspectRatio='RATIO_4_3' videoQuality='0' videoFrameRate='25'/>
+  <compass x='-100.0' y='50.0' diameter='100.0' northDirection='0.0' longitude='0.4351833' latitude='1.0502616' timeZone='Europe/Helsinki'/>
+  <observerCamera attribute='observerCamera' lens='PINHOLE' x='50.0' y='50.0' z='170.0' yaw='5.4977875' pitch='0.19634955' fieldOfView='1.0995575' time='1754308800000'/>
+  <camera attribute='topCamera' lens='PINHOLE' x='860.3601' y='1316.7333' z='1161.1093' yaw='3.006593' pitch='0.8253982' fieldOfView='1.0995575' time='1754308800000'/>
+  <wall id='wall-865fdece-153d-4568-9eb9-c07052ee7605' wallAtEnd='wall-6984d5f2-4c3a-4110-997c-c9008e211e38' xStart='365.5' yStart='179.56018' xEnd='1097.02' yEnd='179.56018' height='243.84' thickness='7.62' pattern='hatchUp'/>
+  <wall id='wall-6984d5f2-4c3a-4110-997c-c9008e211e38' wallAtStart='wall-865fdece-153d-4568-9eb9-c07052ee7605' wallAtEnd='wall-fe2ed6a3-4c17-48b5-98e4-973236074c5f' xStart='1097.02' yStart='179.56018' xEnd='1097.02' yEnd='552.9402' height='243.84' thickness='7.62' pattern='hatchUp'/>
+  <wall id='wall-fe2ed6a3-4c17-48b5-98e4-973236074c5f' wallAtStart='wall-6984d5f2-4c3a-4110-997c-c9008e211e38' wallAtEnd='wall-347aae68-760d-4534-a1ec-edc848fe4a59' xStart='1097.02' yStart='552.9402' xEnd='365.5' yEnd='552.9401' height='243.84' thickness='7.62' pattern='hatchUp'/>
+  <wall id='wall-347aae68-760d-4534-a1ec-edc848fe4a59' wallAtStart='wall-fe2ed6a3-4c17-48b5-98e4-973236074c5f' xStart='365.5' yStart='552.9401' xEnd='365.49997' yEnd='179.56018' height='243.84' thickness='7.62' pattern='hatchUp'/>
+</home>

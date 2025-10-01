@@ -1,0 +1,115 @@
+{
+  "accessors": [
+    {
+      "name": "serviceHatch_1_0_positions",
+      "componentType": 5126,
+      "count": 45,
+      "min": [
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "max": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 0
+    },
+    {
+      "name": "serviceHatch_1_0_indices",
+      "componentType": 5123,
+      "count": 270,
+      "min": [
+        0
+      ],
+      "max": [
+        44
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 0
+    }
+  ],
+  "asset": {
+    "generator": "obj2gltf",
+    "version": "2.0"
+  },
+  "buffers": [
+    {
+      "name": "serviceHatch",
+      "byteLength": 1080,
+      "uri": "data:application/octet-stream;base64,AAAAPwAAAL8AAAA/AAAAvwAAAL8AAAA/AAAAAAAAAL8AAAAAAAAAPwAAAL8AAAC/AAAAvwAAAL8AAAC/AAAAPwAAAAAAAAAAAAAAPwAAAD8AAAC/AAAAPwAAAD8AAAA/AAAAvwAAAAAAAAAAAAAAvwAAAD8AAAA/AAAAvwAAAD8AAAC/AAAAAAAAAD8AAACA5SfVPlK4/r4AAAA/5SfVvlK4/r4AAAA/Urj+PlK4/r4AAAA/Urj+PuUn1b4AAAA/5SfVvlK4/j4AAAA/5SfVPlK4/j4AAAA/Urj+vlK4/r4AAAA/Urj+vuUn1b4AAAA/Urj+PlK4/r4AAAC/5SfVPlK4/r4AAAC/Urj+vuUn1b4AAAC/Urj+PlK4/j4AAAC/5SfVPlK4/j4AAAC/Urj+PuUn1b4AAAC/Urj+PlK4/j4AAAA/Urj+PuUn1T4AAAA/Urj+vlK4/j4AAAA/Urj+vuUn1T4AAAA/5SfVvlK4/r4AAAC/Urj+vlK4/j4AAAC/Urj+vuUn1T4AAAC/5SfVvlK4/j4AAAC/Urj+PuUn1T4AAAC/Urj+vlK4/r4AAAC/Urj+vkoH+74AAAC/Sgf7PlK4/j4AAAA/Urj+vkoH+z4AAAA/Sgf7vlK4/j4AAAC/Urj+PkoH+z4AAAC/AAAAAFK4/r4AAAAAUrj+PgAAAAAAAAAAUrj+vgAAAAAAAAAAAAAAAFK4/j4AAACAAAABAAIAAwAAAAIABAADAAIAAQAEAAIAAAADAAUAAwAGAAUABgAHAAUABwAAAAUABAABAAgAAQAJAAgACQAKAAgACgAEAAgACQAHAAsABwAGAAsABgAKAAsACgAJAAsAAAAMAA0AAAANAAEADgAAAA8AAAAHAA8ACQAQABEACQARAAcAAQASABMACQABABMAFAADABUAAwAEABUABAAKABYABgAXABgACgAGABgAAwAUABkABgADABkAAAAOAAwAEgABAA0ABwAaABsADwAHABsACQAcABAACQATAB0AFQAEAB4ACgAfACAAFgAKACAACgAYACEABgAZACIABAAjAB4AFgAkAAQAJAAjAAQAEQAlAAcAJQAaAAcAHQAmAAkAJgAcAAkAIQAnAAoAJwAfAAoAIgAoAAYAKAAXAAYAKQANAAwAFQApABQAKQAVAB4ADQApABIADwAqAA4AKgAiABkAKgAPABsAKwAdABMAKwAWACAALAARABAALAAhABgADgAUAAwADAAUACkAIwASAB4AHgASACkAFAAOABkAGQAOACoAKAAbABcAFwAbABoAIgAqACgAKAAqABsAJAATACMAIwATABIAFgArACQAJAArABMAJgAgABwAHAAgAB8AHQArACYAJgArACAAJQAYABoAGgAYABcAEQAsACUAJQAsABgAJwAQAB8AHwAQABwAIQAsACcAJwAsABAA"
+    }
+  ],
+  "bufferViews": [
+    {
+      "name": "bufferView_0",
+      "buffer": 0,
+      "byteLength": 540,
+      "byteOffset": 0,
+      "byteStride": 12,
+      "target": 34962
+    },
+    {
+      "name": "bufferView_1",
+      "buffer": 0,
+      "byteLength": 540,
+      "byteOffset": 540,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "white",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      },
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    }
+  ],
+  "meshes": [
+    {
+      "name": "serviceHatch_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "serviceHatch",
+      "mesh": 0
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
