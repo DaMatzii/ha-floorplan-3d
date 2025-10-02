@@ -15,6 +15,7 @@ interface FurnitureProps extends ComponentProps {
   height: number;
   depth: number;
   name: string;
+  color: string;
 }
 const objCache = {};
 let catalog = {};
@@ -34,6 +35,7 @@ const Furniture: React.FC<FurnitureProps> = ({
   height,
   depth,
   name,
+  color,
 }) => {
   // console.log("NAME: ", name);
   if (elevation === undefined) {
@@ -42,30 +44,16 @@ const Furniture: React.FC<FurnitureProps> = ({
   if (angle === undefined) {
     angle = 0;
   }
-  fetch("/Catalog.json")
-    .then((response) => response.json())
-    .then((str) => {
-      catalog = str;
-      // console.log(catalog);
-    });
 
   if (catalog === undefined) return;
-  // console.log(catalog);
-  // console.log(catalogId);
   const item = catalog.items.find((item) => item.id === catalogId);
-  // console.log("ITEM", item);
   if (item === undefined) return;
   const split = item.model.split("/");
   const objName = split[6];
-  // console.log(split);
-  // console.log(objName);
 
   if (objName.toLowerCase().includes("texturable")) return;
-  // console.log(objName);
   const path = "/models/" + objName.split(".")[0] + ".gltf";
-  // console.log(path);
   const obj = useGLTF(path);
-  // console.log(obj);
 
   const targetSize = {
     x: width / 100,
@@ -98,24 +86,22 @@ const Furniture: React.FC<FurnitureProps> = ({
   modelCopy.position.z -= center.z;
   modelCopy.position.y -= center.y;
   // console.log("CATALOGID: ", catalogId);
-  modelCopy.traverse((child) => {
-    if (child.isMesh) {
-      // console.log("	CHILD: ", child);
-      child.material.color.set("gray");
-      child.material.side = THREE.DoubleSide;
-    }
-  });
-
+  if (color !== undefined) {
+    modelCopy.traverse((child) => {
+      if (child.isMesh) {
+        // console.log("	CHILD: ", child);
+        child.material = child.material.clone(); // keep material properties
+        child.material.color.set(color as string); // just change color
+        // child.material.flatShading = true;
+        child.material.castShadow = false;
+        child.material.recieveShadow = false;
+      }
+    });
+  }
   const el = height / 100 / 2 + elevation / 100;
   return (
     <>
-      <mesh
-        castShadow
-        receiveShadow
-        position={[x / 100, el, y / 100]}
-        rotation={[0, -angle, 0]}
-      >
-        {/* <boxGeometry args={[currentSize.x, currentSize.y, currentSize.z]} /> */}
+      <mesh position={[x / 100, el, y / 100]} rotation={[0, -angle, 0]}>
         <primitive object={modelCopy}></primitive>
       </mesh>
     </>

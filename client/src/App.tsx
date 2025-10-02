@@ -19,6 +19,7 @@ import { useBuilding } from "./hooks/useFloorplan";
 
 import EditorView from "@/EditorView";
 import { useAppConfigs } from "./hooks/useConfig";
+import { RoomView } from "./RoomTestView";
 
 function SomeComponent() {
   const connection = useStore((state) => state.connection);
@@ -98,7 +99,7 @@ const App: React.FC = () => {
               <Route path="/" element={<HomeView />} />
               <Route path="/light" element={<HassLight />} />
               <Route path="/editor" element={<EditorView />} />
-              <Route path="/test" element={<FileUploader />} />
+              <Route path="/test" element={<RoomView />} />
               {/* <Route path="/about" element={<About />} /> */}
               {/* <Route path="/test" element={<TestView />} /> */}
             </Routes>

@@ -1,6 +1,6 @@
 import React from "react";
 import type { ComponentProps } from "../Components.ts";
-import Light from "../Light.tsx";
+import Light from "@/utils/Light";
 import { Html } from "@react-three/drei";
 import { Lightbulb } from "lucide-react";
 import { motion } from "framer-motion";
@@ -65,23 +65,34 @@ const BoxWithLabel: React.FC<BoxWithLabelProps> = ({
     }
   };
   return (
-    <mesh>
-      <Html position={[position.x / 100, position.z / 100, position.y / 100]}>
-        <motion.div
-          className="bg-white p-2 rounded-full"
-          animate={{
-            rotate: rotation,
-            color:
-              hassEntity.state.toLowerCase() === "on" ? "#fbbf24" : "#9ca3af",
-          }}
-          whileHover={{ scale: 1.1 }}
-          transition={{ type: "spring", stiffness: 100, damping: 20 }}
-          onClick={handleClick}
-        >
-          <Lightbulb className={`font-bold`} size={24} strokeWidth={3} />
-        </motion.div>
-      </Html>
-    </mesh>
+    <>
+      <mesh>
+        <Html position={[position.x / 100, position.z / 100, position.y / 100]}>
+          <motion.div
+            className="bg-white p-2 rounded-full"
+            animate={{
+              rotate: rotation,
+              color:
+                hassEntity.state.toLowerCase() === "on" ? "#fbbf24" : "#9ca3af",
+            }}
+            whileHover={{ scale: 1.1 }}
+            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            onClick={handleClick}
+          >
+            <Lightbulb className={`font-bold`} size={24} strokeWidth={3} />
+          </motion.div>
+        </Html>
+      </mesh>
+      <Light
+        type="point"
+        helper
+        size={0.5}
+        DebugColor="red"
+        position={[position.x / 100 + 0.2, position.z / 100, position.y / 100]}
+        intensity={hassEntity.state.toLowerCase() === "on" ? "3" : "0"}
+        color="orange"
+      />
+    </>
   );
 };
 export default BoxWithLabel;

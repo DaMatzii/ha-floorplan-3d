@@ -7,7 +7,7 @@ import { OrbitControls, PerspectiveCamera, useHelper } from "@react-three/drei";
 import DebugCamera from "@/utils/DebugCamera";
 import * as THREE from "three";
 
-import { MeshReflectorMaterial } from "@react-three/drei";
+import { MeshReflectorMaterial, Environment } from "@react-three/drei";
 import { useHome } from "@/context/HomeContext";
 
 const DEBUG_CAMERA = 1;
@@ -36,8 +36,16 @@ function Building({ building }) {
 function Scene({ activeCamera }) {
   const { home, currentRoom } = useHome();
   const [target, setTarget] = useState([0, 0, 10]);
+  const idleTimeout = useRef(null);
 
   const camera = useRef<THREE.PerspectiveCamera>(null);
+  const lastPos = useRef({
+    x: 0,
+    y: 0,
+    z: 0,
+  });
+
+  const { invalidate } = useThree();
 
   const { position } = useSpring({
     position: target,
@@ -47,9 +55,30 @@ function Scene({ activeCamera }) {
   useFrame(() => {
     if (camera.current) {
       const [x, y, z] = position.get();
+
       camera.current.position.set(x, y, z);
+      // invalidate(); // render frame because camera changed
     }
   });
+
+  const { gl: renderer } = useThree();
+  useEffect(() => {
+    const startTime = Date.now();
+    console.log(renderer.info);
+
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      if (elapsed > 4000) {
+        clearInterval(interval); // stop after 4 seconds
+        return;
+      }
+
+      invalidate();
+      // console.log("Running continuously…", elapsed);
+    }, 16); // ~60fps
+    return () => clearInterval(interval); // cleanup if triggerValue changes
+  }, [target]); // re-run whenever triggerValue changes
+
   const focus = (room: Room) => {
     const x_vals = room.point.map((p) => p.x / 100);
     const y_vals = room.point.map((p) => p.y / 100);
@@ -96,7 +125,7 @@ function Scene({ activeCamera }) {
       {/* <RoomButtons rooms={home?.room} mainCameraRef={mainCamera} /> */}
 
       {/* <Environment preset="apartment" /> */}
-      <ambientLight intensity={0.3} color="0xffffff" />
+      <ambientLight intensity={1.3} color="#f4fffa" />
       <Building building={home.buildings[0]} />
 
       {/* <directionalLight position={[6, 25, -4]} intensity={2} castShadow /> */}
@@ -114,34 +143,34 @@ function Scene({ activeCamera }) {
         castShadow
         target-position={[14, 0, 10]}
       />
+      {/**/}
+      {/* <Light */}
+      {/*   type="directional" */}
+      {/*   helper */}
+      {/*   size={0.5} */}
+      {/*   DebugColor="red" */}
+      {/*   position={[5.5, 7, 15]} */}
+      {/*   intensity={2} */}
+      {/*   decay={2} */}
+      {/*   distance={3} */}
+      {/*   castShadow */}
+      {/*   target-position={[7, 0, 12]} */}
+      {/* /> */}
 
-      <Light
-        type="directional"
-        helper
-        size={0.5}
-        DebugColor="red"
-        position={[5.5, 7, 15]}
-        intensity={2}
-        decay={2}
-        distance={3}
-        castShadow
-        target-position={[7, 0, 12]}
-      />
-
-      <fog attach="fog" args={["#17171b", 30, 100000]} />
+      {/* <fog attach="fog" args={["#17171b", 30, 100000]} /> */}
       <mesh position={[0, -0.1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[100, 100]} />
-        <MeshReflectorMaterial
-          blur={[200, 200]}
-          resolution={1024}
-          mixBlur={1}
-          mixStrength={15}
-          depthScale={0.5}
-          minDepthThreshold={0.85}
-          color="#17171b"
-          metalness={0.6}
-          roughness={1}
-        />
+        {/* <planeGeometry args={[100, 100]} /> */}
+        {/* <MeshReflectorMaterial */}
+        {/*   blur={[200, 200]} */}
+        {/*   resolution={1024} */}
+        {/*   mixBlur={1} */}
+        {/*   mixStrength={15} */}
+        {/*   depthScale={0.5} */}
+        {/*   minDepthThreshold={0.85} */}
+        {/*   color="#17171b" */}
+        {/*   metalness={0.6} */}
+        {/*   roughness={1} */}
+        {/* /> */}
       </mesh>
     </>
   );

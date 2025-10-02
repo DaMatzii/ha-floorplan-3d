@@ -3,6 +3,7 @@ import { Shape } from "three";
 import * as THREE from "three";
 import { useLoader } from "@react-three/fiber";
 import type { Room } from "@/types/Room";
+import Light from "@/utils/Light";
 
 import { useHass } from "@hakit/core";
 import { evaluateAction } from "@/utils/EvaluateAction";
@@ -118,29 +119,68 @@ interface RoomProps extends ComponentProps {
 }
 
 const Room: React.FC<RoomProps> = ({ id, point, building }) => {
-  // console.log(room);
-  // if (!room) {
-  // return <></>;
-  // }
-  // console.log(room);
+  const { home, currentRoom } = useHome();
+  const [isSelected, setIsSelected] = React.useState(false);
 
+  let rooms = [];
+  for (let i = 0; i < home.buildings.length; i++) {
+    const building = home.buildings[i];
+    rooms.push(...building.floorplan?.room);
+  }
+
+  let room = rooms.findIndex((room) => room.id === id);
+  useEffect(() => {
+    if (room === currentRoom) {
+      setIsSelected(true);
+    } else {
+      setIsSelected(false);
+    }
+  }, [currentRoom]);
+
+  const middlePoint: Point = React.useMemo(() => {
+    // console.log(room);
+    let x_vals = point.map((p: Point) => p.x / 100);
+    let y_vals = point.map((p: Point) => p.y / 100);
+    let min_x = Math.min(...x_vals);
+    let max_x = Math.max(...x_vals);
+    let min_y = Math.min(...y_vals);
+    let max_y = Math.max(...y_vals);
+    let width = max_x - min_x;
+    let height = max_y - min_y;
+    let center_x = min_x + width / 2;
+    let center_y = min_y + height / 2;
+    return {
+      x: center_x,
+      y: center_y,
+    };
+  }, []);
   return (
     <>
       <RoomClickBox id={id} points={point} building={building} />
-      {/* {room.name === "" ? 0 : <RoomMesh room={room} points={room.point} />} */}
+
+      <RoomMesh points={point} />
+
+      {isSelected ? (
+        <Light
+          type="point"
+          helper
+          size={0.5}
+          DebugColor="red"
+          position={[middlePoint.x, 1, middlePoint.y]}
+          intensity={3}
+          distance={3}
+          color="#f4fffa"
+          // decay={10}
+        />
+      ) : (
+        0
+      )}
     </>
   );
 };
 export default Room;
 
-const RoomMesh: React.FC<RoomMeshProps> = ({ room, points }) => {
-  const texture = useLoader(
-    THREE.TextureLoader,
-    "/models/tex/WoodenPlanks04_2K_BaseColor.png",
-  );
-
-  let x_vals = points.map((p: Point) => p.x / 100);
-  let y_vals = points.map((p: Point) => p.y / 100);
+const RoomMesh: React.FC<RoomMeshProps> = ({ points }) => {
   const [g, tex] = React.useMemo(() => {
     const shape = new Shape();
     shape.moveTo(points[0].x / 100, points[0].y / 100);
@@ -151,31 +191,8 @@ const RoomMesh: React.FC<RoomMeshProps> = ({ room, points }) => {
       );
     }
     const geometry = new THREE.ShapeGeometry(shape);
-    const mesh = new THREE.Mesh(geometry);
-    console.log(geometry);
-    var box = new THREE.Box3().setFromObject(mesh);
-    var size = new THREE.Vector3();
-    box.getSize(size);
-    var vec3 = new THREE.Vector3(); // temp vector
-    var attPos = mesh.geometry.attributes.position;
-    var attUv = mesh.geometry.attributes.uv;
-    const tex1 = texture.clone();
-    tex1.wrapS = THREE.RepeatWrapping;
-    tex1.wrapT = THREE.RepeatWrapping;
 
-    tex1.needsUpdate = true;
-    tex1.repeat.set(size.x / 1, size.y / 1);
-
-    for (let i = 0; i < attPos.count; i++) {
-      vec3.fromBufferAttribute(attPos, i);
-      attUv.setXY(
-        i,
-        (vec3.x - box.min.x) / size.x,
-        (vec3.y - box.min.y) / size.y,
-      );
-    }
-
-    return [mesh.geometry, tex1];
+    return [geometry, undefined];
   }, [points]);
 
   return (

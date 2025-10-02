@@ -14,7 +14,7 @@ const DebugCamera = forwardRef<THREE.PerspectiveCamera, DebugCameraProps>(
     React.useImperativeHandle(ref, () => internalRef.current!, []);
 
     // Attach a CameraHelper
-    useHelper(internalRef, THREE.CameraHelper, "cyan");
+    // useHelper(internalRef, THREE.CameraHelper, "cyan");
 
     return (
       <PerspectiveCamera
