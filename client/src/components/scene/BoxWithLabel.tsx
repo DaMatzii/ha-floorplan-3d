@@ -3,18 +3,22 @@ import type { ComponentProps } from "../Components.ts";
 import Light from "@/utils/Light";
 import { Html } from "@react-three/drei";
 import { Lightbulb } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, animate, motionValue } from "framer-motion";
 import { useEntity, useHass } from "@hakit/core";
 import { useHome } from "@/context/HomeContext";
 import { evaluateAction } from "@/utils/EvaluateAction";
+import { a, useSpring } from "@react-spring/three";
+import { useFrame } from "@react-three/fiber";
 
-import { hash } from "three/src/nodes/TSL.js";
+import { useView } from "@/context/ViewContext";
+
 type Point = { x: number; y: number };
 interface BoxWithLabelProps extends ComponentProps {
   room: any;
   position: any;
   entity_id: string;
   tap_action: any;
+  index: number;
 }
 const BoxWithLabel: React.FC<BoxWithLabelProps> = ({
   room,
@@ -22,18 +26,28 @@ const BoxWithLabel: React.FC<BoxWithLabelProps> = ({
   entity_id,
   tap_action,
   double_tap_action,
+  index,
 }) => {
   const hassEntity = useEntity(entity_id);
   const { callService } = useHass();
   const { setFocusedItem } = useHome();
   const [rotation, setRotation] = React.useState(0);
   const clickTimeout = React.useRef(null);
+  const isLightOn = () => {
+    return hassEntity.state.toLowerCase() === "on" ? 3 : 0;
+  };
+
+  const { editorMode } = useView();
+  const intensity = React.useRef(motionValue(isLightOn() ? 1 : 0)).current; // persistent value
+
+  const lightRef = React.useRef();
 
   React.useEffect(() => {
     return () => clearTimeout(clickTimeout.current);
   }, []);
 
   const handleTapAction = (action) => {
+    console.log(action);
     evaluateAction(action, callService, {
       "more-info": () => {
         setFocusedItem({
@@ -45,6 +59,24 @@ const BoxWithLabel: React.FC<BoxWithLabelProps> = ({
 
     if (action.action === "call-service") setRotation(rotation + 360);
   };
+
+  React.useEffect(() => {
+    const controls = animate(
+      intensity,
+      hassEntity.state.toLowerCase() === "on" ? 3 : 0,
+      {
+        repeatType: "reverse",
+        duration: 0.3,
+        ease: "easeInOut",
+      },
+    );
+
+    return () => controls.stop();
+  });
+
+  useFrame(() => {
+    if (lightRef.current) lightRef.current.intensity = intensity.get();
+  });
 
   const handleClick = (e) => {
     e.stopPropagation();
@@ -74,24 +106,37 @@ const BoxWithLabel: React.FC<BoxWithLabelProps> = ({
               rotate: rotation,
               color:
                 hassEntity.state.toLowerCase() === "on" ? "#fbbf24" : "#9ca3af",
+
+              scale: 1,
+              opacity: 1,
             }}
+            initial={{ scale: 0.5, opacity: 0 }}
             whileHover={{ scale: 1.1 }}
-            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            transition={{
+              duration: 0.4,
+              scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
+            }}
             onClick={handleClick}
           >
             <Lightbulb className={`font-bold`} size={24} strokeWidth={3} />
           </motion.div>
         </Html>
       </mesh>
-      <Light
-        type="point"
-        helper
-        size={0.5}
-        DebugColor="red"
-        position={[position.x / 100 + 0.2, position.z / 100, position.y / 100]}
-        intensity={hassEntity.state.toLowerCase() === "on" ? "3" : "0"}
-        color="orange"
-      />
+      {editorMode ? (
+        0
+      ) : (
+        <pointLight
+          ref={lightRef}
+          position={[
+            position.x / 100 + 0.2,
+            position.z / 100,
+            position.y / 100,
+          ]}
+          color="orange"
+          intensity={3}
+        />
+      )}
+      ;
     </>
   );
 };

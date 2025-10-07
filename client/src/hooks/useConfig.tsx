@@ -35,6 +35,23 @@ export function useAppConfigs() {
       setAppConfig({
         buildings: buildings,
       });
+      console.log(buildings);
+    }
+
+    load();
+  }, []);
+
+  return appConfig;
+}
+export function useUIConfig() {
+  const [appConfig, setAppConfig] = useState<AppConfig | null>(null);
+
+  useEffect(() => {
+    async function load() {
+      const yamlText = await fetch("/ui.yaml").then((r) => r.text());
+      const parsedConfig = YAML.parse(yamlText);
+
+      setAppConfig(parsedConfig);
     }
 
     load();

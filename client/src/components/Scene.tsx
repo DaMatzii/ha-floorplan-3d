@@ -9,31 +9,23 @@ import * as THREE from "three";
 
 import { MeshReflectorMaterial, Environment } from "@react-three/drei";
 import { useHome } from "@/context/HomeContext";
+import { ViewContextProvider } from "@/context/ViewContext";
 
 const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
 function Building({ building }) {
   const [floorplanElems, setFloorplanElems] = useState();
   const [entityElems, setEntityElems] = useState();
-  // const [target, setTarget] = useState([0, 0, 10]);
-
-  // const camera = useRef<THREE.PerspectiveCamera>(null);
 
   useEffect(() => {
     const [floorplan, entities] = renderHome(building);
     setFloorplanElems(floorplan);
-    setEntityElems(entities);
   }, [building]);
 
-  return (
-    <>
-      {floorplanElems}
-      {entityElems}
-    </>
-  );
+  return <>{floorplanElems}</>;
 }
 
-function Scene({ activeCamera }) {
+function Scene({ activeCamera, editorMode }) {
   const { home, currentRoom } = useHome();
   const [target, setTarget] = useState([0, 0, 10]);
   const idleTimeout = useRef(null);
@@ -64,7 +56,6 @@ function Scene({ activeCamera }) {
   const { gl: renderer } = useThree();
   useEffect(() => {
     const startTime = Date.now();
-    console.log(renderer.info);
 
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTime;
@@ -74,11 +65,9 @@ function Scene({ activeCamera }) {
       }
 
       invalidate();
-      // console.log("Running continuously…", elapsed);
     }, 16); // ~60fps
-    return () => clearInterval(interval); // cleanup if triggerValue changes
-  }, [target]); // re-run whenever triggerValue changes
-
+    return () => clearInterval(interval);
+  }, [target]);
   const focus = (room: Room) => {
     const x_vals = room.point.map((p) => p.x / 100);
     const y_vals = room.point.map((p) => p.y / 100);
@@ -118,60 +107,28 @@ function Scene({ activeCamera }) {
 
   return (
     <>
-      <PerspectiveCamera position={[0, 0, 10]} makeDefault />
-      <DebugCamera ref={camera} makeDefault={activeCamera === DEBUG_CAMERA} />
+      <ViewContextProvider initial={{ editorMode: editorMode }}>
+        <PerspectiveCamera position={[0, 0, 10]} makeDefault />
+        <DebugCamera ref={camera} makeDefault={activeCamera === DEBUG_CAMERA} />
 
-      {activeCamera === NORMAL_CAMERA ? <OrbitControls /> : <></>}
-      {/* <RoomButtons rooms={home?.room} mainCameraRef={mainCamera} /> */}
+        {activeCamera === NORMAL_CAMERA ? <OrbitControls /> : <></>}
 
-      {/* <Environment preset="apartment" /> */}
-      <ambientLight intensity={1.3} color="#f4fffa" />
-      <Building building={home.buildings[0]} />
+        <ambientLight intensity={1.3} color="#f4fffa" />
+        <Building building={home.buildings[0]} />
 
-      {/* <directionalLight position={[6, 25, -4]} intensity={2} castShadow /> */}
-      {/* <TexturedBox /> */}
-      {/* <TempTest /> */}
-      <Light
-        type="directional"
-        helper
-        size={0.5}
-        DebugColor="red"
-        position={[14, 15, 10]}
-        intensity={3}
-        decay={2}
-        distance={3}
-        castShadow
-        target-position={[14, 0, 10]}
-      />
-      {/**/}
-      {/* <Light */}
-      {/*   type="directional" */}
-      {/*   helper */}
-      {/*   size={0.5} */}
-      {/*   DebugColor="red" */}
-      {/*   position={[5.5, 7, 15]} */}
-      {/*   intensity={2} */}
-      {/*   decay={2} */}
-      {/*   distance={3} */}
-      {/*   castShadow */}
-      {/*   target-position={[7, 0, 12]} */}
-      {/* /> */}
-
-      {/* <fog attach="fog" args={["#17171b", 30, 100000]} /> */}
-      <mesh position={[0, -0.1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        {/* <planeGeometry args={[100, 100]} /> */}
-        {/* <MeshReflectorMaterial */}
-        {/*   blur={[200, 200]} */}
-        {/*   resolution={1024} */}
-        {/*   mixBlur={1} */}
-        {/*   mixStrength={15} */}
-        {/*   depthScale={0.5} */}
-        {/*   minDepthThreshold={0.85} */}
-        {/*   color="#17171b" */}
-        {/*   metalness={0.6} */}
-        {/*   roughness={1} */}
-        {/* /> */}
-      </mesh>
+        <Light
+          type="directional"
+          helper
+          size={0.5}
+          DebugColor="red"
+          position={[14, 15, 10]}
+          intensity={3}
+          decay={2}
+          distance={3}
+          castShadow
+          target-position={[14, 0, 10]}
+        />
+      </ViewContextProvider>
     </>
   );
 }

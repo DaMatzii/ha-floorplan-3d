@@ -19,7 +19,7 @@ export default function FloorplanView({ activeCamera }) {
         }}
       >
         <Stats />
-        <Scene activeCamera={activeCamera} />
+        <Scene activeCamera={activeCamera} editorMode={false} />
       </Canvas>
     </>
   );

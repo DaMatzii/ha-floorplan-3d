@@ -4,7 +4,7 @@ import type Home from "@/types/Home";
 
 interface FocusedItem {
   type: string;
-  hassID: string;
+  id: string;
 }
 
 interface HomeContextType {
@@ -19,11 +19,14 @@ interface HomeContextType {
 const HomeContext = createContext<HomeContextType | undefined>(undefined);
 
 interface HomeProviderProps {
+  home: any;
   children: ReactNode;
+  editor: boolean;
 }
 
 export const HomeProvider: React.FC<HomeProviderProps> = ({
   home,
+  editor,
   children,
 }) => {
   const [currentRoom, setCurrentRoom] = useState<number>(0);
@@ -34,7 +37,13 @@ export const HomeProvider: React.FC<HomeProviderProps> = ({
 
   return (
     <HomeContext.Provider
-      value={{ currentRoom, home, setCurrentRoom, setFocusedItem, focusedItem }}
+      value={{
+        currentRoom,
+        home,
+        setCurrentRoom,
+        setFocusedItem,
+        focusedItem,
+      }}
     >
       {children}
     </HomeContext.Provider>

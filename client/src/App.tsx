@@ -20,7 +20,9 @@ import { useBuilding } from "./hooks/useFloorplan";
 import EditorView from "@/EditorView";
 import { useAppConfigs } from "./hooks/useConfig";
 import { RoomView } from "./RoomTestView";
+import { RoomCard } from "./RoomCardTest";
 
+import { useUIConfig } from "@/hooks/useConfig";
 function SomeComponent() {
   const connection = useStore((state) => state.connection);
 
@@ -76,6 +78,8 @@ function FileUploader() {
 const App: React.FC = () => {
   const { floorplan, entities, loading } = useBuilding();
   const config = useAppConfigs();
+
+  const UIconfig = useUIConfig();
   // const [parsed_entities, setEntities] = useState<Home>();
 
   return (
@@ -99,7 +103,7 @@ const App: React.FC = () => {
               <Route path="/" element={<HomeView />} />
               <Route path="/light" element={<HassLight />} />
               <Route path="/editor" element={<EditorView />} />
-              <Route path="/test" element={<RoomView />} />
+              <Route path="/test" element={<RoomCard />} />
               {/* <Route path="/about" element={<About />} /> */}
               {/* <Route path="/test" element={<TestView />} /> */}
             </Routes>

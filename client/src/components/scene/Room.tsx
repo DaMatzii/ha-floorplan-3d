@@ -8,9 +8,12 @@ import Light from "@/utils/Light";
 import { useHass } from "@hakit/core";
 import { evaluateAction } from "@/utils/EvaluateAction";
 
+import { useView } from "@/context/ViewContext";
+
 import type { ComponentProps } from "@/utils/Components";
 
 import { useHome } from "@/context/HomeContext";
+import { renderEntities } from "@/utils/Parser";
 
 type Point = { x: number; y: number };
 interface RoomMeshProps {
@@ -69,13 +72,12 @@ function RoomClickBox({ id, points, building }: any) {
   const clickTimeout = React.useRef(null);
 
   function handleTapAction(actionType) {
-    let room = building.rooms.find((room) => room.id === id) || { hassId: id };
-
+    let room = building.rooms.find((room) => room.id === id);
     evaluateAction(room[actionType], callService, {
       "more-info": () => {
         setFocusedItem({
           type: "room",
-          hassID: room.hassId,
+          id: id,
         });
       },
     });
@@ -121,6 +123,10 @@ interface RoomProps extends ComponentProps {
 const Room: React.FC<RoomProps> = ({ id, point, building }) => {
   const { home, currentRoom } = useHome();
   const [isSelected, setIsSelected] = React.useState(false);
+  const roomConfig = building.rooms.find((b) => b.id === id);
+  const [entityElems, setEntityElems] = useState([]);
+
+  const { editorMode } = useView();
 
   let rooms = [];
   for (let i = 0; i < home.buildings.length; i++) {
@@ -128,9 +134,13 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
     rooms.push(...building.floorplan?.room);
   }
 
-  let room = rooms.findIndex((room) => room.id === id);
   useEffect(() => {
-    if (room === currentRoom) {
+    let room = rooms.findIndex(
+      (room) => room.id === id || room.id === (roomConfig?.hassId ?? -1),
+    );
+
+    console.log("EDITORMODE: ", editorMode);
+    if (room === currentRoom || editorMode) {
       setIsSelected(true);
     } else {
       setIsSelected(false);
@@ -154,6 +164,12 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
       y: center_y,
     };
   }, []);
+  useEffect(() => {
+    if (roomConfig === undefined) {
+      return;
+    }
+    setEntityElems(renderEntities(roomConfig.entities, building));
+  }, []);
   return (
     <>
       <RoomClickBox id={id} points={point} building={building} />
@@ -161,17 +177,24 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
       <RoomMesh points={point} />
 
       {isSelected ? (
-        <Light
-          type="point"
-          helper
-          size={0.5}
-          DebugColor="red"
-          position={[middlePoint.x, 1, middlePoint.y]}
-          intensity={3}
-          distance={3}
-          color="#f4fffa"
-          // decay={10}
-        />
+        <>
+          {/* <Light */}
+          {/*   type="point" */}
+          {/*   helper */}
+          {/*   size={0.5} */}
+          {/*   DebugColor="red" */}
+          {/*   position={[middlePoint.x, 1, middlePoint.y]} */}
+          {/*   intensity={10} */}
+          {/*   distance={3} */}
+          {/*   color="#f4fffa" */}
+          {/*   // decay={10} */}
+          {/* /> */}
+
+          {/* {entityElems.map((Elem, index) => { */}
+          {/* <Elem />; */}
+          {/* })} */}
+          {entityElems}
+        </>
       ) : (
         0
       )}

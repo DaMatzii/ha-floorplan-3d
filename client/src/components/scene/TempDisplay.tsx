@@ -3,6 +3,7 @@ import type { ComponentProps } from "../Components.ts";
 import Light from "../Light.tsx";
 import { Html } from "@react-three/drei";
 import { HassConnect, useEntity, useEntities, useDevice } from "@hakit/core";
+import { motion } from "framer-motion";
 
 type Point = { x: number; y: number };
 type TemperatureSensor = { temperature: number; humidity: number };
@@ -48,12 +49,22 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
         }}
         // occlude
       >
-        <div
+        <motion.div
           style={{
             color: "white",
             fontSize: fontSize + "px",
             userSelect: "none",
             cursor: "default",
+          }}
+          animate={{
+            scale: 1,
+            opacity: 1,
+          }}
+          initial={{ scale: 0.5, opacity: 0 }}
+          whileHover={{ scale: 1.1 }}
+          transition={{
+            duration: 0.2,
+            scale: { type: "spring", visualDuration: 0.2, bounce: 0.5 },
           }}
         >
           <div className="flex flex-col items-center justify-center z-0">
@@ -77,7 +88,7 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
               </span>
             </div>
           </div>
-        </div>
+        </motion.div>
       </Html>
     </>
   );

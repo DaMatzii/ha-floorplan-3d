@@ -44,4 +44,6 @@ registry.register("entity-light", BoxWithLabel);
 registry.register("doorOrWindow", DoorOrWindow);
 registry.register("ui-hass-light", HassLight);
 registry.register("ui-hass-room", HassRoom);
+registry.register("ui-hass-entities", HassRoom);
+
 export default registry;

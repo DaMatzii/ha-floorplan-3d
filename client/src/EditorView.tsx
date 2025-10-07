@@ -151,7 +151,11 @@ export default function EditorView() {
                 position: [10, 15, 20],
               }}
             >
-              {appConfig === null ? 0 : <Scene activeCamera={0} />}
+              {appConfig === null ? (
+                0
+              ) : (
+                <Scene activeCamera={0} editorMode={true} />
+              )}
             </Canvas>
           </HomeProvider>
         </div>

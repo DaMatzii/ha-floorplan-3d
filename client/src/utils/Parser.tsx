@@ -40,17 +40,20 @@ function renderFloorplan(root, building) {
   }
   return renderList;
 }
-function renderEntities(root, building) {
+export function renderEntities(entities, building) {
   const renderList: JSX.Element[] = [];
   let runningNumber = 0;
-  for (const i in root) {
-    let Comp = registry.getParser("entity-" + root[i]?.type);
+  console.log(entities);
+  for (const i in entities) {
+    const entity = entities[i];
+    console.log(entity);
+    let Comp = registry.getParser("entity-" + entity?.type);
     if (Comp) {
       renderList.push(
         <Comp
-          key={root[i]?.type + "-" + runningNumber}
+          key={entity?.type + "-" + runningNumber}
           building={building}
-          {...(root[i] as any)}
+          {...(entity as any)}
         />,
       );
       runningNumber += 1;
@@ -62,8 +65,8 @@ function renderEntities(root, building) {
 export function renderHome(building: any): any {
   const root = building?.floorplan;
   const renderList = renderFloorplan(root, building);
-  const entitiesList = renderEntities(building?.objects, building);
-  return [renderList, entitiesList];
+  // const entitiesList = renderEntities(building?.objects, building);
+  return [renderList, undefined];
 }
 export function parseHome(
   xmlText: string,
