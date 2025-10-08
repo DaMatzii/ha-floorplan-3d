@@ -20,7 +20,7 @@ import { backgroundBlurriness } from "three/src/nodes/TSL.js";
 import FloorplanView from "./components/FloorplanView";
 import { BottomSheet } from "@/components/ui/Bottomsheet";
 import registry from "@/utils/Components.js";
-
+import { useUI } from "@/hooks/useUI";
 const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
 const Button = ({ onClick, children }) => {
@@ -41,17 +41,39 @@ const Button = ({ onClick, children }) => {
   );
 };
 
+function renderCards(cards) {
+  const renderList: JSX.Element[] = [];
+  let runningNumber = 0;
+  for (const i in cards) {
+    const entity = cards[i];
+    console.log(entity);
+    let Comp = registry.getParser("ui-" + entity?.type);
+    if (Comp) {
+      renderList.push(
+        <Comp key={entity?.type + "-" + runningNumber} {...(entity as any)} />,
+      );
+      runningNumber += 1;
+    }
+  }
+  return renderList;
+}
 export default function HomeView() {
   // if (loading) return null;
 
   const [activeCamera, setActiveCamera] = useState(1); // default to debug view
   const [isBottomSheetToggled, setBottomSheetToggle] = useState(false); // default to debug view
+  const [cards, setCards] = useState([]); // default to debug view
   const { home, focusedItem } = useHome();
+  const ui = useUI("ui.yaml");
 
-  const Comp =
-    focusedItem.type !== ""
-      ? registry.getParser("ui-hass-" + focusedItem.type)
-      : null;
+  useEffect(() => {
+    setCards(renderCards(ui?.cards ?? []));
+  }, [focusedItem]);
+
+  // const Comp =
+  // focusedItem.type !== ""
+  // ? registry.getParser("ui-hass-" + focusedItem.type)
+  // : null;
 
   return (
     <>
@@ -88,7 +110,7 @@ export default function HomeView() {
             <FloorplanView activeCamera={activeCamera} />
           </div>
         </div>
-        <BottomSheet>{Comp ? <Comp /> : 0}</BottomSheet>
+        <BottomSheet>{cards}</BottomSheet>
       </div>
     </>
   );

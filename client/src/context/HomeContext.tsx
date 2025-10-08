@@ -13,6 +13,8 @@ interface HomeContextType {
   setCurrentRoom: React.Dispatch<React.SetStateAction<number>>;
   setFocusedItem: React.Dispatch<React.SetStateAction<FocusedItem>>;
   focusedItem: FocusedItem;
+  openedUI: string;
+  setOpenedUI: React.Dispatch<React.SetStateAction<string>>;
   // setHome: React.Dispatch<React.SetStateAction<Home>>;
 }
 
@@ -30,9 +32,10 @@ export const HomeProvider: React.FC<HomeProviderProps> = ({
   children,
 }) => {
   const [currentRoom, setCurrentRoom] = useState<number>(0);
+  const [openedUI, setOpenedUI] = useState<string>(undefined);
   const [focusedItem, setFocusedItem] = useState<FocusedItem>({
     type: "",
-    hassID: "",
+    id: "",
   });
 
   return (
@@ -43,6 +46,8 @@ export const HomeProvider: React.FC<HomeProviderProps> = ({
         setCurrentRoom,
         setFocusedItem,
         focusedItem,
+        openedUI,
+        setOpenedUI,
       }}
     >
       {children}

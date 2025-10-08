@@ -1,3 +1,7 @@
+import { useBottomSheet } from "@/context/BottomSheetContext";
+import { useEffect } from "react";
+
+import { useHome } from "@/context/HomeContext";
 function LightCard({ rowSpan }) {
   return (
     <>
@@ -15,10 +19,22 @@ ${rowSpan === 1 ? "" : "flex-col justify-between"}
     </>
   );
 }
-export function RoomCard() {
+export function RoomCard(data) {
+  console.log(data);
+  const { setIsOpen, setOpenY } = useBottomSheet();
+
+  const { focusedItem } = useHome();
+
+  useEffect(() => {
+    let moveTo = window.innerHeight * 0.25;
+
+    setOpenY(moveTo);
+    setIsOpen(true);
+  }, [focusedItem]);
+
   return (
     <>
-      <div className="top-65 p-4 absolute w-screen h-screen">
+      <div className="p-4 absolute w-screen h-screen">
         <div className="flex justify-between items-center bg-green-500">
           <p>Matiaksen huone</p>
           <div className="flex gap-4">

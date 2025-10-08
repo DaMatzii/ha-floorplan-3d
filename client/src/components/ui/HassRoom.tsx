@@ -2,7 +2,6 @@ import { useHome } from "@/context/HomeContext";
 import { useEntity } from "@hakit/core";
 
 import { useBottomSheet } from "@/context/BottomSheetContext";
-import { useUIConfig } from "@/hooks/useConfig";
 
 import { useEffect, useState, useRef } from "react";
 interface LightCardProps {
