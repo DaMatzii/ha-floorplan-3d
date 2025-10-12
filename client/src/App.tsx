@@ -21,8 +21,8 @@ import EditorView from "@/EditorView";
 import { useAppConfigs } from "./hooks/useConfig";
 import { RoomView } from "./RoomTestView";
 import { RoomCard } from "./RoomCardTest";
+import { renderComponent } from "@/lib/test";
 
-import { useUIConfig } from "@/hooks/useConfig";
 function SomeComponent() {
   const connection = useStore((state) => state.connection);
 
@@ -36,42 +36,10 @@ function SomeComponent() {
 function Error() {
   return <p>erroororor</p>;
 }
-function FileUploader() {
-  const [file, setFile] = useState(null);
-  const [message, setMessage] = useState("");
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
-
-  const handleUpload = async () => {
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      const res = await fetch("http://192.168.2.61:8080/wizard/start", {
-        method: "POST",
-        body: formData,
-      });
-      const data = await res.json();
-      setMessage(data.message || data.error);
-    } catch (err) {
-      setMessage("Upload failed");
-    }
-  };
-
-  return (
-    <div>
-      <h1>Upload Files</h1>
-      <input type="file" multiple onChange={handleFileChange} />
-      <button onClick={handleUpload}>Upload</button>
-      <p>{message}</p>
-    </div>
-  );
+function Test() {
+  const Comp = renderComponent();
+  return <Comp text="LOOOL" />;
 }
-
 //Config
 //Load buildings
 //Add buildings to things to render
@@ -79,7 +47,6 @@ const App: React.FC = () => {
   const { floorplan, entities, loading } = useBuilding();
   const config = useAppConfigs();
 
-  const UIconfig = useUIConfig();
   // const [parsed_entities, setEntities] = useState<Home>();
 
   return (
@@ -103,7 +70,7 @@ const App: React.FC = () => {
               <Route path="/" element={<HomeView />} />
               <Route path="/light" element={<HassLight />} />
               <Route path="/editor" element={<EditorView />} />
-              <Route path="/test" element={<RoomCard />} />
+              <Route path="/test" element={<Test />} />
               {/* <Route path="/about" element={<About />} /> */}
               {/* <Route path="/test" element={<TestView />} /> */}
             </Routes>

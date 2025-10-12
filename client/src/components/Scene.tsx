@@ -15,7 +15,7 @@ const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
 function Building({ building }) {
   const [floorplanElems, setFloorplanElems] = useState();
-  const [entityElems, setEntityElems] = useState();
+  // const [entityElems, setEntityElems] = useState();
 
   useEffect(() => {
     const [floorplan, entities] = renderHome(building);
@@ -49,7 +49,6 @@ function Scene({ activeCamera, editorMode }) {
       const [x, y, z] = position.get();
 
       camera.current.position.set(x, y, z);
-      // invalidate(); // render frame because camera changed
     }
   });
 
@@ -60,12 +59,12 @@ function Scene({ activeCamera, editorMode }) {
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTime;
       if (elapsed > 4000) {
-        clearInterval(interval); // stop after 4 seconds
+        clearInterval(interval);
         return;
       }
 
       invalidate();
-    }, 16); // ~60fps
+    }, 16); 
     return () => clearInterval(interval);
   }, [target]);
   const focus = (room: Room) => {
@@ -114,7 +113,7 @@ function Scene({ activeCamera, editorMode }) {
         {activeCamera === NORMAL_CAMERA ? <OrbitControls /> : <></>}
 
         <ambientLight intensity={1.3} color="#f4fffa" />
-        <Building building={home.buildings[0]} />
+        <Building building={0} />
 
         <Light
           type="directional"

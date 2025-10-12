@@ -1,0 +1,63 @@
+building1:
+  title: "Home"
+  floorplan_name: "house.xml"
+
+  rooms:
+    - id: room-ae706306-67b2-4bf3-a5aa-b14c97cde769
+      alias: matiaksen_huone
+      hassId: area.matiaksen_huone
+      tap_action:
+        action: more-info 
+      double_tap_action:
+        action: call-service
+        service: light.toggle
+        target:
+            entity_id: light.matiaksen_huone_2
+      ui_entities:
+        - type: light
+          entity_id: light.hue_lightstrip_plus_1
+          span: 2
+        - type: light
+          entity_id: light.hue_lightstrip_plus_1
+          span: 1
+        - type: light
+          entity_id: light.hue_lightstrip_plus_1
+          span: 1
+ 
+      entities:
+        - type: light
+          entity_id: light.hue_lightstrip_plus_1
+          tap_action:
+            action: more-info 
+          double_tap_action:
+            action: call-service
+            service: light.toggle
+            target:
+               entity_id: light.hue_lightstrip_plus_1
+          position: 
+              x: 700 
+              y: 1290 
+              z: 150
+        - type: light
+          entity_id: light.hue_ambiance_candle_3
+          tap_action:
+          action: call-service
+          service: light.toggle
+          target:
+              entity_id: light.hue_ambiance_candle_3
+          position: 
+            x: 520 
+            y: 1140 
+            z: 150 
+        - type: temperatureDisplay
+          fontSize: 200 
+          topSensor: sensor.atc_651c_temperature
+          bottomSensor: sensor.atc_651c_humidity
+          position:
+            x: 680 
+            y: 1195 
+            z: 0
+   
+    - id: room-a8239ead-614a-4d1e-9c8c-686e5a12d0a9
+      hassId: test
+

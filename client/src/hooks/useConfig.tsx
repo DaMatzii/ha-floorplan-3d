@@ -43,19 +43,3 @@ export function useAppConfigs() {
 
   return appConfig;
 }
-export function useUIConfig() {
-  const [appConfig, setAppConfig] = useState<AppConfig | null>(null);
-
-  useEffect(() => {
-    async function load() {
-      const yamlText = await fetch("/ui.yaml").then((r) => r.text());
-      const parsedConfig = YAML.parse(yamlText);
-
-      setAppConfig(parsedConfig);
-    }
-
-    load();
-  }, []);
-
-  return appConfig;
-}
