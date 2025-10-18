@@ -4,8 +4,10 @@ import (
 	"net/http"
 
 	"backend/routes"
+
 	"encoding/json"
 	"fmt"
+	"github.com/clbanning/mxj/v2"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"gopkg.in/yaml.v3"
@@ -39,6 +41,12 @@ type AppConfig struct {
 	Name      string              `yaml:"name"`
 	Buildings []map[string]string `yaml:"buildings"`
 }
+type Building struct {
+	Title          string         `yaml:"title" json:"title"`
+	Floorplan_path string         `yaml:"floorplan_name" json:"floorplan"`
+	Rooms          any            `yaml:"rooms" json:"rooms"`
+	Floorplan      map[string]any `json"floorplan_building"`
+}
 
 func loadConfig(path string) *AppConfig {
 	yamlData, err := os.ReadFile("config/" + path)
@@ -52,6 +60,68 @@ func loadConfig(path string) *AppConfig {
 	}
 
 	return &obj
+}
+func loadBuilding(path string) *Building {
+	yamlData, err := os.ReadFile("config/" + path)
+	if err != nil {
+		return nil
+	}
+
+	var obj Building
+	if err := yaml.Unmarshal(yamlData, &obj); err != nil {
+		return nil
+	}
+
+	return &obj
+}
+
+func stripDashKeys(v interface{}) interface{} {
+	switch val := v.(type) {
+	case map[string]interface{}:
+		newMap := make(map[string]interface{})
+		for k, v := range val {
+			newKey := k
+			if len(k) > 0 && k[0] == '-' {
+				newKey = k[1:] // remove leading dash
+			}
+			newMap[newKey] = stripDashKeys(v)
+		}
+		return newMap
+	case []interface{}:
+		for i, elem := range val {
+			val[i] = stripDashKeys(elem)
+		}
+		return val
+	default:
+		return val
+	}
+}
+
+func loadFloorplan(path string) map[string]any {
+	data, err := os.ReadFile("config/" + path)
+	if err != nil {
+		return nil
+	}
+
+	mv, err := mxj.NewMapXml(data)
+	if err != nil {
+		panic(err)
+	}
+
+	dd := stripDashKeys(mv.Old())
+
+	// Marshal and then unmarshal into a generic map
+	jsonData, err := json.Marshal(dd)
+	if err != nil {
+		panic(err)
+	}
+
+	var result map[string]any
+	if err := json.Unmarshal(jsonData, &result); err != nil {
+		panic(err)
+	}
+
+	return result
 }
 func main() {
 	// Create a new Gin router
@@ -73,14 +143,28 @@ func main() {
 	router.GET("/home", func(c *gin.Context) {
 		returnConfig("home.yml", c)
 	})
-	router.GET("/buildings/:building", func(c *gin.Context) {
+	router.GET("/buildings", func(c *gin.Context) {
+		// building := c.Param("building") // get the path parameter
+		config := loadConfig("home.yml")
+		building := loadBuilding(config.Buildings[0]["main"])
+		building.Floorplan = loadFloorplan(building.Floorplan_path)
+		c.JSON(http.StatusOK, []any{building})
+
+	})
+	router.GET("/building/:building/blueprint", func(c *gin.Context) {
 		// building := c.Param("building") // get the path parameter
 		config := loadConfig("home.yml")
 		fmt.Println(config.Buildings[0]["main"])
-		// c.JSON(http.StatusOK, gin.H{
-		// "message":  "Building found",
-		// "building": config.buildings[building],
-		// })
+		building := loadBuilding(config.Buildings[0]["main"])
+		c.JSON(http.StatusOK, building)
+	})
+	router.GET("/building/:building/floorplan", func(c *gin.Context) {
+		// building := c.Param("building") // get the path parameter
+		// config := loadConfig("home.yml")
+		// building := loadBuilding(config.Buildings[0]["main"])
+		// floorplan := loadFloorplan(building.Floorplan_path)
+
+		// c.Data(http.StatusOK, "application/json", floorplan)
 	})
 	router.POST("/wizard/start", routes.WizardStart)
 

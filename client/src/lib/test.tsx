@@ -1,15 +1,13 @@
 import Wall from "@/components/scene/Wall";
-
-function Test({ text }) {
-  return <>{text}</>;
-}
+import Room from "@/components/scene/Room";
 
 const defaultComponents = {
-  Wall: (props) => <Test {...props} />,
+  wall: (props) => <Wall {...props} />,
+  room: (props) => <Room {...props} />,
   Date: () => <input type="date" />,
   Number: () => <input type="number" />,
 };
 
-export function renderComponent() {
-  return defaultComponents["Wall"];
+export function renderComponent(component: string) {
+  return defaultComponents[component.toLowerCase()];
 }

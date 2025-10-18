@@ -62,11 +62,11 @@ export function renderEntities(entities, building) {
   return renderList;
 }
 
-export function renderHome(building: any): any {
-  const root = building?.floorplan;
-  const renderList = renderFloorplan(root, building);
+export function renderHome(building): any {
+  // const renderList = renderFloorplan(root, building);
+
   // const entitiesList = renderEntities(building?.objects, building);
-  return [renderList, undefined];
+  return [undefined, undefined];
 }
 export function parseHome(
   xmlText: string,

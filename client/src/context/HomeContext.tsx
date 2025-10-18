@@ -37,6 +37,19 @@ export const HomeProvider: React.FC<HomeProviderProps> = ({
     type: "",
     id: "",
   });
+  console.log("HOMEPROIVER");
+
+  React.useEffect(() => {
+    (async () => {
+      const [home, buildings] = await Promise.all([
+        fetch("/api/home").then((r) => r.json()),
+        fetch("/api/buildings").then((r) => r.json()),
+      ]);
+      console.log("HOMEPROVIDER");
+      console.log(home);
+      console.log(buildings);
+    })();
+  }, []);
 
   return (
     <HomeContext.Provider

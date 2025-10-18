@@ -22,6 +22,7 @@ import { useAppConfigs } from "./hooks/useConfig";
 import { RoomView } from "./RoomTestView";
 import { RoomCard } from "./RoomCardTest";
 import { renderComponent } from "@/lib/test";
+import TestLoader from "@/NewLoader";
 
 function SomeComponent() {
   const connection = useStore((state) => state.connection);
@@ -70,7 +71,7 @@ const App: React.FC = () => {
               <Route path="/" element={<HomeView />} />
               <Route path="/light" element={<HassLight />} />
               <Route path="/editor" element={<EditorView />} />
-              <Route path="/test" element={<Test />} />
+              <Route path="/test" element={<TestLoader />} />
               {/* <Route path="/about" element={<About />} /> */}
               {/* <Route path="/test" element={<TestView />} /> */}
             </Routes>

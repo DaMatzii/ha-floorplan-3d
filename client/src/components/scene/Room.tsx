@@ -123,56 +123,39 @@ interface RoomProps extends ComponentProps {
 const Room: React.FC<RoomProps> = ({ id, point, building }) => {
   const { home, currentRoom } = useHome();
   const [isSelected, setIsSelected] = React.useState(false);
-  const roomConfig = building.rooms.find((b) => b.id === id);
-  const [entityElems, setEntityElems] = useState([]);
+  // const roomConfig = building.rooms.find((b) => b.id === id);
+  // const [entityElems, setEntityElems] = useState([]);
 
-  const { editorMode } = useView();
+  // const { editorMode } = useView();
 
-  let rooms = [];
-  for (let i = 0; i < home.buildings.length; i++) {
-    const building = home.buildings[i];
-    rooms.push(...building.floorplan?.room);
-  }
+  // let rooms = [];
+  // for (let i = 0; i < home.buildings.length; i++) {
+  // const building = home.buildings[i];
+  // rooms.push(...building.floorplan?.room);
+  // }
 
-  useEffect(() => {
-    let room = rooms.findIndex(
-      (room) => room.id === id || room.id === (roomConfig?.hassId ?? -1),
-    );
+  // useEffect(() => {
+  // let room = rooms.findIndex(
+  // (room) => room.id === id || room.id === (roomConfig?.hassId ?? -1),
+  // );
 
-    console.log("EDITORMODE: ", editorMode);
-    if (room === currentRoom || editorMode) {
-      setIsSelected(true);
-    } else {
-      setIsSelected(false);
-    }
-  }, [currentRoom]);
+  // console.log("EDITORMODE: ", editorMode);
+  // if (room === currentRoom || editorMode) {
+  // setIsSelected(true);
+  // } else {
+  // setIsSelected(false);
+  // }
+  // }, [currentRoom]);
 
-  const middlePoint: Point = React.useMemo(() => {
-    // console.log(room);
-    let x_vals = point.map((p: Point) => p.x / 100);
-    let y_vals = point.map((p: Point) => p.y / 100);
-    let min_x = Math.min(...x_vals);
-    let max_x = Math.max(...x_vals);
-    let min_y = Math.min(...y_vals);
-    let max_y = Math.max(...y_vals);
-    let width = max_x - min_x;
-    let height = max_y - min_y;
-    let center_x = min_x + width / 2;
-    let center_y = min_y + height / 2;
-    return {
-      x: center_x,
-      y: center_y,
-    };
-  }, []);
-  useEffect(() => {
-    if (roomConfig === undefined) {
-      return;
-    }
-    setEntityElems(renderEntities(roomConfig.entities, building));
-  }, []);
+  // useEffect(() => {
+  // if (roomConfig === undefined) {
+  // return;
+  // }
+  // setEntityElems(renderEntities(roomConfig.entities, building));
+  // }, []);
   return (
     <>
-      <RoomClickBox id={id} points={point} building={building} />
+      {/* <RoomClickBox id={id} points={point} building={building} /> */}
 
       <RoomMesh points={point} />
 
@@ -193,7 +176,7 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
           {/* {entityElems.map((Elem, index) => { */}
           {/* <Elem />; */}
           {/* })} */}
-          {entityElems}
+          {/* {entityElems} */}
         </>
       ) : (
         0

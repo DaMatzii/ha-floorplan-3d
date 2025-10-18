@@ -14,7 +14,6 @@ import { HassConnect, useEntity, useAreas } from "@hakit/core";
 import SliderTest from "@/components/ui/SliderTest";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { useHome } from "@/context/HomeContext";
-import { useFloorplan } from "./hooks/useFloorplan.tsx";
 
 import { backgroundBlurriness } from "three/src/nodes/TSL.js";
 import FloorplanView from "./components/FloorplanView";
@@ -70,11 +69,6 @@ export default function HomeView() {
     setCards(renderCards(ui?.cards ?? []));
   }, [focusedItem]);
 
-  // const Comp =
-  // focusedItem.type !== ""
-  // ? registry.getParser("ui-hass-" + focusedItem.type)
-  // : null;
-
   return (
     <>
       <div
@@ -99,7 +93,6 @@ export default function HomeView() {
         </Button>
       </div>
       <div className="flex flex-col h-screen bg-gray-100">
-        {/* Top area */}
         <div className="flex-1 flex items-center justify-center  z-0">
           <div
             className="canvas-container w-screen h-screen"

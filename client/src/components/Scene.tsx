@@ -6,23 +6,53 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera, useHelper } from "@react-three/drei";
 import DebugCamera from "@/utils/DebugCamera";
 import * as THREE from "three";
+// import { useHome } from "@/hooks/useHome";
+import { useBuilding, useFloorplan } from "@/hooks/useBuilding";
 
 import { MeshReflectorMaterial, Environment } from "@react-three/drei";
 import { useHome } from "@/context/HomeContext";
 import { ViewContextProvider } from "@/context/ViewContext";
+import { renderComponent } from "@/lib/test";
 
 const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
-function Building({ building }) {
-  const [floorplanElems, setFloorplanElems] = useState();
-  // const [entityElems, setEntityElems] = useState();
+
+function renderBuilding(building, setComponents) {
+  let componentsToRender = [];
+  Object.keys(building).forEach((key) => {
+    if (Array.isArray(building[key])) {
+      building[key].map((item, index) => {
+        const Comp = renderComponent(key);
+        if (Comp) {
+          componentsToRender.push(<Comp key={key + "-" + index} {...item} />);
+        }
+      });
+    }
+  });
+  console.log(componentsToRender);
+  setComponents(componentsToRender);
+}
+function Building({ building_id }) {
+  const { building } = useBuilding(0);
+  const { floorplan } = useFloorplan(0);
+  const [components, setComponents] = useState();
 
   useEffect(() => {
-    const [floorplan, entities] = renderHome(building);
-    setFloorplanElems(floorplan);
-  }, [building]);
+    if (floorplan === undefined) return;
+    console.log("Building struct or what ever");
+    console.log(building);
+    console.log(floorplan);
+    renderBuilding(floorplan, setComponents);
+  }, [floorplan]);
 
-  return <>{floorplanElems}</>;
+  return <>{components}</>;
+}
+function Room() {
+  useEffect(() => {
+    console.log("ROOOOOM");
+  }, []);
+
+  return <></>;
 }
 
 function Scene({ activeCamera, editorMode }) {
@@ -64,7 +94,7 @@ function Scene({ activeCamera, editorMode }) {
       }
 
       invalidate();
-    }, 16); 
+    }, 16);
     return () => clearInterval(interval);
   }, [target]);
   const focus = (room: Room) => {
@@ -113,7 +143,7 @@ function Scene({ activeCamera, editorMode }) {
         {activeCamera === NORMAL_CAMERA ? <OrbitControls /> : <></>}
 
         <ambientLight intensity={1.3} color="#f4fffa" />
-        <Building building={0} />
+        <Building building_id={0} />
 
         <Light
           type="directional"
