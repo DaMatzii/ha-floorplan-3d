@@ -1,18 +1,14 @@
-import { useHome } from "@/hooks/useHome";
-import { useBuilding, useFloorplan } from "@/hooks/useBuilding";
+import { useBuilding, useFloorplan, useRooms } from "@/hooks/useBuilding";
+import { useHome } from "@/context/HomeContext";
 
 function Building() {
-  const { building } = useBuilding(0);
-  const { floorplan } = useFloorplan(0);
-  console.log(building);
-  console.log(floorplan);
+  const building = useFloorplan(0);
   return <>lol</>;
 }
 
 export default function TestLoader() {
-  // console.log("rerender");
-  const { home } = useHome();
-  console.log(home);
+  const { buildings } = useHome();
+  const rooms = useRooms();
   return (
     <>
       <Building />

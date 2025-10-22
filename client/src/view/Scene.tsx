@@ -3,16 +3,24 @@ import { useEffect, useState, useRef } from "react";
 import Light from "@/utils/Light";
 import { parseHome, renderHome } from "@/utils/Parser";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera, useHelper } from "@react-three/drei";
+import {
+  OrbitControls,
+  PerspectiveCamera,
+  Environment,
+  useHelper,
+} from "@react-three/drei";
 import DebugCamera from "@/utils/DebugCamera";
 import * as THREE from "three";
 // import { useHome } from "@/hooks/useHome";
-import { useBuilding, useFloorplan } from "@/hooks/useBuilding";
+import {
+  useBuilding,
+  useFloorplan,
+  useFloorplanRoom,
+} from "@/hooks/useBuilding";
 
-import { MeshReflectorMaterial, Environment } from "@react-three/drei";
 import { useHome } from "@/context/HomeContext";
 import { ViewContextProvider } from "@/context/ViewContext";
-import { renderComponent } from "@/lib/test";
+import { renderComponent } from "@/view/handler/Components";
 
 const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
@@ -29,43 +37,25 @@ function renderBuilding(building, setComponents) {
       });
     }
   });
-  console.log(componentsToRender);
   setComponents(componentsToRender);
 }
 function Building({ building_id }) {
-  const { building } = useBuilding(0);
-  const { floorplan } = useFloorplan(0);
+  const floorplan = useFloorplan(0);
   const [components, setComponents] = useState();
 
   useEffect(() => {
     if (floorplan === undefined) return;
-    console.log("Building struct or what ever");
-    console.log(building);
-    console.log(floorplan);
     renderBuilding(floorplan, setComponents);
-  }, [floorplan]);
-
-  return <>{components}</>;
-}
-function Room() {
-  useEffect(() => {
-    console.log("ROOOOOM");
   }, []);
 
-  return <></>;
+  return <>{components}</>;
 }
 
 function Scene({ activeCamera, editorMode }) {
   const { home, currentRoom } = useHome();
   const [target, setTarget] = useState([0, 0, 10]);
-  const idleTimeout = useRef(null);
 
   const camera = useRef<THREE.PerspectiveCamera>(null);
-  const lastPos = useRef({
-    x: 0,
-    y: 0,
-    z: 0,
-  });
 
   const { invalidate } = useThree();
 
@@ -97,7 +87,8 @@ function Scene({ activeCamera, editorMode }) {
     }, 16);
     return () => clearInterval(interval);
   }, [target]);
-  const focus = (room: Room) => {
+  const focus = (room: any) => {
+    if (!room) return;
     const x_vals = room.point.map((p) => p.x / 100);
     const y_vals = room.point.map((p) => p.y / 100);
     const points = x_vals.map((x, i) => new THREE.Vector3(x, y_vals[i], 0)); // z = 0
@@ -124,14 +115,7 @@ function Scene({ activeCamera, editorMode }) {
     if (home === undefined) {
       return;
     }
-    //move to useMemo or out of useEffect
-    let rooms = [];
-    for (let i = 0; i < home.buildings.length; i++) {
-      const building = home.buildings[i];
-      rooms.push(...building.floorplan?.room);
-    }
-
-    focus(rooms[currentRoom]);
+    focus(currentRoom?.floorplan);
   }, [currentRoom]);
 
   return (
@@ -142,7 +126,8 @@ function Scene({ activeCamera, editorMode }) {
 
         {activeCamera === NORMAL_CAMERA ? <OrbitControls /> : <></>}
 
-        <ambientLight intensity={1.3} color="#f4fffa" />
+        <ambientLight intensity={0.1} color="#f4fffa" />
+        <Environment preset="apartment" />
         <Building building_id={0} />
 
         <Light

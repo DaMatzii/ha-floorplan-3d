@@ -1,25 +1,27 @@
 import { useEffect, useState } from "react";
 import { XMLParser } from "fast-xml-parser";
 import YAML from "yaml";
-import { Floorlan } from "@/types/Home";
 
-type UiConfig = {
-  name: string;
-  cards: any[];
-};
+export async function loadUI(ui_file: string) {
+  async function f() {
+    const resp = await fetch("/api/ui/" + ui_file);
+    const ui = await resp.json();
+    return ui;
+  }
+
+  return f();
+}
 
 export function useUI(ui_file: string) {
-  const [appConfig, setAppConfig] = useState<UiConfig | null>(null);
+  const [appConfig, setAppConfig] = useState(null);
 
   useEffect(() => {
-    async function load() {
-      const yamlText = await fetch("/" + ui_file).then((r) => r.text());
-      const parsedConfig = YAML.parse(yamlText);
-
-      setAppConfig(parsedConfig);
+    async function f() {
+      const resp = await fetch("/api/ui/" + ui_file);
+      const ui = await resp.json();
+      setAppConfig(ui);
     }
-
-    load();
+    f();
   }, []);
 
   return appConfig;

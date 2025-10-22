@@ -35,7 +35,6 @@ export function useAppConfigs() {
       setAppConfig({
         buildings: buildings,
       });
-      console.log(buildings);
     }
 
     load();

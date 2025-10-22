@@ -1,36 +1,41 @@
 import { useEffect, useState } from "react";
 import type { Home } from "@/types/Home";
+import { useHome } from "@/context/HomeContext";
 
 export function useBuilding(building_name: number) {
-  const [building, setBuilding] = useState<Home>();
-
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("/api/building/0/blueprint")
-      .then((res) => res.json())
-      .then((data) => setBuilding(data))
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-
-  return { building, loading };
+  const { buildings } = useHome();
+  return buildings[building_name];
 }
 
 export function useFloorplan(building_name: number) {
-  const [floorplan, setFloorplan] = useState<Home>();
+  const { buildings } = useHome();
+  return buildings[building_name].floorplan_building;
+}
+export function useRooms() {
+  const { buildings } = useHome();
+  let rooms = [];
+  for (let i = 0; i < buildings.length; i++) {
+    rooms.push(...buildings[i].rooms);
+  }
+  return rooms;
+}
+export function useRoomConfig(id: string) {
+  const rooms = useRooms();
+  const room = rooms.find((r) => r.id === id);
 
-  const [loading, setLoading] = useState(true);
+  if (room) (room as any).floorplan = useFloorplanRoom(id);
+  return room;
+}
+export function useFloorplanRoom(id: string) {
+  const { buildings } = useHome();
 
-  useEffect(() => {
-    fetch("/api/building/0/floorplan")
-      .then((res) => res.json())
-      .then((data) => setFloorplan(data.home))
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-
-  return { floorplan, loading };
+  for (let i = 0; i < buildings.length; i++) {
+    const room = buildings[i].floorplan_building.room.find(
+      (room) => room.id === id,
+    );
+    if (room) {
+      return room;
+    }
+  }
+  return undefined;
 }

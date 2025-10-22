@@ -52,7 +52,7 @@ const BoxWithLabel: React.FC<BoxWithLabelProps> = ({
       "more-info": () => {
         setFocusedItem({
           type: hassEntity.entity_id.split(".")[0],
-          hassID: hassEntity.entity_id,
+          id: hassEntity.entity_id,
         });
       },
     });

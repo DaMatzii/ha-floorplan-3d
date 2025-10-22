@@ -14,7 +14,6 @@ function Couch({ model, color, ...props }) {
   const { scene } = useGLTF(model as string); // put your file path here
   scene.traverse((child) => {
     if (child.isMesh) {
-      console.log(child.material);
       child.material = child.material.clone(); // keep material properties
       child.material.color.set(color as string); // just change color
       child.material.flatShading = true;

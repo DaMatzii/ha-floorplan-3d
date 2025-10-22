@@ -42,10 +42,10 @@ type AppConfig struct {
 	Buildings []map[string]string `yaml:"buildings"`
 }
 type Building struct {
-	Title          string         `yaml:"title" json:"title"`
-	Floorplan_path string         `yaml:"floorplan_name" json:"floorplan"`
-	Rooms          any            `yaml:"rooms" json:"rooms"`
-	Floorplan      map[string]any `json"floorplan_building"`
+	Title          string `yaml:"title" json:"title"`
+	Floorplan_path string `yaml:"floorplan_name" json:"floorplan"`
+	Rooms          any    `yaml:"rooms" json:"rooms"`
+	Floorplan      any    `json:"floorplan_building"`
 }
 
 func loadConfig(path string) *AppConfig {
@@ -96,7 +96,19 @@ func stripDashKeys(v interface{}) interface{} {
 		return val
 	}
 }
+func loadUI(path string) any {
+	yamlData, err := os.ReadFile("config/" + path)
+	if err != nil {
+		return nil
+	}
 
+	var obj any
+	if err := yaml.Unmarshal(yamlData, &obj); err != nil {
+		return nil
+	}
+
+	return &obj
+}
 func loadFloorplan(path string) map[string]any {
 	data, err := os.ReadFile("config/" + path)
 	if err != nil {
@@ -110,7 +122,7 @@ func loadFloorplan(path string) map[string]any {
 
 	dd := stripDashKeys(mv.Old())
 
-	// Marshal and then unmarshal into a generic map
+	// Convert the mxj.Map into a standard Go map[string]any
 	jsonData, err := json.Marshal(dd)
 	if err != nil {
 		panic(err)
@@ -147,7 +159,7 @@ func main() {
 		// building := c.Param("building") // get the path parameter
 		config := loadConfig("home.yml")
 		building := loadBuilding(config.Buildings[0]["main"])
-		building.Floorplan = loadFloorplan(building.Floorplan_path)
+		building.Floorplan = loadFloorplan(building.Floorplan_path)["home"]
 		c.JSON(http.StatusOK, []any{building})
 
 	})
@@ -166,8 +178,13 @@ func main() {
 
 		// c.Data(http.StatusOK, "application/json", floorplan)
 	})
+	router.GET("/ui/:ui", func(c *gin.Context) {
+		name := c.Param("ui")
+		ui := loadUI(name + ".yml")
+
+		c.JSON(http.StatusOK, ui)
+	})
 	router.POST("/wizard/start", routes.WizardStart)
 
-	// Start the server on port 8080
 	router.Run(":8080")
 }

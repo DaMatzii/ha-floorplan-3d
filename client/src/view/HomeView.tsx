@@ -5,21 +5,14 @@ import React, {
   createRef,
   forwardRef,
 } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera, useHelper } from "@react-three/drei";
-import * as THREE from "three";
-// import House from "./House";
-import { Routes, Route, Link } from "react-router-dom";
-import { HassConnect, useEntity, useAreas } from "@hakit/core";
-import SliderTest from "@/components/ui/SliderTest";
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { useHome } from "@/context/HomeContext";
+import { useBottomSheet } from "@/context/HomeContext";
 
-import { backgroundBlurriness } from "three/src/nodes/TSL.js";
-import FloorplanView from "./components/FloorplanView";
+import FloorplanView from "@/view/FloorplanView";
 import { BottomSheet } from "@/components/ui/Bottomsheet";
-import registry from "@/utils/Components.js";
-import { useUI } from "@/hooks/useUI";
+import { useUI, loadUI } from "@/hooks/useUI";
+import { renderComponent } from "@/view/handler/Components";
+
 const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
 const Button = ({ onClick, children }) => {
@@ -39,35 +32,30 @@ const Button = ({ onClick, children }) => {
     </button>
   );
 };
-
-function renderCards(cards) {
-  const renderList: JSX.Element[] = [];
-  let runningNumber = 0;
-  for (const i in cards) {
-    const entity = cards[i];
-    console.log(entity);
-    let Comp = registry.getParser("ui-" + entity?.type);
+function renderUI(ui, setUI) {
+  let componentsToRender = [];
+  console.log(ui);
+  Object.keys(ui).map((key, index) => {
+    const Comp = renderComponent("ui_" + ui[key]?.type);
+    console.log(Comp);
+    console.log(ui[key]?.type);
     if (Comp) {
-      renderList.push(
-        <Comp key={entity?.type + "-" + runningNumber} {...(entity as any)} />,
-      );
-      runningNumber += 1;
+      componentsToRender.push(<Comp key={key + "-" + index} {...ui[key]} />);
     }
-  }
-  return renderList;
+  });
+  setUI(componentsToRender);
 }
 export default function HomeView() {
-  // if (loading) return null;
-
-  const [activeCamera, setActiveCamera] = useState(1); // default to debug view
-  const [isBottomSheetToggled, setBottomSheetToggle] = useState(false); // default to debug view
-  const [cards, setCards] = useState([]); // default to debug view
-  const { home, focusedItem } = useHome();
-  const ui = useUI("ui.yaml");
+  const [activeCamera, setActiveCamera] = useState(1);
+  const [cards, setCards] = useState([]);
+  const { state } = useBottomSheet();
 
   useEffect(() => {
-    setCards(renderCards(ui?.cards ?? []));
-  }, [focusedItem]);
+    loadUI(state.activeUI).then((r) => {
+      if (!r) return;
+      renderUI(r?.cards, setCards);
+    });
+  }, [state.activeUI]);
 
   return (
     <>

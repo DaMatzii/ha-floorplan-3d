@@ -12,7 +12,8 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "lib": ["DOM", "ES2021"],
   },
   // "include": ["src"],
 }

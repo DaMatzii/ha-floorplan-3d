@@ -86,18 +86,18 @@ const Furniture: React.FC<FurnitureProps> = ({
   modelCopy.position.z -= center.z;
   modelCopy.position.y -= center.y;
   // console.log("CATALOGID: ", catalogId);
-  if (color !== undefined) {
-    modelCopy.traverse((child) => {
-      if (child.isMesh) {
-        // console.log("	CHILD: ", child);
-        child.material = child.material.clone(); // keep material properties
-        child.material.color.set(color as string); // just change color
-        // child.material.flatShading = true;
-        child.material.castShadow = false;
-        child.material.recieveShadow = false;
-      }
-    });
-  }
+  // if (color !== undefined) {
+  modelCopy.traverse((child) => {
+    if (child.isMesh) {
+      // console.log("	CHILD: ", child);
+      child.material = child.material.clone(); // keep material properties
+      child.material.color.set("#777777"); // just change color
+      // child.material.flatShading = true;
+      child.material.castShadow = false;
+      child.material.recieveShadow = false;
+    }
+  });
+  // }
   const el = height / 100 / 2 + elevation / 100;
   return (
     <>

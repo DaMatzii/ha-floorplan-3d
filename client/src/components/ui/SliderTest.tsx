@@ -1,12 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { useHome } from "@/context/HomeContext";
-
-function getRotateY(index: any, currentItem: any) {
-  if (index === currentItem - 1) return -50;
-  if (index === currentItem + 1) return 50;
-  return 0;
-}
+import { useRooms } from "@/hooks/";
 
 const SliderTest = () => {
   const x = useMotionValue(0);
@@ -15,24 +10,9 @@ const SliderTest = () => {
   const [currentItem, setCurrentItem] = useState(0);
 
   const { setCurrentRoom, home } = useHome();
-  // console.log(rooms);
-  let rooms = [];
-  for (let i = 0; i < home.buildings.length; i++) {
-    const building = home.buildings[i];
-    rooms.push(...building.floorplan?.room);
-  }
-
-  const real_rooms = rooms
-    .map((room, originalIndex) => ({ room, originalIndex })) // attach original index
-    .filter(
-      ({ room }) =>
-        room !== "" &&
-        room !== null &&
-        room !== undefined &&
-        room.name !== undefined,
-    );
 
   const ref = useRef(null);
+  const real_rooms = useRooms();
 
   return (
     <>
@@ -52,14 +32,14 @@ const SliderTest = () => {
             return;
           }
           let currentScroll = x.get();
-          let currentItem = Math.round(Math.abs(currentScroll) / itemWidth);
+          let currentItem1 = Math.round(Math.abs(currentScroll) / itemWidth);
 
-          setCurrentItem(currentItem);
-          setCurrentRoom(real_rooms[currentItem].originalIndex);
+          setCurrentItem(currentItem1);
+          setCurrentRoom(real_rooms[currentItem1]);
         }}
         style={{ x }}
         dragConstraints={{
-          left: -128 * real_rooms.lenght,
+          left: -128 * real_rooms.length,
           right: 0,
         }}
         dragTransition={{ bounceStiffness: 500, bounceDamping: 15 }}
@@ -67,7 +47,7 @@ const SliderTest = () => {
         whileDrag={{ cursor: "grabbing" }}
         className="absolute flex items-center left-1/2 h-12 w-24 bottom-0 gap-10 -translate-x-1/2 "
       >
-        {real_rooms.map(({ room, originalIndex }, index: number) => {
+        {real_rooms.map((room, index: number) => {
           return (
             <motion.div
               ref={ref}
@@ -92,7 +72,7 @@ const SliderTest = () => {
                   damping: 30,
                 });
                 setCurrentItem(index);
-                setCurrentRoom(originalIndex);
+                setCurrentRoom(real_rooms[index]);
               }}
             >
               <div
@@ -106,7 +86,7 @@ const SliderTest = () => {
                         : ""
                 }`}
               >
-                {room.name}
+                {room.alias ?? "testi"}
               </div>
             </motion.div>
           );

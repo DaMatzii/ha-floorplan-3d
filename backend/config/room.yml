@@ -1,0 +1,13 @@
+cards:
+  - type: room 
+    entities:
+      - light.matiaksen_huone_2:
+          size: [2, 1]
+          tap_action:
+           action: call-service
+           service: light.toggle
+           target:
+              entity_id: light.matiaksen_huone_2
+      - light.matiaksen_huone_2:
+      - light.matiaksen_huone_2:
+

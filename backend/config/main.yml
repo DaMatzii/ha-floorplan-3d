@@ -12,17 +12,6 @@ rooms:
       service: light.toggle
       target:
           entity_id: light.matiaksen_huone_2
-    ui_entities:
-      - type: light
-        entity_id: light.hue_lightstrip_plus_1
-        span: 2
-      - type: light
-        entity_id: light.hue_lightstrip_plus_1
-        span: 1
-      - type: light
-        entity_id: light.hue_lightstrip_plus_1
-        span: 1
-
     entities:
       - type: light
         entity_id: light.hue_lightstrip_plus_1

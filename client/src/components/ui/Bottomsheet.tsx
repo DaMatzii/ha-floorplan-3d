@@ -2,14 +2,13 @@ import React, { useRef, useEffect } from "react";
 import SliderTest from "./SliderTest";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { useHome } from "@/context//HomeContext";
-import BottomSheetContext from "@/context/BottomSheetContext";
+import { useBottomSheet } from "@/context/HomeContext";
 
 export const BottomSheet = ({ children }) => {
   const { home } = useHome();
   const targetRef = useRef<HTMLDivElement>(null);
   const y = useMotionValue(0);
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [openY, setOpenY] = React.useState(0);
+  const { state, dispatch } = useBottomSheet();
 
   const [constraints, setConstraints] = React.useState({
     top: 0,
@@ -24,25 +23,32 @@ export const BottomSheet = ({ children }) => {
         bottom: window.innerHeight - (rect.bottom - rect.top) / 2 - 48,
       };
 
-      setOpenY(newConstraints.top);
+      dispatch({
+        type: "SET_MAX_HEIGHT",
+        payload: newConstraints.top,
+      });
+
       setConstraints(newConstraints);
       y.set(newConstraints.bottom);
     }
   }, [y]);
 
   useEffect(() => {
-    const target = isOpen ? openY : constraints.bottom;
+    const target = state.isOpen ? state.maxHeight : constraints.bottom;
 
     animate(y, target, {
       type: "spring",
       stiffness: 300,
       damping: 30,
     });
-  }, [isOpen, constraints, openY]);
+  }, [state, constraints]);
 
   const handleDragEnd = (_: any, info: { delta: { x: number; y: number } }) => {
     const isOpening = info.delta.y < 0;
-    setIsOpen(isOpening);
+    dispatch({
+      type: "SET_STATE",
+      payload: isOpening,
+    });
   };
 
   return (
@@ -69,11 +75,7 @@ export const BottomSheet = ({ children }) => {
           <div className="w-16 h-1.5 bg-gray-400 mt-1 rounded-full cursor-grab" />
         </div>
 
-        <BottomSheetContext.Provider
-          value={{ isOpen, openY, setIsOpen, setOpenY }}
-        >
-          <div className="mt-3">{children}</div>
-        </BottomSheetContext.Provider>
+        <div className="mt-3">{children}</div>
       </motion.div>
       <div
         ref={targetRef}

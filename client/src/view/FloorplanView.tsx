@@ -1,7 +1,7 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Stats } from "@react-three/drei";
 
-import Scene from "@/components/Scene";
+import Scene from "@/view/Scene";
 
 export default function FloorplanView({ activeCamera }) {
   return (
