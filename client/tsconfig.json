@@ -3,17 +3,18 @@
     "composite": true,
     "jsx": "react-jsx",
     "esModuleInterop": true,
-    "moduleResolution": "node",
     "module": "esnext",
     "target": "esnext",
-    "lib": ["dom", "esnext"],
-    "outDir": "./dist",           // required for composite projects
-    "rootDir": "./src",
+    "lib": ["DOM", "ES2021"],
+    "outDir": "./dist",
+    "rootDir": "src",
     "baseUrl": "./src",
+    "types": ["node", "monaco-editor"],
+    "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./*"]
-    },
-    "lib": ["DOM", "ES2021"],
+    }
   },
-  // "include": ["src"],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "vite.config.ts"]
 }

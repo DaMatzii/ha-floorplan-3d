@@ -1,3 +1,5 @@
+/// <reference types="monaco-editor" />
+
 import React, { useEffect, useRef } from "react";
 import * as monaco from "monaco-editor";
 
@@ -11,7 +13,7 @@ import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker"
 import yamlWorker from "monaco-yaml/yaml.worker?worker";
 
 // Configure Monaco environment
-self.MonacoEnvironment = {
+(window as any).MonacoEnvironment = {
   getWorker(_, label) {
     if (label === "json") return new jsonWorker();
     if (label === "css") return new cssWorker();
@@ -32,14 +34,6 @@ const Editor = React.forwardRef(({}, ref) => {
   const divEl = useRef<HTMLDivElement>(null);
   const [code, setCode] = React.useState("");
   const editorRef = useRef(null);
-
-  if (!navigator.clipboard || !navigator.clipboard.write) {
-    navigator.clipboard = {
-      ...navigator.clipboard,
-      write: async () => {}, // no-op
-      writeText: async () => {},
-    };
-  }
 
   useEffect(() => {
     // console.log("lol");

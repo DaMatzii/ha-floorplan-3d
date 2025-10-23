@@ -2,7 +2,6 @@ import { useHome } from "@/context/HomeContext";
 import { useEntity } from "@hakit/core";
 import { motion } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
-import { useBottomSheet } from "@/context/BottomSheetContext";
 
 interface ToggleSwitchProps {
   isOn: boolean;
@@ -49,30 +48,30 @@ function ColorPicker() {
 }
 export default function HassLight() {
   const { focusedItem } = useHome();
-  const entity = useEntity(focusedItem.hassID);
+  const entity = useEntity((focusedItem as any).hassID);
   const divRef = useRef(null);
 
   const [isOn, setIsOn] = useState(false);
 
-  const { setIsOpen, setOpenY } = useBottomSheet();
+  // const { setIsOpen, setOpenY } = useBottomSheet();
   useEffect(() => {
     console.log(entity);
     console.log("I got rendered!!");
     const rect = divRef.current.getBoundingClientRect();
     let moveTo = window.innerHeight - (rect.bottom - rect.top) / 2 - 80;
 
-    setOpenY(moveTo);
-
-    setIsOpen(true);
+    // setOpenY(moveTo);
+    //
+    // setIsOpen(true);
   }, [focusedItem]);
   useEffect(() => {
-    setIsOn(entity.state === "on" ? true : false);
-  }, [entity.state]);
+    setIsOn((entity as any).state === "on" ? true : false);
+  }, [(entity as any).state]);
 
   return (
     <>
       <div ref={divRef} className="relative w-full h-32 ">
-        <p className="pl-4">{focusedItem.hassID}</p>
+        <p className="pl-4">{(focusedItem as any).hassID}</p>
         <div className="flex justify-between w-full ">
           <div className="w-64 h-12 pl-4 pt-1">
             <ColorPicker />
@@ -82,9 +81,9 @@ export default function HassLight() {
               isOn={isOn}
               onToggle={() => {
                 if (isOn) {
-                  entity.service.turnOff();
+                  (entity as any).service.turnOff();
                 } else {
-                  entity.service.turnOn();
+                  (entity as any).service.turnOn();
                 }
 
                 setIsOn(!isOn);

@@ -1,13 +1,12 @@
 import React from "react";
-import type { ComponentProps } from "../Components.ts";
-import Light from "../Light.tsx";
 import { Html } from "@react-three/drei";
-import { HassConnect, useEntity, useEntities, useDevice } from "@hakit/core";
+import { useEntities } from "@hakit/core";
 import { motion } from "framer-motion";
+import type { EntityName } from "@hakit/core";
 
 type Point = { x: number; y: number };
 type TemperatureSensor = { temperature: number; humidity: number };
-interface TemperatureDisplayProps extends ComponentProps {
+interface TemperatureDisplayProps {
   hassId: any;
   topSensor: string;
   bottomSensor: string;
@@ -28,7 +27,10 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
   }); // default to debug view
   // console.log(hassId);
 
-  const lightStrip = useEntities([topSensor, bottomSensor]);
+  const lightStrip = useEntities([
+    topSensor as EntityName,
+    bottomSensor as EntityName,
+  ]);
   React.useEffect(() => {
     setReading({
       temperature: Number(lightStrip[0]["state"]),

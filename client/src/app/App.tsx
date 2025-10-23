@@ -1,21 +1,11 @@
-import React, {
-  useRef,
-  useState,
-  useEffect,
-  createRef,
-  forwardRef,
-} from "react";
+import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import HomeView from "@/view/HomeView";
 import { HassConnect, useStore } from "@hakit/core";
-import { motion, useMotionValue, useTransform } from "framer-motion";
 
 import { HomeProvider } from "@/context/HomeContext";
-import { parseHome, renderHome } from "@/utils/Parser";
 import HassLight from "@/components/ui/HassLight_test";
 
-// import EditorView from "@/EditorView";
-// import { useAppConfigs } from "./hooks/useConfig";
 import TestLoader from "@/NewLoader";
 
 function SomeComponent() {

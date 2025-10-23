@@ -1,16 +1,9 @@
-import React, {
-  useRef,
-  useState,
-  useEffect,
-  createRef,
-  forwardRef,
-} from "react";
-import { useHome } from "@/context/HomeContext";
+import { useState, useEffect } from "react";
 import { useBottomSheet } from "@/context/HomeContext";
 
 import FloorplanView from "@/view/FloorplanView";
 import { BottomSheet } from "@/components/ui/Bottomsheet";
-import { useUI, loadUI } from "@/hooks/useUI";
+import { loadUI } from "@/hooks/useUI";
 import { renderComponent } from "@/view/handler/Components";
 
 const DEBUG_CAMERA = 1;

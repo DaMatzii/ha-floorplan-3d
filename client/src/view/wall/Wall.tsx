@@ -1,12 +1,11 @@
 import React from "react";
 import * as THREE from "three";
 import { CSG } from "three-csg-ts";
-import type { ComponentProps } from "@/utils/Components.ts";
 import { useHome } from "@/context/HomeContext";
-import { palette } from "@/Colorpalette.ts";
+import { palette } from "@/Colorpalette";
 
 import { sub } from "three/src/nodes/TSL.js";
-interface WallProps extends ComponentProps {
+interface WallProps {
   xEnd: number;
   xStart: number;
   yEnd: number;
@@ -64,6 +63,7 @@ const Wall: React.FC<WallProps> = ({
     let wallMesh = new THREE.Mesh(wallGeom);
 
     let sub = wallMesh;
+    let end_result;
 
     building?.floorplan.doorOrWindow.forEach((doorOrWindow: any) => {
       if (doorOrWindow.elevation === undefined) {
@@ -91,19 +91,19 @@ const Wall: React.FC<WallProps> = ({
       box2.applyMatrix4(boxMatrix);
 
       const wallBox = new THREE.Box3().setFromBufferAttribute(
-        wallGeom.attributes.position,
+        wallGeom.attributes.position as THREE.BufferAttribute,
       );
       const cutBox = new THREE.Box3().setFromBufferAttribute(
-        box2.attributes.position,
+        box2.attributes.position as THREE.BufferAttribute,
       );
 
       if (wallBox.intersectsBox(cutBox)) {
         let cutMesh = new THREE.Mesh(box2);
-        sub = CSG.subtract(sub, cutMesh);
+        end_result = CSG.subtract(sub, cutMesh);
       }
     });
 
-    return sub.geometry;
+    return end_result?.geometry ?? sub.geometry;
   }, [home]);
 
   return (

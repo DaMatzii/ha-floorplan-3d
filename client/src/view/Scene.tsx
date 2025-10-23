@@ -1,7 +1,5 @@
 import { a, useSpring } from "@react-spring/three";
 import { useEffect, useState, useRef } from "react";
-import Light from "@/utils/Light";
-import { parseHome, renderHome } from "@/utils/Parser";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   OrbitControls,
@@ -116,6 +114,7 @@ function Scene({ activeCamera, editorMode }) {
       return;
     }
     focus(currentRoom?.floorplan);
+    console.log(currentRoom);
   }, [currentRoom]);
 
   return (
@@ -130,18 +129,18 @@ function Scene({ activeCamera, editorMode }) {
         <Environment preset="apartment" />
         <Building building_id={0} />
 
-        <Light
-          type="directional"
-          helper
-          size={0.5}
-          DebugColor="red"
-          position={[14, 15, 10]}
-          intensity={3}
-          decay={2}
-          distance={3}
-          castShadow
-          target-position={[14, 0, 10]}
-        />
+        {/* <Light */}
+        {/*   type="directional" */}
+        {/*   helper */}
+        {/*   size={0.5} */}
+        {/*   DebugColor="red" */}
+        {/*   position={[14, 15, 10]} */}
+        {/*   intensity={3} */}
+        {/*   decay={2} */}
+        {/*   distance={3} */}
+        {/*   castShadow */}
+        {/*   target-position={[14, 0, 10]} */}
+        {/* /> */}
       </ViewContextProvider>
     </>
   );

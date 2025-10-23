@@ -1,31 +1,49 @@
-import { useEffect, useState } from "react";
-import type { Home } from "@/types/Home";
+import { useMemo } from "react";
 import { useHome } from "@/context/HomeContext";
+import type { Building, Room, Floorplan } from "@/types";
 
-export function useBuilding(building_name: number) {
+export function useBuilding(building_name: number): Building | undefined {
   const { buildings } = useHome();
-  return buildings[building_name];
+  return buildings?.[building_name];
 }
 
-export function useFloorplan(building_name: number) {
-  const { buildings } = useHome();
-  return buildings[building_name].floorplan_building;
+export function useFloorplan(building_name: number): Floorplan | undefined {
+  const building = useBuilding(building_name);
+  return building?.floorplan_building;
 }
-export function useRooms() {
+export function useRooms(): Room[] {
   const { buildings } = useHome();
-  let rooms = [];
-  for (let i = 0; i < buildings.length; i++) {
-    rooms.push(...buildings[i].rooms);
-  }
-  return rooms;
+  return useMemo(() => {
+    if (!buildings) return [];
+    return buildings.flatMap((b) => {
+      for (const room of b.rooms) {
+        room.floorplan = b.floorplan_building?.room?.find(
+          (r) => r.id === room.id,
+        );
+      }
+      return b.rooms ?? [];
+    });
+  }, [buildings]);
 }
-export function useRoomConfig(id: string) {
+
+export function useRoom(id: string): Room | undefined {
   const rooms = useRooms();
-  const room = rooms.find((r) => r.id === id);
+  const { buildings } = useHome();
 
-  if (room) (room as any).floorplan = useFloorplanRoom(id);
-  return room;
+  const room = useMemo(() => rooms.find((r) => r.id === id), [rooms, id]);
+  if (!room) return undefined;
+
+  const floorplanRoom = useMemo(() => {
+    for (const building of buildings ?? []) {
+      const match = building.floorplan_building?.room?.find((r) => r.id === id);
+      if (match) return match;
+    }
+    return undefined;
+  }, [buildings, id]);
+
+  return { ...room, floorplan: floorplanRoom };
 }
+
 export function useFloorplanRoom(id: string) {
   const { buildings } = useHome();
 

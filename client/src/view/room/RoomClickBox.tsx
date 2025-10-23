@@ -1,20 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Shape } from "three";
 import * as THREE from "three";
-import { useLoader } from "@react-three/fiber";
-import type { Room } from "@/types/Room";
-import Light from "@/utils/Light";
-
 import { useHass } from "@hakit/core";
 import { evaluateAction } from "@/utils/EvaluateAction";
 
-import { useView } from "@/context/ViewContext";
-
-// import type { ComponentProps } from "@/utils/Components";
 import { useBottomSheet } from "@/context/HomeContext";
 
 import { useHome } from "@/context/HomeContext";
-import { useRoomConfig } from "@/hooks/";
+import { useRoom } from "@/hooks/";
 
 export function RoomClickBox({ id, points }: any) {
   const colors = [
@@ -32,7 +25,7 @@ export function RoomClickBox({ id, points }: any) {
   const { callService } = useHass();
 
   const { setFocusedItem, home } = useHome();
-  const roomConfig = useRoomConfig(id);
+  const roomConfig = useRoom(id);
   const { dispatch } = useBottomSheet();
 
   const randomColor = React.useMemo(() => {

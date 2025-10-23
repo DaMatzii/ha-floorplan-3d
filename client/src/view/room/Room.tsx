@@ -4,7 +4,7 @@ import * as THREE from "three";
 import type { Room } from "@/types/Room";
 import { useView } from "@/context/ViewContext";
 import { useHome } from "@/context/HomeContext";
-import { useRoomConfig } from "@/hooks/";
+import { useRoom } from "@/hooks/";
 import { RoomClickBox } from "./RoomClickBox";
 import { renderComponent } from "@/view/handler/Components";
 
@@ -12,7 +12,6 @@ import { renderComponent } from "@/view/handler/Components";
 type Point = { x: number; y: number };
 interface RoomMeshProps {
   points: Point[];
-  color: string;
 }
 
 interface RoomProps {
@@ -24,7 +23,7 @@ interface RoomProps {
 const Room: React.FC<RoomProps> = ({ id, point, building }) => {
   const { home, currentRoom } = useHome();
   const [isSelected, setIsSelected] = React.useState(true);
-  const room = useRoomConfig(id);
+  const room = useRoom(id);
   const [entityElems, setEntityElems] = useState([]);
 
   const { editorMode } = useView();

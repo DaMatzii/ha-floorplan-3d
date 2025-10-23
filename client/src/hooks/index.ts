@@ -1,1 +1,1 @@
-export { useRooms, useRoomConfig } from "./useBuilding"
+export { useRooms, useRoom } from "./useBuilding"

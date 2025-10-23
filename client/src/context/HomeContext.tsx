@@ -7,7 +7,7 @@ import React, {
   Dispatch,
 } from "react";
 import type { ReactNode } from "react";
-import type Home from "@/types/Home";
+import type { Home, Building } from "@/types";
 
 interface FocusedItem {
   type: string;
@@ -22,7 +22,7 @@ interface BottomSheetState {
 
 interface HomeContextType {
   home: Home;
-  buildings: any;
+  buildings: Building[];
   currentRoom: any;
   setCurrentRoom: React.Dispatch<React.SetStateAction<any>>;
   setFocusedItem: React.Dispatch<React.SetStateAction<FocusedItem>>;
@@ -117,7 +117,7 @@ export const HomeProvider: React.FC<HomeProviderProps> = ({ children }) => {
         bottomSheetState,
       }}
     >
-      {!isLoading ? children : "loading!?!?!?"}
+      {!isLoading ? children : "Loading"}
     </HomeContext.Provider>
   );
 };

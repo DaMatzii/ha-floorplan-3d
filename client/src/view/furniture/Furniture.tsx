@@ -1,11 +1,10 @@
-import type { ComponentProps } from "../Components.ts";
 import { OBJLoader } from "three-stdlib";
 import React, { useMemo } from "react";
 import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 
 import { tan } from "three/src/nodes/TSL.js";
-interface FurnitureProps extends ComponentProps {
+interface FurnitureProps {
   catalogId: string;
   x: number;
   y: number;
@@ -14,11 +13,9 @@ interface FurnitureProps extends ComponentProps {
   width: number;
   height: number;
   depth: number;
-  name: string;
-  color: string;
 }
 const objCache = {};
-let catalog = {};
+let catalog = {} as { items: any };
 fetch("/Catalog.json")
   .then((response) => response.json())
   .then((str) => {
@@ -34,8 +31,6 @@ const Furniture: React.FC<FurnitureProps> = ({
   width,
   height,
   depth,
-  name,
-  color,
 }) => {
   // console.log("NAME: ", name);
   if (elevation === undefined) {
@@ -88,7 +83,8 @@ const Furniture: React.FC<FurnitureProps> = ({
   // console.log("CATALOGID: ", catalogId);
   // if (color !== undefined) {
   modelCopy.traverse((child) => {
-    if (child.isMesh) {
+    if (child instanceof THREE.Mesh) {
+      if (!child.isMesh) return;
       // console.log("	CHILD: ", child);
       child.material = child.material.clone(); // keep material properties
       child.material.color.set("#777777"); // just change color

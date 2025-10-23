@@ -15,9 +15,8 @@ import * as monaco from "monaco-editor";
 import { useHome } from "@/context/HomeContext";
 import { ChevronRight } from "lucide-react";
 import { useRef, useState } from "react";
-import Editor from "@/components/Monaco";
+import Editor from "@/editor/Monaco";
 import { HomeProvider } from "@/context/HomeContext";
-import Scene from "@/components/Scene";
 
 const items = ["Item 1", "Item 2", "Item 3", "Item 4"];
 
@@ -64,9 +63,6 @@ type AppConfig = {
 };
 
 export default function EditorView() {
-  const meshRef = useRef();
-  const transformRef = useRef();
-  const [orbitEnabled, setOrbitEnabled] = useState(true);
   const [leftWidth, setLeftWidth] = useState(48); // Tailwind width units (rem)
   const [isDragging, setIsDragging] = useState(false);
   const editorRef = useRef(null);
@@ -140,7 +136,7 @@ export default function EditorView() {
           className="bg-black  h-screen"
           style={{ width: `${leftWidth}rem` }}
         >
-          <HomeProvider home={appConfig}>
+          <HomeProvider>
             <Canvas
               shadows
               dpr={[1, 2]}
@@ -151,11 +147,10 @@ export default function EditorView() {
                 position: [10, 15, 20],
               }}
             >
-              {appConfig === null ? (
-                0
-              ) : (
-                <Scene activeCamera={0} editorMode={true} />
-              )}
+              {appConfig === null
+                ? 0
+                : /* <Scene activeCamera={0} editorMode={true} /> */
+                  0}
             </Canvas>
           </HomeProvider>
         </div>

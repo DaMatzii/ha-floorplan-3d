@@ -6,6 +6,7 @@ import { useBottomSheet } from "@/context/HomeContext";
 import { evaluateAction } from "@/utils/EvaluateAction";
 import { motion } from "framer-motion";
 import { Lightbulb } from "lucide-react";
+import type { EntityName } from "@hakit/core";
 
 import { useEffect, useState, useRef } from "react";
 interface LightCardProps {
@@ -20,7 +21,7 @@ function LightCard({
   colSpan = 2,
   haEntity,
 }: LightCardProps) {
-  const entity = useEntity(haEntity);
+  const entity = useEntity(haEntity as EntityName);
   const { callService } = useHass();
 
   console.log(entity.attributes.friendly_name);

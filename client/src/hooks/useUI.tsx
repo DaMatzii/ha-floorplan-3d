@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { XMLParser } from "fast-xml-parser";
-import YAML from "yaml";
 
 export async function loadUI(ui_file: string) {
   async function f() {
