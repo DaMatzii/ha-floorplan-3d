@@ -24,7 +24,7 @@ function LightCard({
   const entity = useEntity(haEntity as EntityName);
   const { callService } = useHass();
 
-  console.log(entity.attributes.friendly_name);
+  console.log((entity as any).attributes.friendly_name);
   const spanClass =
     rowSpan === 1
       ? "row-span-1"
@@ -39,7 +39,7 @@ function LightCard({
       <>
         <div className="pl-2 text-[12px]  flex-1 min-w-0">
           <p className="truncate overflow-hidden whitespace-nowrap">
-            {entity.attributes.friendly_name}
+            {(entity as any).attributes.friendly_name}
           </p>
           <p className="">37%</p>
         </div>
@@ -52,7 +52,10 @@ function LightCard({
         className="bg-white p-2 rounded-full"
         animate={{
           rotate: 0,
-          color: entity.state.toLowerCase() === "on" ? "#fbbf24" : "#9ca3af",
+          color:
+            (entity as any).state.toLowerCase() === "on"
+              ? "#fbbf24"
+              : "#9ca3af",
           scale: 1,
           opacity: 1,
         }}
@@ -111,12 +114,12 @@ function LightCard({
 }
 export default function HassRoom({ entities }) {
   const { focusedItem, home } = useHome();
-  const { dispatch } = useBottomSheet();
+  // const { dispatch } = useBottomSheet();
 
   useEffect(() => {
     let moveTo = window.innerHeight * 0.25;
 
-    dispatch({ type: "SET_MAX_HEIGHT_AND_OPEN", payload: moveTo });
+    // dispatch({ type: "SET_MAX_HEIGHT_AND_OPEN", payload: moveTo });
     console.log("opening");
   }, [focusedItem]);
 

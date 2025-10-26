@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/clbanning/mxj/v2"
 	"github.com/gin-contrib/cors"
+	// "github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"gopkg.in/yaml.v3"
 	"os"
@@ -146,44 +147,46 @@ func main() {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
-	// Define a simple GET route
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello, World!",
+	// router.Use(static.Serve("/", static.LocalFile("../client/dist", true)))
+
+	{
+
+		api := router.Group("api")
+		api.GET("/home", func(c *gin.Context) {
+			returnConfig("home.yml", c)
 		})
-	})
-	router.GET("/home", func(c *gin.Context) {
-		returnConfig("home.yml", c)
-	})
-	router.GET("/buildings", func(c *gin.Context) {
-		// building := c.Param("building") // get the path parameter
-		config := loadConfig("home.yml")
-		building := loadBuilding(config.Buildings[0]["main"])
-		building.Floorplan = loadFloorplan(building.Floorplan_path)["home"]
-		c.JSON(http.StatusOK, []any{building})
 
-	})
-	router.GET("/building/:building/blueprint", func(c *gin.Context) {
-		// building := c.Param("building") // get the path parameter
-		config := loadConfig("home.yml")
-		fmt.Println(config.Buildings[0]["main"])
-		building := loadBuilding(config.Buildings[0]["main"])
-		c.JSON(http.StatusOK, building)
-	})
-	router.GET("/building/:building/floorplan", func(c *gin.Context) {
-		// building := c.Param("building") // get the path parameter
-		// config := loadConfig("home.yml")
-		// building := loadBuilding(config.Buildings[0]["main"])
-		// floorplan := loadFloorplan(building.Floorplan_path)
+		api.GET("/buildings", func(c *gin.Context) {
+			// building := c.Param("building") // get the path parameter
+			config := loadConfig("home.yml")
+			building := loadBuilding(config.Buildings[0]["main"])
+			building.Floorplan = loadFloorplan(building.Floorplan_path)["home"]
+			c.JSON(http.StatusOK, []any{building})
 
-		// c.Data(http.StatusOK, "application/json", floorplan)
-	})
-	router.GET("/ui/:ui", func(c *gin.Context) {
-		name := c.Param("ui")
-		ui := loadUI(name + ".yml")
+		})
+		api.GET("/building/:building/blueprint", func(c *gin.Context) {
+			// building := c.Param("building") // get the path parameter
+			config := loadConfig("home.yml")
+			fmt.Println(config.Buildings[0]["main"])
+			building := loadBuilding(config.Buildings[0]["main"])
+			c.JSON(http.StatusOK, building)
+		})
+		api.GET("/building/:building/floorplan", func(c *gin.Context) {
+			// building := c.Param("building") // get the path parameter
+			// config := loadConfig("home.yml")
+			// building := loadBuilding(config.Buildings[0]["main"])
+			// floorplan := loadFloorplan(building.Floorplan_path)
 
-		c.JSON(http.StatusOK, ui)
-	})
+			// c.Data(http.StatusOK, "application/json", floorplan)
+		})
+		api.GET("/ui/:ui", func(c *gin.Context) {
+			name := c.Param("ui")
+			ui := loadUI(name + ".yml")
+
+			c.JSON(http.StatusOK, ui)
+		})
+
+	}
 	router.POST("/wizard/start", routes.WizardStart)
 
 	router.Run(":8080")

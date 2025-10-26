@@ -23,6 +23,7 @@ function Error() {
 }
 
 const App: React.FC = () => {
+  console.log("APP RUUNS!!");
   return (
     <>
       <HassConnect
@@ -38,10 +39,11 @@ const App: React.FC = () => {
       >
         <HomeProvider>
           <Routes>
-            <Route path="/" element={<HomeView />} />
+            {/* <HomeView /> */}
+            {/* <Route path="/" element={<HomeView />} /> */}
             <Route path="/light" element={<HassLight />} />
             {/* <Route path="/editor" element={<EditorView />} /> */}
-            <Route path="/test" element={<TestLoader />} />
+            {/* <Route path="/test" element={<TestLoader />} /> */}
             {/* <Route path="/about" element={<About />} /> */}
             {/* <Route path="/test" element={<TestView />} /> */}
           </Routes>

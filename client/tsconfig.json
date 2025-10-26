@@ -11,10 +11,10 @@
     "baseUrl": "./src",
     "types": ["node", "monaco-editor"],
     "moduleResolution": "bundler",
+    "skipLibCheck": true,
     "paths": {
       "@/*": ["./*"]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "vite.config.ts"]
+  "include": ["src/**/*"]
 }

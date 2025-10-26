@@ -25,6 +25,7 @@ export const evaluateAction = async (action, callService, callbacks = {}) => {
 			if (typeof callbacks["more-info"] === "function") {
 				callbacks["more-info"](action);
 			}
+
 			break;
 
 		case "none":

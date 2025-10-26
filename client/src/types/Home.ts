@@ -1,3 +1,23 @@
+export interface Floorplan {
+	camera: string;
+	compass: Compass;
+	dimensionLine: any[];
+	doorOrWindow: any[];
+	environment: Environment;
+	furnitureSortedProperty: string;
+	furnitureVisibleProperty: { name: string }[];
+	label: Label;
+	light: any[];
+	name: string;
+	observerCamera: any[];
+	pieceOfFurniture: any[];
+	property: Property[];
+	room: any[];
+	version: string;
+	wall: any[];
+	wallHeight: string;
+}
+
 export interface Home {
 	name: string;
 	buildings: any[];
@@ -78,22 +98,4 @@ interface Property {
 	value: string;
 }
 
-export interface Floorplan {
-	camera: string;
-	compass: Compass;
-	dimensionLine: any[];
-	doorOrWindow: any[];
-	environment: Environment;
-	furnitureSortedProperty: string;
-	furnitureVisibleProperty: { name: string }[];
-	label: Label;
-	light: any[];
-	name: string;
-	observerCamera: any[];
-	pieceOfFurniture: any[];
-	property: Property[];
-	room: any[];
-	version: string;
-	wall: any[];
-	wallHeight: string;
-}
+

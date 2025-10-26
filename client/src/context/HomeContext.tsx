@@ -7,17 +7,32 @@ import React, {
   Dispatch,
 } from "react";
 import type { ReactNode } from "react";
-import type { Home, Building } from "@/types";
+import {
+  Home,
+  Building,
+  BottomSheetNode,
+  getBottomSheetNodeType,
+} from "@/types";
+import { renderComponent } from "@/view/handler/Components";
+
+import { loadUI } from "@/hooks/useUI";
 
 interface FocusedItem {
   type: string;
   id: string;
 }
 
+// interface BottomSheetState {
+//   isOpen: boolean;
+//   maxHeight: number;
+// }
+//
 interface BottomSheetState {
+  cardsNode: any;
+  openBottomSheet: (node: BottomSheetNode) => void;
   isOpen: boolean;
   maxHeight: number;
-  activeUI: string;
+  setMaxHeight: React.Dispatch<React.SetStateAction<any>>;
 }
 
 interface HomeContextType {
@@ -27,52 +42,12 @@ interface HomeContextType {
   setCurrentRoom: React.Dispatch<React.SetStateAction<any>>;
   setFocusedItem: React.Dispatch<React.SetStateAction<FocusedItem>>;
   focusedItem: FocusedItem;
-  dispatch: Dispatch<BottomSheetAction>;
   bottomSheetState: BottomSheetState;
 }
 const HomeContext = createContext<HomeContextType | undefined>(undefined);
 
 interface HomeProviderProps {
   children: ReactNode;
-}
-const initialState: BottomSheetState = {
-  isOpen: false,
-  maxHeight: 10,
-  activeUI: "",
-};
-type BottomSheetAction =
-  | { type: "OPEN" }
-  | { type: "CLOSE" }
-  | { type: "OPEN_UI"; payload: string }
-  | { type: "SET_STATE"; payload: boolean }
-  | { type: "SET_MAX_HEIGHT"; payload: number }
-  | { type: "SET_MAX_HEIGHT_AND_OPEN"; payload: number };
-
-function bottomSheetReducer(
-  state: BottomSheetState,
-  action: BottomSheetAction,
-): BottomSheetState {
-  switch (action.type) {
-    case "OPEN":
-      return { ...state, isOpen: true };
-    case "CLOSE":
-      return { ...state, isOpen: false };
-    case "OPEN_UI":
-      return { ...state, isOpen: true, activeUI: action.payload };
-    case "SET_MAX_HEIGHT":
-      return { ...state, maxHeight: action.payload };
-    case "SET_MAX_HEIGHT_AND_OPEN":
-      return { ...state, isOpen: true, maxHeight: action.payload };
-    case "SET_STATE":
-      return { ...state, isOpen: action.payload };
-
-    default:
-      return state;
-  }
-}
-interface BottomSheetValue {
-  state: BottomSheetState;
-  dispatch: Dispatch<BottomSheetAction>;
 }
 
 export const HomeProvider: React.FC<HomeProviderProps> = ({ children }) => {
@@ -84,10 +59,7 @@ export const HomeProvider: React.FC<HomeProviderProps> = ({ children }) => {
   const [home, setHome] = useState();
   const [buildings, setBuildings] = useState();
   const [isLoading, setLoading] = useState(true);
-  const [bottomSheetState, dispatch] = useReducer(
-    bottomSheetReducer,
-    initialState,
-  );
+  const bottomSheetState = useBottomSheet2();
 
   console.log("LOOOL");
 
@@ -113,7 +85,6 @@ export const HomeProvider: React.FC<HomeProviderProps> = ({ children }) => {
         setCurrentRoom,
         setFocusedItem,
         focusedItem,
-        dispatch,
         bottomSheetState,
       }}
     >
@@ -129,14 +100,59 @@ export const useHome = (): HomeContextType => {
   }
   return context;
 };
-export function useBottomSheet(): BottomSheetValue {
+export function useBottomSheet(): BottomSheetState {
   const context = useHome();
   if (!context) {
     throw new Error("useBottomSheet must be used within a BottomSheetProvider");
   }
 
+  return context.bottomSheetState;
+}
+function renderUI(ui, setUI) {
+  let componentsToRender = [];
+  console.log(ui);
+  Object.keys(ui).map((key, index) => {
+    const Comp = renderComponent("ui_" + ui[key]?.type);
+    console.log(Comp);
+    console.log(ui[key]?.type);
+    if (Comp) {
+      componentsToRender.push(<Comp key={key + "-" + index} {...ui[key]} />);
+    }
+  });
+  setUI(componentsToRender);
+}
+
+export function useBottomSheet2(): BottomSheetState {
+  const [cardsNode, setCardsNode] = React.useState(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [maxHeight, setMaxHeight] = React.useState(75 * window.innerHeight);
+
+  function openBottomSheet(node: BottomSheetNode) {
+    //load node and how much should it be open?
+    switch (getBottomSheetNodeType(node)) {
+      case "card":
+        const Comp = renderComponent(node);
+        console.log(Comp);
+        if (Comp) {
+          setCardsNode([Comp]);
+        }
+        setIsOpen(true);
+
+        break;
+      case "ui":
+        // loadUI(node).then((r) => {
+        // renderUI(r?.cards, setCardsNode);
+        // });
+        console.log("ui");
+
+        break;
+    }
+  }
   return {
-    dispatch: context.dispatch,
-    state: context.bottomSheetState,
-  };
+    cardsNode,
+    openBottomSheet,
+    isOpen,
+    maxHeight,
+    setMaxHeight,
+  } as BottomSheetState;
 }

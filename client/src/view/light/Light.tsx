@@ -7,14 +7,15 @@ import { useHome } from "@/context/HomeContext";
 import { evaluateAction } from "@/utils/EvaluateAction";
 import { a, useSpring } from "@react-spring/three";
 import { useFrame } from "@react-three/fiber";
-
+import { useBottomSheet } from "@/context/HomeContext";
 import { useView } from "@/context/ViewContext";
+
 import type { EntityName } from "@hakit/core";
 
 interface Light {
   room: any;
   position: any;
-  entity_id: string;
+  entity_id: EntityName;
   tap_action: any;
   index: number;
   double_tap_action: any;
@@ -27,14 +28,16 @@ const Light: React.FC<Light> = ({
   double_tap_action,
   index,
 }) => {
-  const hassEntity = useEntity(entity_id as EntityName);
+  const hassEntity = useEntity(entity_id);
   const { callService } = useHass();
   const { setFocusedItem } = useHome();
   const [rotation, setRotation] = React.useState(0);
   const clickTimeout = React.useRef(null);
   const isLightOn = () => {
-    return hassEntity.state.toLowerCase() === "on" ? 3 : 0;
+    return (hassEntity as any).state.toLowerCase() === "on" ? 3 : 0;
   };
+
+  const { openBottomSheet } = useBottomSheet();
 
   const { editorMode } = useView();
   const intensity = React.useRef(motionValue(isLightOn() ? 1 : 0)).current;
@@ -50,9 +53,12 @@ const Light: React.FC<Light> = ({
     evaluateAction(action, callService, {
       "more-info": () => {
         setFocusedItem({
-          type: hassEntity.entity_id.split(".")[0],
-          id: hassEntity.entity_id,
+          type: (hassEntity as any).entity_id.split(".")[0],
+          id: (hassEntity as any).entity_id,
         });
+
+        // dispatch({ type: "OPEN_UI", payload: "card_light" });
+        openBottomSheet("card_light");
       },
     });
 
@@ -62,7 +68,7 @@ const Light: React.FC<Light> = ({
   React.useEffect(() => {
     const controls = animate(
       intensity,
-      hassEntity.state.toLowerCase() === "on" ? 3 : 0,
+      (hassEntity as any).state.toLowerCase() === "on" ? 3 : 0,
       {
         repeatType: "reverse",
         duration: 0.3,
@@ -104,7 +110,9 @@ const Light: React.FC<Light> = ({
             animate={{
               rotate: rotation,
               color:
-                hassEntity.state.toLowerCase() === "on" ? "#fbbf24" : "#9ca3af",
+                (hassEntity as any).state.toLowerCase() === "on"
+                  ? "#fbbf24"
+                  : "#9ca3af",
 
               scale: 1,
               opacity: 1,

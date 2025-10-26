@@ -5,12 +5,13 @@ import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
+	base: "/",
 	server: {
 		proxy: {
 			'/api': {
 				target: 'http://localhost:8080',
 				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/api/, ''),
+				// rewrite: (path) => path.replace(/^\/api/, 'api'),
 			},
 		}
 	},
