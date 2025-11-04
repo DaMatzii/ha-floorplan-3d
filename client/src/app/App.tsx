@@ -7,8 +7,6 @@ import { HomeProvider } from "@/context/HomeContext";
 import HassLight from "@/components/ui/HassLight_test";
 import EditorView from "@/editor/EditorView";
 
-import TestLoader from "@/NewLoader";
-
 function SomeComponent() {
   const connection = useStore((state) => state.connection);
 
