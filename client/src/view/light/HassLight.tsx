@@ -48,9 +48,9 @@ function ColorPicker() {
     </>
   );
 }
-export default function HassLight() {
+export default function HassLight({ id }) {
   const { focusedItem } = useHome();
-  const entity = useEntity((focusedItem as any).hassID as EntityName);
+  const entity = useEntity(id);
   const divRef = useRef(null);
 
   const [isOn, setIsOn] = useState(false);

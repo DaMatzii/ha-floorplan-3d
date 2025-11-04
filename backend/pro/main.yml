@@ -3,7 +3,7 @@ floorplan_name: "home.xml"
 
 rooms:
   - id: room-ae706306-67b2-4bf3-a5aa-b14c97cde769
-    alias: matiaksen_huone
+    alias: Matiaksen huone
     hassId: area.matiaksen_huone
     tap_action:
       action: more-info 
@@ -49,5 +49,5 @@ rooms:
           z: 0
  
   - id: room-a8239ead-614a-4d1e-9c8c-686e5a12d0a9
-    hassId: test
+    hassId: Makuuhone 
 

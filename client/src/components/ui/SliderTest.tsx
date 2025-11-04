@@ -9,7 +9,7 @@ const SliderTest = () => {
   const itemWidth = 96 + 40;
   const [currentItem, setCurrentItem] = useState(0);
 
-  const { setCurrentRoom, home } = useHome();
+  const { setCurrentRoom } = useHome();
 
   const ref = useRef(null);
   const real_rooms = useRooms();

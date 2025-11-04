@@ -5,6 +5,7 @@ import { HassConnect, useStore } from "@hakit/core";
 
 import { HomeProvider } from "@/context/HomeContext";
 import HassLight from "@/components/ui/HassLight_test";
+import EditorView from "@/editor/EditorView";
 
 import TestLoader from "@/NewLoader";
 
@@ -40,9 +41,9 @@ const App: React.FC = () => {
         <HomeProvider>
           <Routes>
             {/* <HomeView /> */}
-            {/* <Route path="/" element={<HomeView />} /> */}
+            <Route path="/" element={<HomeView />} />
             <Route path="/light" element={<HassLight />} />
-            {/* <Route path="/editor" element={<EditorView />} /> */}
+            <Route path="/editor" element={<EditorView />} />
             {/* <Route path="/test" element={<TestLoader />} /> */}
             {/* <Route path="/about" element={<About />} /> */}
             {/* <Route path="/test" element={<TestView />} /> */}

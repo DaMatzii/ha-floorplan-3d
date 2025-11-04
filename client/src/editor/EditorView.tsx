@@ -16,7 +16,7 @@ import { useHome } from "@/context/HomeContext";
 import { ChevronRight } from "lucide-react";
 import { useRef, useState } from "react";
 import Editor from "@/editor/Monaco";
-import { HomeProvider } from "@/context/HomeContext";
+import Scene from "@/view/Scene";
 
 const items = ["Item 1", "Item 2", "Item 3", "Item 4"];
 
@@ -70,6 +70,8 @@ export default function EditorView() {
   const [config, setConfig] = useState();
   const [appConfig, setAppConfig] = useState<AppConfig | null>(null);
 
+  const { reloadConfig } = useHome();
+
   const startDrag = () => setIsDragging(true);
   const stopDrag = () => setIsDragging(false);
 
@@ -118,8 +120,9 @@ export default function EditorView() {
       ?.getEditor()
       .addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
         const code = editorRef.current?.getEditor().getValue();
-        console.log("Saving content:");
-        setConfig(code);
+        // console.log("Saving content:");
+        // console.log(code);
+        reloadConfig(code);
       });
   });
 
@@ -136,23 +139,18 @@ export default function EditorView() {
           className="bg-black  h-screen"
           style={{ width: `${leftWidth}rem` }}
         >
-          <HomeProvider>
-            <Canvas
-              shadows
-              dpr={[1, 2]}
-              camera={{
-                fov: 45,
-                near: 0.1,
-                far: 1000000,
-                position: [10, 15, 20],
-              }}
-            >
-              {appConfig === null
-                ? 0
-                : /* <Scene activeCamera={0} editorMode={true} /> */
-                  0}
-            </Canvas>
-          </HomeProvider>
+          <Canvas
+            shadows
+            dpr={[1, 2]}
+            camera={{
+              fov: 45,
+              near: 0.1,
+              far: 1000000,
+              position: [10, 15, 20],
+            }}
+          >
+            <Scene activeCamera={0} editorMode={true} />
+          </Canvas>
         </div>
         <div
           className="w-2 bg-gray-500 cursor-ew-resize h-screen "

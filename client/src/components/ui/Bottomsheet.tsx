@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import SliderTest from "./SliderTest";
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, useMotionValue, animate } from "framer-motion";
 import { useHome } from "@/context//HomeContext";
 import { useBottomSheet } from "@/context/HomeContext";
 
@@ -8,7 +8,7 @@ export const BottomSheet = ({ children }) => {
   const { home } = useHome();
   const targetRef = useRef<HTMLDivElement>(null);
   const y = useMotionValue(0);
-  const { state, dispatch } = useBottomSheet();
+  const { isOpen, setIsOpen, maxHeight, cardsNode } = useBottomSheet();
 
   const [constraints, setConstraints] = React.useState({
     top: 0,
@@ -19,36 +19,29 @@ export const BottomSheet = ({ children }) => {
     if (targetRef.current) {
       const rect = targetRef.current.getBoundingClientRect();
       const newConstraints = {
-        top: window.innerHeight * 0.25,
+        top: maxHeight,
         bottom: window.innerHeight - (rect.bottom - rect.top) / 2 - 48,
       };
-
-      dispatch({
-        type: "SET_MAX_HEIGHT",
-        payload: newConstraints.top,
-      });
 
       setConstraints(newConstraints);
       y.set(newConstraints.bottom);
     }
-  }, [y]);
+  }, [y, maxHeight]);
 
   useEffect(() => {
-    const target = state.isOpen ? state.maxHeight : constraints.bottom;
+    console.log(maxHeight);
+    const target = isOpen ? maxHeight : constraints.bottom;
 
     animate(y, target, {
       type: "spring",
       stiffness: 300,
       damping: 30,
     });
-  }, [state, constraints]);
+  }, [isOpen, cardsNode, constraints]);
 
   const handleDragEnd = (_: any, info: { delta: { x: number; y: number } }) => {
     const isOpening = info.delta.y < 0;
-    dispatch({
-      type: "SET_STATE",
-      payload: isOpening,
-    });
+    setIsOpen(isOpening);
   };
 
   return (

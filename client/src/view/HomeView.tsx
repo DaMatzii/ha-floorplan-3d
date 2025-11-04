@@ -40,21 +40,7 @@ function renderUI(ui, setUI) {
 }
 export default function HomeView() {
   const [activeCamera, setActiveCamera] = useState(1);
-  // const [cards, setCards] = useState([]);
   const { cardsNode } = useBottomSheet();
-
-  // useEffect(() => {
-  //   if (state.activeUI.startsWith("card")) {
-  //     const Comp = renderComponent(state.activeUI);
-  //     if (Comp) {
-  //       setCards([Comp]);
-  //     }
-  //   }
-  //   loadUI(state.activeUI).then((r) => {
-  //     if (!r) return;
-  //     renderUI(r?.cards, setCards);
-  //   });
-  // }, [state.activeUI]);
 
   return (
     <>

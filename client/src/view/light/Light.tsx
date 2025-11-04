@@ -57,8 +57,9 @@ const Light: React.FC<Light> = ({
           id: (hassEntity as any).entity_id,
         });
 
-        // dispatch({ type: "OPEN_UI", payload: "card_light" });
-        openBottomSheet("card_light");
+        openBottomSheet("card_light", window.innerHeight * 0.8, {
+          id: (hassEntity as any).entity_id,
+        });
       },
     });
 

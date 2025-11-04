@@ -48,31 +48,28 @@ const Wall: React.FC<WallProps> = ({
     if (home === undefined) {
       return undefined;
     }
-    // Create base meshes
     const wallGeom = new THREE.BoxGeometry(
       real_lenght,
       real_height,
       real_thickness,
     );
 
-    // Apply world rotation & position
     const wallMatrix = new THREE.Matrix4()
-      .makeRotationY(angle) // rotate wall in world
-      .setPosition(new THREE.Vector3(position[0], position[1], position[2])); // move wall in world
+      .makeRotationY(angle)
+      .setPosition(new THREE.Vector3(position[0], position[1], position[2]));
     wallGeom.applyMatrix4(wallMatrix);
     let wallMesh = new THREE.Mesh(wallGeom);
 
     let sub = wallMesh;
     let end_result;
 
-    building?.floorplan.doorOrWindow.forEach((doorOrWindow: any) => {
+    building?.floorplan_building.doorOrWindow.forEach((doorOrWindow: any) => {
       if (doorOrWindow.elevation === undefined) {
         doorOrWindow.elevation = 0;
       }
       if (doorOrWindow.angle === undefined) {
         doorOrWindow.angle = 0;
       }
-      // console.log(doorOrWindow);
       const box2 = new THREE.BoxGeometry(
         doorOrWindow.width / 100,
         doorOrWindow.height / 100,
@@ -80,7 +77,6 @@ const Wall: React.FC<WallProps> = ({
       );
       const boxMatrix = new THREE.Matrix4()
         .makeRotationY(-doorOrWindow.angle)
-        // .makeRotationX(doorOrWindow.)
         .setPosition(
           new THREE.Vector3(
             doorOrWindow.x / 100,

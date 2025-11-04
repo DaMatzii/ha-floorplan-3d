@@ -57,7 +57,8 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
       return;
     }
     setEntityElems(render());
-  }, []);
+    console.log("re render triggered");
+  }, [building]);
   return (
     <>
       <RoomClickBox id={id} points={point} />

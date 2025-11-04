@@ -23,14 +23,16 @@ import { renderComponent } from "@/view/handler/Components";
 const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
 
-function renderBuilding(building, setComponents) {
+function renderBuilding(building, buil, setComponents) {
   let componentsToRender = [];
   Object.keys(building).forEach((key) => {
     if (Array.isArray(building[key])) {
       building[key].map((item, index) => {
         const Comp = renderComponent(key);
         if (Comp) {
-          componentsToRender.push(<Comp key={key + "-" + index} {...item} />);
+          componentsToRender.push(
+            <Comp key={key + "-" + index} {...item} building={buil} />,
+          );
         }
       });
     }
@@ -39,12 +41,14 @@ function renderBuilding(building, setComponents) {
 }
 function Building({ building_id }) {
   const floorplan = useFloorplan(0);
+  const building = useBuilding(0);
   const [components, setComponents] = useState();
 
   useEffect(() => {
     if (floorplan === undefined) return;
-    renderBuilding(floorplan, setComponents);
-  }, []);
+    console.log("rerendering");
+    renderBuilding(floorplan, building, setComponents);
+  }, [floorplan, building]);
 
   return <>{components}</>;
 }

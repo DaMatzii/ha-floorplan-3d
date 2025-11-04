@@ -26,7 +26,7 @@ export function RoomClickBox({ id, points }: any) {
 
   const { setFocusedItem, home } = useHome();
   const roomConfig = useRoom(id);
-  // const { dispatch } = useBottomSheet();
+  const { openBottomSheet } = useBottomSheet();
 
   const randomColor = React.useMemo(() => {
     const idx = Math.floor(Math.random() * colors.length);
@@ -68,7 +68,7 @@ export function RoomClickBox({ id, points }: any) {
           type: "room",
           id: id,
         });
-
+        openBottomSheet("ui_room", window.innerHeight * 0.25, { id: id });
         // dispatch({ type: "OPEN_UI", payload: "room" });
       },
     });

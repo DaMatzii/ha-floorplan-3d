@@ -13,7 +13,7 @@ const defaultComponents = {
   light: (props) => <Light {...props} />,
   temperaturedisplay: (props) => <TempDisplay {...props} />,
   ui_room: (props) => <HassRoom {...props} />,
-  ui_card: (props) => <HassLight {...props} />,
+  card_light: (props) => <HassLight {...props} />,
   Number: () => <input type="number" />,
 };
 

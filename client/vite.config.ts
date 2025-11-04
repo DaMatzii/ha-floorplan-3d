@@ -18,7 +18,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			"@": path.resolve(__dirname, "src"),
-			'monaco-editor': path.resolve(__dirname, 'node_modules/monaco-editor')
+			// 'monaco-editor': path.resolve(__dirname, 'node_modules/monaco-editor')
 
 		},
 	},
@@ -27,15 +27,6 @@ export default defineConfig({
 		tailwindcss()
 	],
 	optimizeDeps: {
-		include: ['monaco-editor']
+		include: ['monaco-editor'],
 	},
-	build: {
-		rollupOptions: {
-			output: {
-				manualChunks: {
-					'monaco-editor': ['monaco-editor']
-				}
-			}
-		}
-	}
 })
