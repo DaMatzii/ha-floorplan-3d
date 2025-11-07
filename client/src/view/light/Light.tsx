@@ -9,6 +9,8 @@ import { a, useSpring } from "@react-spring/three";
 import { useFrame } from "@react-three/fiber";
 import { useBottomSheet } from "@/context/HomeContext";
 import { useView } from "@/context/ViewContext";
+import HassLight from "./HassLight";
+import type { Component } from "@/view/handler/Components";
 
 import type { EntityName } from "@hakit/core";
 
@@ -20,6 +22,14 @@ interface Light {
   index: number;
   double_tap_action: any;
 }
+
+const LightComponent: Component = {
+  name: "LightComponent",
+  bottomSheetY: 0.85,
+  component: (props: Light) => <Light {...props} />,
+  card: (props: any) => <HassLight {...props} />,
+};
+
 const Light: React.FC<Light> = ({
   room,
   position,
@@ -50,18 +60,7 @@ const Light: React.FC<Light> = ({
 
   const handleTapAction = (action) => {
     console.log(action);
-    evaluateAction(action, callService, {
-      "more-info": () => {
-        setFocusedItem({
-          type: (hassEntity as any).entity_id.split(".")[0],
-          id: (hassEntity as any).entity_id,
-        });
-
-        openBottomSheet("card_light", window.innerHeight * 0.8, {
-          id: (hassEntity as any).entity_id,
-        });
-      },
-    });
+    evaluateAction(action, callService, openBottomSheet, {}, { id: entity_id });
 
     if (action.action === "call-service") setRotation(rotation + 360);
   };
@@ -148,4 +147,5 @@ const Light: React.FC<Light> = ({
     </>
   );
 };
-export default Light;
+
+export default LightComponent;

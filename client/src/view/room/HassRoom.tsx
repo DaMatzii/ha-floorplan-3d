@@ -23,8 +23,6 @@ function LightCard({
 }: LightCardProps) {
   const entity = useEntity(haEntity as EntityName);
   const { callService } = useHass();
-
-  console.log((entity as any).attributes.friendly_name);
   const spanClass =
     rowSpan === 1
       ? "row-span-1"
@@ -112,24 +110,15 @@ function LightCard({
   }
   return <>{rowSpan !== 1 ? <BigCard /> : <SmallCard />}</>;
 }
+
 export default function HassRoom({ entities }) {
   const { focusedItem, home } = useHome();
-  // const { dispatch } = useBottomSheet();
-
-  useEffect(() => {
-    let moveTo = window.innerHeight * 0.25;
-
-    // dispatch({ type: "SET_MAX_HEIGHT_AND_OPEN", payload: moveTo });
-    console.log("opening");
-  }, [focusedItem]);
 
   return (
     <>
       <div className="h-screen">
         <div className="h-full w-full grid-cols-2 overflow-y-auto grid auto-rows-[4rem] gap-3  p-4 ">
           {entities.map((entity, index) => {
-            console.log(entity);
-
             const entity_name = Object.keys(entity)[0];
             const size = entity[entity_name]?.size ?? [1, 1];
             const tap_action = entity[Object.keys(entity)[0]]?.tap_action ?? {

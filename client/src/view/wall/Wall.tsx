@@ -4,6 +4,7 @@ import { CSG } from "three-csg-ts";
 import { useHome } from "@/context/HomeContext";
 import { palette } from "@/Colorpalette";
 
+import type { Component } from "@/view/handler/Components";
 import { sub } from "three/src/nodes/TSL.js";
 interface WallProps {
   xEnd: number;
@@ -14,6 +15,12 @@ interface WallProps {
   thickness: number;
   building: any;
 }
+
+const WallComponent: Component = {
+  name: "LightComponent",
+  bottomSheetY: 0.75,
+  component: (props: WallProps) => <Wall {...props} />,
+};
 const Wall: React.FC<WallProps> = ({
   xEnd,
   xStart,
@@ -112,4 +119,4 @@ const Wall: React.FC<WallProps> = ({
     </>
   );
 };
-export default Wall;
+export default WallComponent;

@@ -8,7 +8,11 @@ import React, {
 } from "react";
 import type { ReactNode } from "react";
 import { Home, Building, BottomSheetType } from "@/types/";
-import { renderComponent } from "@/view/handler/Components";
+import {
+  renderComponent,
+  renderCard,
+  getComponent,
+} from "@/view/handler/Components";
 
 import { loadUI } from "@/hooks/useUI";
 import { parse, stringify } from "yaml";
@@ -144,7 +148,7 @@ function renderUI(ui, setUI) {
   let componentsToRender = [];
   console.log(ui);
   Object.keys(ui).map((key, index) => {
-    const Comp = renderComponent("ui_" + ui[key]?.type);
+    const Comp = renderComponent("ui_" + ui[key]?.type).component;
     console.log(Comp);
     console.log(ui[key]?.type);
     if (Comp) {
@@ -160,24 +164,34 @@ export function useBottomSheet2(): BottomSheetState {
   const [maxHeight, setMaxHeight] = React.useState(0.75 * window.innerHeight);
 
   function openBottomSheet(node: any, max: number, data: any) {
-    //load node and how much should it be open?
-    switch ((node as string).split("_")[0]) {
-      case "card":
-        const Comp = renderComponent(node);
-        console.log(Comp);
-        if (Comp) {
-          setCardsNode([<Comp key={node} {...data} />]);
-        }
+    console.log(node);
+    // switch ((node as string).split("_")[0]) {
+    //   case "card":
+    //     const Comp = renderComponent(node);
+    //     console.log(Comp);
+    //     if (Comp) {
+    //       setCardsNode([<Comp key={node} {...data} />]);
+    //     }
+    //
+    //     break;
+    //   case "ui":
+    //     loadUI(node).then((r) => {
+    //       console.log(r);
+    //       renderUI(r?.cards, setCardsNode);
+    //     });
+    //     break;
+    // }
+    // setIsOpen(true);
+    // setMaxHeight(max);
 
-        break;
-      case "ui":
-        loadUI((node as string).split("_")[1]).then((r) => {
-          renderUI(r?.cards, setCardsNode);
-        });
-        break;
+    const CompNode = renderCard(node);
+    const Comp = getComponent(node);
+    if (CompNode) {
+      setCardsNode([<CompNode key={node} {...data} />]);
     }
+
     setIsOpen(true);
-    setMaxHeight(max);
+    setMaxHeight(Comp.bottomSheetY * window.innerHeight);
   }
   return {
     cardsNode,

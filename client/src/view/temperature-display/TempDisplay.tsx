@@ -2,6 +2,7 @@ import React from "react";
 import { Html } from "@react-three/drei";
 import { useEntities } from "@hakit/core";
 import { motion } from "framer-motion";
+import type { Component } from "@/view/handler/Components";
 
 type Point = { x: number; y: number };
 type TemperatureSensor = { temperature: number; humidity: number };
@@ -13,6 +14,14 @@ interface TemperatureDisplayProps {
   fontSize: number;
   // points: Point[];
 }
+const TemperatureDisplayComponent: Component = {
+  name: "LightComponent",
+  bottomSheetY: 0.75,
+  component: (props: TemperatureDisplayProps) => (
+    <TemperatureDisplay {...props} />
+  ),
+};
+
 const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
   hassId,
   topSensor,
@@ -91,4 +100,4 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
     </>
   );
 };
-export default TemperatureDisplay;
+export default TemperatureDisplayComponent;

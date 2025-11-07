@@ -2,8 +2,8 @@ import { OBJLoader } from "three-stdlib";
 import React, { useMemo } from "react";
 import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
+import type { Component } from "@/view/handler/Components";
 
-import { tan } from "three/src/nodes/TSL.js";
 interface FurnitureProps {
   catalogId: string;
   x: number;
@@ -21,6 +21,12 @@ fetch("/Catalog.json")
   .then((str) => {
     catalog = str;
   });
+
+const FurnitureComponent: Component = {
+  name: "LightComponent",
+  bottomSheetY: 0.75,
+  component: (props: FurnitureProps) => <Furniture {...props} />,
+};
 
 const Furniture: React.FC<FurnitureProps> = ({
   catalogId,
@@ -103,4 +109,4 @@ const Furniture: React.FC<FurnitureProps> = ({
     </>
   );
 };
-export default Furniture;
+export default FurnitureComponent;

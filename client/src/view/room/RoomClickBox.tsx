@@ -8,6 +8,7 @@ import { useBottomSheet } from "@/context/HomeContext";
 
 import { useHome } from "@/context/HomeContext";
 import { useRoom } from "@/hooks/";
+import { BottomSheetType } from "@/types/";
 
 export function RoomClickBox({ id, points }: any) {
   const colors = [
@@ -62,16 +63,7 @@ export function RoomClickBox({ id, points }: any) {
   const clickTimeout = React.useRef(null);
 
   function handleTapAction(actionType) {
-    evaluateAction(roomConfig[actionType], callService, {
-      "more-info": () => {
-        setFocusedItem({
-          type: "room",
-          id: id,
-        });
-        openBottomSheet("ui_room", window.innerHeight * 0.25, { id: id });
-        // dispatch({ type: "OPEN_UI", payload: "room" });
-      },
-    });
+    evaluateAction(roomConfig[actionType], callService, openBottomSheet, {});
   }
 
   const handleClick = (e) => {

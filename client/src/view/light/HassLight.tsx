@@ -49,6 +49,7 @@ function ColorPicker() {
   );
 }
 export default function HassLight({ id }) {
+  console.log("HAASLLIGHT: ", id);
   const { focusedItem } = useHome();
   const entity = useEntity(id);
   const divRef = useRef(null);

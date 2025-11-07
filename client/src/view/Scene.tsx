@@ -51,6 +51,7 @@ function Building({ building_id }) {
   }, [floorplan, building]);
 
   return <>{components}</>;
+  // return <></>;
 }
 
 function Scene({ activeCamera, editorMode }) {

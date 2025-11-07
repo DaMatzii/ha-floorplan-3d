@@ -20,7 +20,7 @@ export function useUI(ui_file: string) {
       setAppConfig(ui);
     }
     f();
-  }, []);
+  });
 
   return appConfig;
 }

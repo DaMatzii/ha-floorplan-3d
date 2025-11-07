@@ -7,6 +7,8 @@ import { useHome } from "@/context/HomeContext";
 import { useRoom } from "@/hooks/";
 import { RoomClickBox } from "./RoomClickBox";
 import { renderComponent } from "@/view/handler/Components";
+import type { Component } from "@/view/handler/Components";
+import HassRoom from "@/view/room/HassRoom";
 
 //TODO: MOVE TYPES
 type Point = { x: number; y: number };
@@ -20,6 +22,16 @@ interface RoomProps {
   building: any;
 }
 
+const RoomComponent: Component = {
+  name: "LightComponent",
+  bottomSheetY: 0.75,
+  component: (props: RoomProps) => <Room {...props} />,
+  card: (props: any) => <HassRoom {...props} />,
+};
+
+const MyComponent = () => {
+  return <></>;
+};
 const Room: React.FC<RoomProps> = ({ id, point, building }) => {
   const { home, currentRoom } = useHome();
   const [isSelected, setIsSelected] = React.useState(true);
@@ -33,7 +45,6 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
 
     let componentsToRender = [];
     room?.entities.map((entity, index) => {
-      console.log(entity);
       const Comp = renderComponent(entity?.type);
       if (Comp) {
         componentsToRender.push(
@@ -69,7 +80,7 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
     </>
   );
 };
-export default Room;
+export default RoomComponent;
 
 const RoomMesh: React.FC<RoomMeshProps> = ({ points }) => {
   const [g, tex] = React.useMemo(() => {
