@@ -25,7 +25,7 @@ interface Light {
 
 const LightComponent: Component = {
   name: "LightComponent",
-  bottomSheetY: 0.85,
+  bottomSheetY: 0.8,
   component: (props: Light) => <Light {...props} />,
   card: (props: any) => <HassLight {...props} />,
 };
@@ -96,6 +96,7 @@ const Light: React.FC<Light> = ({
         //Default action to more-info if not set maybe in thefuture load from defalt-action
         double_tap_action = {
           action: "more-info",
+          card: "light",
         };
       }
       handleTapAction(double_tap_action);

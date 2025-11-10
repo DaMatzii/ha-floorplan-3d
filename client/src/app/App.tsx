@@ -2,9 +2,11 @@ import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import HomeView from "@/view/HomeView";
 import { HassConnect, useStore } from "@hakit/core";
+import Test from "@/Test";
 
 import { HomeProvider } from "@/context/HomeContext";
 import EditorView from "@/editor/EditorView";
+import HassRoom from "@/view/room/HassRoom";
 
 function SomeComponent() {
   const connection = useStore((state) => state.connection);
@@ -40,9 +42,27 @@ const App: React.FC = () => {
             {/* <HomeView /> */}
             <Route path="/" element={<HomeView />} />
             <Route path="/editor" element={<EditorView />} />
-            {/* <Route path="/test" element={<TestLoader />} /> */}
-            {/* <Route path="/about" element={<About />} /> */}
-            {/* <Route path="/test" element={<TestView />} /> */}
+            <Route path="/test2" element={<Test />} />
+            <Route
+              path="/test"
+              element={
+                <HassRoom
+                  entities={[
+                    {
+                      "light.matiaksen_huone_2": {
+                        size: [2, 1],
+                      },
+                    },
+                    { "light.hue_lightstrip_plus_1": {} },
+                    { "light.matiaksen_huone_2": {} },
+                    { "light.matiaksen_huone_2": {} },
+                    {
+                      "light.matiaksen_huone_2": {},
+                    },
+                  ]}
+                />
+              }
+            />
           </Routes>
         </HomeProvider>
       </HassConnect>

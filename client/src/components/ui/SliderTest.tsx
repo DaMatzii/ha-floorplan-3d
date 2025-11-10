@@ -78,11 +78,11 @@ const SliderTest = () => {
               <div
                 className={`text-sm text-center font-medium whitespace-nowrap ${
                   index === currentItem
-                    ? "text-black bg-none"
+                    ? "text-[hsl(0,0%,90%)] bg-none"
                     : index === currentItem + 1
-                      ? "bg-clip-text text-transparent bg-[linear-gradient(to_left,_#f3f4f6_0%,_#f3f4f6_20%,_#000000_100%)]"
+                      ? "bg-clip-text text-transparent bg-[linear-gradient(to_right,_#ffffff,_#000000)]"
                       : index === currentItem - 1
-                        ? "bg-clip-text text-transparent bg-[linear-gradient(to_right,_#f3f4f6_0%,_#f3f4f6_20%,_#000000_100%)]"
+                        ? "bg-clip-text text-transparent bg-[linear-gradient(to_left,_#ffffff,_#000000)]"
                         : ""
                 }`}
               >

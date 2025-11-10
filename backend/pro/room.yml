@@ -1,5 +1,20 @@
 cards:
   - type: room 
+    scenes: 
+      - "lol":
+        icon: "Lol"
+        tap_action:
+           action: call-service
+           service: light.toggle
+           target:
+              entity_id: light.matiaksen_huone_2
+      - "lol2":
+        icon: "Lol"
+        tap_action:
+           action: call-service
+           service: light.toggle
+           target:
+              entity_id: light.matiaksen_huone_2
     entities:
       - light.matiaksen_huone_2:
           size: [2, 1]

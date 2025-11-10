@@ -70,7 +70,7 @@ export default function HomeView() {
           <div
             className="canvas-container w-screen h-screen"
             style={{
-              backgroundColor: "#000000",
+              backgroundColor: "hsl(0,0%,10%)",
             }}
           >
             <FloorplanView activeCamera={activeCamera} />

@@ -7,7 +7,10 @@ rooms:
     hassId: area.matiaksen_huone
     tap_action:
       action: more-info 
-      ui: "room.yml"
+      card: MultiCard
+      target:
+          path: "room.yml"
+          maxHeight: 0.20
     double_tap_action:
       action: call-service
       service: light.toggle

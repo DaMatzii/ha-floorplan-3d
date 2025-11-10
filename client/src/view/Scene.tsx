@@ -51,7 +51,6 @@ function Building({ building_id }) {
   }, [floorplan, building]);
 
   return <>{components}</>;
-  // return <></>;
 }
 
 function Scene({ activeCamera, editorMode }) {
@@ -108,7 +107,6 @@ function Scene({ activeCamera, editorMode }) {
 
     const offset = 1.25;
     const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * offset;
-    // console.log(cameraZ);
 
     setTarget([center.x, cameraZ + 5, center.y]);
     camera.current.rotation.set(-Math.PI / 2, 0, 0);
@@ -131,7 +129,7 @@ function Scene({ activeCamera, editorMode }) {
         {activeCamera === NORMAL_CAMERA ? <OrbitControls /> : <></>}
 
         <ambientLight intensity={0.1} color="#f4fffa" />
-        <Environment preset="apartment" />
+        {/* <Environment preset="apartment" /> */}
         <Building building_id={0} />
 
         {/* <Light */}

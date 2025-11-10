@@ -59,20 +59,21 @@ export const BottomSheet = ({ children }) => {
 	  fixed
             left-0
             right-0
-            bg-white
+	    bg-[hsl(0,0%,0%)] 
             rounded-t-2xl shadow-lg z-5
 	    h-screen
+border-1 border-[hsl(0,0%,30%)] 
 	    "
       >
         <div className="w-full flex justify-center">
-          <div className="w-16 h-1.5 bg-gray-400 mt-1 rounded-full cursor-grab" />
+          <div className="w-16 h-1.5 bg-[hsl(0,0%,30%)] mt-1 rounded-full cursor-grab" />
         </div>
 
-        <div className="mt-3">{children}</div>
+        <div className="mt-3 ">{children}</div>
       </motion.div>
       <div
         ref={targetRef}
-        className="bottom-0 h-12 left-0 w-screen bg-white absolute z-10"
+        className={`bottom-0 h-16 left-0 w-screen absolute z-10 bg-[hsl(0,0%,0%)] border-1 border-x-[hsl(0,0%,30%)] `}
       >
         <SliderTest />
       </div>
