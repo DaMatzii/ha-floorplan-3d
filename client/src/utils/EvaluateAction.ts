@@ -3,6 +3,18 @@ import { useHass } from "@hakit/core";
 import { useBottomSheet } from "@/context/HomeContext";
 import { BottomSheetType } from "@/types/";
 
+export function useEvaluateAction() {
+	const { callService } = useHass();
+	const { openBottomSheet } = useBottomSheet()
+
+
+	const _evaluateAction = (action, callbacks = {}, data: any) => {
+		evaluateAction(action, callService, openBottomSheet, callbacks, data)
+	};
+
+	return { _evaluateAction }
+
+}
 
 export const evaluateAction = async (action, callService, openBottomSheet, callbacks = {}, data?: any) => {
 

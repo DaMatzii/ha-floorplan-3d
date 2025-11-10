@@ -1,15 +1,13 @@
 cards:
   - type: room 
     scenes: 
-      - "lol":
-        icon: "Lol"
+      - icon: "camera"
         tap_action:
            action: call-service
            service: light.toggle
            target:
               entity_id: light.matiaksen_huone_2
-      - "lol2":
-        icon: "Lol"
+      - icon: "lightbulb"
         tap_action:
            action: call-service
            service: light.toggle
@@ -17,12 +15,12 @@ cards:
               entity_id: light.matiaksen_huone_2
     entities:
       - light.matiaksen_huone_2:
-          size: [2, 1]
+          size: "md"
           tap_action:
            action: call-service
            service: light.toggle
            target:
               entity_id: light.matiaksen_huone_2
-      - light.matiaksen_huone_2:
+      - light.hue_lightstrip_plus_1:
       - light.matiaksen_huone_2:
 
