@@ -21,6 +21,9 @@ function SomeComponent() {
 function Error() {
   return <p>erroororor</p>;
 }
+function Testing() {
+  return <div className="w-screen h-screen bg-dark" />;
+}
 
 const App: React.FC = () => {
   console.log("APP RUUNS!!");
@@ -43,6 +46,7 @@ const App: React.FC = () => {
             <Route path="/" element={<HomeView />} />
             <Route path="/editor" element={<EditorView />} />
             <Route path="/test2" element={<Test />} />
+            <Route path="/testing" element={<Testing />} />
             <Route
               path="/test"
               element={

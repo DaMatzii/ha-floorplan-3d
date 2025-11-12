@@ -3,13 +3,18 @@ import { useHass } from "@hakit/core";
 import { useBottomSheet } from "@/context/HomeContext";
 import { BottomSheetType } from "@/types/";
 
+export interface Action {
+	action: "more-info" | "call-service"
+	target: any
+}
+
 export function useEvaluateAction() {
 	const { callService } = useHass();
 	const { openBottomSheet } = useBottomSheet()
 
 
-	const _evaluateAction = (action, callbacks = {}, data: any) => {
-		evaluateAction(action, callService, openBottomSheet, callbacks, data)
+	const _evaluateAction = (action: Action, callbacks?: any, data?: any) => {
+		evaluateAction(action, callService, openBottomSheet, callbacks ?? {}, data ?? {})
 	};
 
 	return { _evaluateAction }
@@ -44,7 +49,7 @@ export const evaluateAction = async (action, callService, openBottomSheet, callb
 				callbacks["more-info"](action);
 			}
 
-			const roomName = action.card ?? ""
+			const roomName = action?.target?.card ?? ""
 			openBottomSheet(
 				roomName,
 				window.innerHeight * 0.25,

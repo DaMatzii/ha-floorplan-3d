@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Shape } from "three";
 import * as THREE from "three";
 import { useHass } from "@hakit/core";
-import { evaluateAction } from "@/utils/EvaluateAction";
+import { useEvaluateAction } from "@/utils/EvaluateAction";
 
 import { useBottomSheet } from "@/context/HomeContext";
 
@@ -24,6 +24,7 @@ export function RoomClickBox({ id, points }: any) {
   const [opacity, setOpacity] = useState(0);
 
   const { callService } = useHass();
+  const { _evaluateAction } = useEvaluateAction();
 
   const { setFocusedItem, home } = useHome();
   const roomConfig = useRoom(id);
@@ -63,7 +64,7 @@ export function RoomClickBox({ id, points }: any) {
   const clickTimeout = React.useRef(null);
 
   function handleTapAction(actionType) {
-    evaluateAction(roomConfig[actionType], callService, openBottomSheet, {});
+    _evaluateAction(roomConfig[actionType]);
   }
 
   const handleClick = (e) => {

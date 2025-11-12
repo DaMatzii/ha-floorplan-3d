@@ -1,11 +1,12 @@
 import Wall from "@/view/wall/Wall";
-import Room from "@/view/room/Room";
+import Room from "@/view/room";
 import Furniture from "@/view/furniture/Furniture";
 import TempDisplay from "@/view/temperature-display/TempDisplay";
 import Light from "@/view/light/Light";
 import MultiCard from "@/view/MultiCard";
-import HassRoom from "@/view/room/HassRoom";
-import HassLight from "@/view/light/HassLight";
+// import HassRoom from "@/view/room/HassRoom";
+// import HassLight from "@/view/light/HassLight";
+//
 
 export interface Component {
   name: string;

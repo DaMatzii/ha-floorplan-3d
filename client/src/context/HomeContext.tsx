@@ -7,38 +7,17 @@ import React, {
   Dispatch,
 } from "react";
 import type { ReactNode } from "react";
-import { Home, Building, BottomSheetType } from "@/types/";
-import {
-  renderComponent,
-  renderCard,
-  getComponent,
-} from "@/view/handler/Components";
+import { Home, Building } from "@/types/";
 
-import { loadUI } from "@/hooks/useUI";
-import { parse, stringify } from "yaml";
-import { XMLParser, XMLBuilder, XMLValidator } from "fast-xml-parser";
+import { parse } from "yaml";
+import { XMLParser } from "fast-xml-parser";
+import { BottomSheetState } from "./types";
+import { useBottomSheet2 } from "./BottomSheetContext";
+import { loadHome } from "@/utils/loadHome";
 
 interface FocusedItem {
   type: string;
   id: string;
-}
-
-// interface BottomSheetState {
-//   isOpen: boolean;
-//   maxHeight: number;
-// }
-//
-interface BottomSheetState {
-  cardsNode: any;
-  openBottomSheet: (
-    node: BottomSheetType,
-    maxHeight: number,
-    data: any,
-  ) => void;
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<any>>;
-  maxHeight: number;
-  setMaxHeight: React.Dispatch<React.SetStateAction<any>>;
 }
 
 interface HomeContextType {
@@ -64,48 +43,27 @@ export const HomeProvider: React.FC<HomeProviderProps> = ({ children }) => {
     id: "",
   });
   const [home, setHome] = useState();
-  const [buildings, setBuildings] = useState<Building[]>();
+  const [buildings, setBuildings] = useState<Building[]>([]);
   const [isLoading, setLoading] = useState(true);
   const bottomSheetState = useBottomSheet2();
 
-  console.log("LOOOL");
-
   useEffect(() => {
     async function f() {
-      const [home, buildings] = await Promise.all([
-        fetch("/api/home").then((r) => r.json()),
-        fetch("/api/building/0/").then((r) => r.json()),
-      ]);
-      //TODO
-
-      const parser = new XMLParser({
-        ignoreAttributes: false,
-        attributeNamePrefix: "",
-      });
-      const building = parser.parse(buildings.floorplan_building)?.home;
-
-      const buil = {
-        title: "",
-        floorplan_building: building,
-        rooms: parse(buildings.raw_rooms),
-      } as Building;
-
-      console.log(buil);
+      const { home, buildings } = await loadHome();
 
       setHome(home);
-      setBuildings([buil]);
+      setBuildings(buildings);
       setLoading(false);
     }
     f();
   }, []);
+
   function reloadConfig(conf: string) {
-    // console.log(parse(conf).building1);
     const buil = {
       title: "",
       floorplan_building: buildings[0].floorplan_building,
       rooms: parse(conf).building1.rooms,
     } as Building;
-    // console.log(buil);
 
     setBuildings([buil]);
   }
@@ -131,74 +89,9 @@ export const HomeProvider: React.FC<HomeProviderProps> = ({ children }) => {
 export const useHome = (): HomeContextType => {
   const context = useContext(HomeContext);
   if (!context) {
-    throw new Error("useRooms must be used within a HomeProvider");
+    throw new Error("useHome must be used within a HomeProvider");
   }
   return context;
 };
 
-export function useBottomSheet(): BottomSheetState {
-  const context = useHome();
-  if (!context) {
-    throw new Error("useBottomSheet must be used within a BottomSheetProvider");
-  }
-
-  return context.bottomSheetState;
-}
-function renderUI(ui, setUI) {
-  let componentsToRender = [];
-  console.log(ui);
-  Object.keys(ui).map((key, index) => {
-    const Comp = renderComponent("ui_" + ui[key]?.type).component;
-    console.log(Comp);
-    console.log(ui[key]?.type);
-    if (Comp) {
-      componentsToRender.push(<Comp key={key + "-" + index} {...ui[key]} />);
-    }
-  });
-  setUI(componentsToRender);
-}
-
-export function useBottomSheet2(): BottomSheetState {
-  const [cardsNode, setCardsNode] = React.useState([]);
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [maxHeight, setMaxHeight] = React.useState(0.75 * window.innerHeight);
-
-  function openBottomSheet(node: any, max: number, data: any) {
-    console.log(node);
-    // switch ((node as string).split("_")[0]) {
-    //   case "card":
-    //     const Comp = renderComponent(node);
-    //     console.log(Comp);
-    //     if (Comp) {
-    //       setCardsNode([<Comp key={node} {...data} />]);
-    //     }
-    //
-    //     break;
-    //   case "ui":
-    //     loadUI(node).then((r) => {
-    //       console.log(r);
-    //       renderUI(r?.cards, setCardsNode);
-    //     });
-    //     break;
-    // }
-    // setIsOpen(true);
-    // setMaxHeight(max);
-
-    const CompNode = renderCard(node);
-    const Comp = getComponent(node);
-    if (CompNode) {
-      setCardsNode([<CompNode key={node} {...data} />]);
-    }
-
-    setIsOpen(true);
-    setMaxHeight(Comp.bottomSheetY * window.innerHeight);
-  }
-  return {
-    cardsNode,
-    openBottomSheet,
-    isOpen,
-    setIsOpen,
-    maxHeight,
-    setMaxHeight,
-  } as BottomSheetState;
-}
+export { useBottomSheet } from "./BottomSheetContext";

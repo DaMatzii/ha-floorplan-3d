@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Shape } from "three";
 import * as THREE from "three";
-import type { Room } from "@/types/Room";
 import { useView } from "@/context/ViewContext";
 import { useHome } from "@/context/HomeContext";
 import { useRoom } from "@/hooks/";
@@ -22,16 +21,6 @@ interface RoomProps {
   building: any;
 }
 
-const RoomComponent: Component = {
-  name: "LightComponent",
-  bottomSheetY: 0.75,
-  component: (props: RoomProps) => <Room {...props} />,
-  card: (props: any) => <HassRoom {...props} />,
-};
-
-const MyComponent = () => {
-  return <></>;
-};
 const Room: React.FC<RoomProps> = ({ id, point, building }) => {
   const { home, currentRoom } = useHome();
   const [isSelected, setIsSelected] = React.useState(true);
@@ -80,7 +69,6 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
     </>
   );
 };
-export default RoomComponent;
 
 const RoomMesh: React.FC<RoomMeshProps> = ({ points }) => {
   const [g, tex] = React.useMemo(() => {
@@ -106,3 +94,4 @@ const RoomMesh: React.FC<RoomMeshProps> = ({ points }) => {
     </>
   );
 };
+export default Room;
