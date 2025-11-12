@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useBottomSheet } from "@/context/HomeContext";
 
 import FloorplanView from "@/view/FloorplanView";
 import { BottomSheet } from "@/components/ui/Bottomsheet";
-import { loadUI } from "@/hooks/useUI";
-import { renderComponent } from "@/view/handler/Components";
 
 const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
+
 const Button = ({ onClick, children }) => {
   return (
     <button
@@ -25,19 +24,7 @@ const Button = ({ onClick, children }) => {
     </button>
   );
 };
-function renderUI(ui, setUI) {
-  let componentsToRender = [];
-  console.log(ui);
-  Object.keys(ui).map((key, index) => {
-    const Comp = renderComponent("ui_" + ui[key]?.type);
-    console.log(Comp);
-    console.log(ui[key]?.type);
-    if (Comp) {
-      componentsToRender.push(<Comp key={key + "-" + index} {...ui[key]} />);
-    }
-  });
-  setUI(componentsToRender);
-}
+
 export default function HomeView() {
   const [activeCamera, setActiveCamera] = useState(1);
   const { cardsNode } = useBottomSheet();
@@ -55,24 +42,23 @@ export default function HomeView() {
           gap: "10px",
         }}
       >
-        <Button
-          onClick={() => {
-            setActiveCamera((prev) =>
-              prev === DEBUG_CAMERA ? NORMAL_CAMERA : DEBUG_CAMERA,
-            );
-          }}
-        >
-          Switch Camera ({activeCamera})
-        </Button>
+        {false ? (
+          <Button
+            onClick={() => {
+              setActiveCamera((prev) =>
+                prev === DEBUG_CAMERA ? NORMAL_CAMERA : DEBUG_CAMERA,
+              );
+            }}
+          >
+            Switch Camera ({activeCamera})
+          </Button>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="flex flex-col h-screen bg-gray-100">
         <div className="flex-1 flex items-center justify-center  z-0">
-          <div
-            className="canvas-container w-screen h-screen"
-            style={{
-              backgroundColor: "hsl(0,0%,10%)",
-            }}
-          >
+          <div className="canvas-container bg-normal w-screen h-screen">
             <FloorplanView activeCamera={activeCamera} />
           </div>
         </div>

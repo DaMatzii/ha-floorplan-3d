@@ -5,7 +5,7 @@ import (
 	"backend/routes"
 	"github.com/gin-gonic/gin"
 
-	// "github.com/gin-gonic/contrib/static"
+	"github.com/gin-gonic/contrib/static"
 	"gopkg.in/yaml.v3"
 	"net/http"
 	"os"
@@ -27,7 +27,7 @@ func loadUI(path string) any {
 
 func main() {
 	r := gin.Default()
-	// r.Use(static.Serve("/", static.LocalFile("../client/dist", true)))
+	r.Use(static.Serve("/", static.LocalFile("../client/dist", true)))
 
 	routes.RegisterRoutes(r)
 

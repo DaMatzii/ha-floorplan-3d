@@ -1,5 +1,11 @@
 import React from "react";
-import Furniture from "./Furniture";
+import { Furniture } from "./Furniture";
+import type { Component } from "@/view/handler/Components";
+
+const DoorOrWindowComponent: Component = {
+  name: "DoorOrWindow",
+  component: (props: DoorOrWindowProps) => <DoorOrWindow {...props} />,
+};
 
 interface DoorOrWindowProps {
   x: number;
@@ -21,28 +27,26 @@ const DoorOrWindow: React.FC<DoorOrWindowProps> = ({
   depth,
   width,
   height,
-  elevation,
+  elevation = 0,
   name,
   angle = 0,
   catalogId,
   dropOnTopElevation,
 }) => {
-  if (elevation === undefined || name.toLowerCase().includes("door")) {
-    elevation = 0;
-  }
+  if (name.toLowerCase().includes("door")) elevation = 0;
+
   return (
-    <>
-      <Furniture
-        x={x}
-        y={y}
-        height={height}
-        depth={depth}
-        width={width}
-        catalogId={catalogId}
-        angle={angle}
-        elevation={elevation - dropOnTopElevation}
-      />
-    </>
+    <Furniture
+      x={x}
+      y={y}
+      height={height}
+      depth={depth}
+      width={width}
+      catalogId={catalogId}
+      angle={angle}
+      elevation={elevation - dropOnTopElevation}
+    />
   );
 };
-export default DoorOrWindow;
+
+export default DoorOrWindowComponent;

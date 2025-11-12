@@ -28,7 +28,7 @@ const FurnitureComponent: Component = {
   component: (props: FurnitureProps) => <Furniture {...props} />,
 };
 
-const Furniture: React.FC<FurnitureProps> = ({
+export const Furniture: React.FC<FurnitureProps> = ({
   catalogId,
   x,
   y,

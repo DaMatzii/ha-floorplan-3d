@@ -36,7 +36,6 @@ const Wall: React.FC<WallProps> = ({
   const real_yEnd = yEnd / 100;
   const real_yStart = yStart / 100;
 
-  // Height and thickness remain real-world size
   const real_height = height / 100;
   const real_thickness = thickness / 100;
 

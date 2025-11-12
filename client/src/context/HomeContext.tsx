@@ -1,16 +1,8 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useReducer,
-  Dispatch,
-} from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import { Home, Building } from "@/types/";
 
 import { parse } from "yaml";
-import { XMLParser } from "fast-xml-parser";
 import { BottomSheetState } from "./types";
 import { useBottomSheet2 } from "./BottomSheetContext";
 import { loadHome } from "@/utils/loadHome";

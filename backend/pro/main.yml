@@ -7,10 +7,10 @@ rooms:
     hassId: area.matiaksen_huone
     tap_action:
       action: more-info 
-      card: MultiCard
       target:
           path: "room.yml"
           maxHeight: 0.20
+          card: MultiCard
     double_tap_action:
       action: call-service
       service: light.toggle
@@ -44,8 +44,8 @@ rooms:
           z: 150 
       - type: temperatureDisplay
         fontSize: 200 
-        topSensor: sensor.atc_651c_temperature
-        bottomSensor: sensor.atc_651c_humidity
+        topSensor: sensor.atc_efaf_temperature
+        bottomSensor: sensor.atc_efaf_humidity
         position:
           x: 680 
           y: 1195 

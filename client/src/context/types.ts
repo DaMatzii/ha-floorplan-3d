@@ -1,7 +1,7 @@
 export interface BottomSheetState {
 	cardsNode: any;
 	openBottomSheet: (
-		node: BottomSheetType,
+		node: any,
 		maxHeight: number,
 		data: any,
 	) => void;

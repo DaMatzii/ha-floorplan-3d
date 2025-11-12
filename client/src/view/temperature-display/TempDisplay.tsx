@@ -29,19 +29,7 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
   position,
   fontSize,
 }) => {
-  const [reading, setReading] = React.useState<TemperatureSensor>({
-    temperature: 0,
-    humidity: 0,
-  }); // default to debug view
-  // console.log(hassId);
-
   const lightStrip = useEntities([topSensor as any, bottomSensor as any]);
-  React.useEffect(() => {
-    setReading({
-      temperature: Number(lightStrip[0]["state"]),
-      humidity: Number(lightStrip[1]["state"]),
-    });
-  }, []);
 
   return (
     <>
@@ -54,7 +42,6 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
         style={{
           userSelect: "none",
         }}
-        // occlude
       >
         <motion.div
           style={{
@@ -77,7 +64,7 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
           <div className="flex flex-col items-center justify-center z-0">
             <div className="flex items-start text-white">
               <span className={"text-[" + fontSize + "px] font-bold"}>
-                {reading.temperature}
+                {lightStrip[0]["state"]}
               </span>
               <span className={"text-[" + (fontSize - 100) + "px] mt-30"}>
                 °C
@@ -86,7 +73,7 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
 
             <div className="flex items-start -mt-40 text-white">
               <span className={"text-[" + fontSize + "px]"}>
-                {reading.humidity}
+                {lightStrip[1]["state"]}
               </span>
               <span
                 className={"text-[" + (fontSize - 100) + "px] font-bold mt-30"}

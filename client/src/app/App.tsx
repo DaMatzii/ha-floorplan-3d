@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import HomeView from "@/view/HomeView";
+// import HomeView from "@/view/HomeView";
 import { HassConnect, useStore } from "@hakit/core";
-import Test from "@/Test";
+// import Test from "@/Test";
 
 import { HomeProvider } from "@/context/HomeContext";
 import EditorView from "@/editor/EditorView";
@@ -22,54 +22,35 @@ function Error() {
   return <p>erroororor</p>;
 }
 function Testing() {
-  return <div className="w-screen h-screen bg-dark" />;
+  return <div className="w-screen h-screen bg-dark">Testing loading</div>;
 }
 
+const HomeView = React.lazy(() => import("@/view/HomeView"));
+
 const App: React.FC = () => {
-  console.log("APP RUUNS!!");
   return (
     <>
-      <HassConnect
-        hassUrl="http://192.168.2.101:8123"
-        hassToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwZjJiMzgyMWQzYjA0M2M5OWI0ODI2NmFkZDk2MWEzNiIsImlhdCI6MTc1NTg3NjA2MiwiZXhwIjoyMDcxMjM2MDYyfQ.YaVKgKD5dhxWg4nSQSa-1mphzG2rXXj_yAXg1sQP9VU"
-        loading={<SomeComponent />}
-        options={{
-          renderError: (error) => <Error />,
-          handleResumeOptions: {
-            debug: true,
-          },
-        }}
-      >
-        <HomeProvider>
-          <Routes>
-            {/* <HomeView /> */}
-            <Route path="/" element={<HomeView />} />
-            <Route path="/editor" element={<EditorView />} />
-            <Route path="/test2" element={<Test />} />
-            <Route path="/testing" element={<Testing />} />
-            <Route
-              path="/test"
-              element={
-                <HassRoom
-                  entities={[
-                    {
-                      "light.matiaksen_huone_2": {
-                        size: [2, 1],
-                      },
-                    },
-                    { "light.hue_lightstrip_plus_1": {} },
-                    { "light.matiaksen_huone_2": {} },
-                    { "light.matiaksen_huone_2": {} },
-                    {
-                      "light.matiaksen_huone_2": {},
-                    },
-                  ]}
-                />
-              }
-            />
-          </Routes>
-        </HomeProvider>
-      </HassConnect>
+      <React.Suspense fallback={<Testing />}>
+        <HassConnect
+          hassUrl="http://192.168.2.101:8123"
+          hassToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwZjJiMzgyMWQzYjA0M2M5OWI0ODI2NmFkZDk2MWEzNiIsImlhdCI6MTc1NTg3NjA2MiwiZXhwIjoyMDcxMjM2MDYyfQ.YaVKgKD5dhxWg4nSQSa-1mphzG2rXXj_yAXg1sQP9VU"
+          loading={<Testing />}
+          options={{
+            renderError: (error) => <Error />,
+            handleResumeOptions: {
+              debug: true,
+            },
+          }}
+        >
+          <HomeProvider>
+            <Routes>
+              <Route path="/" element={<HomeView />} />
+              {/* <Route path="/editor" element={<EditorView />} /> */}
+              {/* <Route path="/testing" element={<Testing />} /> */}
+            </Routes>
+          </HomeProvider>
+        </HassConnect>
+      </React.Suspense>
     </>
   );
 };
