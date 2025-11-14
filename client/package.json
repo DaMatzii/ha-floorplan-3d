@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "homepage": ".",
   "homepage": "/static",
   "dependencies": {
     "@hakit/core": "5.1.3",

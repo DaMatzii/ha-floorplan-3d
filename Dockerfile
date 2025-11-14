@@ -7,17 +7,25 @@ COPY client/ .
 RUN npm run build
 
 # ---- Build Go server ----
-FROM golang:1.23-alpine AS backend
-WORKDIR /backend
+FROM golang:latest AS backend
+WORKDIR /app
+
+# Copy the module files first (better caching + avoids missing mod files)
+COPY backend/go.mod backend/go.sum ./
+RUN go mod download
+
+# Now copy the source
 COPY backend/ .
-RUN go build -o /goapp
+
+# Build the binary
+RUN CGO_ENABLED=0 GOOS=linux go build -o /backend-exec
 
 # ---- Final HA runtime image ----
 FROM alpine:3.20
 RUN apk add --no-cache ca-certificates
 WORKDIR /app
-COPY --from=backend /goapp .
-COPY --from=frontend /client/build ./client/build
-ENV PORT=8099
+COPY --from=backend /backend-exec /backend-exec
+COPY --from=backend /app/pro /pro
+COPY --from=frontend /client/dist ./client/dist
 EXPOSE 8099
-CMD ["/app/goapp"]
+ENTRYPOINT ["/backend-exec"]

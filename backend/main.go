@@ -27,9 +27,12 @@ func loadUI(path string) any {
 
 func main() {
 	r := gin.Default()
-	r.Use(static.Serve("/", static.LocalFile("../client/dist", true)))
+	r.Use(static.Serve("/", static.LocalFile("./client/dist", true)))
+	
 
 	routes.RegisterRoutes(r)
+
+
 
 	r.GET("/api/ui/:ui", func(c *gin.Context) {
 		name := c.Param("ui")
@@ -38,5 +41,5 @@ func main() {
 		c.JSON(http.StatusOK, ui)
 	})
 
-	r.Run(":8080")
+	r.Run(":8099")
 }
