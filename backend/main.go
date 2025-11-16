@@ -5,10 +5,12 @@ import (
 	"backend/routes"
 	"github.com/gin-gonic/gin"
 
+	// "fmt"
 	"github.com/gin-gonic/contrib/static"
 	"gopkg.in/yaml.v3"
 	"net/http"
 	"os"
+	// "strings"
 )
 
 func loadUI(path string) any {
@@ -28,11 +30,8 @@ func loadUI(path string) any {
 func main() {
 	r := gin.Default()
 	r.Use(static.Serve("/", static.LocalFile("./client/dist", true)))
-	
 
 	routes.RegisterRoutes(r)
-
-
 
 	r.GET("/api/ui/:ui", func(c *gin.Context) {
 		name := c.Param("ui")

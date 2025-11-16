@@ -16,7 +16,7 @@ interface FurnitureProps {
 }
 const objCache = {};
 let catalog = {} as { items: any };
-fetch("/Catalog.json")
+fetch("./Catalog.json")
   .then((response) => response.json())
   .then((str) => {
     catalog = str;
@@ -53,7 +53,7 @@ export const Furniture: React.FC<FurnitureProps> = ({
   const objName = split[6];
 
   if (objName.toLowerCase().includes("texturable")) return;
-  const path = "/models/" + objName.split(".")[0] + ".gltf";
+  const path = "./models/" + objName.split(".")[0] + ".gltf";
   const obj = useGLTF(path);
 
   const targetSize = {

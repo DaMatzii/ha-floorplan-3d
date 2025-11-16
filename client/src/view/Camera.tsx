@@ -10,7 +10,7 @@ export default function Camera({ activeCamera, currentRoom }) {
   const camera = useRef<THREE.PerspectiveCamera>(null);
   const { position } = useSpring({
     position: target,
-    config: { mass: 100, tension: 10, friction: 0, duration: 100 },
+    config: { mass: 1000, tension: 10, friction: 0, duration: 100 },
   });
 
   useFrame(() => {

@@ -1,0 +1,36 @@
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    vim \
+    wget \
+    unzip \
+    build-essential \
+    software-properties-common \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN GO_VERSION=1.25.4 \
+    && curl -LO https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz \
+    && tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz \
+    && rm go${GO_VERSION}.linux-amd64.tar.gz
+
+ENV GOROOT=/usr/local/go
+ENV PATH=$PATH:/usr/local/go/bin
+
+ENV NVM_DIR=/root/.nvm
+ENV NODE_VERSION=24
+
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \. "$HOME/.nvm/nvm.sh" && nvm install 24 && node -v
+
+ENV PATH=$NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+# SHELL ["/bin/bash", "-c"]
+
+WORKDIR /workspace
+
+ENTRYPOINT ["tail", "-f", "/dev/null"]
+

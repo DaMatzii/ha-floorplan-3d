@@ -1,4 +1,4 @@
-name: "Hello world2"
+name: "Amazing 3D floorplan!"
 description: "My first real looooladd-on!"
 version: "1.1.0"
 slug: "hello_world2"
@@ -14,6 +14,9 @@ ingress: true
 ingress_panel: true
 panel_icon: mdi:cog
 panel_title: "My Add-on"
+map:
+ - type: homeassistant_config
+   read_only: False
 ports:
   8099/tcp: 8099
 

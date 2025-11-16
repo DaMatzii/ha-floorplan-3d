@@ -27,6 +27,9 @@ function Testing() {
 
 const HomeView = React.lazy(() => import("@/view/HomeView"));
 
+const basePath = (window as any).__BASE_PATH__;
+console.log("BASEPATH: ", basePath);
+
 const App: React.FC = () => {
   return (
     <>
@@ -43,11 +46,12 @@ const App: React.FC = () => {
           }}
         >
           <HomeProvider>
-            <Routes>
-              <Route path="/" element={<HomeView />} />
-              {/* <Route path="/editor" element={<EditorView />} /> */}
-              {/* <Route path="/testing" element={<Testing />} /> */}
-            </Routes>
+            <HomeView />
+            {/* <Routes> */}
+            {/* <Route path="/" element={<HomeView />} /> */}
+            {/* <Route path="/editor" element={<EditorView />} /> */}
+            {/* <Route path="/testing" element={<Testing />} /> */}
+            {/* </Routes> */}
           </HomeProvider>
         </HassConnect>
       </React.Suspense>

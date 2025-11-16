@@ -84,37 +84,37 @@ export default function EditorView() {
     setLeftWidth(newWidth);
   };
 
-  React.useEffect(() => {
-    if (config === undefined) return;
-    async function load() {
-      const parsedConfig = YAML.parse(config);
-
-      const buildings = Object.entries(parsedConfig).map(([key, value]) => ({
-        id: key,
-        ...(value as any),
-        floorplan: "test",
-      }));
-
-      if (buildings === undefined) return;
-
-      for (let i = 0; i < buildings.length; i++) {
-        const xmlText = await fetch(buildings[i].floorplan_name).then((r) =>
-          r.text(),
-        );
-
-        const parser = new XMLParser({
-          ignoreAttributes: false,
-          attributeNamePrefix: "",
-        });
-        const floorplan = parser.parse(xmlText);
-        buildings[i].floorplan = floorplan?.home;
-      }
-      setAppConfig({
-        buildings: buildings,
-      });
-    }
-    load();
-  }, [config]);
+  // React.useEffect(() => {
+  //   if (config === undefined) return;
+  //   async function load() {
+  //     const parsedConfig = YAML.parse(config);
+  //
+  //     const buildings = Object.entries(parsedConfig).map(([key, value]) => ({
+  //       id: key,
+  //       ...(value as any),
+  //       floorplan: "test",
+  //     }));
+  //
+  //     if (buildings === undefined) return;
+  //
+  //     for (let i = 0; i < buildings.length; i++) {
+  //       const xmlText = await fetch(buildings[i].floorplan_name).then((r) =>
+  //         r.text(),
+  //       );
+  //
+  //       const parser = new XMLParser({
+  //         ignoreAttributes: false,
+  //         attributeNamePrefix: "",
+  //       });
+  //       const floorplan = parser.parse(xmlText);
+  //       buildings[i].floorplan = floorplan?.home;
+  //     }
+  //     setAppConfig({
+  //       buildings: buildings,
+  //     });
+  //   }
+  //   load();
+  // }, [config]);
   React.useEffect(() => {
     editorRef.current
       ?.getEditor()

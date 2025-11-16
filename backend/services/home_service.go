@@ -23,7 +23,7 @@ func GetHome() (*models.Home, error) {
 }
 
 func GetBuilding(building string) (*models.Building, error) {
-	yamlData, err := os.ReadFile(config.ConfigPath + building + ".yml")
+	yamlData, err := os.ReadFile(config.ConfigPath + "main" + ".yml")
 	if err != nil {
 		return nil, errors.New("tes1t")
 	}

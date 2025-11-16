@@ -1,0 +1,10 @@
+sync:
+  codebase:
+    alpha: "./"                             # local project directory
+    beta: "user@192.168.91.11:/home/user/ha-floorplan"
+    mode: "one-way-replica"
+    ignore:
+      vcs: true
+      paths:
+        - "node_modules"
+        - ".git"
