@@ -41,7 +41,7 @@ function Icon({ entity }: any) {
         scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
       }}
     >
-      <Lightbulb className={`font-bold`} size={24} strokeWidth={3} />
+      <Lightbulb className={`stroke-1`} size={24} />
     </motion.div>
   );
 }

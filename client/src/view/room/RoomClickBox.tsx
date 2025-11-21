@@ -4,11 +4,7 @@ import * as THREE from "three";
 import { useHass } from "@hakit/core";
 import { useEvaluateAction } from "@/utils/EvaluateAction";
 
-import { useBottomSheet } from "@/context/HomeContext";
-
-import { useHome } from "@/context/HomeContext";
 import { useRoom } from "@/hooks/";
-import { BottomSheetType } from "@/types/";
 
 export function RoomClickBox({ id, points }: any) {
   const colors = [
@@ -22,13 +18,8 @@ export function RoomClickBox({ id, points }: any) {
     "#ecf0f1",
   ];
   const [opacity, setOpacity] = useState(0);
-
-  const { callService } = useHass();
   const { _evaluateAction } = useEvaluateAction();
-
-  const { setFocusedItem, home } = useHome();
   const roomConfig = useRoom(id);
-  const { openBottomSheet } = useBottomSheet();
 
   const randomColor = React.useMemo(() => {
     const idx = Math.floor(Math.random() * colors.length);

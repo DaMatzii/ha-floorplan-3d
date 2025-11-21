@@ -126,7 +126,7 @@ const Light: React.FC<Light> = ({
             }}
             onClick={handleClick}
           >
-            <Lightbulb className={`font-bold`} size={24} strokeWidth={3} />
+            <Lightbulb className={`stroke-1`} size={24} />
           </motion.div>
         </Html>
       </mesh>
