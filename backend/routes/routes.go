@@ -10,5 +10,6 @@ func RegisterRoutes(r *gin.Engine) {
 	{
 		api.GET("/home", handlers.GetHome())
 		api.GET("/building/:id", handlers.GetBuilding())
+		api.POST("/upload/sh3d", handlers.InitApp())
 	}
 }

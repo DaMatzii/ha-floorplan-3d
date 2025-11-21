@@ -4,6 +4,10 @@ type Home struct {
 	Name      string   `yaml:"name"`
 	Buildings []string `yaml:"buildings"`
 }
+type HomeConfig struct {
+	Name      string   `yaml:"name"`
+	Buildings []string `yaml:"buildings"`
+}
 
 type Building struct {
 	Title          string `yaml:"title" json:"title"`

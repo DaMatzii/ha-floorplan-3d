@@ -29,6 +29,7 @@ RUN apk add --no-cache ca-certificates
 WORKDIR /app
 COPY --from=backend /backend-exec /backend-exec
 # RUN mkdir /homeassistant/floorplan
+ENV MODE=prod 
 COPY --from=backend /app/pro /homeassistant/floorplan
 COPY --from=frontend /client/dist ./client/dist
 EXPOSE 8099
