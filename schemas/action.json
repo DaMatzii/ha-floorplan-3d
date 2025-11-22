@@ -1,0 +1,29 @@
+{
+	"$id": "https://example.com/schemas/action.json",
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"definitions": {
+		"action": {
+			"title": "action",
+			"type": "object",
+			"description": "Schema for Home Assistant actions (e.g., tap, double-tap).",
+			"required": [
+				"action"
+			],
+			"properties": {
+				"action": {
+					"type": "string",
+					"description": "For example call-serive or more-info"
+				},
+				"service": {
+					"type": "string",
+					"description": "Home assistant or custom service"
+				},
+				"target": {
+					"type": "object",
+					"description": "Data passed to service"
+				}
+			},
+			"additionalProperties": true
+		}
+	}
+}

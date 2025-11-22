@@ -1,0 +1,34 @@
+{
+	"$id": "https://example.com/schemas/action.json",
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"definitions": {
+		"entity": {
+			"title": "Entity",
+			"type": "object",
+			"description": "A single entity configuration within a room.",
+			"required": [
+				"type"
+			],
+			"properties": {
+				"type": {
+					"type": "string",
+					"description": "The type of the entity (e.g., light, temperatureDisplay)."
+				},
+				"entity_id": {
+					"type": "string",
+					"description": "The Home Assistant entity ID."
+				},
+				"tap_action": {
+					"$ref": "action.json#/definitions/action"
+				},
+				"double_tap_action": {
+					"$ref": "action.json#/definitions/action"
+				},
+				"position": {
+					"$ref": "position.json#/definitions/position"
+				}
+			},
+			"additionalProperties": true
+		}
+	}
+}
