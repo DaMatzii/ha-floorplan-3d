@@ -12,22 +12,32 @@ import DoorOrWindow from "@/view/furniture/DoorOrWindow";
 
 export interface Component {
   name: string;
-  bottomSheetY?: number;
   component?: any;
-  card?: any;
 }
 export type Components = {
   [key: string]: Component;
 };
 
+export interface Card {
+  name: string;
+  bottomSheetY?: number;
+  card?: any;
+}
+export type Cards = {
+  [key: string]: Card;
+};
+
 const defaultComponents: Components = {
-  floorplan_pieceoffurniture: Furniture,
+  pieceoffurniture: Furniture,
   light: Light,
-  floorplan_room: Room,
-  floorplan_wall: Wall,
+  room: Room,
+  wall: Wall,
   temperaturedisplay: TempDisplay,
-  multicard: MultiCard,
   doororwindow: DoorOrWindow,
+};
+
+const defaultCards: Cards = {
+  multicard: MultiCard,
 };
 
 export function renderComponent(component: string) {
@@ -35,8 +45,11 @@ export function renderComponent(component: string) {
 }
 
 export function renderCard(card: string) {
-  return defaultComponents[card.toLowerCase()]?.card ?? <></>;
+  return defaultCards[card.toLowerCase()]?.card ?? <></>;
 }
 export function getComponent(component: string) {
   return defaultComponents[component.toLowerCase()];
+}
+export function getCard(component: string) {
+  return defaultCards[component.toLowerCase()];
 }

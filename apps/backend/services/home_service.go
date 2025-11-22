@@ -26,8 +26,10 @@ func GetHome() (*models.Home, error) {
 	return &obj, nil
 }
 
-func GetBuilding(building string) (*models.Building, error) {
-	yamlData, err := os.ReadFile(config.AppConfig.ConfigPath + "building" + ".yml")
+func GetBuilding(building int) (*models.Building, error) {
+	home, err := GetHome()
+	fmt.Printf("building %s", home.Buildings[building])
+	yamlData, err := os.ReadFile(config.AppConfig.ConfigPath + home.Buildings[building])
 	if err != nil {
 		return nil, errors.New("tes1t")
 	}

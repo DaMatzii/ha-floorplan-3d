@@ -1,10 +1,10 @@
 import React from "react";
 import { renderCard } from "@/view/handler/Components";
 import { loadUI } from "@/hooks/useUI";
-import type { Component } from "@/view/handler/Components";
-import { useBottomSheet } from "@/context/HomeContext";
+import type { Card } from "@/view/handler/Components";
+import { useBottomSheetStore } from "@/store";
 
-const MultiCard: Component = {
+const MultiCard: Card = {
   name: "LightComponent",
   bottomSheetY: 0.25,
   card: (props: any) => <MultiUi {...props} />,
@@ -22,12 +22,14 @@ function renderUI(ui) {
 }
 
 function MultiUi({ path, maxHeight }) {
-  const { setMaxHeight } = useBottomSheet();
+  const { setMaxHeight } = useBottomSheetStore();
   const [cardsNode, setCardsNode] = React.useState([]);
 
   React.useEffect(() => {
-    loadUI(path.split(".")[0]).then((r) => {
-      setCardsNode(renderUI(r?.cards));
+    loadUI(path ?? "".split(".")[0]).then((r) => {
+      if (r != undefined) {
+        setCardsNode(renderUI(r?.cards));
+      }
     });
 
     setMaxHeight(maxHeight * window.innerHeight);

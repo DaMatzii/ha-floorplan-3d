@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Shape } from "three";
 import * as THREE from "three";
-import { useView } from "@/context/ViewContext";
-import { useHome } from "@/context/HomeContext";
+import { useHomeStore } from "@/store";
 import { useRoom } from "@/hooks/";
 import { RoomClickBox } from "./RoomClickBox";
 import { renderComponent } from "@/view/handler/Components";
@@ -22,12 +21,9 @@ interface RoomProps {
 }
 
 const Room: React.FC<RoomProps> = ({ id, point, building }) => {
-  const { home, currentRoom } = useHome();
   const [isSelected, setIsSelected] = React.useState(true);
   const room = useRoom(id);
   const [entityElems, setEntityElems] = useState([]);
-
-  const { editorMode } = useView();
 
   function render() {
     if (!room?.entities) return;
@@ -44,13 +40,13 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
     return componentsToRender;
   }
 
-  useEffect(() => {
-    if (room?.id === (currentRoom?.id ?? 0) || editorMode) {
-      setIsSelected(true);
-    } else {
-      setIsSelected(false);
-    }
-  }, [currentRoom]);
+  // useEffect(() => {
+  //   // if (room?.id === (currentRoom?.id ?? 0)) {
+  //   // setIsSelected(true);
+  //   // } else {
+  //   // setIsSelected(false);
+  //   // }
+  // }, [currentRoom]);
 
   useEffect(() => {
     if (room === undefined) {

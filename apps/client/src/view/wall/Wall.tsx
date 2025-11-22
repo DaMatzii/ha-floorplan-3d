@@ -1,7 +1,7 @@
 import React from "react";
 import * as THREE from "three";
 import { CSG } from "three-csg-ts";
-import { useHome } from "@/context/HomeContext";
+import { useHomeStore } from "@/store";
 import { palette } from "@/Colorpalette";
 import { useFloorplan } from "@/hooks/useBuilding";
 
@@ -19,7 +19,6 @@ interface WallProps {
 
 const WallComponent: Component = {
   name: "LightComponent",
-  bottomSheetY: 0.75,
   component: (props: WallProps) => <Wall {...props} />,
 };
 const Wall: React.FC<WallProps> = ({
@@ -31,7 +30,7 @@ const Wall: React.FC<WallProps> = ({
   thickness,
   building,
 }) => {
-  const { home } = useHome();
+  const { home } = useHomeStore();
   const floorplan = useFloorplan(building);
 
   const real_xEnd = xEnd / 100;

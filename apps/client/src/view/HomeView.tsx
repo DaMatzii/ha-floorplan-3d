@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useBottomSheet } from "@/context/HomeContext";
+import { BottomSheet } from "@/components/ui/Bottomsheet";
+import { useBottomSheetStore } from "@/store";
 
 import FloorplanView from "@/view/FloorplanView";
-import { BottomSheet } from "@/components/ui/Bottomsheet";
 
 const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
@@ -27,7 +27,7 @@ const Button = ({ onClick, children }) => {
 
 export default function HomeView() {
   const [activeCamera, setActiveCamera] = useState(1);
-  const { cardsNode } = useBottomSheet();
+  const { cardsNode } = useBottomSheetStore();
 
   return (
     <>

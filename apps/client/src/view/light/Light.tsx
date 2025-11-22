@@ -1,16 +1,12 @@
 import React from "react";
 import { Html } from "@react-three/drei";
 import { Lightbulb } from "lucide-react";
-import { motion, useMotionValue, animate, motionValue } from "framer-motion";
-import { useEntity, useHass } from "@hakit/core";
-import { useHome } from "@/context/HomeContext";
+import { motion, animate, motionValue } from "framer-motion";
+import { useEntity } from "@hakit/core";
 import { useEvaluateAction } from "@/utils/EvaluateAction";
-import { a, useSpring } from "@react-spring/three";
 import { useFrame } from "@react-three/fiber";
-import { useBottomSheet } from "@/context/HomeContext";
-import { useView } from "@/context/ViewContext";
 import HassLight from "./HassLight";
-import type { Component } from "@/view/handler/Components";
+import type { Component, Card } from "@/view/handler/Components";
 
 import type { EntityName } from "@hakit/core";
 
@@ -25,9 +21,7 @@ interface Light {
 
 const LightComponent: Component = {
   name: "LightComponent",
-  bottomSheetY: 0.8,
   component: (props: Light) => <Light {...props} />,
-  card: (props: any) => <HassLight {...props} />,
 };
 
 const Light: React.FC<Light> = ({
@@ -47,7 +41,6 @@ const Light: React.FC<Light> = ({
     return (hassEntity as any).state.toLowerCase() === "on" ? 3 : 0;
   };
 
-  const { editorMode } = useView();
   const intensity = React.useRef(motionValue(isLightOn() ? 1 : 0)).current;
 
   const lightRef = React.useRef<any>(undefined);
@@ -128,21 +121,12 @@ const Light: React.FC<Light> = ({
           </motion.div>
         </Html>
       </mesh>
-      {editorMode ? (
-        0
-      ) : (
-        <pointLight
-          ref={lightRef}
-          position={[
-            position.x / 100 + 0.2,
-            position.z / 100,
-            position.y / 100,
-          ]}
-          color="orange"
-          intensity={3}
-        />
-      )}
-      ;
+      <pointLight
+        ref={lightRef}
+        position={[position.x / 100 + 0.2, position.z / 100, position.y / 100]}
+        color="orange"
+        intensity={3}
+      />
     </>
   );
 };

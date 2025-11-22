@@ -4,6 +4,7 @@ import (
 	"backend/services"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 func GetHome() gin.HandlerFunc {
@@ -18,7 +19,16 @@ func GetHome() gin.HandlerFunc {
 }
 func GetBuilding() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		home, err := services.GetBuilding("main")
+		idString := c.Param("id")
+		id, err := strconv.Atoi(idString)
+
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "id must be a int",
+			})
+			return
+		}
+		home, err := services.GetBuilding(id)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return

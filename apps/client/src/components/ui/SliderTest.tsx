@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { useHome } from "@/context/HomeContext";
-import { useRooms } from "@/hooks/";
+import { useHomeStore } from "@/store";
+import { useRooms, useCurrentRoom } from "@/hooks/";
 
 const SliderTest = () => {
   const x = useMotionValue(0);
@@ -9,7 +9,7 @@ const SliderTest = () => {
   const itemWidth = 96 + 40;
   const [currentItem, setCurrentItem] = useState(0);
 
-  const { setCurrentRoom } = useHome();
+  const { setCurrentRoom } = useCurrentRoom();
 
   const ref = useRef(null);
   const real_rooms = useRooms();
@@ -35,7 +35,7 @@ const SliderTest = () => {
           let currentItem1 = Math.round(Math.abs(currentScroll) / itemWidth);
 
           setCurrentItem(currentItem1);
-          setCurrentRoom(real_rooms[currentItem1]);
+          setCurrentRoom(real_rooms[currentItem1].id);
         }}
         style={{ x }}
         dragConstraints={{
@@ -72,7 +72,7 @@ const SliderTest = () => {
                   damping: 30,
                 });
                 setCurrentItem(index);
-                setCurrentRoom(real_rooms[index]);
+                setCurrentRoom(real_rooms[index].id);
               }}
             >
               <div

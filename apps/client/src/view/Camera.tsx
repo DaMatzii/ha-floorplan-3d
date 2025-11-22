@@ -4,7 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
 import DebugCamera from "@/utils/DebugCamera";
-import { useHome } from "@/context/HomeContext";
+import { useHomeStore } from "@/store";
 import type { Room } from "@/types";
 
 interface CameraProps {
@@ -14,7 +14,7 @@ interface CameraProps {
 
 export default function Camera({ activeCamera, currentRoom }: CameraProps) {
   const [target, setTarget] = useState([0, 0, 10]);
-  const { floorplans } = useHome();
+  const { floorplans } = useHomeStore();
   const camera = useRef<THREE.PerspectiveCamera>(null);
   const { position } = useSpring({
     position: target,

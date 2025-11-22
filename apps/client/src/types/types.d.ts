@@ -79,3 +79,14 @@ export interface Position {
     y: number;
     z: number;
 }
+
+export interface HomeConfig {
+    /**
+     * List of building files to be loaded
+     */
+    buildings: string[];
+    /**
+     * Your site name
+     */
+    name: string;
+}

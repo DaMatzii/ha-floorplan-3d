@@ -3,7 +3,6 @@ import { Home, Building } from "@/types/";
 import { parse } from "yaml";
 import { XMLParser } from "fast-xml-parser";
 
-import { Building } from "lucide-react";
 import { title } from "process";
 const parseBuilding = (buildings): Building => {
 	const rooms = parse(buildings.raw_rooms);

@@ -1,20 +1,20 @@
 import { useMemo } from "react";
-import { useHome } from "@/context/HomeContext";
+import { useHomeStore } from "@/store";
 import type { Building, Room, Floorplan } from "@/types";
 
 export function useBuilding(building: number): Building | undefined {
-  const { buildings } = useHome();
+  const { buildings } = useHomeStore();
   return buildings[building];
 }
 
 export function useFloorplan({
   floorplan_name,
 }: Building): Floorplan | undefined {
-  const { floorplans } = useHome();
+  const { floorplans } = useHomeStore();
   return floorplans[floorplan_name];
 }
 export function useRooms(): Room[] {
-  const { buildings } = useHome();
+  const { buildings } = useHomeStore();
   return useMemo(() => {
     if (!buildings) return [];
     return buildings.flatMap((b) => {

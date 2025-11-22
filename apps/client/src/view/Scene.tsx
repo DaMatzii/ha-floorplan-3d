@@ -1,8 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useBuilding, useFloorplan } from "@/hooks/useBuilding";
+import { useSearchParams } from "react-router-dom";
 
-import { useHome } from "@/context/HomeContext";
-import { ViewContextProvider } from "@/context/ViewContext";
 import { renderComponent } from "@/view/handler/Components";
 import Camera from "./Camera";
 
@@ -16,7 +15,7 @@ function Building({ building_id }) {
     return Object.entries(floorplan).flatMap(([key, items]) => {
       if (!Array.isArray(items)) return [];
 
-      const Comp = renderComponent("floorplan_" + key);
+      const Comp = renderComponent(key);
       if (!Comp) return [];
 
       return items.map((item, index) => (
@@ -29,17 +28,25 @@ function Building({ building_id }) {
 }
 
 function Scene({ activeCamera, editorMode }) {
-  const { currentRoom } = useHome();
+  const [searchParams] = useSearchParams();
+  const [view, setView] = useState(searchParams.get("id") || "");
+
+  useEffect(() => {
+    setView(searchParams.get("id") || "");
+  }, [searchParams]);
 
   return (
     <>
-      <ViewContextProvider initial={{ editorMode: editorMode }}>
-        <Camera activeCamera={activeCamera} currentRoom={currentRoom} />
+      <Camera
+        activeCamera={activeCamera}
+        currentRoom={{
+          id: view,
+        }}
+      />
 
-        <ambientLight intensity={0.1} color="#f4fffa" />
-        {/* <Environment preset="apartment" /> */}
-        <Building building_id={0} />
-      </ViewContextProvider>
+      <ambientLight intensity={0.1} color="#f4fffa" />
+      {/* <Environment preset="apartment" /> */}
+      <Building building_id={0} />
     </>
   );
 }

@@ -1,14 +1,12 @@
 import React, { useRef, useEffect } from "react";
 import SliderTest from "./SliderTest";
 import { motion, useMotionValue, animate } from "framer-motion";
-import { useHome } from "@/context//HomeContext";
-import { useBottomSheet } from "@/context/HomeContext";
+import { useHomeStore, useBottomSheetStore } from "@/store";
 
 export const BottomSheet = ({ children }) => {
-  const { home } = useHome();
   const targetRef = useRef<HTMLDivElement>(null);
   const y = useMotionValue(0);
-  const { isOpen, setIsOpen, maxHeight, cardsNode } = useBottomSheet();
+  const { isOpen, setIsOpen, maxHeight, cardsNode } = useBottomSheetStore();
 
   const [constraints, setConstraints] = React.useState({
     top: 0,
