@@ -32,7 +32,6 @@ const Light: React.FC<Light> = ({
   double_tap_action,
   index,
 }) => {
-  console.log(entity_id);
   const hassEntity = useEntity(entity_id);
   const { evaluateAction } = useEvaluateAction();
   const [rotation, setRotation] = React.useState(0);

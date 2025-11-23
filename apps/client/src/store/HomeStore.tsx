@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { HomeConfig, Building } from "@/types/";
-import { renderCard, getCard } from "@/view/handler/Components";
+import { renderCard, getCard } from "@/renderer/Components";
 
 export interface HomeState {
   home: HomeConfig | null;
@@ -32,21 +32,21 @@ interface BottomSheetState {
   setIsOpen: (open: boolean) => void;
   maxHeight: number;
   setMaxHeight: (height: number) => void;
-  openBottomSheet: (node: any, data: any) => void;
+  openBottomSheet: (node: any, max: any, data: any) => void;
 }
 
 export const useBottomSheetStore = create<BottomSheetState>((set) => ({
   cardsNode: undefined,
   isOpen: false,
-  maxHeight: 0.25 * window.innerHeight,
-  openBottomSheet: (node, data) => {
+  maxHeight: 0.85 * window.innerHeight,
+  openBottomSheet: (node, max, data) => {
     const CompNode = renderCard(node);
     const Comp = getCard(node);
     if (CompNode && Comp) {
       set({
         cardsNode: <CompNode key={node} {...data} />,
         isOpen: true,
-        maxHeight: Comp?.bottomSheetY * window.innerHeight,
+        maxHeight: max ?? Comp?.bottomSheetY ?? 0.85 * window.innerHeight,
       });
     }
   },

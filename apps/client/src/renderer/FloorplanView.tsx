@@ -18,7 +18,7 @@ export default function FloorplanView({ activeCamera }) {
           position: [10, 15, 20],
         }}
       >
-        {/* <Stats /> */}
+        <Stats />
         <Scene activeCamera={activeCamera} editorMode={false} />
       </Canvas>
     </>

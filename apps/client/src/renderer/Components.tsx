@@ -1,14 +1,10 @@
-import Wall from "@/view/wall/Wall";
-import Room from "@/view/room";
-import Furniture from "@/view/furniture/Furniture";
-import TempDisplay from "@/view/temperature-display/TempDisplay";
-import Light from "@/view/light/Light";
-import MultiCard from "@/view/MultiCard";
-import DoorOrWindow from "@/view/furniture/DoorOrWindow";
-
-// import HassRoom from "@/view/room/HassRoom";
-// import HassLight from "@/view/light/HassLight";
-//
+import Wall from "./wall/Wall";
+import { RoomComponent, RoomCard } from "./room";
+import Furniture from "./furniture/Furniture";
+import TempDisplay from "./temperature-display/TempDisplay";
+import Light from "./light/Light";
+import MultiCard from "./MultiCard";
+import DoorOrWindow from "./furniture/DoorOrWindow";
 
 export interface Component {
   name: string;
@@ -30,7 +26,7 @@ export type Cards = {
 const defaultComponents: Components = {
   pieceoffurniture: Furniture,
   light: Light,
-  room: Room,
+  room: RoomComponent,
   wall: Wall,
   temperaturedisplay: TempDisplay,
   doororwindow: DoorOrWindow,
@@ -38,6 +34,7 @@ const defaultComponents: Components = {
 
 const defaultCards: Cards = {
   multicard: MultiCard,
+  room: RoomCard,
 };
 
 export function renderComponent(component: string) {

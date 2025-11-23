@@ -66,7 +66,7 @@ border-1 border-border
           <div className="w-16 h-1.5 bg-border mt-1 rounded-full cursor-grab" />
         </div>
 
-        <div className="mt-3 ">{children}</div>
+        <div className="mt-3">{children}</div>
       </motion.div>
       <div
         ref={targetRef}

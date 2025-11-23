@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Shape } from "three";
 import * as THREE from "three";
-import { useHomeStore } from "@/store";
 import { useRoom } from "@/hooks/";
 import { RoomClickBox } from "./RoomClickBox";
-import { renderComponent } from "@/view/handler/Components";
-import type { Component } from "@/view/handler/Components";
-import HassRoom from "@/view/room/HassRoom";
+import { renderComponent } from "@/renderer/Components";
+// import type { Component } from "@/renderer/Components";
+import { useCurrentRoom } from "@/hooks";
 
 //TODO: MOVE TYPES
 type Point = { x: number; y: number };
@@ -24,6 +23,7 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
   const [isSelected, setIsSelected] = React.useState(true);
   const room = useRoom(id);
   const [entityElems, setEntityElems] = useState([]);
+  const { currentRoom } = useCurrentRoom();
 
   function render() {
     if (!room?.entities) return;
@@ -40,13 +40,13 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
     return componentsToRender;
   }
 
-  // useEffect(() => {
-  //   // if (room?.id === (currentRoom?.id ?? 0)) {
-  //   // setIsSelected(true);
-  //   // } else {
-  //   // setIsSelected(false);
-  //   // }
-  // }, [currentRoom]);
+  useEffect(() => {
+    if (room?.id === (currentRoom ?? 0)) {
+      setIsSelected(true);
+    } else {
+      setIsSelected(false);
+    }
+  }, [currentRoom]);
 
   useEffect(() => {
     if (room === undefined) {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Furniture } from "./Furniture";
-import type { Component } from "@/view/handler/Components";
+import type { Component } from "@/renderer/Components";
 
 const DoorOrWindowComponent: Component = {
   name: "DoorOrWindow",

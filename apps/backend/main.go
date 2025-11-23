@@ -62,7 +62,7 @@ func main() {
 		r.Use(static.Serve("/", static.LocalFile("./client/dist", true)))
 	} else {
 		fmt.Println("DEV")
-		config.AppConfig.ConfigPath = "./pro2_1/"
+		config.AppConfig.ConfigPath = "./pro2/"
 		r.NoRoute(func(c *gin.Context) {
 			proxyURL := "http://192.168.2.61:5173" + c.Request.RequestURI
 

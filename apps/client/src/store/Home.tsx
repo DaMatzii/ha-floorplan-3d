@@ -5,7 +5,8 @@ import axios from "axios";
 import { HomeConfig, Building } from "@/types";
 import { useHomeStore } from "@/store/HomeStore";
 import { XMLParser } from "fast-xml-parser";
-import HomeView from "@/view/HomeView";
+import HomeView from "@/renderer/HomeView";
+import { motion } from "framer-motion";
 
 import { parse } from "yaml";
 
@@ -20,8 +21,20 @@ function SomeComponent() {
   );
 }
 
-function Loading() {
-  return <p>Loading</p>;
+function LoadingCircleSpinner() {
+  return (
+    <div className="w-screen h-screen bg-dark flex items-center justify-center flex-col">
+      <motion.div
+        className="spinner  w-20 h-20 rounded-full border-b-text border-2 border-light"
+        animate={{ rotate: 360 }}
+        transition={{
+          duration: 0.9,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+      />
+    </div>
+  );
 }
 
 export default function Home({ children }) {
@@ -40,6 +53,11 @@ export default function Home({ children }) {
         const [homeResponse, buildingResponse] = await Promise.all([
           homePromise,
           buildingPromise,
+          new Promise((resolve) => {
+            setTimeout(() => {
+              resolve({});
+            }, 5000);
+          }),
         ]);
 
         const rooms = parse(buildingResponse.data.raw_rooms);
@@ -81,9 +99,9 @@ export default function Home({ children }) {
       <HassConnect
         hassUrl="http://192.168.2.101:8123"
         hassToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwZjJiMzgyMWQzYjA0M2M5OWI0ODI2NmFkZDk2MWEzNiIsImlhdCI6MTc1NTg3NjA2MiwiZXhwIjoyMDcxMjM2MDYyfQ.YaVKgKD5dhxWg4nSQSa-1mphzG2rXXj_yAXg1sQP9VU"
-        loading={<Loading />}
+        loading={<LoadingCircleSpinner />}
       >
-        {isLoading ? <Loading /> : children}
+        {isLoading ? <LoadingCircleSpinner /> : children}
       </HassConnect>
     </>
   );
