@@ -53,11 +53,6 @@ export default function Home({ children }) {
         const [homeResponse, buildingResponse] = await Promise.all([
           homePromise,
           buildingPromise,
-          new Promise((resolve) => {
-            setTimeout(() => {
-              resolve({});
-            }, 5000);
-          }),
         ]);
 
         const rooms = parse(buildingResponse.data.raw_rooms);

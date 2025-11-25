@@ -4,6 +4,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import Home from "@/store/Home";
+import Editor from "@/editor/Editor";
 
 function SomeComponent() {
   const connection = useStore((state) => state.connection);
@@ -28,17 +29,35 @@ const basePath = (window as any).__BASE_PATH__;
 console.log("BASEPATH: ", basePath);
 
 function LoadingCircleSpinner() {
+  const [message, setMessage] = React.useState("Awaiting server connection...");
+  const url = "./api/events";
+
+  React.useEffect(() => {
+    const eventSource = new EventSource(url);
+
+    eventSource.onmessage = (event) => {
+      console.log("New message:", event.data);
+      setMessage(event.data);
+    };
+
+    eventSource.onerror = (error) => {
+      console.error("EventSource failed:", error);
+      setMessage("Connection failed. Retrying...");
+      eventSource.close();
+    };
+
+    return () => {
+      console.log("Closing EventSource connection.");
+      eventSource.close();
+    };
+  }, [url]);
+
   return (
-    <div className="w-screen h-screen bg-dark flex items-center justify-center flex-col">
-      <motion.div
-        className="spinner  w-20 h-20 rounded-full border-b-text border-2 border-light"
-        animate={{ rotate: 360 }}
-        transition={{
-          duration: 0.9,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      />
+    <div>
+      <h2>Server-Sent Event Status</h2>
+      <p>
+        Last Message: <strong>{message}</strong>
+      </p>
     </div>
   );
 }
@@ -56,6 +75,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<HomeView />} />
           <Route path="/spinner" element={<LoadingCircleSpinner />} />
+          <Route path="/editor" element={<Editor />} />
         </Routes>
       </Home>
     </>

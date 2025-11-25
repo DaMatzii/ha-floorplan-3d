@@ -15,6 +15,7 @@ import (
 	"os"
 	// "strings"
 	"github.com/spf13/viper"
+	"time"
 )
 
 func loadUI(path string) any {
@@ -29,6 +30,41 @@ func loadUI(path string) any {
 	}
 
 	return &obj
+}
+
+const sseDataFormat = "data: %s\n\n"
+
+func SSEHandler(c *gin.Context) {
+	c.Writer.Header().Set("Content-Type", "text/event-stream")
+	c.Writer.Header().Set("Cache-Control", "no-cache")
+	c.Writer.Header().Set("Connection", "keep-alive")
+	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+
+	flusher, ok := c.Writer.(http.Flusher)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Streaming not supported"})
+		return
+	}
+
+	done := c.Request.Context().Done()
+
+	for i := 0; ; i++ {
+		select {
+		case <-done:
+			fmt.Println("Client disconnected.")
+			return
+		case <-time.After(3 * time.Second):
+			message := fmt.Sprintf("Server time: %s, Event #%d", time.Now().Format(time.RFC3339), i)
+
+			_, err := fmt.Fprintf(c.Writer, sseDataFormat, message)
+			if err != nil {
+				fmt.Println("Write error:", err)
+				return
+			}
+
+			flusher.Flush()
+		}
+	}
 }
 
 func main() {
@@ -90,6 +126,8 @@ func main() {
 		c.JSON(http.StatusOK, viper.AllSettings())
 
 	})
+
+	r.GET("/api/events", SSEHandler)
 
 	r.GET("/api/ui/:ui", func(c *gin.Context) {
 		name := c.Param("ui")

@@ -71,7 +71,7 @@ const Wall: React.FC<WallProps> = ({
     let sub = wallMesh;
     let end_result;
 
-    floorplan.doorOrWindow.forEach((doorOrWindow: any) => {
+    floorplan?.doorOrWindow.forEach((doorOrWindow: any) => {
       if (doorOrWindow.elevation === undefined) {
         doorOrWindow.elevation = 0;
       }
