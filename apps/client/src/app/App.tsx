@@ -38,6 +38,9 @@ function LoadingCircleSpinner() {
     eventSource.onmessage = (event) => {
       console.log("New message:", event.data);
       setMessage(event.data);
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
     };
 
     eventSource.onerror = (error) => {

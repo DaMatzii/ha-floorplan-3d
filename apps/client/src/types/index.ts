@@ -7,5 +7,7 @@ export type BottomSheetType =
 	| `ui_${string}`;
 
 
+export type Point = { x: number; y: number };
+
 
 

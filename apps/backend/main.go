@@ -4,18 +4,20 @@ import (
 	"backend/config"
 	"backend/routes"
 	"github.com/gin-gonic/gin"
+	"log"
 
 	"fmt"
 	"github.com/gin-gonic/contrib/static"
 	"gopkg.in/yaml.v3"
 	"io"
 	"net/http"
+
+	"github.com/fsnotify/fsnotify"
 	// "net/http/httputil"
 	// "net/url"
 	"os"
 	// "strings"
 	"github.com/spf13/viper"
-	"time"
 )
 
 func loadUI(path string) any {
@@ -34,7 +36,8 @@ func loadUI(path string) any {
 
 const sseDataFormat = "data: %s\n\n"
 
-func SSEHandler(c *gin.Context) {
+func SSEHandler(c *gin.Context, watcher *fsnotify.Watcher) {
+	fmt.Println("REQUEST IN")
 	c.Writer.Header().Set("Content-Type", "text/event-stream")
 	c.Writer.Header().Set("Cache-Control", "no-cache")
 	c.Writer.Header().Set("Connection", "keep-alive")
@@ -46,25 +49,22 @@ func SSEHandler(c *gin.Context) {
 		return
 	}
 
-	done := c.Request.Context().Done()
-
-	for i := 0; ; i++ {
+	for {
 		select {
-		case <-done:
-			fmt.Println("Client disconnected.")
+		case <-c.Request.Context().Done():
 			return
-		case <-time.After(3 * time.Second):
-			message := fmt.Sprintf("Server time: %s, Event #%d", time.Now().Format(time.RFC3339), i)
 
-			_, err := fmt.Fprintf(c.Writer, sseDataFormat, message)
-			if err != nil {
-				fmt.Println("Write error:", err)
+		case ev, ok := <-watcher.Events:
+			if !ok {
 				return
 			}
+			fmt.Println("EVENT")
 
+			fmt.Fprintf(c.Writer, "data: %s\n\n", ev.Name)
 			flusher.Flush()
 		}
 	}
+
 }
 
 func main() {
@@ -89,7 +89,7 @@ func main() {
 		fmt.Println("fuck up")
 	}
 
-	r := gin.Default()
+	r := gin.New()
 
 	if viper.GetString("MODE") == "prod" {
 		fmt.Println("PROD")
@@ -127,7 +127,22 @@ func main() {
 
 	})
 
-	r.GET("/api/events", SSEHandler)
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = watcher.Add(config.AppConfig.ConfigPath)
+	if err != nil {
+		fmt.Println("WATCH ERROR")
+		watcher.Close()
+	}
+
+	defer watcher.Close()
+
+	r.GET("/api/events", func(c *gin.Context) {
+		SSEHandler(c, watcher)
+	})
 
 	r.GET("/api/ui/:ui", func(c *gin.Context) {
 		name := c.Param("ui")
@@ -136,5 +151,8 @@ func main() {
 		c.JSON(http.StatusOK, ui)
 	})
 
+	// Start listening for events.
+
 	r.Run(":8099")
+
 }

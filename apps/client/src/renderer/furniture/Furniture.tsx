@@ -63,7 +63,6 @@ export const Furniture: React.FC<FurnitureProps> = ({
   };
   if (obj === undefined) return;
   const modelCopy = obj.scene.clone();
-  // console.log(modelCopy);
 
   const bbox = new THREE.Box3().setFromObject(modelCopy);
   const currentSize = new THREE.Vector3();
@@ -86,15 +85,12 @@ export const Furniture: React.FC<FurnitureProps> = ({
   modelCopy.position.x -= center.x;
   modelCopy.position.z -= center.z;
   modelCopy.position.y -= center.y;
-  // console.log("CATALOGID: ", catalogId);
-  // if (color !== undefined) {
+
   modelCopy.traverse((child) => {
     if (child instanceof THREE.Mesh) {
       if (!child.isMesh) return;
-      // console.log("	CHILD: ", child);
       child.material = child.material.clone(); // keep material properties
       child.material.color.set("#777777"); // just change color
-      // child.material.flatShading = true;
       child.material.castShadow = false;
       child.material.recieveShadow = false;
     }

@@ -42,51 +42,52 @@ export default function Home({ children }) {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const { setHome } = useHomeStore();
+  const { setHome, setReloadFunction } = useHomeStore();
+
+  const fetchHome = async () => {
+    try {
+      const homePromise = api.get<HomeConfig>("./api/home");
+      const buildingPromise = api.get<any>("./api/building/0");
+
+      const [homeResponse, buildingResponse] = await Promise.all([
+        homePromise,
+        buildingPromise,
+      ]);
+
+      const rooms = parse(buildingResponse.data.raw_rooms);
+
+      const parser = new XMLParser({
+        ignoreAttributes: false,
+        attributeNamePrefix: "",
+      });
+      const floorplan = parser.parse(
+        buildingResponse.data.floorplan_building,
+      )?.home;
+
+      const building: Building = {
+        title: buildingResponse.data.title,
+        floorplan_name: buildingResponse.data.floorplan,
+        rooms: rooms,
+      };
+      console.log(building);
+
+      setHome(homeResponse.data, [building], {
+        [buildingResponse.data.floorplan]: floorplan,
+      });
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occurred");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const homePromise = api.get<HomeConfig>("./api/home");
-        const buildingPromise = api.get<any>("./api/building/0");
-
-        const [homeResponse, buildingResponse] = await Promise.all([
-          homePromise,
-          buildingPromise,
-        ]);
-
-        const rooms = parse(buildingResponse.data.raw_rooms);
-
-        const parser = new XMLParser({
-          ignoreAttributes: false,
-          attributeNamePrefix: "",
-        });
-        const floorplan = parser.parse(
-          buildingResponse.data.floorplan_building,
-        )?.home;
-
-        const building: Building = {
-          title: buildingResponse.data.title,
-          floorplan_name: buildingResponse.data.floorplan,
-          rooms: rooms,
-        };
-        console.log(building);
-
-        setHome(homeResponse.data, [building], {
-          [buildingResponse.data.floorplan]: floorplan,
-        });
-      } catch (err) {
-        if (axios.isAxiosError(err)) {
-          setError(err.message);
-        } else {
-          setError("An unexpected error occurred");
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchUsers();
+    setReloadFunction(fetchHome);
+    fetchHome();
   }, []);
 
   return (

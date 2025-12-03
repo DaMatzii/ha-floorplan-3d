@@ -113,8 +113,6 @@ const Wall: React.FC<WallProps> = ({
   return (
     <>
       <mesh geometry={geometry}>
-        {/* <boxGeometry args={[real_lenght, real_height, real_thickness]} /> */}
-        {/* <meshStandardMaterial color={palette.wall} /> */}
         <meshStandardMaterial color={palette.wall} roughness={1} />
       </mesh>
     </>

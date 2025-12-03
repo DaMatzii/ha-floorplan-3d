@@ -5,9 +5,7 @@ import { motion, animate, motionValue } from "framer-motion";
 import { useEntity } from "@hakit/core";
 import { useEvaluateAction } from "@/utils/EvaluateAction";
 import { useFrame } from "@react-three/fiber";
-import HassLight from "./HassLight";
-import type { Component, Card } from "@/view/handler/Components";
-
+import { useConfigStore } from "@/store/";
 import type { EntityName } from "@hakit/core";
 
 interface Light {
@@ -35,6 +33,8 @@ const Light: React.FC<Light> = ({
   const hassEntity = useEntity(entity_id);
   const { evaluateAction } = useEvaluateAction();
   const [rotation, setRotation] = React.useState(0);
+
+  const editorMode = useConfigStore((state) => state.editorMode);
   const clickTimeout = React.useRef(null);
   const isLightOn = () => {
     return (hassEntity as any).state.toLowerCase() === "on" ? 3 : 0;
@@ -120,12 +120,18 @@ const Light: React.FC<Light> = ({
           </motion.div>
         </Html>
       </mesh>
-      <pointLight
-        ref={lightRef}
-        position={[position.x / 100 + 0.2, position.z / 100, position.y / 100]}
-        color="orange"
-        intensity={3}
-      />
+      {!editorMode && (
+        <pointLight
+          ref={lightRef}
+          position={[
+            position.x / 100 + 0.2,
+            position.z / 100,
+            position.y / 100,
+          ]}
+          color="orange"
+          intensity={3}
+        />
+      )}
     </>
   );
 };

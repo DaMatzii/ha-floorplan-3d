@@ -10,14 +10,42 @@ import {
 } from "@react-three/drei";
 import React from "react";
 
+import { Stats } from "@react-three/drei";
+
 import { useRef, useState } from "react";
 import Scene from "@/renderer/Scene";
+import { useHomeStore } from "@/store/HomeStore";
 
 export default function EditorView() {
-  const editorRef = useRef(null);
+  const { reload } = useHomeStore();
+  function handleClick() {
+    reload();
+  }
+
+  const url = "./api/events";
+
+  React.useEffect(() => {
+    const eventSource = new EventSource(url);
+
+    eventSource.onmessage = (event) => {
+      // console.log("New message:", event.data);
+      reload();
+    };
+
+    eventSource.onerror = (error) => {
+      // console.error("EventSource failed:", error);
+      eventSource.close();
+    };
+
+    return () => {
+      // console.log("Closing EventSource connection.");
+      eventSource.close();
+    };
+  }, [url]);
+
   return (
     <>
-      <div className="bg-yellow-500 h-12 w-screen" />
+      <div className="bg-yellow-500 h-12 w-screen flex justify-end"></div>
       <div className="bg-black  h-screen w-screen">
         <Canvas
           shadows
@@ -29,6 +57,7 @@ export default function EditorView() {
             position: [10, 15, 20],
           }}
         >
+          <Stats />
           <Grid
             renderOrder={-1}
             position={[0, 0.1, 0]}

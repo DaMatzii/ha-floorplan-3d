@@ -11,6 +11,8 @@ export interface HomeState {
     _buildings: Building[],
     _floorplans: any,
   ) => void;
+  reload: () => void;
+  setReloadFunction: (_func: () => void) => void;
 }
 
 export const useHomeStore = create<HomeState>((set) => ({
@@ -22,6 +24,12 @@ export const useHomeStore = create<HomeState>((set) => ({
       home: _home,
       buildings: _buildings,
       floorplans: _floorplans,
+    });
+  },
+  reload: null,
+  setReloadFunction: (_func) => {
+    set({
+      reload: _func,
     });
   },
 }));
