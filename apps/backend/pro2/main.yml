@@ -18,7 +18,7 @@ rooms:
           entity_id: light.matiaksen_huone_2
     entities:
       - type: light
-        entity_id: light.hue_lightstrip_plus_1
+        entity_id: light.hue_lightstrip_plus_
         tap_action:
           action: more-info 
           card: "light"

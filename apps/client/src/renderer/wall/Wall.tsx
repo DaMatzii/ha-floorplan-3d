@@ -21,6 +21,20 @@ const WallComponent: Component = {
   name: "LightComponent",
   component: (props: WallProps) => <Wall {...props} />,
 };
+
+function useColor(_color: string) {
+  const [hexValue, setHexValue] = React.useState("");
+
+  React.useEffect(() => {
+    const rootStyles = getComputedStyle(document.documentElement);
+
+    const color = rootStyles.getPropertyValue("--color-" + _color).trim();
+
+    setHexValue(color || "Variable Not Found");
+  }, []);
+  return hexValue;
+}
+
 const Wall: React.FC<WallProps> = ({
   xEnd,
   xStart,
@@ -32,6 +46,7 @@ const Wall: React.FC<WallProps> = ({
 }) => {
   const { home } = useHomeStore();
   const floorplan = useFloorplan(building);
+  const color = useColor("wall");
 
   const real_xEnd = xEnd / 100;
   const real_xStart = xStart / 100;
@@ -113,7 +128,10 @@ const Wall: React.FC<WallProps> = ({
   return (
     <>
       <mesh geometry={geometry}>
-        <meshStandardMaterial color={palette.wall} roughness={1} />
+        <meshStandardMaterial
+          color={color}
+          roughness={1}
+        ></meshStandardMaterial>
       </mesh>
     </>
   );

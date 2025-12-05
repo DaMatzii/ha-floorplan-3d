@@ -6,6 +6,6 @@ interface ConfigStore {
 }
 
 export const useConfigStore = create<ConfigStore>((set) => ({
-  editorMode: true,
+  editorMode: false,
   setEditorMode: (mode) => set({ editorMode: mode }),
 }));

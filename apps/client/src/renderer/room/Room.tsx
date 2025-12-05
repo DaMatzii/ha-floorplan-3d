@@ -6,7 +6,6 @@ import { useConfigStore } from "@/store/";
 import { RoomClickBox } from "./RoomClickBox";
 import { renderComponent } from "@/renderer/Components";
 import { useCurrentRoom } from "@/hooks";
-import { Html } from "@react-three/drei";
 import { Point } from "@/types";
 
 interface RoomMeshProps {
@@ -18,53 +17,6 @@ interface RoomProps {
   point: any;
   building: any;
   alias: string;
-}
-
-interface EditorDisplayProps {
-  center: Point;
-  room: any;
-  id: string;
-}
-
-function EditorDisplay({ center, room, id }: EditorDisplayProps) {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(id);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1200);
-  };
-
-  return (
-    <Html
-      position={[center.x, 0, center.y]}
-      rotation={[-Math.PI / 2, 0, 0]}
-      distanceFactor={1}
-      transform
-    >
-      <button
-        onClick={handleCopy}
-        className="w-300 h-60 text-white text-[80px]  group"
-      >
-        <p>
-          <span className="text-[80px] font-bold">{room.alias}</span>
-          <span className="text-[60px] text-red-600 ml-5">
-            Errors: {Math.round(Math.random() * 100)}
-          </span>
-        </p>
-
-        <h1 className="text-[60px]">{id}</h1>
-
-        <span
-          className={`flex absolute -top-20 left-1/2 -translate-x-1/2 px-4 py-8 rounded-xl w-90 h-20
-          bg-light text-text transition-opacity text-[50px] items-center justify-center border-border border-4
-          ${copied ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
-        >
-          {copied ? "Copied!" : "Click to copy"}
-        </span>
-      </button>
-    </Html>
-  );
 }
 
 const Room: React.FC<RoomProps> = ({ id, point, building }) => {
@@ -84,7 +36,6 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
 
   return (
     <>
-      {/* {editorMode && <EditorDisplay id={id} center={center} room={room} />} */}
       {!editorMode && <RoomClickBox id={id} points={point} />}
       <RoomMesh points={point} />
       {(editorMode || room?.id === (currentRoom ?? 0)) && <>{comps}</>}

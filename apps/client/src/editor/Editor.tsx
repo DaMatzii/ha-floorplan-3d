@@ -18,27 +18,21 @@ import { useHomeStore } from "@/store/HomeStore";
 
 export default function EditorView() {
   const { reload } = useHomeStore();
-  function handleClick() {
-    reload();
-  }
-
   const url = "./api/events";
 
   React.useEffect(() => {
     const eventSource = new EventSource(url);
 
     eventSource.onmessage = (event) => {
-      // console.log("New message:", event.data);
+      console.log("Reloading!");
       reload();
     };
 
     eventSource.onerror = (error) => {
-      // console.error("EventSource failed:", error);
       eventSource.close();
     };
 
     return () => {
-      // console.log("Closing EventSource connection.");
       eventSource.close();
     };
   }, [url]);

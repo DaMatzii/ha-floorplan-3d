@@ -5,15 +5,17 @@ import { ErrorBoundary } from "react-error-boundary";
 import { extend } from "@react-three/fiber";
 
 import { renderComponent } from "@/renderer/Components";
+import { useErrorStore } from "@/store";
 import Camera from "./Camera";
 interface R3FErrorBoundaryProps {
-  fallback?: React.ReactNode;
-  onError?: (error: Error, info: React.ErrorInfo) => void;
+  children: React.ReactNode;
+  addError: (error: any) => void;
 }
 
 interface R3FErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
+  addError: (error: any) => void;
 }
 
 class R3FErrorBoundary extends React.Component<
@@ -22,7 +24,8 @@ class R3FErrorBoundary extends React.Component<
 > {
   constructor(props: R3FErrorBoundaryProps) {
     super(props);
-    this.state = { hasError: false, error: null };
+
+    this.state = { hasError: false, error: null, addError: props.addError };
   }
 
   static getDerivedStateFromError(error: Error) {
@@ -30,8 +33,7 @@ class R3FErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
-    console.error("Error in R3F canvas:", error);
-    // this.props.onError?.(error, info);
+    this.state.addError(error);
   }
 
   render() {
@@ -39,7 +41,7 @@ class R3FErrorBoundary extends React.Component<
       return <></>;
     }
 
-    return this.props.children;
+    return <>{this.props.children}</>;
   }
 }
 
@@ -48,6 +50,7 @@ extend({ R3FErrorBoundary });
 function Building({ building_id }) {
   const building = useBuilding(building_id);
   const floorplan = useFloorplan(building);
+  const { errors, addError } = useErrorStore();
   const comps = useMemo(() => {
     if (!floorplan) return null;
 
@@ -59,7 +62,7 @@ function Building({ building_id }) {
 
       return items.map((item, index) => (
         <>
-          <R3FErrorBoundary key={index}>
+          <R3FErrorBoundary addError={addError}>
             <Comp key={`${key}-${index}`} {...item} building={building} />
           </R3FErrorBoundary>
         </>
