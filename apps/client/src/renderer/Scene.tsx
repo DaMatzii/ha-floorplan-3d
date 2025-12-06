@@ -1,56 +1,16 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useBuilding, useFloorplan } from "@/hooks/useBuilding";
 import { useSearchParams } from "react-router-dom";
-import { ErrorBoundary } from "react-error-boundary";
-import { extend } from "@react-three/fiber";
-
+import ErrorBoundary from "@/utils/3DErrorBoundary";
 import { renderComponent } from "@/renderer/Components";
-import { useErrorStore } from "@/store";
+import { useErrorStore, ErrorType } from "@/store/ErrorStore";
 import Camera from "./Camera";
-interface R3FErrorBoundaryProps {
-  children: React.ReactNode;
-  addError: (error: any) => void;
-}
-
-interface R3FErrorBoundaryState {
-  hasError: boolean;
-  error: Error | null;
-  addError: (error: any) => void;
-}
-
-class R3FErrorBoundary extends React.Component<
-  R3FErrorBoundaryProps,
-  R3FErrorBoundaryState
-> {
-  constructor(props: R3FErrorBoundaryProps) {
-    super(props);
-
-    this.state = { hasError: false, error: null, addError: props.addError };
-  }
-
-  static getDerivedStateFromError(error: Error) {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error: Error, info: React.ErrorInfo) {
-    this.state.addError(error);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return <></>;
-    }
-
-    return <>{this.props.children}</>;
-  }
-}
-
-extend({ R3FErrorBoundary });
 
 function Building({ building_id }) {
   const building = useBuilding(building_id);
   const floorplan = useFloorplan(building);
   const { errors, addError } = useErrorStore();
+
   const comps = useMemo(() => {
     if (!floorplan) return null;
 
@@ -60,13 +20,23 @@ function Building({ building_id }) {
       const Comp = renderComponent(key);
       if (!Comp) return [];
 
-      return items.map((item, index) => (
-        <>
-          <R3FErrorBoundary addError={addError}>
-            <Comp key={`${key}-${index}`} {...item} building={building} />
-          </R3FErrorBoundary>
-        </>
-      ));
+      return items.map((item, index) => {
+        function onError(error: any) {
+          addError({
+            type: ErrorType.FATAL,
+            title: error,
+            description: key,
+          });
+        }
+
+        return (
+          <>
+            <ErrorBoundary key={index} onError={onError}>
+              <Comp key={`${key}-${index}`} {...item} building={building} />
+            </ErrorBoundary>
+          </>
+        );
+      });
     });
   }, [floorplan, building]);
 
@@ -90,7 +60,7 @@ function Scene({ activeCamera, editorMode }) {
         }}
       />
 
-      <ambientLight intensity={0.1} color="#f4fffa" />
+      <ambientLight intensity={0.8} color="#f4fffa" />
       {/* <Environment preset="apartment" /> */}
       <Building building_id={0} />
     </>

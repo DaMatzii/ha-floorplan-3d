@@ -35,22 +35,22 @@ func GetBuilding(building int) (*models.Building, error) {
 	}
 
 	var obj models.Building
-	if err := yaml.Unmarshal(yamlData, &obj); err != nil {
-		return nil, errors.New("tes2t")
-	}
+	// if err := yaml.Unmarshal(yamlData, &obj); err != nil {
+	// 	return nil, errors.New("tes2t")
+	// }
+	//
+	// data, err := os.ReadFile(config.AppConfig.ConfigPath + obj.Floorplan_path)
+	// if err != nil {
+	// 	return nil, errors.New("tes3t")
+	// }
 
-	data, err := os.ReadFile(config.AppConfig.ConfigPath + obj.Floorplan_path)
-	if err != nil {
-		return nil, errors.New("tes3t")
-	}
+	// obj.Floorplan = string(data)
 
-	obj.Floorplan = string(data)
-
-	d, err := yaml.Marshal(&obj.Rooms)
-	if err != nil {
-		panic(err)
-	}
-	obj.Raw_Rooms = string(d)
+	// d, err := yaml.Marshal(&obj.Rooms)
+	// if err != nil {
+	// panic(err)
+	// }
+	obj.Raw_Rooms = string(yamlData)
 
 	return &obj, nil
 }

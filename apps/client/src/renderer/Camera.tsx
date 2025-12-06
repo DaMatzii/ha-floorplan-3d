@@ -52,7 +52,7 @@ export default function Camera({ activeCamera, currentRoom }: CameraProps) {
   useEffect(() => {
     for (const floorplan in Object.keys(floorplans)) {
       const index = Object.keys(floorplans)[floorplan];
-      focus(floorplans[index].room.find((b) => b.id === currentRoom?.id));
+      focus(floorplans[index]?.room.find((b) => b.id === currentRoom?.id));
       break;
     }
   }, [currentRoom]);

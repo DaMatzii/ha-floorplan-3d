@@ -95,7 +95,10 @@ const Light: React.FC<Light> = ({
   return (
     <>
       <mesh>
-        <Html position={[position.x / 100, position.z / 100, position.y / 100]}>
+        <Html
+          zIndexRange={[10, 0]}
+          position={[position.x / 100, position.z / 100, position.y / 100]}
+        >
           <motion.div
             className="bg-[hsl(0,0%,5%)] p-2 rounded-full border-2 border-[hsl(0,0%,30%)] "
             animate={{

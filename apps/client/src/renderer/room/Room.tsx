@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { Shape } from "three";
 import * as THREE from "three";
 import { useRoom } from "@/hooks/";
@@ -7,6 +7,8 @@ import { RoomClickBox } from "./RoomClickBox";
 import { renderComponent } from "@/renderer/Components";
 import { useCurrentRoom } from "@/hooks";
 import { Point } from "@/types";
+import ErrorBoundary from "@/utils/3DErrorBoundary";
+import { useErrorStore, ErrorType } from "@/store/ErrorStore";
 
 interface RoomMeshProps {
   points: Point[];
@@ -23,6 +25,7 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
   const room = useRoom(id);
   const { currentRoom } = useCurrentRoom();
   const editorMode = useConfigStore((state) => state.editorMode);
+  const { errors, addError } = useErrorStore();
 
   const comps = useMemo(() => {
     if (!room?.entities) return null;
@@ -30,7 +33,19 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
     return room?.entities.map((entity, index) => {
       const Comp = renderComponent(entity?.type);
 
-      return <Comp key={entity?.type + "-" + index} {...entity} />;
+      function onError(error) {
+        addError({
+          type: ErrorType.RECOVERABLE,
+          title: String(error),
+          description: 'On room "' + (room.alias ?? id) + '"',
+        });
+      }
+
+      return (
+        <ErrorBoundary key={index} onError={onError}>
+          <Comp key={entity?.type + "-" + index} {...entity} />;
+        </ErrorBoundary>
+      );
     });
   }, [id, room]);
 

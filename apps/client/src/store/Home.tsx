@@ -4,9 +4,11 @@ import api from "@/utils/apiInstance";
 import axios from "axios";
 import { HomeConfig, Building } from "@/types";
 import { useHomeStore } from "@/store/HomeStore";
+import { useErrorStore, ErrorType } from "@/store/ErrorStore";
 import { XMLParser } from "fast-xml-parser";
 import HomeView from "@/renderer/HomeView";
 import { motion } from "framer-motion";
+import ErrorList from "@/components/ErrorList";
 
 import { parse } from "yaml";
 
@@ -41,45 +43,84 @@ export default function Home({ children }) {
   //Load home.yaml --> load buildings --> parse --> save to zustand store
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<boolean>(false);
   const { setHome, setReloadFunction } = useHomeStore();
+  const { addError, reset } = useErrorStore();
 
   const fetchHome = async () => {
+    reset();
     try {
-      const homePromise = api.get<HomeConfig>("./api/home");
-      const buildingPromise = api.get<any>("./api/building/0");
+      const homePromise = await fetch("./config/home.yml");
+      const homeConfig = await homePromise.text();
+      let parsed: HomeConfig | undefined;
 
-      const [homeResponse, buildingResponse] = await Promise.all([
-        homePromise,
-        buildingPromise,
-      ]);
+      try {
+        parsed = await parse(homeConfig);
+      } catch (err) {
+        addError({
+          type: ErrorType.FATAL,
+          title: "Error parsing home.yaml",
+          description: String(err),
+        });
+        setError(true);
+        return;
+      }
 
-      const rooms = parse(buildingResponse.data.raw_rooms);
-
-      const parser = new XMLParser({
-        ignoreAttributes: false,
-        attributeNamePrefix: "",
+      const buildingPromise = await fetch("./config/" + parsed.buildings[0], {
+        cache: "reload",
       });
-      const floorplan = parser.parse(
-        buildingResponse.data.floorplan_building,
-      )?.home;
+      const buildingConfig = await buildingPromise.text();
+
+      let parsed_building: any | undefined;
+
+      try {
+        parsed_building = await parse(buildingConfig);
+      } catch (err) {
+        addError({
+          type: ErrorType.FATAL,
+          title: "Error parsing " + parsed.buildings[0],
+          description: String(err),
+        });
+        setError(true);
+        return;
+      }
+
+      const floorplanPromise = await fetch(
+        "./config/" + parsed_building.floorplan_name,
+      );
+      const floorplanText = await floorplanPromise.text();
+
+      let floorplan: any | undefined;
+
+      try {
+        const parser = new XMLParser({
+          ignoreAttributes: false,
+          attributeNamePrefix: "",
+        });
+        floorplan = await parser.parse(floorplanText)?.home;
+      } catch (err) {
+        addError({
+          type: ErrorType.FATAL,
+          title: "Error parsing " + parsed_building.floorplan_name,
+          description: String(err),
+        });
+        setError(true);
+        return;
+      }
+
+      await Promise.all([homeConfig, buildingConfig, floorplanText]);
 
       const building: Building = {
-        title: buildingResponse.data.title,
-        floorplan_name: buildingResponse.data.floorplan,
-        rooms: rooms,
+        title: parsed_building.title,
+        floorplan_name: parsed_building.floorplan_name,
+        rooms: parsed_building.rooms,
       };
-      console.log(building);
 
-      setHome(homeResponse.data, [building], {
-        [buildingResponse.data.floorplan]: floorplan,
+      setHome(parsed, [building], {
+        [parsed_building.floorplan_name]: floorplan,
       });
     } catch (err) {
-      if (axios.isAxiosError(err)) {
-        setError(err.message);
-      } else {
-        setError("An unexpected error occurred");
-      }
+      setError(true);
     } finally {
       setIsLoading(false);
     }
@@ -89,6 +130,10 @@ export default function Home({ children }) {
     setReloadFunction(fetchHome);
     fetchHome();
   }, []);
+
+  if (error) {
+    return <ErrorList isOpen={true} closeModal={undefined} />;
+  }
 
   return (
     <>

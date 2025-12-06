@@ -38,6 +38,7 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
         rotation={[-Math.PI / 2, 0, 0]}
         distanceFactor={1}
         transform
+        zIndexRange={[10, 0]}
         pointerEvents="none"
         style={{
           userSelect: "none",

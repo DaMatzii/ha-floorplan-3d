@@ -54,14 +54,17 @@ func SSEHandler(c *gin.Context, watcher *fsnotify.Watcher) {
 		case <-c.Request.Context().Done():
 			return
 
-		case ev, ok := <-watcher.Events:
+		case event, ok := <-watcher.Events:
 			if !ok {
 				return
 			}
-			fmt.Println("EVENT")
+			if event.Has(fsnotify.Create) || event.Has(fsnotify.Write) {
+				fmt.Println("EVENT")
 
-			fmt.Fprintf(c.Writer, "data: %s\n\n", ev.Name)
-			flusher.Flush()
+				fmt.Fprintf(c.Writer, "data: %s\n\n", event.Name)
+				flusher.Flush()
+
+			}
 		}
 	}
 
@@ -100,7 +103,7 @@ func main() {
 		fmt.Println("DEV")
 		config.AppConfig.ConfigPath = "./pro2/"
 		r.NoRoute(func(c *gin.Context) {
-			proxyURL := "http://192.168.2.61:5173" + c.Request.RequestURI
+			proxyURL := "http://192.168.22.21:5173" + c.Request.RequestURI
 
 			resp, err := http.Get(proxyURL)
 			if err != nil {
@@ -119,6 +122,8 @@ func main() {
 		})
 
 	}
+
+	r.Use(static.Serve("/config", static.LocalFile(config.AppConfig.ConfigPath, true)))
 
 	routes.RegisterRoutes(r)
 

@@ -2,6 +2,7 @@ import React from "react";
 import { HassConnect, useStore } from "@hakit/core";
 import { Routes, Route, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import Modal from "@/components/Modal";
 
 import Home from "@/store/Home";
 import Editor from "@/editor/Editor";
@@ -65,13 +66,32 @@ function LoadingCircleSpinner() {
   );
 }
 
+function Test() {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  return (
+    <div className="p-10">
+      <h1 className="text-3xl font-bold mb-6">My Tailwind App</h1>
+      <button
+        onClick={openModal}
+        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition-colors"
+      >
+        Open Tailwind Modal
+      </button>
+
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <div className="h-[75vw] w-[60vw] ">
+          <p>Nice to meet you</p>
+        </div>
+      </Modal>
+    </div>
+  );
+}
+
 const App: React.FC = () => {
-  // const { config } = useAppConfiguration();
-
-  // if (!config?.configured) {
-  //   return <SetupWizard />;
-  // }
-
   return (
     <>
       <Home>
@@ -79,6 +99,7 @@ const App: React.FC = () => {
           <Route path="/" element={<HomeView />} />
           <Route path="/spinner" element={<LoadingCircleSpinner />} />
           <Route path="/editor" element={<Editor />} />
+          <Route path="/test" element={<Test />} />
         </Routes>
       </Home>
     </>
