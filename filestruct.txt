@@ -1,0 +1,6 @@
+
+
+
+/data/config/internal/ --> App configuration file, like last version is configured etc
+/data/config/external/ --> ALL data that the user is supposed to touch
+/data/resources/ --> all things like .gltfs, home.xml and .properties file

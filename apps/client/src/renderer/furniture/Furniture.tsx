@@ -1,5 +1,5 @@
 import { OBJLoader } from "three-stdlib";
-import React, { useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import type { Component } from "@/renderer/Components";
@@ -28,6 +28,37 @@ const FurnitureComponent: Component = {
   component: (props: FurnitureProps) => <Furniture {...props} />,
 };
 
+function useFurnitureInfo(id) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setData(null);
+
+      const cleanId = id.replace("#", "-");
+      const url = `./api/furniture/${cleanId}`;
+
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+
+        setData(json);
+      } catch (e) {
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    }
+  }, [id]);
+
+  return { data, loading };
+}
+
 export const Furniture: React.FC<FurnitureProps> = ({
   catalogId,
   x,
@@ -39,15 +70,15 @@ export const Furniture: React.FC<FurnitureProps> = ({
   depth,
 }) => {
   const color = useColor("furniture");
+  const { data, loading } = useFurnitureInfo(catalogId);
 
-  if (catalog === undefined) return;
-  const item = catalog.items.find((item) => item.id === catalogId);
-  if (item === undefined) return;
-  const split = item.model.split("/");
+  if (loading) return <></>;
+
+  const split = data.model.split("/");
   const objName = split[6];
 
   if (objName.toLowerCase().includes("texturable")) return;
-  const path = "./models/" + objName.split(".")[0] + ".gltf";
+  const path = "./resources/models/" + objName.split(".")[0] + ".gltf";
   const obj = useGLTF(path);
 
   const targetSize = {

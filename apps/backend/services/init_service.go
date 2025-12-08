@@ -59,7 +59,7 @@ func saveHome(zf *zip.File) error {
 		return err
 	}
 
-	path := filepath.Join(config.AppConfig.ConfigPath, "home.xml")
+	path := filepath.Join(config.AppConfig.Resources, "home.xml")
 	f, err := os.Create(path)
 	if err != nil {
 		return err
@@ -161,7 +161,7 @@ func writeConfig(config any, basePath string, filename string) error {
 	return nil
 }
 func GenerateBaseConfigs(home_name string, rooms []Room) error {
-	basePath := config.AppConfig.ConfigPath
+	basePath := config.AppConfig.ExternalConfig
 
 	homeConfig := models.HomeConfig{
 		Name:      "My Home",

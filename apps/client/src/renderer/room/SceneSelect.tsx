@@ -23,7 +23,7 @@ interface Icon {
   title: string;
 }
 interface SceneSelectProps {
-  scenes: Icon[];
+  scenes: any[];
 }
 
 function Icon({ icon, tap_action, title }: Icon) {

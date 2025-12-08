@@ -1,7 +1,9 @@
 package models
 
 type AppConfig struct {
-	ConfigPath     string `json:"config_path,omitempty"`
+	ExternalConfig string `json:"external_config,omitempty"`
+	InternalConfig string `json:"internal_config,omitempty"`
+	Resources      string `json:"resources,omitempty"`
 	Configured     bool   `json:"configured"`
 	CurrentVersion string `json:"currentVersion,omitempty"`
 }

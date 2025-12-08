@@ -1,1 +1,1 @@
-export { useEvaluateAction, Action } from "./EvaluateAction"
+export { useEvaluateAction } from "./EvaluateAction"

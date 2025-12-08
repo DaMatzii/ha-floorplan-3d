@@ -2,7 +2,7 @@ import React from "react";
 import { Html } from "@react-three/drei";
 import { useEntities } from "@hakit/core";
 import { motion } from "framer-motion";
-import type { Component } from "@/view/handler/Components";
+import type { Component } from "@/renderer/Components";
 
 type Point = { x: number; y: number };
 type TemperatureSensor = { temperature: number; humidity: number };
@@ -16,7 +16,6 @@ interface TemperatureDisplayProps {
 }
 const TemperatureDisplayComponent: Component = {
   name: "LightComponent",
-  bottomSheetY: 0.75,
   component: (props: TemperatureDisplayProps) => (
     <TemperatureDisplay {...props} />
   ),

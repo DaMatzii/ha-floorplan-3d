@@ -1,6 +1,6 @@
 import SceneSelect from "./SceneSelect";
 import EntityCard from "./EntityCard";
-import { Action } from "@/utils";
+import { Action } from "@/types";
 
 const default_action = (entity) => {
   return {

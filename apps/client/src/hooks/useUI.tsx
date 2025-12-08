@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
+import { parse } from "yaml";
 
 export async function loadUI(ui_file: string) {
-  console.log(ui_file);
   async function f() {
-    const resp = await fetch("./api/ui/" + ui_file);
-    const ui = await resp.json();
-    return ui;
+    const resp = await fetch("./config/" + ui_file);
+    const ui = await resp.text();
+    let parsed: any | undefined = undefined;
+
+    try {
+      parsed = await parse(ui);
+    } catch (err) {
+      return;
+    }
+
+    return parsed;
   }
 
   return f();

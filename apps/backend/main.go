@@ -8,31 +8,16 @@ import (
 
 	"fmt"
 	"github.com/gin-gonic/contrib/static"
-	"gopkg.in/yaml.v3"
 	"io"
 	"net/http"
 
 	"github.com/fsnotify/fsnotify"
 	// "net/http/httputil"
 	// "net/url"
-	"os"
 	// "strings"
 	"github.com/spf13/viper"
+	// "os/exec"
 )
-
-func loadUI(path string) any {
-	yamlData, err := os.ReadFile(config.AppConfig.ConfigPath + path)
-	if err != nil {
-		return nil
-	}
-
-	var obj any
-	if err := yaml.Unmarshal(yamlData, &obj); err != nil {
-		return nil
-	}
-
-	return &obj
-}
 
 const sseDataFormat = "data: %s\n\n"
 
@@ -70,11 +55,20 @@ func SSEHandler(c *gin.Context, watcher *fsnotify.Watcher) {
 
 }
 
-func main() {
+func loadConfig() {
+	if viper.GetString("MODE") == "prod" {
+		fmt.Println("PROD")
+		config.AppConfig.ExternalConfig = "/homeassistant/floorplan/"
+	} else {
+		fmt.Println("DEV")
+		config.AppConfig.ExternalConfig = "./new-app-config-system/external/"
+		config.AppConfig.InternalConfig = "./new-app-config-system/internal/"
+		config.AppConfig.Resources = "./new-app-config-system/resources/"
+	}
 
 	viper.SetConfigName("config")
-	viper.AddConfigPath("./app-config/")
-	viper.SafeWriteConfigAs("./app-config/config.json")
+	viper.AddConfigPath(config.AppConfig.InternalConfig)
+	viper.SafeWriteConfigAs(config.AppConfig.InternalConfig + "config.json")
 
 	viper.SetDefault("configured", false)
 	viper.AutomaticEnv()
@@ -92,18 +86,61 @@ func main() {
 		fmt.Println("fuck up")
 	}
 
-	r := gin.New()
+}
+
+func initialize() {
+
+	if !config.AppConfig.Configured {
+
+	}
+
+}
+
+// /data/config/internal/ --> App configuration file, like last version is configured etc
+// /data/config/external/ --> ALL data that the user is supposed to touch
+// /data/resources/ --> all things like .gltfs, home.xml and .properties file
+func setup() {
+	// cmd := exec.Command("/bin/sh", "/")
+}
+
+func main() {
+	loadConfig()
+	initialize()
+
+	r := gin.Default()
+
+	r.Use(static.Serve("/config/", static.LocalFile(config.AppConfig.ExternalConfig, true)))
+	r.Use(static.Serve("/resources/", static.LocalFile(config.AppConfig.Resources, true)))
+
+	routes.RegisterRoutes(r)
+
+	r.GET("/api/configuration", func(c *gin.Context) {
+		c.JSON(http.StatusOK, viper.AllSettings())
+
+	})
+
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = watcher.Add(config.AppConfig.ExternalConfig)
+	if err != nil {
+		fmt.Println("WATCH ERROR")
+		watcher.Close()
+	}
+
+	defer watcher.Close()
+
+	r.GET("/api/events", func(c *gin.Context) {
+		SSEHandler(c, watcher)
+	})
 
 	if viper.GetString("MODE") == "prod" {
-		fmt.Println("PROD")
-		config.AppConfig.ConfigPath = "/homeassistant/floorplan/"
-
 		r.Use(static.Serve("/", static.LocalFile("./client/dist", true)))
 	} else {
-		fmt.Println("DEV")
-		config.AppConfig.ConfigPath = "./pro2/"
 		r.NoRoute(func(c *gin.Context) {
-			proxyURL := "http://192.168.22.21:5173" + c.Request.RequestURI
+			proxyURL := "http://192.168.2.61:5173" + c.Request.RequestURI
 
 			resp, err := http.Get(proxyURL)
 			if err != nil {
@@ -122,39 +159,6 @@ func main() {
 		})
 
 	}
-
-	r.Use(static.Serve("/config", static.LocalFile(config.AppConfig.ConfigPath, true)))
-
-	routes.RegisterRoutes(r)
-
-	r.GET("/api/configuration", func(c *gin.Context) {
-		c.JSON(http.StatusOK, viper.AllSettings())
-
-	})
-
-	watcher, err := fsnotify.NewWatcher()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = watcher.Add(config.AppConfig.ConfigPath)
-	if err != nil {
-		fmt.Println("WATCH ERROR")
-		watcher.Close()
-	}
-
-	defer watcher.Close()
-
-	r.GET("/api/events", func(c *gin.Context) {
-		SSEHandler(c, watcher)
-	})
-
-	r.GET("/api/ui/:ui", func(c *gin.Context) {
-		name := c.Param("ui")
-		ui := loadUI(name + ".yml")
-
-		c.JSON(http.StatusOK, ui)
-	})
 
 	// Start listening for events.
 

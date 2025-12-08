@@ -4,12 +4,14 @@ import { extend } from "@react-three/fiber";
 interface R3FErrorBoundaryProps {
   children: React.ReactNode;
   onError: (error: any) => void;
+  fallback?: React.ReactNode | undefined;
 }
 
 interface R3FErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
   onError: (error: any) => void;
+  fallback: React.ReactNode | undefined;
 }
 
 export default class R3FErrorBoundary extends React.Component<
@@ -19,7 +21,12 @@ export default class R3FErrorBoundary extends React.Component<
   constructor(props: R3FErrorBoundaryProps) {
     super(props);
 
-    this.state = { hasError: false, error: null, onError: props.onError };
+    this.state = {
+      hasError: false,
+      error: null,
+      onError: props.onError,
+      fallback: props.fallback,
+    };
   }
 
   static getDerivedStateFromError(error: Error) {
@@ -32,7 +39,7 @@ export default class R3FErrorBoundary extends React.Component<
 
   render() {
     if (this.state.hasError) {
-      return <></>;
+      return this.state.fallback ?? <></>;
     }
 
     return <>{this.props.children}</>;

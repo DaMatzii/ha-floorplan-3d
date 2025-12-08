@@ -8,8 +8,7 @@ import (
 func RegisterRoutes(r *gin.Engine) {
 	api := r.Group("/api")
 	{
-		api.GET("/home", handlers.GetHome())
-		api.GET("/building/:id", handlers.GetBuilding())
 		api.POST("/upload/sh3d", handlers.InitApp())
+		api.GET("/furniture/:id", handlers.GetFurniturePiece())
 	}
 }

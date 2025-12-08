@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { BottomSheet } from "@/components/ui/Bottomsheet";
+import { BottomSheet } from "@/components/BottomSheet";
 import { useBottomSheetStore } from "@/store";
 
-import FloorplanView from "@/renderer/FloorplanView";
-import { ErrorBoundary } from "react-error-boundary";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Stats } from "@react-three/drei";
 import Scene from "@/renderer/Scene";
+import ErrorBoundary from "@/utils/3DErrorBoundary";
+import { useErrorStore, ErrorType } from "@/store/ErrorStore";
 
 const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
@@ -32,7 +32,17 @@ const Button = ({ onClick, children }) => {
 export default function HomeView() {
   const [activeCamera, setActiveCamera] = useState(1);
   const { cardsNode } = useBottomSheetStore();
+  const { addError } = useErrorStore();
   console.log(cardsNode);
+
+  function onError(err) {
+    console.log("sad error");
+    addError({
+      type: ErrorType.FATAL,
+      title: "Error rendering cards",
+      description: String(err),
+    });
+  }
 
   return (
     <>
@@ -82,7 +92,14 @@ export default function HomeView() {
             </Canvas>
           </div>
         </div>
-        <BottomSheet>{cardsNode}</BottomSheet>
+        <BottomSheet>
+          <ErrorBoundary
+            onError={onError}
+            fallback={<p className="text-text">Me error nono</p>}
+          >
+            {cardsNode}
+          </ErrorBoundary>
+        </BottomSheet>
       </div>
       {/* </ErrorBoundary> */}
     </>

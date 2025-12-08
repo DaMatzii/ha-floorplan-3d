@@ -93,7 +93,7 @@ export default function Home({ children }) {
       console.log(buildingConfig);
 
       const floorplanPromise = await fetch(
-        "./config/" + parsed_building.floorplan_name,
+        "./resources/" + parsed_building.floorplan_name,
       );
       const floorplanText = await floorplanPromise.text();
 

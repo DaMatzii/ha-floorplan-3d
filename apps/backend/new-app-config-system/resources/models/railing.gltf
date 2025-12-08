@@ -1,0 +1,285 @@
+{
+  "accessors": [
+    {
+      "name": "Top_1_0_positions",
+      "componentType": 5126,
+      "count": 16,
+      "min": [
+        -0.47200000286102295,
+        0.8790000081062317,
+        -0.017000000923871994
+      ],
+      "max": [
+        0.47200000286102295,
+        0.8939999938011169,
+        0.017000000923871994
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 0
+    },
+    {
+      "name": "Top_1_0_indices",
+      "componentType": 5123,
+      "count": 84,
+      "min": [
+        0
+      ],
+      "max": [
+        15
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 0
+    },
+    {
+      "name": "Railings_1_0_positions",
+      "componentType": 5126,
+      "count": 128,
+      "min": [
+        -0.421999990940094,
+        0.014999999664723873,
+        -0.008999999612569809
+      ],
+      "max": [
+        0.421999990940094,
+        0.8790000081062317,
+        0.008999999612569809
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 192
+    },
+    {
+      "name": "Railings_1_0_indices",
+      "componentType": 5123,
+      "count": 384,
+      "min": [
+        0
+      ],
+      "max": [
+        127
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 168
+    },
+    {
+      "name": "Bottom_1_0_positions",
+      "componentType": 5126,
+      "count": 16,
+      "min": [
+        -0.47200000286102295,
+        0,
+        -0.017000000923871994
+      ],
+      "max": [
+        0.47200000286102295,
+        0.014999999664723873,
+        0.017000000923871994
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 1728
+    },
+    {
+      "name": "Bottom_1_0_indices",
+      "componentType": 5123,
+      "count": 84,
+      "min": [
+        0
+      ],
+      "max": [
+        15
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 936
+    },
+    {
+      "name": "Handrail_1_0_positions",
+      "componentType": 5126,
+      "count": 34,
+      "min": [
+        -0.47200000286102295,
+        0.8879539966583252,
+        -0.02500000037252903
+      ],
+      "max": [
+        0.47200000286102295,
+        0.8997570276260376,
+        0.02500000037252903
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 1920
+    },
+    {
+      "name": "Handrail_1_0_indices",
+      "componentType": 5123,
+      "count": 192,
+      "min": [
+        0
+      ],
+      "max": [
+        33
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1104
+    }
+  ],
+  "asset": {
+    "generator": "obj2gltf",
+    "version": "2.0"
+  },
+  "buffers": [
+    {
+      "name": "railing",
+      "byteLength": 3816,
+      "uri": "data:application/octet-stream;base64,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JgAnACQAJAAlACYAKQArACgAKwApACoAIgAtACMALQAiACwAKAAvACkALwAoAC4AKwAqACUAJQAkACsAJwAmACEAIQAgACcALAAuAC0ALgAsAC8AMgAzADAAMAAxADIANgA3ADQANAA1ADYAOQA7ADgAOwA5ADoAPAA9ADMAMwAyADwAOAA/ADkAPwA4AD4ANAA6ADUAOgA0ADsANwA2ADEAMQAwADcAPAA+AD0APgA8AD8AQgBDAEAAQABBAEIARgBHAEQARABFAEYASQBLAEgASwBJAEoATABNAEMAQwBCAEwASABPAEkATwBIAE4ARABKAEUASgBEAEsARwBGAEEAQQBAAEcATABOAE0ATgBMAE8AUgBTAFAAUABRAFIAVgBXAFQAVABVAFYAWQBbAFgAWwBZAFoAXABdAFMAUwBSAFwAWABfAFkAXwBYAF4AVABaAFUAWgBUAFsAVwBWAFEAUQBQAFcAXABeAF0AXgBcAF8AYgBjAGAAYABhAGIAZgBnAGQAZABlAGYAaQBrAGgAawBpAGoAYgBtAGMAbQBiAGwAaABvAGkAbwBoAG4AawBqAGUAZQBkAGsAZwBmAGEAYQBgAGcAbABuAG0AbgBsAG8AcgBzAHAAcABxAHIAdgB3AHQAdAB1AHYAeQB7AHgAewB5AHoAcgB9AHMAfQByAHwAeAB/AHkAfwB4AH4AewB6AHUAdQB0AHsAdwB2AHEAcQBwAHcAfAB+AH0AfgB8AH8AAgADAAAAAAABAAIAAAAJAAQABAAFAAYABgAHAAgACAABAAAAAAAEAAYABgAIAAAACgAIAAcACAAKAAsAAwAPAAwADwANAA4ADQALAAoACwADAAIAAwANAA8ADQADAAsADQAFAA4ABQANAAYADwAFAAQABQAPAA4ABwANAAoADQAHAAYAAAADAAwADAAJAAAAAgABAAgACAALAAIACQAMAA8ADwAEAAkAAQADAAAAAwABAAIABgAHAAQABAAFAAYACQALAAgACwAJAAoADQACAAEAAQAMAA0ADwAXAA4AFwACAA0AFgAFAAQABQAKAAkACgAUABUAFAASABMAEgAQABEAEAAXAA8AFwADAAIAFgAKAAUACgASABQAEAADABcAAwAKABYACgAQABIAEAAKAAMAGQAOABcAFwAYABkABgAIAAsACwAaABsAGwAcAB0AHQAeAB8AHwAgABkAGQAYAAwADAABAAAAIQAHAAYABgALABsAGwAdAB8AHwAZAAwAIQAGABsAHwAMAAAAAAAhABsAGwAfAAAABwAhABYAFgAEAAcACAAFAAkABQAIAAYADQAMABgAGAAXAA0AAAADABYAFgAhAAAACgAaAAsAGgAKABUAFQAbABoAGwAVABQAFAAcABsAHAAUABMAEwAdABwAHQATABIAEgAeAB0AHgASABEAEQAfAB4AHwARABAAEAAgAB8AIAAQAA8ADwAZACAAGQAPAA4A"
+    }
+  ],
+  "bufferViews": [
+    {
+      "name": "bufferView_0",
+      "buffer": 0,
+      "byteLength": 2328,
+      "byteOffset": 0,
+      "byteStride": 12,
+      "target": 34962
+    },
+    {
+      "name": "bufferView_1",
+      "buffer": 0,
+      "byteLength": 1488,
+      "byteOffset": 2328,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "silver",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      },
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    },
+    {
+      "name": "archwhite2",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      },
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Top_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Railings_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Bottom_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 4
+          },
+          "indices": 5,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Handrail_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 6
+          },
+          "indices": 7,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Top",
+      "mesh": 0
+    },
+    {
+      "name": "Railings",
+      "mesh": 1
+    },
+    {
+      "name": "Bottom",
+      "mesh": 2
+    },
+    {
+      "name": "Handrail",
+      "mesh": 3
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0,
+        1,
+        2,
+        3
+      ]
+    }
+  ]
+}

@@ -3,7 +3,6 @@ import { renderCard } from "@/renderer/Components";
 import { loadUI } from "@/hooks/useUI";
 import type { Card } from "@/renderer//Components";
 import { useBottomSheetStore } from "@/store";
-
 const MultiCard: Card = {
   name: "LightComponent",
   bottomSheetY: 0.85,
@@ -26,10 +25,8 @@ function MultiUi({ path, maxHeight }) {
   const [cardsNode, setCardsNode] = React.useState([]);
 
   React.useEffect(() => {
-    console.log(path);
     if (path === undefined) return;
-    loadUI(path.split(".")[0]).then((r) => {
-      console.log(r);
+    loadUI(path).then((r) => {
       if (r != undefined) {
         setCardsNode(renderUI(r?.cards));
       }
@@ -37,6 +34,7 @@ function MultiUi({ path, maxHeight }) {
 
     setMaxHeight(maxHeight);
   }, [path, maxHeight]);
+
   return <>{cardsNode}</>;
 }
 export default MultiCard;

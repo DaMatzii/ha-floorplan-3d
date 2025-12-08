@@ -1,11 +1,11 @@
 # ---- Build frontend ----
-FROM node:20-alpine AS frontend
+FROM node:latest AS frontend
 WORKDIR /client
-COPY ./client/package*.json ./
+COPY ./apps/client/package*.json ./
 
-RUN npm ci
+RUN npm i
 
-COPY ./client .
+COPY ./apps/client/ .
 
 RUN npm run build
 
@@ -14,11 +14,11 @@ FROM golang:latest AS backend
 WORKDIR /app
 
 # Copy the module files first (better caching + avoids missing mod files)
-COPY ./backend/go.mod ./backend/go.sum ./
+COPY ./apps/backend/go.mod ./apps/backend/go.sum ./
 RUN go mod download
 
 # Now copy the source
-COPY ./backend .
+COPY ./apps/backend .
 
 # Build the binary
 RUN CGO_ENABLED=0 GOOS=linux go build -o /backend-exec
@@ -30,7 +30,7 @@ WORKDIR /app
 COPY --from=backend /backend-exec /backend-exec
 # RUN mkdir /homeassistant/floorplan
 ENV MODE=prod 
-COPY --from=backend /app/pro /homeassistant/floorplan
+COPY --from=backend /app/pro2 /homeassistant/floorplan
 COPY --from=frontend /client/dist ./client/dist
 EXPOSE 8099
 ENTRYPOINT ["/backend-exec"]

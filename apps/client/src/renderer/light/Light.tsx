@@ -7,6 +7,7 @@ import { useEvaluateAction } from "@/utils/EvaluateAction";
 import { useFrame } from "@react-three/fiber";
 import { useConfigStore } from "@/store/";
 import type { EntityName } from "@hakit/core";
+import type { Component } from "@/renderer/Components";
 
 interface Light {
   room: any;
