@@ -1,14 +1,12 @@
 import { HassConnect, useStore, useHass } from "@hakit/core";
 import React, { createContext, useContext, useState, useEffect } from "react";
-import api from "@/utils/apiInstance";
-import axios from "axios";
 import { HomeConfig, Building } from "@/types";
 import { useHomeStore } from "@/store/HomeStore";
 import { useErrorStore, ErrorType } from "@/store/ErrorStore";
 import { XMLParser } from "fast-xml-parser";
-import HomeView from "@/renderer/HomeView";
 import { motion } from "framer-motion";
 import ErrorList from "@/components/ErrorList";
+import SetupWizard from "@/app/SetupWizard";
 
 import { parse } from "yaml";
 
@@ -46,11 +44,18 @@ export default function Home({ children }) {
   const [error, setError] = useState<boolean>(false);
   const { setHome, setReloadFunction } = useHomeStore();
   const { addError, reset } = useErrorStore();
+  const [config, setConfig] = useState(null);
 
   const fetchHome = async () => {
     reset();
     try {
-      const homePromise = await fetch("./config/home.yml");
+      const appPromise = await fetch("./api/configuration", {
+        cache: "reload",
+      });
+      const appConfig = await appPromise.json();
+      setConfig(appConfig);
+
+      const homePromise = await fetch("./config/home.yml", { cache: "reload" });
       const homeConfig = await homePromise.text();
       let parsed: HomeConfig | undefined;
 
@@ -65,6 +70,7 @@ export default function Home({ children }) {
         setError(true);
         return;
       }
+      console.log(parsed.buildings);
 
       const buildingPromise = await fetch("./config/" + parsed.buildings[0], {
         cache: "reload",
@@ -84,11 +90,14 @@ export default function Home({ children }) {
         setError(true);
         return;
       }
+      console.log(buildingConfig);
 
       const floorplanPromise = await fetch(
         "./config/" + parsed_building.floorplan_name,
       );
       const floorplanText = await floorplanPromise.text();
+
+      console.log(parsed_building.floorplan_name);
 
       let floorplan: any | undefined;
 
@@ -108,7 +117,7 @@ export default function Home({ children }) {
         return;
       }
 
-      await Promise.all([homeConfig, buildingConfig, floorplanText]);
+      await Promise.all([appConfig, homeConfig, buildingConfig, floorplanText]);
 
       const building: Building = {
         title: parsed_building.title,
@@ -131,8 +140,18 @@ export default function Home({ children }) {
     fetchHome();
   }, []);
 
+  if (isLoading) {
+    return <LoadingCircleSpinner />;
+  }
+
   if (error) {
     return <ErrorList isOpen={true} closeModal={undefined} />;
+  }
+
+  console.log(config?.configured);
+
+  if (config?.configured) {
+    // return <SetupWizard />;
   }
 
   return (
@@ -142,7 +161,7 @@ export default function Home({ children }) {
         hassToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwZjJiMzgyMWQzYjA0M2M5OWI0ODI2NmFkZDk2MWEzNiIsImlhdCI6MTc1NTg3NjA2MiwiZXhwIjoyMDcxMjM2MDYyfQ.YaVKgKD5dhxWg4nSQSa-1mphzG2rXXj_yAXg1sQP9VU"
         loading={<LoadingCircleSpinner />}
       >
-        {isLoading ? <LoadingCircleSpinner /> : children}
+        {children}
       </HassConnect>
     </>
   );

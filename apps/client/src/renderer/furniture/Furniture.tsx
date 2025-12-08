@@ -2,7 +2,8 @@ import { OBJLoader } from "three-stdlib";
 import React, { useMemo } from "react";
 import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
-import type { Component } from "@/view/handler/Components";
+import type { Component } from "@/renderer/Components";
+import { useColor } from "@/utils/useColor";
 
 interface FurnitureProps {
   catalogId: string;
@@ -24,7 +25,6 @@ fetch("./Catalog.json")
 
 const FurnitureComponent: Component = {
   name: "LightComponent",
-  bottomSheetY: 0.75,
   component: (props: FurnitureProps) => <Furniture {...props} />,
 };
 
@@ -32,19 +32,13 @@ export const Furniture: React.FC<FurnitureProps> = ({
   catalogId,
   x,
   y,
-  angle,
-  elevation,
+  angle = 0,
+  elevation = 1,
   width,
   height,
   depth,
 }) => {
-  // console.log("NAME: ", name);
-  if (elevation === undefined) {
-    elevation = 1;
-  }
-  if (angle === undefined) {
-    angle = 0;
-  }
+  const color = useColor("furniture");
 
   if (catalog === undefined) return;
   const item = catalog.items.find((item) => item.id === catalogId);
@@ -89,13 +83,12 @@ export const Furniture: React.FC<FurnitureProps> = ({
   modelCopy.traverse((child) => {
     if (child instanceof THREE.Mesh) {
       if (!child.isMesh) return;
-      child.material = child.material.clone(); // keep material properties
-      child.material.color.set("#777777"); // just change color
+      child.material = child.material.clone();
+      child.material.color.set(color);
       child.material.castShadow = false;
       child.material.recieveShadow = false;
     }
   });
-  // }
   const el = height / 100 / 2 + elevation / 100;
   return (
     <>

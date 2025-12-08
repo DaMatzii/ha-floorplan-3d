@@ -11,8 +11,8 @@ function ErrorDisplay({ error }: ErrorDisplay) {
   return (
     <>
       <div className="w-full h-auto text-text">
-        <h1 className="font-bold text-sm">{error?.title}</h1>
-        <p className="font-light text-xs">{error?.description ?? ""}</p>
+        <h1 className="font-bold text-sm">{String(error?.title) ?? ""}</h1>
+        <p className="font-light text-xs">{String(error?.description) ?? ""}</p>
       </div>
     </>
   );

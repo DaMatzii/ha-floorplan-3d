@@ -1,0 +1,21 @@
+title: My first building
+floorplan_name: home.xml
+rooms:
+    - id: room-ac4e1aac-7730-4d94-8d02-ae68858ce686
+      alias: Bathroom
+    - id: room-ec6a6575-3fd1-4e02-aaef-d7908c8ddb86
+      alias: 'Bedroom #1'
+    - id: room-e59e2ca8-5d73-4791-8f8a-bb6d16093dd7
+      alias: Balcony
+    - id: room-ef5d1b20-3c87-40d2-9238-8bd5d1a35fd5
+      alias: Living room
+    - id: room-01037f3e-d182-47fc-a613-1fa2ddc0b695
+      alias: unnamed
+    - id: room-98163464-b618-4b1f-91c5-887853a6d469
+      alias: Kitchen
+    - id: room-f4cdf935-63a5-4144-86c2-d1551050cfb3
+      alias: 'Bedroom #2'
+    - id: room-a3d1e06b-e898-45f5-8502-2d39f9c79e01
+      alias: 'Bedroom #3'
+    - id: room-1c2d6153-5d7f-465f-9998-caf866bff9ae
+      alias: Corridor

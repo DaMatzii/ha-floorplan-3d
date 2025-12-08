@@ -18,7 +18,7 @@ rooms:
           entity_id: light.matiaksen_huone_2
     entities:
       - type: light
-        entity_id: light.hue_lightstrip_plus_
+        entity_id: light.hue_lightstrip_plus_1
         tap_action:
           action: more-info 
           card: "light"
@@ -29,7 +29,7 @@ rooms:
              entity_id: light.hue_lightstrip_plus_1
         position: 
             x: 700 
-            y: 1200
+            y: 1260
             z: 150
       - type: light
         entity_id: light.hue_ambiance_candle_3

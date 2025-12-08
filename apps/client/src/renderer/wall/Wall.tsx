@@ -2,11 +2,10 @@ import React from "react";
 import * as THREE from "three";
 import { CSG } from "three-csg-ts";
 import { useHomeStore } from "@/store";
-import { palette } from "@/Colorpalette";
 import { useFloorplan } from "@/hooks/useBuilding";
+import { useColor } from "@/utils/useColor";
+import type { Component } from "@/renderer/Components";
 
-import type { Component } from "@/view/handler/Components";
-import { sub } from "three/src/nodes/TSL.js";
 interface WallProps {
   xEnd: number;
   xStart: number;
@@ -21,19 +20,6 @@ const WallComponent: Component = {
   name: "LightComponent",
   component: (props: WallProps) => <Wall {...props} />,
 };
-
-function useColor(_color: string) {
-  const [hexValue, setHexValue] = React.useState("");
-
-  React.useEffect(() => {
-    const rootStyles = getComputedStyle(document.documentElement);
-
-    const color = rootStyles.getPropertyValue("--color-" + _color).trim();
-
-    setHexValue(color || "Variable Not Found");
-  }, []);
-  return hexValue;
-}
 
 const Wall: React.FC<WallProps> = ({
   xEnd,

@@ -29,7 +29,7 @@ const defaultComponents: Components = {
   room: RoomComponent,
   wall: Wall,
   temperaturedisplay: TempDisplay,
-  // doororwindow: DoorOrWindow,
+  doororwindow: DoorOrWindow,
 };
 
 const defaultCards: Cards = {

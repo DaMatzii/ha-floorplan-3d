@@ -17,13 +17,14 @@ import Scene from "@/renderer/Scene";
 import { useHomeStore } from "@/store/HomeStore";
 import { useErrorStore, useConfigStore } from "@/store";
 import ErrorList from "@/components/ErrorList";
+import Toolbar from "@/components/Toolbar";
 
 export default function EditorView() {
   const { reload } = useHomeStore();
   const { setEditorMode } = useConfigStore();
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [lastRefreshed, setLastRefreshed] = useState(Date.now());
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
-  const errors = useErrorStore((state) => state.errors);
   const url = "./api/events";
 
   React.useEffect(() => {
@@ -31,11 +32,33 @@ export default function EditorView() {
   }, []);
 
   React.useEffect(() => {
+    let intervalId = null;
+
+    if (setLastRefreshed) {
+      intervalId = setInterval(() => {
+        const now = Date.now();
+        const differenceMs = now - lastRefreshed;
+
+        const differenceSeconds = Math.floor(differenceMs / 1000);
+
+        setElapsedSeconds(differenceSeconds);
+      }, 1000);
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [lastRefreshed]);
+
+  React.useEffect(() => {
     const eventSource = new EventSource(url);
 
     eventSource.onmessage = (event) => {
       console.log("Reloading!");
       reload();
+      setLastRefreshed(Date.now());
     };
 
     eventSource.onerror = (error) => {
@@ -47,27 +70,9 @@ export default function EditorView() {
     };
   }, [url]);
 
-  function handleClick() {
-    setIsModalOpen(!isModalOpen);
-  }
-
   return (
     <>
-      <ErrorList
-        closeModal={() => setIsModalOpen(false)}
-        isOpen={isModalOpen}
-      />
-      <div className="bg-normal flex  absolute border-1 left-2 top-2 rounded-md border-border h-8 w-[40vw] text-text items-center pl-2 pr-2 z-10">
-        <div className="w-full h-full grid  ">
-          <h1>Ha Floorplan 3D</h1>
-          <button
-            onClick={handleClick}
-            className="h-max justify-self-end rounded-md"
-          >
-            {errors.length}
-          </button>
-        </div>
-      </div>
+      <Toolbar date={elapsedSeconds} />
       <div className="bg-black   h-screen w-screen">
         <Canvas
           shadows
