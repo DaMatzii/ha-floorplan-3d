@@ -47,9 +47,7 @@ const _evaluateAction = async (action, callService, openBottomSheet, callbacks =
 				callbacks["more-info"](action);
 			}
 
-			const roomName = action?.target?.card ?? ""
 			openBottomSheet(
-				roomName,
 				window.innerHeight * 0.25,
 				{ ...data, ...action?.target }
 			);

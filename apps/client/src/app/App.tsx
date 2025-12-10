@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "@/store/Home";
 import Editor from "@/editor/Editor";
 import { BrowserRouter } from "react-router-dom";
+import ErrorBoundary from "@/utils/3DErrorBoundary";
 
 const HomeView = React.lazy(() => import("@/renderer/HomeView"));
 
@@ -24,15 +25,22 @@ const App: React.FC = () => {
 
   return (
     <>
-      <BrowserRouter basename={basename}>
-        <Home>
-          <Routes>
-            <Route path="/" element={<HomeView />} />
-            <Route path="/editor" element={<Editor />} />
-          </Routes>
-          {/* <Route path="/test" element={<Test />} /> */}
-        </Home>
-      </BrowserRouter>
+      <ErrorBoundary
+        onError={() => {}}
+        fallback={
+          <p>a unknown and fatal error has occured. I'm sorry. please cry</p>
+        }
+      >
+        <BrowserRouter basename={basename}>
+          <Home>
+            <Routes>
+              <Route path="/" element={<HomeView />} />
+              <Route path="/editor" element={<Editor />} />
+            </Routes>
+            {/* <Route path="/test" element={<Test />} /> */}
+          </Home>
+        </BrowserRouter>
+      </ErrorBoundary>
     </>
   );
 };

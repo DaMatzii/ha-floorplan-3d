@@ -9,8 +9,6 @@ rooms:
       action: more-info 
       target:
           path: "room.yml"
-          maxHeight: 0.20
-          card: MultiCard
     double_tap_action:
       action: call-service
       service: light.toggle
@@ -53,3 +51,9 @@ rooms:
  
   - id: room-a8239ead-614a-4d1e-9c8c-686e5a12d0a9
     hassId: Makuuhone 
+    tap_action:
+      action: more-info 
+      target:
+        bottomSheetY: 0.85
+        path: "room.yml"
+       

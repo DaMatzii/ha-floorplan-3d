@@ -3,7 +3,6 @@ import { RoomComponent, RoomCard } from "./room";
 import Furniture from "./furniture/Furniture";
 import TempDisplay from "./temperature-display/TempDisplay";
 import Light from "./light/Light";
-import MultiCard from "./MultiCard";
 import DoorOrWindow from "./furniture/DoorOrWindow";
 
 export interface Component {
@@ -33,7 +32,6 @@ const defaultComponents: Components = {
 };
 
 const defaultCards: Cards = {
-  multicard: MultiCard,
   room: RoomCard,
 };
 

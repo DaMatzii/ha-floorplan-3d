@@ -1,3 +1,4 @@
+bottomSheetY: 0.85
 cards:
   - type: room 
     title: "Matiaksen huone"
@@ -17,13 +18,5 @@ cards:
            target:
               entity_id: light.matiaksen_huone_2
     entities:
-      - light.matiaksen_huone_:
-          size: "md"
-          tap_action:
-           action: call-service
-           service: light.toggle
-           target:
-              entity_id: light.matiaksen_huone_2
       - light.hue_lightstrip_plus_1:
-      - light.matiaksen_huone_2:
 

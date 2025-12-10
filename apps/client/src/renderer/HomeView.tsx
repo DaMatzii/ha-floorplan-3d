@@ -7,9 +7,15 @@ import { Stats } from "@react-three/drei";
 import Scene from "@/renderer/Scene";
 import ErrorBoundary from "@/utils/3DErrorBoundary";
 import { useErrorStore, ErrorType } from "@/store/ErrorStore";
+import { ErrorList } from "@/components/ErrorList";
 
 const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
+
+function Comp() {
+  throw Error("LOL");
+  return <></>;
+}
 
 const Button = ({ onClick, children }) => {
   return (
@@ -36,17 +42,15 @@ export default function HomeView() {
   console.log(cardsNode);
 
   function onError(err) {
-    console.log("sad error");
     addError({
       type: ErrorType.FATAL,
-      title: "Error rendering cards",
+      title: "Error rendering card",
       description: String(err),
     });
   }
 
   return (
     <>
-      {/* <ErrorBoundary fallback={<div>Something went wrong</div>}> */}
       <div
         style={{
           position: "absolute",
@@ -76,8 +80,6 @@ export default function HomeView() {
         <div className="flex-1 flex items-center justify-center  z-0">
           <div className="canvas-container bg-normal w-screen h-screen">
             <Canvas
-              // frameloop="demand"
-              // shadows
               gl={{ antialias: false }}
               dpr={[1, 1.5]}
               camera={{
@@ -95,13 +97,16 @@ export default function HomeView() {
         <BottomSheet>
           <ErrorBoundary
             onError={onError}
-            fallback={<p className="text-text">Me error nono</p>}
+            fallback={
+              <div className="pl-5 mr-5">
+                <ErrorList />
+              </div>
+            }
           >
             {cardsNode}
           </ErrorBoundary>
         </BottomSheet>
       </div>
-      {/* </ErrorBoundary> */}
     </>
   );
 }

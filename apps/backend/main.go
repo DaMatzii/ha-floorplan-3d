@@ -3,20 +3,18 @@ package main
 import (
 	"backend/config"
 	"backend/routes"
-	"github.com/gin-gonic/gin"
-	"log"
-
+	"errors"
 	"fmt"
 	"github.com/gin-gonic/contrib/static"
+	"github.com/gin-gonic/gin"
 	"io"
+	"log"
 	"net/http"
+	"os"
+	"os/exec"
 
 	"github.com/fsnotify/fsnotify"
-	// "net/http/httputil"
-	// "net/url"
-	// "strings"
 	"github.com/spf13/viper"
-	// "os/exec"
 )
 
 const sseDataFormat = "data: %s\n\n"
@@ -89,9 +87,15 @@ func loadConfig() {
 }
 
 func initialize() {
-
-	if !config.AppConfig.Configured {
-
+	// if !config.AppConfig.Configured {
+	// 	fmt.Println("app is not configured")
+	// }
+	if _, err := os.Stat(config.AppConfig.Resources + "models"); errors.Is(err, os.ErrNotExist) {
+		// fmt.Println("not setup :/()")
+		go func() {
+			cmd := exec.Command("/bin/sh", "../../../scripts/downloadAssets.sh")
+			fmt.Println(cmd)
+		}()
 	}
 
 }
@@ -100,7 +104,7 @@ func initialize() {
 // /data/config/external/ --> ALL data that the user is supposed to touch
 // /data/resources/ --> all things like .gltfs, home.xml and .properties file
 func setup() {
-	// cmd := exec.Command("/bin/sh", "/")
+
 }
 
 func main() {
