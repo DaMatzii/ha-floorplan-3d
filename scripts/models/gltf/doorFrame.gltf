@@ -1,0 +1,115 @@
+{
+  "accessors": [
+    {
+      "name": "Montant_1_0_positions",
+      "componentType": 5126,
+      "count": 24,
+      "min": [
+        -0.45750001072883606,
+        -1.0199999809265137,
+        -0.0754999965429306
+      ],
+      "max": [
+        0.45750001072883606,
+        1.065000057220459,
+        0.019500000402331352
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 0
+    },
+    {
+      "name": "Montant_1_0_indices",
+      "componentType": 5123,
+      "count": 132,
+      "min": [
+        0
+      ],
+      "max": [
+        23
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 0
+    }
+  ],
+  "asset": {
+    "generator": "obj2gltf",
+    "version": "2.0"
+  },
+  "buffers": [
+    {
+      "name": "doorFrame",
+      "byteLength": 552,
+      "uri": "data:application/octet-stream;base64,cT3qPuxRiD93vp88cT3qPlyPgr93vp88cT3qPlyPgr++n5q9cT3qPuxRiD++n5q9exTOPlyPgr++n5q9exTOPlyPgr8K16O8exTOPq5HgT8K16O8exTOPq5HgT++n5q9cT3qvuxRiD++n5q9cT3qvuxRiD93vp88RrbTviGwgj8K16O8RrbTviGwgj93vp88RrbTvlyPgr93vp88RrbTvlyPgr8K16O8cT3qvlyPgr++n5q9cT3qvlyPgr93vp88RrbTPiGwgj8K16O8RrbTPiGwgj93vp88exTOvq5HgT8K16O8exTOvlyPgr8K16O8exTOvlyPgr++n5q9exTOvq5HgT++n5q9RrbTPlyPgr93vp88RrbTPlyPgr8K16O8AgADAAAAAAABAAIABQAHAAQABwAFAAYACQADAAgAAwAJAAAADAANAAoACgALAAwACAAPAAkADwAIAA4AEAARAAsACwAKABAAFAAVABIAEgATABQACQAPAAwAEQAWAAEACQAMAAsAEQABAAAAAAAJAAsACwARAAAAEQAXABYAFwARABAACAAUAA4ABwACAAQACAAVABQABwADAAIAAwAVAAgAFQADAAcABgASABUAFQAHAAYADwAOAA0ADQAMAA8AFgAXAAIAAgABABYAEwANAA4ADgAUABMAFwAFAAQABAACABcABgAQAAoACgASAAYAEAAGAAUABQAXABAAEwASAAoACgANABMA"
+    }
+  ],
+  "bufferViews": [
+    {
+      "name": "bufferView_0",
+      "buffer": 0,
+      "byteLength": 288,
+      "byteOffset": 0,
+      "byteStride": 12,
+      "target": 34962
+    },
+    {
+      "name": "bufferView_1",
+      "buffer": 0,
+      "byteLength": 264,
+      "byteOffset": 288,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "white",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      },
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Montant_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Montant",
+      "mesh": 0
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
