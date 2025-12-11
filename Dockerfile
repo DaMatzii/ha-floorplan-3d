@@ -24,13 +24,36 @@ COPY ./apps/backend .
 RUN CGO_ENABLED=0 GOOS=linux go build -o /backend-exec
 
 # ---- Final HA runtime image ----
-FROM alpine:3.20
-RUN apk add --no-cache ca-certificates
+FROM ubuntu:22.04
 WORKDIR /app
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+
+
+RUN apt-get update && \
+    apt-get install -y curl unzip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+
+RUN apt-get install -y nodejs 
+
+RUN npm install -g --save obj2gltf
+
 COPY --from=backend /backend-exec /backend-exec
 # RUN mkdir /homeassistant/floorplan
 ENV MODE=prod 
-COPY --from=backend /app/pro2 /homeassistant/floorplan
-COPY --from=frontend /client/dist ./client/dist
+ENV CONFIG_PATH=/testing/config
+
+COPY ./scripts/downloadAssets.sh /scripts/downloadAssets.sh
+COPY ./temp/download.zip /zips/download.zip
+COPY ./scripts/run.sh /run.sh
+RUN chmod +x /run.sh
+# COPY --from=backend /app/pro2 /homeassistant/floorplan
+COPY --from=frontend /client/dist /app/client/dist
+
 EXPOSE 8099
-ENTRYPOINT ["/backend-exec"]
+ENTRYPOINT ["/run.sh"]

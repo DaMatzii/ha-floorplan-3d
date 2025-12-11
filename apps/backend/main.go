@@ -54,9 +54,15 @@ func SSEHandler(c *gin.Context, watcher *fsnotify.Watcher) {
 }
 
 func loadConfig() {
+	viper.AutomaticEnv()
+	configDir := viper.GetString("CONFIG_DIR")
+
 	if viper.GetString("MODE") == "prod" {
 		fmt.Println("PROD")
 		config.AppConfig.ExternalConfig = "/homeassistant/floorplan/"
+		config.AppConfig.InternalConfig = configDir + "/internal/"
+		config.AppConfig.Resources = configDir + "/resources/"
+
 	} else {
 		fmt.Println("DEV")
 		config.AppConfig.ExternalConfig = "./new-app-config-system/external/"
@@ -69,7 +75,6 @@ func loadConfig() {
 	viper.SafeWriteConfigAs(config.AppConfig.InternalConfig + "config.json")
 
 	viper.SetDefault("configured", false)
-	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
@@ -93,7 +98,7 @@ func initialize() {
 	if _, err := os.Stat(config.AppConfig.Resources + "models"); errors.Is(err, os.ErrNotExist) {
 		// fmt.Println("not setup :/()")
 		go func() {
-			cmd := exec.Command("/bin/sh", "../../../scripts/downloadAssets.sh")
+			cmd := exec.Command("/bin/sh", "/scripts/downloadAssets.sh")
 			fmt.Println(cmd)
 		}()
 	}
@@ -141,7 +146,7 @@ func main() {
 	})
 
 	if viper.GetString("MODE") == "prod" {
-		r.Use(static.Serve("/", static.LocalFile("./client/dist", true)))
+		r.Use(static.Serve("/", static.LocalFile("/app/client/dist", true)))
 	} else {
 		r.NoRoute(func(c *gin.Context) {
 			proxyURL := "http://192.168.2.61:5173" + c.Request.RequestURI

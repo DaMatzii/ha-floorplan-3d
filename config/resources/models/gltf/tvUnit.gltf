@@ -1,0 +1,385 @@
+{
+  "accessors": [
+    {
+      "name": "TV_1_0_positions",
+      "componentType": 5126,
+      "count": 168,
+      "min": [
+        -0.3611289858818054,
+        0.21789999306201935,
+        -0.2582460045814514
+      ],
+      "max": [
+        0.36157500743865967,
+        0.7328119874000549,
+        0.23975099623203278
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 0
+    },
+    {
+      "name": "TV_1_0_indices",
+      "componentType": 5123,
+      "count": 996,
+      "min": [
+        0
+      ],
+      "max": [
+        167
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 0
+    },
+    {
+      "name": "Etagere_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.48249998688697815,
+        -0.10199999809265137,
+        -0.25
+      ],
+      "max": [
+        0.48249998688697815,
+        -0.09200000017881393,
+        0.25
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 2016
+    },
+    {
+      "name": "Etagere_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1992
+    },
+    {
+      "name": "Montant_1_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.48500001430511475,
+        -0.20000000298023224,
+        -0.25
+      ],
+      "max": [
+        -0.4749999940395355,
+        0.20000000298023224,
+        0.25
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 2112
+    },
+    {
+      "name": "Montant_1_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2064
+    },
+    {
+      "name": "Etagere_2_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.48249998688697815,
+        0.04600000008940697,
+        -0.25
+      ],
+      "max": [
+        0.48249998688697815,
+        0.0560000017285347,
+        0.25
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 2208
+    },
+    {
+      "name": "Etagere_2_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2136
+    },
+    {
+      "name": "Etagere_1_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.5,
+        0.1979999989271164,
+        -0.25999999046325684
+      ],
+      "max": [
+        0.5,
+        0.21799999475479126,
+        0.25999999046325684
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 2304
+    },
+    {
+      "name": "Etagere_1_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2208
+    },
+    {
+      "name": "Montant_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        0.4749999940395355,
+        -0.20000000298023224,
+        -0.25
+      ],
+      "max": [
+        0.48500001430511475,
+        0.20000000298023224,
+        0.25
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 2400
+    },
+    {
+      "name": "Montant_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2280
+    }
+  ],
+  "asset": {
+    "generator": "obj2gltf",
+    "version": "2.0"
+  },
+  "buffers": [
+    {
+      "name": "tvUnit",
+      "byteLength": 4848,
+      "uri": "data:application/octet-stream;base64,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LwAxADIAMwAxABUAMQAzADIANAAyADMAMgA0ADUANQA0AA0ADQA2ADUANwA1ADYANQA3ADgAOQA3ACsANwA5ADgAMAA4ADkAOAAwAC8AMgA4AC8AOAAyADUAOgA8ACMAPAA6ADsAPQA7ADoAOwA9AD4AJwA+AD0APgAnAD8AQAA+AD8APgBAAEEAQgBAABwAQABCAEEAQwBBAEIAQQBDAEQARgBDAEUAQwBGAEQARwBEAEYARABHAEgASQBHACoARwBJAEgAPABIAEkASAA8ADsAPgBIADsASABBAEQAQQBIAD4ASgBMABAATABKAEsATQBLAEoASwBNAE4ATgBNABkAGQBPAE4AUABOAE8ATgBQAFEAUQBQAA4ADgBSAFEAUwBRAFIAUQBTAFQAVQBTABQAUwBVAFQATABUAFUAVABMAEsATgBUAEsAVABOAFEAVgBYABoAWABWAFcAWQBXAFYAVwBZAFoAJgBaAFkAWgAmAFsAXABaAFsAWgBcAF0AXgBcACIAXABeAF0AXwBdAF4AXQBfAGAAYQBfABYAXwBhAGAAYgBgAGEAYABiAGMAZABiABIAYgBkAGMAWABjAGQAYwBYAFcAWgBjAFcAYwBdAGAAXQBjAFoAZQBnAB0AZwBlAGYAaABmAGUAZgBoAGkAagBoACAAaABqAGkAawBpAGoAaQBrAGwAbQBrACgAawBtAGwAbgBsAG0AbABuAG8AcABuACUAbgBwAG8AZwBvAHAAbwBnAGYAaQBvAGYAbwBpAGwAcgB0AHEAdAByAHMAdQBzAHIAcwB1AHYAdwB1ABsAdQB3AHYAeAB2AHcAdgB4AHkAegB4ABEAeAB6AHkAewB5AHoAeQB7AHwAfQB7ABMAewB9AHwAdAB8AH0AfAB0AHMAdgB8AHMAfAB2AHkAfgCAACwAgAB+AH8AggB/AH4AfgCBAIIAggCBAAwADACDAIIAhQCCAIMAgwCEAIUAhQCEAAYABgCGAIUAgACFAIYAhQCAAH8AfwCCAIUAhwCJAAsAiQCHAIgAigCIAIcAiACKAIsAjACKAB4AigCMAIsAjQCLAIwAiwCNAI4AjwCNACQAjQCPAI4AkACOAI8AjgCQAJEAkgCQACkAkACSAJEAiQCRAJIAkQCJAIgAiwCRAIgAkQCLAI4AkwCVACEAlQCTAJQAlgCUAJMAlACWAJcAmACWAB8AlgCYAJcAmQCXAJgAlwCZAJoAmwCZAAoAmQCbAJoAnACaAJsAmgCcAJ0AnQCcABcAFwCeAJ0AlQCdAJ4AnQCVAJQAlwCdAJQAnQCXAJoAoAChAAcABwCfAKAAowCgAJ8AnwCiAKMAowCiAA8ADwCkAKMApgCjAKQApAClAKYApgClABgAGACnAKYAoACmAKcApwChAKAAoACjAKYAiQCGAAYABgALAIkAiQCAAIYAgACJAJIAkgAsAIAALACSACkAIwCPACQAjwAjADwAPACQAI8AkAA8AEkASQApAJAAKQBJACoALQBGAEUARgAtADAAMABHAEYARwAwADkAOQAqAEcAKgA5ACsAgQA2AA0ADQAMAIEAfgA3ADYANgCBAH4AfgArADcAKwB+ACwAJgA/ACcAPwAmAFkAWQBAAD8AQABZAFYAVgAcAEAAHABWABoATQBhABYAFgAZAE0ATQBiAGEAYgBNAEoASgASAGIAEgBKABAANABSAA4ADgANADQAMwBTAFIAUgA0ADMAMwAUAFMAFAAzABUAIQBeACIAXgAhAJUAlQBfAF4AXwCVAJ4AFwAWAF8AXwCeABcAoQCbAAoACgAHAKEApwCcAJsAmwChAKcAGAAXAJwAnACnABgAUACkAA8ADwAOAFAATwClAKQApABQAE8AGQAYAKUApQBPABkAHgCYAB8AmAAeAIoAigCZAJgAmQCKAIcACwAKAJkAmQCHAAsAogCDAAwADAAPAKIAnwCEAIMAgwCiAJ8ABwAGAIQAhACfAAcAJABwACUAcAAkAI0AjQBnAHAAZwCNAIwAjAAdAGcAHQCMAB4AKABbACYAWwAoAGsAawBcAFsAXABrAGoAagAiAFwAIgBqACAAJQA6ACMAOgAlAG4AbgA9ADoAPQBuAG0AbQAnAD0AJwBtACgAIACTACEAkwAgAGgAaACWAJMAlgBoAGUAZQAfAJYAHwBlAB0AFQB9ABMAfQAVADEAMQB0AH0AdAAxAC4ALgBxAHQAcQAuAC0AEQBkABIAZAARAHgAeABYAGQAWAB4AHcAdwAaAFgAGgB3ABsAEwBVABQAVQATAHsAewBMAFUATAB7AHoAegAQAEwAEAB6ABEAGwBCABwAQgAbAHUAdQBDAEIAQwB1AHIAcgBFAEMARQByAHEAcQAtAEUAAQADAAAAAwABAAIABQADAAQAAwAFAAAABgAHAAIAAgABAAYABAACAAcAAgAEAAMABQAGAAEAAQAAAAUABAAHAAYABgAFAAQAAgADAAAAAAABAAIAAQAFAAQABQABAAAABQAHAAQABwAFAAYAAgAHAAYABgADAAIAAAAGAAUABgAAAAMAAgABAAQABAAHAAIAAQADAAAAAwABAAIABAAAAAMAAAAEAAUABAAHAAYABgAFAAQABwADAAIAAwAHAAQAAAAFAAYABgABAAAABwACAAEAAQAGAAcAAgADAAAAAAABAAIABAAFAAEAAQAAAAQABAAHAAUABwAEAAYAAQAFAAcABwACAAEAAAAGAAQABgAAAAMAAgAGAAMABgACAAcAAgADAAAAAAABAAIABQAHAAQABwAFAAYABAABAAAAAAAFAAQAAAAGAAUABgAAAAMAAwAHAAYABwADAAIABwACAAEAAQAEAAcA"
+    }
+  ],
+  "bufferViews": [
+    {
+      "name": "bufferView_0",
+      "buffer": 0,
+      "byteLength": 2496,
+      "byteOffset": 0,
+      "byteStride": 12,
+      "target": 34962
+    },
+    {
+      "name": "bufferView_1",
+      "buffer": 0,
+      "byteLength": 2352,
+      "byteOffset": 2496,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "grey",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      },
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    },
+    {
+      "name": "dkgrey",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      },
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    }
+  ],
+  "meshes": [
+    {
+      "name": "TV_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Etagere_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 2
+          },
+          "indices": 3,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Montant_1_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 4
+          },
+          "indices": 5,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Etagere_2_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 6
+          },
+          "indices": 7,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Etagere_1_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 8
+          },
+          "indices": 9,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Montant_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 10
+          },
+          "indices": 11,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "TV",
+      "mesh": 0
+    },
+    {
+      "name": "Etagere",
+      "mesh": 1
+    },
+    {
+      "name": "Montant_1",
+      "mesh": 2
+    },
+    {
+      "name": "Etagere_2",
+      "mesh": 3
+    },
+    {
+      "name": "Etagere_1",
+      "mesh": 4
+    },
+    {
+      "name": "Montant",
+      "mesh": 5
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  ]
+}

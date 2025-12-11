@@ -1,0 +1,115 @@
+{
+  "accessors": [
+    {
+      "name": "frame_1_0_positions",
+      "componentType": 5126,
+      "count": 89,
+      "min": [
+        -40,
+        -80,
+        -12.5
+      ],
+      "max": [
+        40,
+        120,
+        12.5
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 0
+    },
+    {
+      "name": "frame_1_0_indices",
+      "componentType": 5123,
+      "count": 498,
+      "min": [
+        0
+      ],
+      "max": [
+        88
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 0
+    }
+  ],
+  "asset": {
+    "generator": "obj2gltf",
+    "version": "2.0"
+  },
+  "buffers": [
+    {
+      "name": "roundDoorFrame",
+      "byteLength": 2064,
+      "uri": "data:application/octet-stream;base64,AAAgQgAAoMIAAEhBAAAgQgAAoMIAAEjBAAAgQgAAAAAAAAAAAAAgQgAAoEIAAEjBAAAgQgAAoEIAAEhBAAAgwgAAoMIAAEjBAAAgwgAAoMIAAEhBAAAgwgAAAAAAAAAAAAAgwgAAoEIAAEhBAAAgwgAAoEIAAEjBzcwfwgAAoMIAAEhBzcwfwgAAoMIAAEjBzcwfQl10kUIAAEjBzcwfQgAAoMIAAEjBzcwfQgAAoMIAAEhBzcwfQgAAoEIAAEhBzcwfQgAAoEIAAEjBzcwfQgAAAAAAAAAAzcwfwgAAAAAAAAAAzcwfwgAAoEIAAEhBzcwfwgAAoEIAAEjBTWf5wGBd7kIAAEjBAAAAAGbm70IAAEhBTWf5wGBd7kIAAEhBzcwfQgAAoEIAAEjBAAAgQgAAoEIAAEjBzcwfQgAAoEIAAEhBAAAgQgAAoEIAAEhBzcwfwgAAoEIAAEhBAAAgwgAAoEIAAEhBzcwfwgAAoEIAAEjBAAAgwgAAoEIAAEjBeJx0wWfR6UIAAEjBbN4EwttjzEIAAEjByv3hwXJ/2EIAAEhBbN4EwttjzEIAAEhBeJx0QWfR6UIAAEjBbI+xQTZv4kIAAEhBeJx0QWfR6UIAAEhB9+wcwnObr0IAAEhB9+wcwnObr0IAAEjBG9ITwlydvkIAAEhBG9ITwlydvkIAAEjB/ggFwhRyzEIAAEhB/ggFwhRyzEIAAEjBL0biwYyR2EIAAEhBL0biwYyR2EIAAEjBUcixwX+E4kIAAEhBUcixwX+E4kIAAEjB3ep0wQ3p6UIAAEhB3ep0wQ3p6UIAAEjBLLf5wHt27kIAAEhBLLf5wHt27kIAAEjBAAAAAAAA8EIAAEhBAAAAAAAA8EIAAEjBLLf5QHt27kIAAEhBLLf5QHt27kIAAEjB3ep0QQ3p6UIAAEhB3ep0QQ3p6UIAAEjBUcixQX+E4kIAAEhBUcixQX+E4kIAAEjBL0biQYyR2EIAAEhBL0biQYyR2EIAAEjB/ggFQhRyzEIAAEhB/ggFQhRyzEIAAEjBG9ITQlydvkIAAEhBG9ITQlydvkIAAEjB9+wcQnObr0IAAEhB9+wcQnObr0IAAEjBzqITQo+TvkIAAEjBv7ocQnWWr0IAAEhBzqITQo+TvkIAAEhBv7ocwnWWr0IAAEhBv7ocwnWWr0IAAEjBzqITwo+TvkIAAEhBTWf5QGBd7kIAAEjBTWf5QGBd7kIAAEhBbN4EQttjzEIAAEhByv3hQXJ/2EIAAEjBbN4EQttjzEIAAEjBbI+xwTZv4kIAAEhBeJx0wWfR6UIAAEhByv3hQXJ/2EIAAEhBbI+xQTZv4kIAAEjBbI+xwTZv4kIAAEjBAAAAAGbm70IAAEjBv7ocQnWWr0IAAEjByv3hwXJ/2EIAAEjBzqITwo+TvkIAAEjBAAABAAIAAQADAAIAAwAEAAIABAAAAAIABQAGAAcABgAIAAcACAAJAAcACQAFAAcACgAGAAsADAABAA0AAAAOAAEADwAEABAADgARAAwABQALAAYAEgATAAoAAAAEAA4AEAADAAwABgAKABMACAAGABMAEQAOAA8ADQAOAAwAAwAQAAQAFAASAAsACAATABQACAAUAAkAEwASABQACwAFABQABQAJABQACwASAAoAAwABAAwAEAARAA8ADAARABAADQABAA4ABAAPAA4AFQAWABcAGAAZABoAGgAZABsAHAAdAB4AHgAdAB8AFwAgABUAIQAiACMAJAAlACYAHwAdACcAKAAnACkAKgApACsALAArAC0ALgAtAC8AMAAvADEAMgAxADMANAAzADUANgA1ADcAOAA3ADkAOgA5ADsAPAA7AD0APgA9AD8AQAA/AEEAQgBBAEMARABDABsAHwAnACgAKAApACoAKgArACwALAAtAC4ALgAvADAAMAAxADIAMgAzADQANAA1ADYANgA3ADgAOAA5ADoAOgA7ADwAPAA9AD4APgA/AEAAQABBAEIAQgBDAEQARAAbABkARQBGAEcASABJAEoASwAmAEwATQBOAE8AJwAdAEgAKQAnAEgAKwApACMALQArACIALwAtAFAAMQAvAFEAMwAxABcANQAzABYANwA1ABYAOQA3ACYAOwA5ACUAPQA7ACUAPwA9AE0AQQA/AEcAQwBBAEYAGwBDABoATgBNAFIAUgBTAE4AIABUADIAJQAkAFMAFgAVAFUATwBHAE0AIAAXAFEAVgAaAEYAVABXADAAHgAfAEkAHwAoAEkAVwBQACIAKAAqAEkAKgAsAFgAIQBYACwALAAuACEALgAwAFcARgBFAFYAMAAyAFQAMgA0ACAANAA2ABUANgA4AFUAJgBLACQAOAA6AEsAIwBYACEAOgA8ACQAPAA+AFMAPgBAAE4AQABCAE8AVQBMABYAQgBEAEUARAAZAFYAGABWABkAVgBFAEQATgBTAD4ASgApAEgAFQAgADQAUwAkADwAJABLADoATAA3ABYASwBVADgAHgBIABwAUgA9ACUAVQAVADYAUwBSACUAKgBYAEkALgBXACEAQABPAE4AHABIAB0ATABVAEsAIgAhAFcAGgBWABgASgAjACkAUABXAFQAIwAiACsAIgBQAC0AUABRAC8AVABRAFAAUQAXADEAFwAWADMAUQBUACAARQBHAE8ASgBJAFgATAAmADcAWAAjAEoAJgAlADkARQBPAEIAUgBNAD0ATQBHAD8ARwBGAEEARgAaAEMASAAeAEkA"
+    }
+  ],
+  "bufferViews": [
+    {
+      "name": "bufferView_0",
+      "buffer": 0,
+      "byteLength": 1068,
+      "byteOffset": 0,
+      "byteStride": 12,
+      "target": 34962
+    },
+    {
+      "name": "bufferView_1",
+      "buffer": 0,
+      "byteLength": 996,
+      "byteOffset": 1068,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "white",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      },
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    }
+  ],
+  "meshes": [
+    {
+      "name": "frame_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "frame",
+      "mesh": 0
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}

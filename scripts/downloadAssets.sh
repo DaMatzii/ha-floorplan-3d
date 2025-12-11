@@ -1,120 +1,73 @@
 #!/bin/bash
 
-########################################
-## SweetHome3D Model Downloader & Converter
-##
-## This script downloads the SweetHome3D source, extracts
-## necessary 3D models (OBJ files), converts them to glTF,
-## and copies the resulting models to a specified destination.
-########################################
+#clean up required
 
-# --- Configuration Constants ---
-readonly ZIP_URL="https://altushost-bul.dl.sourceforge.net/project/sweethome3d/SweetHome3D-source/SweetHome3D-7.5-src/SweetHome3D-7.5-src.zip?viasf=1"
-readonly EXTRACT_DIR="./temp_sh3d_models"
-readonly DOWNLOAD_PATH="${EXTRACT_DIR}/downloaded_file.zip"
-
-# --- Source Paths within the extracted ZIP ---
-readonly SOURCE_RESOURCES_DIR="SweetHome3D-7.5-src/src/com/eteks/sweethome3d/io/resources"
-readonly SOURCE_PROPERTIES_FILE="SweetHome3D-7.5-src/src/com/eteks/sweethome3d/io/DefaultFurnitureCatalog.properties"
-
-# --- Destination Paths within the temporary directory ---
-readonly MODELS_DIR="${EXTRACT_DIR}/models"
-readonly OBJ_DIR="${MODELS_DIR}/obj"
-readonly GLTF_DIR="${MODELS_DIR}/gltf"
-
-# --- Main Destination Variable ---
-# $1 is the required final destination path
-FINAL_DESTINATION="$1"
-
-# ----------------------------------------------------------------------
+ZIP_URL="https://altushost-bul.dl.sourceforge.net/project/sweethome3d/SweetHome3D-source/SweetHome3D-7.5-src/SweetHome3D-7.5-src.zip?viasf=1"
+CONFIG_PATH="../config"
+DOWNLOAD_PATH="$CONFIG_PATH"/temp/models.zip
+EXTRACT_DIR="$CONFIG_PATH"/temp
+FINAL_DESTINATION="$CONFIG_PATH"/resources
 
 
-download_and_extract() {
-    echo "--- Step 1: Downloading and Extracting Source Files ---"
+download_models() {
+    echo "Starting download and unzip process..."
 
-    mkdir -p "${EXTRACT_DIR}" || { echo " Error: Failed to create directory ${EXTRACT_DIR}."; exit 1; }
+    echo "--- Step 1: Downloading file ---"
+    curl --progress-bar -L -o "$DOWNLOAD_PATH" "$ZIP_URL"
+    DOWNLOAD_STATUS=$?
 
-    echo "Downloading ${ZIP_URL}..."
-    curl -# -L -o "${DOWNLOAD_PATH}" "${ZIP_URL}"
-    local download_status=$?
-
-    if [ "$download_status" -ne 0 ]; then
-        echo " Error: Download failed (status code ${download_status})."
+    if [ $DOWNLOAD_STATUS -ne 0 ]; then
+        echo "Error: Download failed (status code $DOWNLOAD_STATUS)."
         exit 1
     fi
 
-    echo "Extracting files to"
-    unzip -q -o "${DOWNLOAD_PATH}" -d "${EXTRACT_DIR}"
-    local unzip_status=$?
+    echo "Download done"
+    mkdir -p "$EXTRACT_DIR"
 
-    if [ "$unzip_status" -ne 0 ]; then
-        echo "Error: Unzipping failed (status code ${unzip_status}). File may be corrupted."
+    unzip -q -o "$DOWNLOAD_PATH" -d "$EXTRACT_DIR"
+    UNZIP_STATUS=$?
+
+    if [ $UNZIP_STATUS -ne 0 ]; then
+        echo "Error: Unzipping failed (status code $UNZIP_STATUS). The file might be corrupted or not a valid zip."
+        echo "Cleaned up temporary file ${DOWNLOAD_PATH}."
         exit 1
     fi
-    echo "Extraction complete."
 }
 
-copy_and_convert_models() {
-    echo "--- Step 2: Preparing and Converting Models ---"
+convert() {
+    echo "creating $EXTRACT_DIR/models/obj"
+    mkdir -p $EXTRACT_DIR/models/obj""
 
-    mkdir -p "${OBJ_DIR}" "${GLTF_DIR}" || { echo " Error: Failed to create model directories."; exit 1; }
+    cp -r $EXTRACT_DIR/SweetHome3D-7.5-src/src/com/eteks/sweethome3d/io/resources/* $EXTRACT_DIR/models/obj
+    cp $EXTRACT_DIR/SweetHome3D-7.5-src/src/com/eteks/sweethome3d/io/DefaultFurnitureCatalog.properties $EXTRACT_DIR/models/
 
-    local source_obj_path="${EXTRACT_DIR}/${SOURCE_RESOURCES_DIR}/*"
-    echo "Copying OBJ models from **${source_obj_path}** to **${OBJ_DIR}**..."
-    cp -r "${source_obj_path}" "${OBJ_DIR}"
 
-    local source_prop_file="${EXTRACT_DIR}/${SOURCE_PROPERTIES_FILE}"
-    echo " Copying properties file to **${MODELS_DIR}**..."
-    cp "${source_prop_file}" "${MODELS_DIR}/"
+    mkdir -p $EXTRACT_DIR/models/gltf
 
-    echo " Starting model conversion from OBJ to glTF..."
-
-    local obj_count=0
-    local converted_count=0
-
-    for file in "${OBJ_DIR}"/*.obj; do
+    for file in "$EXTRACT_DIR/models/obj"/*.obj; do
         if [ -f "$file" ]; then
-            obj_count=$((obj_count + 1))
-            local just_the_name=$(basename "$file")
-            local output_file="${GLTF_DIR}/${just_the_name%.*}.gltf" # Rename .obj to .gltf
-
-            if obj2gltf -i "$file" -o "$output_file" &> /dev/null; then
-                converted_count=$((converted_count + 1))
-            else
-                echo " Warning: Failed to convert ${just_the_name}."
-            fi
+            just_the_name=$(basename "$file")
+            echo $just_the_name
+            obj2gltf -i "$EXTRACT_DIR/models/obj/$just_the_name" -o "$EXTRACT_DIR/models/gltf/$just_the_name" > /dev/null
         fi
     done
 
-    echo "✅ Conversion finished. Processed **${obj_count}** files, **${converted_count}** converted to glTF."
+
 }
 
-finalize_and_cleanup() {
-    echo "--- Step 3: Finalizing and Cleaning Up ---"
+mkdir -p $EXTRACT_DIR
+mkdir -p $FINAL_DESTINATION
 
-    echo "➡️ Copying final model files to **${FINAL_DESTINATION}**..."
-    mkdir -p "${FINAL_DESTINATION}"
-    cp -r "${MODELS_DIR}" "${FINAL_DESTINATION}"
+download_models
+convert
 
-    echo "🧹 Cleaning up temporary extraction and download files..."
-    rm -rf "${EXTRACT_DIR}"
-}
+echo "Finishing"
+rm -rf "$EXTRACT_DIR/models/obj/"
 
-# ----------------------------------------------------------------------
-# --- Main Script Execution ---
-# ----------------------------------------------------------------------
+cp -r "$EXTRACT_DIR/models" $FINAL_DESTINATION
 
-if [ -z "$FINAL_DESTINATION" ]; then
-    echo "❌ Error: Missing final destination argument."
-    echo "Usage: $0 **<destination_directory>**"
-    exit 1
-fi
+#clean up
+rm -r "$EXTRACT_DIR"
 
 
-# Execute the steps
-download_and_extract
-copy_and_convert_models
-finalize_and_cleanup
-
-echo "---"
-echo " Script finished successfully! Final models are located in **${FINAL_DESTINATION}/models**."
+echo "Script finished."
