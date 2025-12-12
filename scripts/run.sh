@@ -2,19 +2,13 @@
 
 echo STARTING APP
 
-
-CONFIG_PATH ="${CONFIG_PATH}"
-mkdir -p $CONFIG_PATH
-
-if [ -z "$CONFIG_PATH" ]; then
-    echo "SETUP FAILED: Missing APP_CONFIG_PATH"
-    exit 1
-fi
-
 ZIP_URL="https://altushost-bul.dl.sourceforge.net/project/sweethome3d/SweetHome3D-source/SweetHome3D-7.5-src/SweetHome3D-7.5-src.zip?viasf=1"
 DOWNLOAD_PATH="$CONFIG_PATH"/temp/models.zip
 EXTRACT_DIR="$CONFIG_PATH"/temp
-FINAL_DESTINATION="$CONFIG_PATH"/resources
+
+TEMP_PATH=/tmp/ha-floorplan
+FINAL_DESTINATION=/app/resources
+mkdir -p $TEMP_PATH
 
 mkdir -p $CONFIG_PATH/external
 mkdir -p $CONFIG_PATH/internal
@@ -49,41 +43,29 @@ mkdir -p $CONFIG_PATH/internal
 
 unzip_download() {
     ls -la /zips
-    unzip -q -o "/zips/download.zip" -d "$EXTRACT_DIR"
+    unzip -q -o "/zips/download.zip" -d $TEMP_PATH
     echo "unzip finished"
-    ls -la $EXTRACT_DIR
-    cd $EXTRACT_DIR
-    pwd
-    cd --
 }
 
 convert() {
-    echo "creating $EXTRACT_DIR/models/obj"
-    mkdir -p $EXTRACT_DIR/models/obj
+    echo "creating $TEMP_PATH/models/obj"
+    mkdir -p $TEMP_PATH/models/obj
 
-    cp -r $EXTRACT_DIR/SweetHome3D-7-2.5-src/src/com/eteks/sweethome3d/io/resources/* $EXTRACT_DIR/models/obj
-    cp $EXTRACT_DIR/SweetHome3D-7-2.5-src/src/com/eteks/sweethome3d/io/DefaultFurnitureCatalog.properties $EXTRACT_DIR/models/
+    cp -r $TEMP_PATH/SweetHome3D-7-2.5-src/src/com/eteks/sweethome3d/io/resources/* $TEMP_PATH/models/obj
+    cp $TEMP_PATH/SweetHome3D-7-2.5-src/src/com/eteks/sweethome3d/io/DefaultFurnitureCatalog.properties $FINAL_DESTINATION
 
-    mkdir -p $EXTRACT_DIR/models/gltf
+    mkdir -p $TEMP_PATH/models/gltf
 
-    for file in "$EXTRACT_DIR/models/obj"/*.obj; do
+    for file in "$TEMP_PATH/models/obj"/*.obj; do
         if [ -f "$file" ]; then
-            echo "$EXTRACT_DIR/models/obj/$just_the_name"
-            echo "$EXTRACT_DIR/models/gltf/$just_the_name"
             just_the_name=$(basename "$file")
             echo $just_the_name
-            obj2gltf -i "$EXTRACT_DIR/models/obj/$just_the_name" -o "$EXTRACT_DIR/models/gltf/$just_the_name"
+            obj2gltf -i "$TEMP_PATH/models/obj/$just_the_name" -o "$TEMP_PATH/models/gltf/$just_the_name"
         fi
     done
 
-    ls -la $EXTRACT_DIR/models/gltf
-
 }
 
-
-
-
-mkdir -p $EXTRACT_DIR
 mkdir -p $FINAL_DESTINATION
 
 # download_models
@@ -91,12 +73,13 @@ unzip_download
 convert
 
 echo "Finishing"
-rm -rf "$EXTRACT_DIR/models/obj/"
+rm -rf "$TEMP_PATH/models/obj/"
 
-cp -r "$EXTRACT_DIR/models" $FINAL_DESTINATION
+mkdir -p $FINAL_DESTINATION/models
+cp $TEMP_PATH/models/gltf/* $FINAL_DESTINATION/models/
 
 #clean up
-rm -r "$EXTRACT_DIR"
+rm -r "$TEMP_PATH"
 
 echo "Script finished."
 
@@ -105,4 +88,4 @@ echo "Bash script running pre-checks with config: $CONFIG_PATH"
 export CONFIG_DIR=$CONFIG_PATH
 export MODE=prod
 
-exec /backend-exec
+exec /app/backend-exec

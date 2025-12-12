@@ -17,6 +17,8 @@ panel_title: "My Add-on"
 map:
  - type: homeassistant_config
    read_only: False
+ - type: addon_config
+   read_only: False
 ports:
   8099/tcp: 8099
 

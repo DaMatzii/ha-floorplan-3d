@@ -43,7 +43,7 @@ RUN apt-get install -y nodejs
 
 RUN npm install -g --save obj2gltf
 
-COPY --from=backend /backend-exec /backend-exec
+COPY --from=backend /backend-exec /app/backend-exec
 # RUN mkdir /homeassistant/floorplan
 ENV MODE=prod 
 ENV CONFIG_PATH=/testing/config

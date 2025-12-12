@@ -55,13 +55,13 @@ func SSEHandler(c *gin.Context, watcher *fsnotify.Watcher) {
 
 func loadConfig() {
 	viper.AutomaticEnv()
-	configDir := viper.GetString("CONFIG_DIR")
+	// configDir := viper.GetString("CONFIG_DIR")
 
 	if viper.GetString("MODE") == "prod" {
 		fmt.Println("PROD")
-		config.AppConfig.ExternalConfig = "/homeassistant/floorplan/"
-		config.AppConfig.InternalConfig = configDir + "/internal/"
-		config.AppConfig.Resources = configDir + "/resources/"
+		config.AppConfig.ExternalConfig = "/config/"
+		config.AppConfig.InternalConfig = "/app/config/"
+		config.AppConfig.Resources = "/app/resources/"
 
 	} else {
 		fmt.Println("DEV")
@@ -146,7 +146,8 @@ func main() {
 	})
 
 	if viper.GetString("MODE") == "prod" {
-		r.Use(static.Serve("/", static.LocalFile("/app/client/dist", true)))
+		// r.NoRout(static.Serve("/", static.LocalFile("/app/client/dist", true)))
+		r.NoRoute(gin.WrapH(http.FileServer(http.Dir("/app/client/dist"))))
 	} else {
 		r.NoRoute(func(c *gin.Context) {
 			proxyURL := "http://192.168.2.61:5173" + c.Request.RequestURI
