@@ -1,4 +1,0 @@
-<pieceOfFurniture id='pieceOfFurniture-4233673b-4269-428a-b1bf-0b53ca2ddaa1' catalogId='eTeks#table' name='Table' creator='eTeks' model='7' icon='6' x='536.955' y='1243.7719' angle='4.712389' width='160.0' depth='80.0' height='73.9775' modelSize='5486' license='GNU GPL / CC-BY'/>
-  <pieceOfFurniture id='pieceOfFurniture-b360388c-7c6f-48be-a58a-4a821bbdb20e' catalogId='eTeks#bed' name='Bed' creator='eTeks' model='9' icon='8' x='597.89154' y='1079.7223' angle='4.712389' width='90.0' depth='200.0' height='52.8' modelSize='24868' license='GNU GPL / CC-BY' dropOnTopElevation='0.8390151'/>
-  <pieceOfFurniture id='pieceOfFurniture-73dc878f-a29a-49a1-b0ef-f9b4fa57427e' catalogId='eTeks#wardrobe' name='Wardrobe' creator='eTeks' model='11' icon='10' x='828.955' y='1227.7219' angle='1.5707964' width='198.0' depth='52.0' height='216.0' modelSize='23218' license='GNU GPL / CC-BY'/>
-

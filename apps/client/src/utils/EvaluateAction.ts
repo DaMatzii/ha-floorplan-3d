@@ -54,6 +54,15 @@ const _evaluateAction = async (action, callService, openBottomSheet, callbacks =
 
 			break;
 
+		case "hass-more-info":
+			window.top.document.querySelector("home-assistant").dispatchEvent(
+				new CustomEvent("hass-more-info", {
+					detail: { entityId: action?.target?.entity_id },
+					bubbles: true,
+					composed: true,
+				}),
+			);
+			break
 		case "none":
 		default:
 			if (typeof callbacks["none"] === "function") {

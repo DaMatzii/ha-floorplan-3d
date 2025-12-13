@@ -8,6 +8,8 @@ import Scene from "@/renderer/Scene";
 import ErrorBoundary from "@/utils/3DErrorBoundary";
 import { useErrorStore, ErrorType } from "@/store/ErrorStore";
 import { ErrorList } from "@/components/ErrorList";
+import useIsMobile from "@/hooks/useIsMobile";
+import { NoMobile } from "@/components/NoMobile";
 
 const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
@@ -39,7 +41,12 @@ export default function HomeView() {
   const [activeCamera, setActiveCamera] = useState(1);
   const { cardsNode } = useBottomSheetStore();
   const { addError } = useErrorStore();
+  const isMobile = useIsMobile();
   console.log(cardsNode);
+
+  if (!isMobile && !import.meta.env.DEV) {
+    return <NoMobile />;
+  }
 
   function onError(err) {
     addError({

@@ -59,7 +59,7 @@ func saveHome(zf *zip.File) error {
 		return err
 	}
 
-	path := filepath.Join(config.AppConfig.Resources, "home.xml")
+	path := filepath.Join(config.AppConfig.ExternalConfig, "home.xml")
 	f, err := os.Create(path)
 	if err != nil {
 		return err

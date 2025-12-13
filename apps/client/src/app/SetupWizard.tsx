@@ -1,9 +1,23 @@
 import { Home } from "lucide-react";
+import React from "react";
+import { ProgressButton } from "@/components/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function SetupWizard() {
+  const [loading, setLoading] = React.useState(false);
+  const fileInputRef = React.useRef(undefined);
+  const navigate = useNavigate();
+
   const handleFileChange = async (e) => {
+    setLoading(true);
     const file = e.target.files[0];
     if (!file) return;
+    console.log(file);
+
+    // setTimeout(() => {
+    //   setLoading(false);
+    //   navigate("../editor");
+    // }, 500);
 
     const formData = new FormData();
     formData.append("file", file);
@@ -16,9 +30,11 @@ export default function SetupWizard() {
 
       if (response.ok) {
         response.json().then((json) => {
-          alert(String(json));
+          // alert(String(json));
           console.log(json);
+          navigate("./editor");
         });
+        setLoading(false);
       } else {
         alert("Upload failed");
       }
@@ -27,32 +43,52 @@ export default function SetupWizard() {
       alert("Upload error");
     }
   };
+
+  const containerVariants: any = {
+    button: {
+      width: 200,
+      height: 50,
+      borderRadius: 8,
+      transition: { type: "spring", stiffness: 400, damping: 30 },
+    },
+    loading: {
+      width: 100,
+      height: 50,
+      borderRadius: 5,
+      transition: { type: "spring", stiffness: 400, damping: 30 },
+    },
+  };
+
   return (
     <>
-      <div className="flex w-screen h-screen bg-dark justify-center items-center">
-        <div className="flex flex-col h-[75vw] w-[60vw]  bg-gradient-to-b from-light to-dark items-center text-text  rounded-xl border-1 border-border shadow-md ">
-          <Home className="stroke-[0.1] text-aqua-500" size={200} />
-          <h1 className="text-3xl mt-4 ">Welcome 3D floorplan</h1>
-
-          <div className=" w-90 h-60 border-2 border-border bg-dark/200 rounded-xl mt-40 border-dashed flex flex-col items-center ">
-            <div className="mt-15 flex flex-col items-center">
-              <h1 className="text-text">Drag and drop .sh3d file</h1>
-              <button className="w-40 h-8 bg-light mt-25 rounded-sm text-text border-1 border-border shadow-md ">
-                <label>
-                  Upload File
-                  <input
-                    type="file"
-                    className="hidden"
-                    accept=".sh3d"
-                    onChange={handleFileChange}
-                  />
-                </label>
-              </button>
+      <div className="w-screen h-screen bg-dark flex justify-center text-text">
+        <div className="absolute top-[20vh] flex flex-col items-center">
+          <Home size={100} strokeWidth={0.5} />
+          <h1 className="text-xl text-bold">Welcome to use the 3D floorplan</h1>
+          <div className="items-center justify-center flex flex-col text-sm font-light">
+            <h1 className="text-text">
+              Upload your Sweet Home 3d home to get started{" "}
+            </h1>
+            <div className="mt-5">
+              <ProgressButton
+                onClick={() => fileInputRef.current.click()}
+                loading={loading}
+                containerVariants={containerVariants}
+              >
+                Upload file (.sh3d file)
+              </ProgressButton>
             </div>
           </div>
         </div>
+
+        <input
+          onChange={handleFileChange}
+          multiple={false}
+          ref={fileInputRef}
+          type="file"
+          hidden
+        />
       </div>
     </>
   );
 }
-//flex pl-2 flex-start bg-[hsl(0,0%,5%)] rounded-xl border-1 border-[hsl(0,0%,30%)] shadow-md shadow-[hsl(0,0%,10%)]

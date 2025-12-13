@@ -15,14 +15,6 @@ interface FurnitureProps {
   height: number;
   depth: number;
 }
-const objCache = {};
-let catalog = {} as { items: any };
-fetch("./Catalog.json")
-  .then((response) => response.json())
-  .then((str) => {
-    catalog = str;
-  });
-
 const FurnitureComponent: Component = {
   name: "LightComponent",
   component: (props: FurnitureProps) => <Furniture {...props} />,

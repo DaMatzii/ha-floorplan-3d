@@ -2,9 +2,9 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "@/store/Home";
 import Editor from "@/editor/Editor";
-import { BrowserRouter } from "react-router-dom";
 import ErrorBoundary from "@/utils/3DErrorBoundary";
 
+import SetupWizard from "./SetupWizard";
 const HomeView = React.lazy(() => import("@/renderer/HomeView"));
 
 const basePath = (window as any).__BASE_PATH__;
@@ -22,17 +22,6 @@ function baseAfterFourthSlash() {
 const App: React.FC = () => {
   const basename = baseAfterFourthSlash();
   console.log(basename);
-
-  const socket = new WebSocket(
-    (location.protocol === "https:" ? "wss://" : "ws://") +
-      location.host +
-      "/api/websocket",
-  );
-  socket.addEventListener("open", (event) => {
-    console.log("EVENT: ", event);
-    socket.send("Hello Server!");
-  });
-
   return (
     <>
       <ErrorBoundary
@@ -41,15 +30,15 @@ const App: React.FC = () => {
           <p>a unknown and fatal error has occured. I'm sorry. please cry</p>
         }
       >
-        <BrowserRouter basename={basename}>
-          <Home>
-            <Routes>
-              <Route path="/" element={<HomeView />} />
-              <Route path="/editor" element={<Editor />} />
-            </Routes>
-            {/* <Route path="/test" element={<Test />} /> */}
-          </Home>
-        </BrowserRouter>
+        <Home>
+          <Routes>
+            <Route path="/" element={<HomeView />} />
+            <Route path="/editor" element={<Editor />} />
+            <Route path="/setup" element={<SetupWizard />} />
+            {/* <Route path="/button" element={<Button />} /> */}
+          </Routes>
+          {/* <Route path="/test" element={<Test />} /> */}
+        </Home>
       </ErrorBoundary>
     </>
   );

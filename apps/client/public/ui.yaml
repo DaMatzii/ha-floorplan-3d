@@ -1,9 +1,0 @@
-
-cards:
-  - type: entities 
-    entities:
-      - light.matiaksen_huone_2:
-          size: [1, 1]
-      - light.matiaksen_huone_2:
-           
-
