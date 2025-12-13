@@ -23,6 +23,16 @@ const App: React.FC = () => {
   const basename = baseAfterFourthSlash();
   console.log(basename);
 
+  const socket = new WebSocket(
+    (location.protocol === "https:" ? "wss://" : "ws://") +
+      location.host +
+      "/api/websocket",
+  );
+  socket.addEventListener("open", (event) => {
+    console.log("EVENT: ", event);
+    socket.send("Hello Server!");
+  });
+
   return (
     <>
       <ErrorBoundary

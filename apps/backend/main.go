@@ -15,6 +15,7 @@ import (
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
+	"path/filepath"
 )
 
 const sseDataFormat = "data: %s\n\n"
@@ -120,6 +121,9 @@ func main() {
 
 	r.Use(static.Serve("/config/", static.LocalFile(config.AppConfig.ExternalConfig, true)))
 	r.Use(static.Serve("/resources/", static.LocalFile(config.AppConfig.Resources, true)))
+	if viper.GetString("MODE") == "prod" {
+		r.Use(static.Serve("/assets/", static.LocalFile("/app/client/dist/assets/", true)))
+	}
 
 	routes.RegisterRoutes(r)
 
@@ -146,8 +150,10 @@ func main() {
 	})
 
 	if viper.GetString("MODE") == "prod" {
-		// r.NoRout(static.Serve("/", static.LocalFile("/app/client/dist", true)))
-		r.NoRoute(gin.WrapH(http.FileServer(http.Dir("/app/client/dist"))))
+		r.NoRoute(func(c *gin.Context) {
+			indexFilePath := filepath.Join("/app/client/dist", "index.html")
+			c.File(indexFilePath)
+		})
 	} else {
 		r.NoRoute(func(c *gin.Context) {
 			proxyURL := "http://192.168.2.61:5173" + c.Request.RequestURI

@@ -148,17 +148,25 @@ export default function Home({ children }) {
     return <ErrorList isOpen={true} closeModal={undefined} />;
   }
 
-  console.log(config?.configured);
+  let websocket = "";
+  let auth_token = "";
+  if (import.meta.env.DEV) {
+    websocket = import.meta.env.VITE_HA_API;
+    auth_token = import.meta.env.VITE_HA_TOKEN;
+  }
 
-  if (config?.configured) {
-    // return <SetupWizard />;
+  if (import.meta.env.PROD) {
+    websocket =
+      (location.protocol === "https:" ? "wss://" : "ws://") +
+      location.host +
+      "/api/websocket";
   }
 
   return (
     <>
       <HassConnect
-        hassUrl="http://192.168.2.101:8123"
-        hassToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwZjJiMzgyMWQzYjA0M2M5OWI0ODI2NmFkZDk2MWEzNiIsImlhdCI6MTc1NTg3NjA2MiwiZXhwIjoyMDcxMjM2MDYyfQ.YaVKgKD5dhxWg4nSQSa-1mphzG2rXXj_yAXg1sQP9VU"
+        hassUrl={websocket}
+        hassToken={auth_token}
         loading={<LoadingCircleSpinner />}
       >
         {children}
