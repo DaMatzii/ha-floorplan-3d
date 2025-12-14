@@ -8,30 +8,20 @@ import { useFrame } from "@react-three/fiber";
 import { useConfigStore } from "@/store/";
 import type { EntityName } from "@hakit/core";
 import type { Component } from "@/renderer/Components";
-
-interface Light {
-  room: any;
-  position: any;
-  entity_id: EntityName;
-  tap_action: any;
-  index: number;
-  double_tap_action: any;
-}
+import type { Light, Room, Action } from "@/types";
 
 const LightComponent: Component = {
   name: "LightComponent",
-  component: (props: Light) => <Light {...props} />,
+  component: (props: Light) => <LightComp {...props} />,
 };
 
-const Light: React.FC<Light> = ({
-  room,
+const LightComp: React.FC<Light> = ({
   position,
   entity_id,
   tap_action,
   double_tap_action,
-  index,
 }) => {
-  const hassEntity = useEntity(entity_id);
+  const hassEntity = useEntity(entity_id as EntityName);
   const { evaluateAction } = useEvaluateAction();
   const [rotation, setRotation] = React.useState(0);
 
@@ -49,7 +39,7 @@ const Light: React.FC<Light> = ({
     return () => clearTimeout(clickTimeout.current);
   }, []);
 
-  const handleTapAction = (action) => {
+  const handleTapAction = (action: Action) => {
     console.log(action);
     evaluateAction(action, {}, { id: entity_id });
 

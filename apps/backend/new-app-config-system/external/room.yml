@@ -1,4 +1,4 @@
-bottomSheetY: 0.85
+bottomSheetY: 0.20
 cards:
   - type: room 
     title: "Matiaksen huone"
@@ -18,5 +18,6 @@ cards:
            target:
               entity_id: light.matiaksen_huone_2
     entities:
-      - light.hue_lightstrip_plus_1:
+      - entity_id: "light.hue_lightstrip_plus_1"
+        size: "md"
 

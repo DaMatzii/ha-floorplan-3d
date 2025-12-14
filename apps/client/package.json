@@ -39,6 +39,7 @@
 		"three-stdlib": "^2.36.0",
 		"use-sync-external-store": "^1.6.0",
 		"yaml": "^2.8.1",
+		"zod": "^4.1.13",
 		"zustand": "latest"
 	},
 	"devDependencies": {

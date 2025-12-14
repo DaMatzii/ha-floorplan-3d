@@ -1,13 +1,7 @@
 import { useHass } from "@hakit/core";
 
 import { useBottomSheetStore } from "@/store";
-import { BottomSheetType } from "@/types/";
 import { Action } from "@/types/types"
-
-// export interface Action {
-// 	action: "more-info" | "call-service"
-// 	target: any
-// }
 
 export function useEvaluateAction() {
 	const { callService } = useHass();
@@ -21,7 +15,7 @@ export function useEvaluateAction() {
 	return { evaluateAction }
 }
 
-const _evaluateAction = async (action, callService, openBottomSheet, callbacks = {}, data?: any) => {
+const _evaluateAction = async (action: Action, callService, openBottomSheet, callbacks = {}, data?: any) => {
 	if (!action) return;
 
 	switch (action.action) {
@@ -46,11 +40,8 @@ const _evaluateAction = async (action, callService, openBottomSheet, callbacks =
 			if (typeof callbacks["more-info"] === "function") {
 				callbacks["more-info"](action);
 			}
-
-			openBottomSheet(
-				window.innerHeight * 0.25,
-				{ ...data, ...action?.target }
-			);
+			console.log(action)
+			openBottomSheet(action);
 
 			break;
 
@@ -63,7 +54,6 @@ const _evaluateAction = async (action, callService, openBottomSheet, callbacks =
 				}),
 			);
 			break
-		case "none":
 		default:
 			if (typeof callbacks["none"] === "function") {
 				callbacks["none"](action);

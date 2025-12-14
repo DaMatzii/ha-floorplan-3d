@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { HomeConfig, Building } from "@/types/";
+import { HomeConfig, Building, Floorplan, MoreInfoAction } from "@/types/";
 import { renderCard, getCard } from "@/renderer/Components";
 import { loadUI } from "@/hooks/useUI";
 
@@ -36,29 +36,16 @@ export const useHomeStore = create<HomeState>((set) => ({
 }));
 
 interface BottomSheetState {
-  cardsNode: any | undefined;
+  cardsNode: React.ReactNode | undefined;
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
   maxHeight: number;
   setMaxHeight: (height: number) => void;
-  openBottomSheet: (node: any, max: any, data: any) => void;
+  openBottomSheet: (data) => void;
 }
 
-// React.useEffect(() => {
-//   if (path === undefined) return;
-//   loadUI(path).then((r) => {
-//     if (r != undefined) {
-//       setCardsNode(renderUI(r?.cards));
-//     }
-//   });
-//
-//   setMaxHeight(maxHeight);
-// }, [path, maxHeight]);
-//
-// return <>{cardsNode}</>;
-
 function renderUI(ui) {
-  let componentsToRender = [];
+  let componentsToRender: React.ReactNode[] = [];
   Object.keys(ui).map((key, index) => {
     const Comp = renderCard(ui[key]?.type);
     if (Comp) {
@@ -72,25 +59,24 @@ export const useBottomSheetStore = create<BottomSheetState>((set) => ({
   cardsNode: undefined,
   isOpen: false,
   maxHeight: 0.85 * window.innerHeight,
-  openBottomSheet: (max, data) => {
+  openBottomSheet: (data) => {
     // let CompNode: any | undefined;
     // const Comp = getCard(node);
     console.log(data);
     let cards: any | undefined;
+    console.log("open!!");
 
     if (data.path) {
       console.log("loading path");
       loadUI(data.path).then((r) => {
         if (r != undefined) {
           cards = renderUI(r?.cards);
-          console.log(cards);
           set({
             cardsNode: cards,
             isOpen: true,
-            maxHeight:
-              max ??
-              data.BottomSheet * window.innerHeight ??
-              0.85 * window.innerHeight,
+            maxHeight: r?.bottomSheetY
+              ? r?.bottomSheetY * window.innerHeight
+              : 0.85 * window.innerHeight,
           });
         }
       });

@@ -1,6 +1,6 @@
 import SceneSelect from "./SceneSelect";
-import EntityCard from "./EntityCard";
-import { Action } from "@/types";
+import EntityCardComp from "./EntityCard";
+import { Action, RoomCard, EntityCard } from "@/types";
 
 const default_action = (entity) => {
   return {
@@ -12,29 +12,7 @@ const default_action = (entity) => {
   };
 };
 
-interface scene {
-  icon: string;
-  tap_action: Action;
-}
-
-interface entityCard {
-  size: "md" | "sm";
-  tap_action: Action;
-}
-
-interface roomCard {
-  title: string;
-  scenes: scene[];
-  entities: entityCard[];
-}
-
-const RoomCard = ({ title, entities, scenes }: roomCard) => {
-  const entity_list = entities.map((entity) => {
-    return {
-      entity_id: Object.keys(entity)[0],
-      ...entity[Object.keys(entity)[0]],
-    };
-  });
+const _RoomCard = ({ title, entities, scenes }: RoomCard) => {
   return (
     <>
       <div className="h-screen">
@@ -43,11 +21,11 @@ const RoomCard = ({ title, entities, scenes }: roomCard) => {
         </h1>
         <SceneSelect scenes={scenes} />
         <div className="h-full w-full grid-cols-2 overflow-y-auto grid auto-rows-[4rem] gap-3 pl-4 pr-4">
-          {entity_list.map((entity, idx) => {
+          {entities.map((entity, idx) => {
             return (
-              <EntityCard
+              <EntityCardComp
                 entity={entity.entity_id}
-                action={entity.action ?? default_action(entity)}
+                action={entity.tap_action ?? default_action(entity)}
                 size={entity.size ?? "sm"}
                 key={idx}
               />
@@ -58,4 +36,4 @@ const RoomCard = ({ title, entities, scenes }: roomCard) => {
     </>
   );
 };
-export default RoomCard;
+export default _RoomCard;

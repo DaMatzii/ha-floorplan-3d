@@ -56,6 +56,7 @@ export function RoomClickBox({ id, points }: any) {
 
   function handleTapAction(actionType) {
     evaluateAction(roomConfig[actionType]);
+    console.log("ACTION!!");
   }
 
   const handleClick = (e) => {
