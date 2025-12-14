@@ -1,5 +1,5 @@
 import { HassConnect, useStore, useHass } from "@hakit/core";
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { HomeConfig, Building } from "@/types";
 import { useHomeStore } from "@/store/HomeStore";
 import { useErrorStore, ErrorType } from "@/store/ErrorStore";
@@ -25,103 +25,89 @@ export default function Home({ children }) {
   //Load home.yaml --> load buildings --> parse --> save to zustand store
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
   const { setHome, setReloadFunction } = useHomeStore();
-  const { addError, reset } = useErrorStore();
+  const { addError, reset, errors } = useErrorStore();
   const [config, setConfig] = useState(null);
 
-  const fetchHome = async () => {
-    reset();
+  const fetchResource = async (url: string, parser?: (text: string) => any) => {
     try {
-      const appPromise = await fetch("./api/configuration", {
-        cache: "reload",
-      });
-      const appConfig = await appPromise.json();
-      setConfig(appConfig);
-
-      const homePromise = await fetch("./config/home.yml", { cache: "reload" });
-      const homeConfig = await homePromise.text();
-      let parsed: HomeConfig | undefined;
-
-      try {
-        parsed = await parse(homeConfig);
-      } catch (err) {
-        addError({
-          type: ErrorType.FATAL,
-          title: "Error parsing home.yaml",
-          description: String(err),
-        });
-        setError(true);
-        return;
-      }
-      console.log(parsed.buildings);
-
-      const buildingPromise = await fetch("./config/" + parsed.buildings[0], {
-        cache: "reload",
-      });
-      const buildingConfig = await buildingPromise.text();
-
-      let parsed_building: any | undefined;
-
-      try {
-        parsed_building = await parse(buildingConfig);
-      } catch (err) {
-        addError({
-          type: ErrorType.FATAL,
-          title: "Error parsing " + parsed.buildings[0],
-          description: String(err),
-        });
-        setError(true);
-        return;
-      }
-      console.log(buildingConfig);
-
-      const floorplanPromise = await fetch(
-        "./config/" + parsed_building.floorplan_name,
-      );
-      const floorplanText = await floorplanPromise.text();
-
-      console.log(parsed_building.floorplan_name);
-
-      let floorplan: any | undefined;
-
-      try {
-        const parser = new XMLParser({
-          ignoreAttributes: false,
-          attributeNamePrefix: "",
-        });
-        floorplan = await parser.parse(floorplanText)?.home;
-      } catch (err) {
-        addError({
-          type: ErrorType.FATAL,
-          title: "Error parsing " + parsed_building.floorplan_name,
-          description: String(err),
-        });
-        setError(true);
-        return;
-      }
-
-      await Promise.all([appConfig, homeConfig, buildingConfig, floorplanText]);
-
-      const building: Building = {
-        title: parsed_building.title,
-        floorplan_name: parsed_building.floorplan_name,
-        rooms: parsed_building.rooms,
-      };
-
-      setHome(parsed, [building], {
-        [parsed_building.floorplan_name]: floorplan,
-      });
+      const response = await fetch(url, { cache: "reload" });
+      if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
+      const text = await response.text();
+      return parser ? await parser(text) : JSON.parse(text);
     } catch (err) {
-      setError(true);
-    } finally {
-      setIsLoading(false);
+      throw { url, originalError: err };
     }
   };
 
+  const fetchHomeData = useCallback(async () => {
+    const controller = new AbortController();
+    reset();
+    setIsLoading(true);
+
+    try {
+      const [appConfig, parsedHome] = await Promise.all([
+        fetchResource("./api/configuration"),
+        fetchResource("./config/home.yml", parse),
+      ]);
+
+      setConfig(appConfig);
+
+      if (!parsedHome.buildings || parsedHome.buildings.length === 0) {
+        throw new Error("No buildings defined in home.yml");
+      }
+
+      const buildingFileName = parsedHome.buildings[0];
+      const parsedBuilding = await fetchResource(
+        `./config/${buildingFileName}`,
+        parse,
+      );
+
+      const floorplanName = parsedBuilding.floorplan_name;
+      const parsedFloorplanXML = await fetchResource(
+        `./config/${floorplanName}`,
+        (text) => {
+          const parser = new XMLParser({
+            ignoreAttributes: false,
+            attributeNamePrefix: "",
+          });
+          return parser.parse(text)?.home;
+        },
+      );
+
+      const building: Building = {
+        title: parsedBuilding.title,
+        floorplan_name: parsedBuilding.floorplan_name,
+        rooms: parsedBuilding.rooms,
+      };
+
+      setHome(parsedHome, [building], {
+        [floorplanName]: parsedFloorplanXML,
+      });
+    } catch (err) {
+      const description = err.originalError
+        ? String(err.originalError)
+        : String(err);
+      const title = err.url
+        ? `Error loading ${err.url}`
+        : "Configuration Error";
+
+      addError({
+        type: ErrorType.FATAL,
+        title: title,
+        description: description,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+
+    return () => controller.abort();
+  }, [addError, reset, setHome]);
+
   useEffect(() => {
-    setReloadFunction(fetchHome);
-    fetchHome();
+    setReloadFunction(fetchHomeData);
+    fetchHomeData();
   }, []);
 
   if (isLoading) {
@@ -132,7 +118,7 @@ export default function Home({ children }) {
     return <SetupWizard />;
   }
 
-  if (error) {
+  if (errors.filter((e) => e.type === ErrorType.FATAL).length != 0) {
     return <ErrorList isOpen={true} closeModal={undefined} />;
   }
 

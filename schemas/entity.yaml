@@ -1,0 +1,50 @@
+$id: 'https://example.com/schemas/action.json'
+$schema: http://json-schema.org/draft-07/schema#
+definitions:
+  BaseEntity:
+    title: Entity
+    type: object
+    description: A single entity configuration within a room.
+    required:
+      - type
+    properties:
+      type:
+        type: string
+        description: The type of the entity (e.g., light, temperatureDisplay).
+      entity_id:
+        type: string
+        description: The Home Assistant entity ID.
+      tap_action:
+        $ref: 'gen/action.json#/definitions/action'
+      double_tap_action:
+        $ref: 'gen/action.json#/definitions/action'
+      position:
+        $ref: 'gen/position.json#/definitions/position'
+    additionalProperties: true
+  LightEntity:
+    type: object
+    allOf:
+    - $ref: '#/definitions/BaseEntity'
+    properties:
+      type:
+        type: string
+        const: light
+    # additionalProperties: false
+  TemperatureEntity:
+    type: object
+    allOf:
+    - $ref: '#/definitions/BaseEntity'
+    properties:
+      type:
+        type: string
+        const: temperatureDisplay
+      topSensor: 
+        type: string
+        description: "Home assistant entity id of the sensor displayed on the top"
+      bottomSensor: 
+        type: string
+        description: "Home assistant entity id of the sensor displayed on the bottom"
+      fontSize:
+        type: integer
+        default: 200
+    # additionalProperties: false

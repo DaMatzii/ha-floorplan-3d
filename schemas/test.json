@@ -1,0 +1,149 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "DeviceConfiguration": {
+            "title": "DeviceConfiguration",
+            "type": "object",
+            "properties": {
+                "entities": {
+                    "description": "A list of all entities in the system.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Entity"
+                    },
+                    "title": "entities"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "entities"
+            ]
+        },
+        "Entity": {
+            "title": "Entity",
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/LightEntity"
+                },
+                {
+                    "$ref": "#/definitions/TemperatureEntity"
+                }
+            ]
+        },
+        "BaseEntity": {
+            "title": "BaseEntity",
+            "type": "object",
+            "properties": {
+                "entity_id": {
+                    "description": "The Home Assistant entity ID.",
+                    "type": "string",
+                    "title": "entity_id"
+                },
+                "type": {
+                    "$ref": "#/definitions/Type",
+                    "description": "The category of the entity.",
+                    "title": "type"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "entity_id",
+                "type"
+            ]
+        },
+        "LightEntity": {
+            "title": "LightEntity",
+            "type": "object",
+            "properties": {
+                "brightness": {
+                    "description": "The current brightness level (0-100).",
+                    "type": "number",
+                    "title": "brightness"
+                },
+                "color_temp": {
+                    "description": "Color temperature in Kelvin.",
+                    "type": "number",
+                    "title": "color_temp"
+                },
+                "type": {
+                    "description": "The category of the entity.",
+                    "type": "string",
+                    "enum": [
+                        "light"
+                    ],
+                    "title": "type"
+                },
+                "temperature_c": {
+                    "type": "undefined",
+                    "title": "temperature_c"
+                },
+                "humidity": {
+                    "type": "undefined",
+                    "title": "humidity"
+                },
+                "entity_id": {
+                    "description": "The Home Assistant entity ID.",
+                    "type": "string",
+                    "title": "entity_id"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "brightness",
+                "entity_id",
+                "type"
+            ]
+        },
+        "TemperatureEntity": {
+            "title": "TemperatureEntity",
+            "type": "object",
+            "properties": {
+                "temperature_c": {
+                    "description": "The current temperature in Celsius.",
+                    "type": "number",
+                    "title": "temperature_c"
+                },
+                "humidity": {
+                    "description": "Relative humidity percentage.",
+                    "type": "number",
+                    "title": "humidity"
+                },
+                "type": {
+                    "description": "The category of the entity.",
+                    "type": "string",
+                    "enum": [
+                        "temperatureDisplay"
+                    ],
+                    "title": "type"
+                },
+                "brightness": {
+                    "type": "undefined",
+                    "title": "brightness"
+                },
+                "color_temp": {
+                    "type": "undefined",
+                    "title": "color_temp"
+                },
+                "entity_id": {
+                    "description": "The Home Assistant entity ID.",
+                    "type": "string",
+                    "title": "entity_id"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "entity_id",
+                "temperature_c",
+                "type"
+            ]
+        },
+        "Type": {
+            "title": "Type",
+            "enum": [
+                "light",
+                "temperatureDisplay"
+            ],
+            "type": "string"
+        }
+    }
+}

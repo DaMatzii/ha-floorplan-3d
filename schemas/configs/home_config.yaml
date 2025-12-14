@@ -1,0 +1,16 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+title: HomeConfig
+properties:
+  name:
+    type: string
+    description: Your site name
+  buildings:
+    type: array
+    description: List of building files to be loaded
+    items:
+      type: string
+required:
+  - name
+  - buildings
+additionalProperties: false
