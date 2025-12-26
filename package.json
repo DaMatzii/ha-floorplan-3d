@@ -6,10 +6,8 @@
 		"dev": "npm run dev --workspace client & cd apps/backend && go run .",
 		"generate:types": "bash scripts/generate-types.sh"
 	},
-	"workspaces": [
-		"apps/client"
-	],
-	"devDependencies": {
-		"openapi-typescript": "^7.10.1"
+	"workspaces": [],
+	"dependencies": {
+		"zod-to-json-schema": "^3.25.0"
 	}
 }

@@ -1,5 +1,8 @@
 import * as z from "zod"
 
+
+export const myRegistry = z.registry<{ description: string }>();
+
 const PositionSchema = z.object({
 	x: z.number(),
 	y: z.number(),
@@ -14,11 +17,27 @@ const ActionEntityTargetSchema = z.object({
 	entity_id: z.string(),
 });
 
+// const MoreInfoActionSchema = z.object({
+// 	action: z.literal("more-info"),
+// 	target: z.discriminatedUnion("type", [
+// 		z.object({ type: z.literal("path"), path: z.string() }),
+// 		z.object({ type: z.literal("cards"), cards: z.string(), bottomSheetY: z.number() })
+// 	])
+//
+// })
 const MoreInfoActionSchema = z.object({
-	action: z.literal("more-info"),
-	path: z.string().optional(),
-	cards: z.string().optional(),
-});
+	action: "more-info",
+	target: z.union([
+		z.object({ path: z.string() }),
+		z.object({
+			cards: z.string(),
+			bottomSheet: z.string()
+		}),
+	]),
+})
+// cards: z.string().optional(),
+// path: z.string().optional(),
+// })
 
 const MoreInfoHass = z.object({
 	action: z.literal("hass-more-info"),
@@ -74,14 +93,14 @@ const HomeConfigSchema = z.object({
 	buildings: z.array(z.string())
 })
 
-const BuildingSchema = z.object({
+export const BuildingSchema = z.object({
 	title: z.string(),
 	floorplan_name: z.string().describe("Path where buildings floorplan is loaded"),
 	rooms: z.array(RoomSchema),
 });
 
 
-const SceneSchema = z.object({
+export const SceneSchema = z.object({
 	icon: z.string().min(1, "Scene icon is required."),
 	title: z.string().min(1, "Scene title is required."),
 	tap_action: ActionSchema,
@@ -93,11 +112,11 @@ const EntityCard = z.object({
 	tap_action: ActionSchema.optional()
 })
 
-const RoomCardSchema = z.object({
-	type: z.literal("room"), title: z.string().min(1),
+export const RoomCardSchema = z.object({
+	type: z.literal("room"), title: z.string().min(1).meta({ description: "testi3ng" }),
 	scenes: z.array(SceneSchema).min(1),
-	entities: z.array(EntityCard).min(1),
-}).strict();
+	// entities: z.array(EntityCard).min(1),
+}).strict().register(myRegistry, { description: "xd" });
 
 
 // export const ConfigSchema = z.object({
@@ -117,6 +136,8 @@ export type SceneIcon = z.infer<typeof SceneSchema>
 export type RoomCard = z.infer<typeof RoomCardSchema>
 export type EntityCard = z.infer<typeof EntityCard>
 export type MoreInfoAction = z.infer<typeof MoreInfoActionSchema>
+
+
 
 
 

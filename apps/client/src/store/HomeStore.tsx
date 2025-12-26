@@ -41,7 +41,7 @@ interface BottomSheetState {
   setIsOpen: (open: boolean) => void;
   maxHeight: number;
   setMaxHeight: (height: number) => void;
-  openBottomSheet: (data) => void;
+  openBottomSheet: (data: MoreInfoAction) => void;
 }
 
 function renderUI(ui) {
@@ -60,15 +60,10 @@ export const useBottomSheetStore = create<BottomSheetState>((set) => ({
   isOpen: false,
   maxHeight: 0.85 * window.innerHeight,
   openBottomSheet: (data) => {
-    // let CompNode: any | undefined;
-    // const Comp = getCard(node);
-    console.log(data);
     let cards: any | undefined;
-    console.log("open!!");
 
-    if (data.path) {
-      console.log("loading path");
-      loadUI(data.path).then((r) => {
+    if ("path" in data.target) {
+      loadUI(data.target.path).then((r) => {
         if (r != undefined) {
           cards = renderUI(r?.cards);
           set({
@@ -80,19 +75,16 @@ export const useBottomSheetStore = create<BottomSheetState>((set) => ({
           });
         }
       });
-    } else if (data.cards) {
-      cards = renderUI(data.cards);
+    } else if ("cards" in data.target) {
+      cards = renderUI(data.target.cards);
     }
-
-    console.log(cards);
 
     if (cards) {
       set({
         cardsNode: cards,
         isOpen: true,
         maxHeight:
-          max ??
-          data.BottomSheet * window.innerHeight ??
+          // data.* window.innerHeight ?? 0.85 * window.innerHeight,
           0.85 * window.innerHeight,
       });
     }

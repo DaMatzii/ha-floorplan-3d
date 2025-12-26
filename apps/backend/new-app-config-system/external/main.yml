@@ -5,7 +5,7 @@ rooms:
   - id: room-ae706306-67b2-4bf3-a5aa-b14c97cde769
     alias: Matiaksen huone
     hassId: area.matiaksen_huone
-    tap_action:
+    # tap_action:
       action: more-info 
       target:
           path: "room.yml"

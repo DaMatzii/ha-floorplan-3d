@@ -10,17 +10,6 @@ import { LoadingCircleSpinner } from "@/components/LoadingSpinner";
 
 import { parse } from "yaml";
 
-function SomeComponent() {
-  const connection = useHass();
-
-  return (
-    <div>
-      <h1>HassConnect Status</h1>
-      <p>Status: {connection ? "Connected" : "Disconnected"}</p>
-    </div>
-  );
-}
-
 export default function Home({ children }) {
   //Load home.yaml --> load buildings --> parse --> save to zustand store
 
