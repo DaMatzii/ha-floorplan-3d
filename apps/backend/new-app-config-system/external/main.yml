@@ -5,7 +5,7 @@ rooms:
   - id: room-ae706306-67b2-4bf3-a5aa-b14c97cde769
     alias: Matiaksen huone
     hassId: area.matiaksen_huone
-    # tap_action:
+    tap_action:
       action: more-info 
       target:
           path: "room.yml"
@@ -17,36 +17,28 @@ rooms:
     entities:
       - type: light
         entity_id: light.hue_lightstrip_plus_1
-        tap_action:
-          action: more-info 
-          card: "light"
-        double_tap_action:
-          action: call-service
-          service: light.toggle
-          target:
-             entity_id: light.hue_lightstrip_plus_1
         position: 
             x: 700 
-            y: 1260
-            z: 150
+            y: 1460
+            z: 130
       - type: light
         entity_id: light.hue_ambiance_candle_3
         tap_action:
-        action: call-service
-        service: light.toggle
-        target:
+          action: call-service
+          service: light.toggle
+          target:
             entity_id: light.hue_ambiance_candle_3
         position: 
-          x: 520 
-          y: 1140 
+          x: 550 
+          y: 1253 
           z: 150 
       - type: temperatureDisplay
-        fontSize: 200 
-        topSensor: sensor.atc_efaf_temperature
-        bottomSensor: sensor.atc_efaf_humidity
+        font_size: 220 
+        top_sensor_id: sensor.atc_efaf_temperature
+        bottom_sensor_id: sensor.atc_efaf_humidity
         position:
-          x: 680 
-          y: 1195 
+          x: 700 
+          y: 1393 
           z: 0
  
   - id: room-a8239ead-614a-4d1e-9c8c-686e5a12d0a9
@@ -56,4 +48,13 @@ rooms:
       target:
         bottomSheetY: 0.85
         path: "room.yml"
+    entities:
+      - type: temperatureDisplay
+        font_size: 220 
+        top_sensor_id: sensor.atc_efaf_temperature
+        bottom_sensor_id: sensor.atc_efaf_humidity
+        position:
+          x: 730 
+          y: 750 
+          z: 0
        

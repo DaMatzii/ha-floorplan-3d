@@ -1,23 +1,33 @@
-import { HassConnect, useStore, useHass } from "@hakit/core";
-import React, { useState, useEffect, useCallback } from "react";
-import { HomeConfig, Building } from "@/types";
+import { HassConnect } from "@hakit/core";
+import { useState, useEffect, useCallback } from "react";
+import { IBuilding } from "@/types";
 import { useHomeStore } from "@/store/HomeStore";
 import { useErrorStore, ErrorType } from "@/store/ErrorStore";
 import { XMLParser } from "fast-xml-parser";
 import ErrorList from "@/components/ErrorList";
-import SetupWizard from "@/app/SetupWizard";
+import SetupWizard from "@/pages/SetupView";
 import { LoadingCircleSpinner } from "@/components/LoadingSpinner";
-
 import { parse } from "yaml";
 
-export default function Home({ children }) {
-  //Load home.yaml --> load buildings --> parse --> save to zustand store
+function resolveWebsocketParams() {
+  let websocket = "";
+  let auth_token = "";
+  if (import.meta.env.DEV) {
+    websocket = import.meta.env.VITE_HA_API;
+    auth_token = import.meta.env.VITE_HA_TOKEN;
+  }
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { setHome, setReloadFunction } = useHomeStore();
-  const { addError, reset, errors } = useErrorStore();
-  const [config, setConfig] = useState(null);
+  if (import.meta.env.PROD) {
+    websocket =
+      (location.protocol === "https:" ? "wss://" : "ws://") +
+      location.host +
+      "/api/websocket";
+  }
 
+  return { websocket, auth_token };
+}
+
+export function loadHome(setIsLoading, setConfig, addError, reset, setHome) {
   const fetchResource = async (url: string, parser?: (text: string) => any) => {
     try {
       const response = await fetch(url, { cache: "reload" });
@@ -30,7 +40,7 @@ export default function Home({ children }) {
     }
   };
 
-  const fetchHomeData = useCallback(async () => {
+  const fetchHomeData = async () => {
     const controller = new AbortController();
     reset();
     setIsLoading(true);
@@ -65,7 +75,7 @@ export default function Home({ children }) {
         },
       );
 
-      const building: Building = {
+      const building: IBuilding = {
         title: parsedBuilding.title,
         floorplan_name: parsedBuilding.floorplan_name,
         rooms: parsedBuilding.rooms,
@@ -92,11 +102,22 @@ export default function Home({ children }) {
     }
 
     return () => controller.abort();
-  }, [addError, reset, setHome]);
+  };
+
+  fetchHomeData();
+}
+
+export default function Home({ children }) {
+  //Load home.yaml --> load buildings --> parse --> save to zustand store
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { setHome, setReloadFunction } = useHomeStore();
+  const { addError, reset, errors } = useErrorStore();
+  const [config, setConfig] = useState(null);
+  const { websocket, auth_token } = resolveWebsocketParams();
 
   useEffect(() => {
-    setReloadFunction(fetchHomeData);
-    fetchHomeData();
+    loadHome(setIsLoading, setConfig, addError, reset, setHome);
   }, []);
 
   if (isLoading) {
@@ -109,20 +130,6 @@ export default function Home({ children }) {
 
   if (errors.filter((e) => e.type === ErrorType.FATAL).length != 0) {
     return <ErrorList isOpen={true} closeModal={undefined} />;
-  }
-
-  let websocket = "";
-  let auth_token = "";
-  if (import.meta.env.DEV) {
-    websocket = import.meta.env.VITE_HA_API;
-    auth_token = import.meta.env.VITE_HA_TOKEN;
-  }
-
-  if (import.meta.env.PROD) {
-    websocket =
-      (location.protocol === "https:" ? "wss://" : "ws://") +
-      location.host +
-      "/api/websocket";
   }
 
   return (

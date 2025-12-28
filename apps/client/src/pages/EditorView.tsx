@@ -18,12 +18,18 @@ import { useHomeStore } from "@/store/HomeStore";
 import { useErrorStore, useConfigStore } from "@/store";
 import ErrorList from "@/components/ErrorList";
 import Toolbar from "@/components/Toolbar";
+import { IBuilding } from "@/types";
+import { XMLParser } from "fast-xml-parser";
+import { parse } from "yaml";
+import { loadHome } from "@/app/Home";
 
 export default function EditorView() {
-  const { reload } = useHomeStore();
+  // const { reload } = useHomeStore();
   const { setEditorMode } = useConfigStore();
   const [lastRefreshed, setLastRefreshed] = useState(Date.now());
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const { setHome, setReloadFunction } = useHomeStore();
+  const { addError, reset, errors } = useErrorStore();
 
   const url = "./api/events";
 
@@ -57,7 +63,13 @@ export default function EditorView() {
 
     eventSource.onmessage = (event) => {
       console.log("Reloading!");
-      reload();
+      loadHome(
+        () => {},
+        () => {},
+        addError,
+        reset,
+        setHome,
+      );
       setLastRefreshed(Date.now());
     };
 

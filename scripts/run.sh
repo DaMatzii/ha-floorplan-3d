@@ -3,43 +3,34 @@
 echo STARTING APP
 
 ZIP_URL="https://altushost-bul.dl.sourceforge.net/project/sweethome3d/SweetHome3D-source/SweetHome3D-7.5-src/SweetHome3D-7.5-src.zip?viasf=1"
-DOWNLOAD_PATH="$CONFIG_PATH"/temp/models.zip
+DOWNLOAD_PATH=/zips/download.zip
 EXTRACT_DIR="$CONFIG_PATH"/temp
 
 TEMP_PATH=/tmp/ha-floorplan
 FINAL_DESTINATION=/app/resources
-mkdir -p $TEMP_PATH
 
+mkdir -p $TEMP_PATH
 mkdir -p $CONFIG_PATH/external
 mkdir -p $CONFIG_PATH/internal
+mkdir -p /zips
 
 # ln $CONFIG_PATH /homeassistant/floorplan
 
-# download_models() {
-#     echo "Starting download and unzip process..."
-#
-#     echo "--- Step 1: Downloading file ---"
-#     curl --progress-bar -L -o "$DOWNLOAD_PATH" "$ZIP_URL"
-#     DOWNLOAD_STATUS=$?
-#
-#     if [ $DOWNLOAD_STATUS -ne 0 ]; then
-#         echo "Error: Download failed (status code $DOWNLOAD_STATUS)."
-#         exit 1
-#     fi
-#
-#     echo "Download done"
-#     mkdir -p "$EXTRACT_DIR"
-#
-#     unzip -q -o "$DOWNLOAD_PATH" -d "$EXTRACT_DIR"
-#     UNZIP_STATUS=$?
-#
-#     if [ $UNZIP_STATUS -ne 0 ]; then
-#         echo "Error: Unzipping failed (status code $UNZIP_STATUS). The file might be corrupted or not a valid zip."
-#         echo "Cleaned up temporary file ${DOWNLOAD_PATH}."
-#         exit 1
-#     fi
-# }
-#
+download_models() {
+    echo "Starting download and unzip process..."
+
+    echo "--- Step 1: Downloading file ---"
+    curl --progress-bar -L -o "$DOWNLOAD_PATH" "$ZIP_URL"
+    DOWNLOAD_STATUS=$?
+
+    if [ $DOWNLOAD_STATUS -ne 0 ]; then
+        echo "Error: Download failed (status code $DOWNLOAD_STATUS)."
+        exit 1
+    fi
+
+    echo "Download done"
+}
+
 
 unzip_download() {
     ls -la /zips
@@ -51,8 +42,8 @@ convert() {
     echo "creating $TEMP_PATH/models/obj"
     mkdir -p $TEMP_PATH/models/obj
 
-    cp -r $TEMP_PATH/SweetHome3D-7-2.5-src/src/com/eteks/sweethome3d/io/resources/* $TEMP_PATH/models/obj
-    cp $TEMP_PATH/SweetHome3D-7-2.5-src/src/com/eteks/sweethome3d/io/DefaultFurnitureCatalog.properties $FINAL_DESTINATION
+    cp -r $TEMP_PATH/SweetHome3D-7.5-src/src/com/eteks/sweethome3d/io/resources/* $TEMP_PATH/models/obj
+    cp $TEMP_PATH/SweetHome3D-7.5-src/src/com/eteks/sweethome3d/io/DefaultFurnitureCatalog.properties $FINAL_DESTINATION
 
     mkdir -p $TEMP_PATH/models/gltf
 
@@ -68,7 +59,7 @@ convert() {
 
 mkdir -p $FINAL_DESTINATION
 
-# download_models
+download_models
 unzip_download
 convert
 

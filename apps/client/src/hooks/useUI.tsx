@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
 import { parse } from "yaml";
 
+// TODO: Improve this
 export async function loadUI(ui_file: string) {
   async function f() {
     const resp = await fetch("./config/" + ui_file);

@@ -9,6 +9,7 @@ import { useCurrentRoom } from "@/hooks";
 import { Point } from "@/types";
 import ErrorBoundary from "@/utils/3DErrorBoundary";
 import { useErrorStore, ErrorType } from "@/store/ErrorStore";
+import { useColor } from "@/utils/useColor";
 
 interface RoomMeshProps {
   points: Point[];
@@ -59,6 +60,7 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
 };
 
 const RoomMesh: React.FC<RoomMeshProps> = ({ points }) => {
+  const color = useColor("floor");
   const [g] = React.useMemo(() => {
     const shape = new Shape();
     shape.moveTo(points[0].x / 100, points[0].y / 100);
@@ -76,7 +78,7 @@ const RoomMesh: React.FC<RoomMeshProps> = ({ points }) => {
   return (
     <>
       <mesh geometry={g} rotation={[Math.PI / 2, 0, 0]}>
-        <meshStandardMaterial color="#000000" side={THREE.BackSide} />
+        <meshStandardMaterial color={color} side={THREE.BackSide} />
       </mesh>
     </>
   );

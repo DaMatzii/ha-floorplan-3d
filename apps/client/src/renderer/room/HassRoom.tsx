@@ -1,39 +1,20 @@
 import SceneSelect from "./SceneSelect";
-import EntityCardComp from "./EntityCard";
-import { Action, RoomCard, EntityCard } from "@/types";
+import { DeviceCard } from "./EntityCard";
+import { IRoomCard, IDeviceCard } from "@/types";
 
-const default_action = (entity) => {
-  return {
-    action: "call-service",
-    service: "light.toggle",
-    target: {
-      entity_id: entity.entity_id,
-    },
-  };
-};
-
-const _RoomCard = ({ title, entities, scenes }: RoomCard) => {
+const _RoomCard = ({ title, entities, scenes }: IRoomCard) => {
   return (
-    <>
-      <div className="h-screen">
-        <h1 className=" ml-4 text-xl font-semibold text-[hsl(0,0%,90%)]">
-          {title}
-        </h1>
-        <SceneSelect scenes={scenes} />
-        <div className="h-full w-full grid-cols-2 overflow-y-auto grid auto-rows-[4rem] gap-3 pl-4 pr-4">
-          {entities.map((entity, idx) => {
-            return (
-              <EntityCardComp
-                entity={entity.entity_id}
-                action={entity.tap_action ?? default_action(entity)}
-                size={entity.size ?? "sm"}
-                key={idx}
-              />
-            );
-          })}
-        </div>
+    <div className="flex flex-col overflow-y-auto mt-2">
+      <h1 className=" ml-4 text-xl font-semibold text-[hsl(0,0%,90%)]">
+        {title}
+      </h1>
+      <SceneSelect scenes={scenes} />
+      <div className="min-h-screen h-auto grid-cols-2 grid overflow-y-auto auto-rows-[4rem] gap-3 pl-4 pr-4">
+        {entities.map((entity: IDeviceCard, idx) => {
+          return <DeviceCard key={idx} {...entity} />;
+        })}
       </div>
-    </>
+    </div>
   );
 };
 export default _RoomCard;

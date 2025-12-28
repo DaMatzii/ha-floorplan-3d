@@ -37,7 +37,7 @@ export const BottomSheet = ({ children }) => {
   }, [isOpen, cardsNode, constraints]);
 
   const handleDragEnd = (_: any, info: { delta: { x: number; y: number } }) => {
-    const isOpening = info.delta.y < 0;
+    const isOpening = info.delta.y < 10;
     setIsOpen(isOpening);
   };
 
@@ -57,16 +57,19 @@ export const BottomSheet = ({ children }) => {
             left-0
             right-0
 	    bg-dark
-            rounded-t-2xl shadow-lg z-5
 	    h-screen
-border-1 border-border
+            rounded-t-2xl shadow-lg border-1 border-border
+overflow-y-auto
+z-5
+
+overscroll-none
+pointer-events-auto
 	    "
       >
         <div className="w-full flex justify-center">
           <div className="w-16 h-1.5 bg-border mt-1 rounded-full cursor-grab" />
         </div>
-
-        <div className="mt-3">{children}</div>
+        {children}
       </motion.div>
       <div
         ref={targetRef}

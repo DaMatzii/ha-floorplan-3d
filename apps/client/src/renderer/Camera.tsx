@@ -5,11 +5,11 @@ import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
 import DebugCamera from "@/utils/DebugCamera";
 import { useHomeStore } from "@/store";
-import type { Room } from "@/types";
+import type { IRoom } from "@/types";
 
 interface CameraProps {
   activeCamera: number;
-  currentRoom: Room;
+  currentRoom: IRoom;
 }
 
 export default function Camera({ activeCamera, currentRoom }: CameraProps) {

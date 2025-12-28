@@ -58,34 +58,9 @@ export default function HomeView() {
 
   return (
     <>
-      <div
-        style={{
-          position: "absolute",
-          zIndex: 10,
-          top: 20,
-          left: 20,
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
-        {false ? (
-          <Button
-            onClick={() => {
-              setActiveCamera((prev) =>
-                prev === DEBUG_CAMERA ? NORMAL_CAMERA : DEBUG_CAMERA,
-              );
-            }}
-          >
-            Switch Camera ({activeCamera})
-          </Button>
-        ) : (
-          <></>
-        )}
-      </div>
-      <div className="flex flex-col h-screen bg-gray-100">
+      <div className="flex flex-col h-screen bg-gray-100 overscroll-none">
         <div className="flex-1 flex items-center justify-center  z-0">
-          <div className="canvas-container bg-normal w-screen h-screen">
+          <div className="canvas-container bg-normal w-screen h-screen touch-none">
             <Canvas
               gl={{ antialias: false }}
               dpr={[1, 1.5]}

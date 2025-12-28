@@ -17,9 +17,10 @@
   --color-light: hsl(0, 0%, 10%);
   --color-border: hsl(0, 0%, 30%);
 
-  --color-wall: hsl(0, 0%, 30%);
-  --color-furniture: hsl(0, 0%, 85%);
+  --color-wall: hsl(0, 0%, 40%);
+  --color-furniture: hsl(0, 0%, 35%);
   --color-text: hsl(0, 0%, 90%);
+  --color-floor: hsl(0, 0%, 20%);
 }
 
 html,

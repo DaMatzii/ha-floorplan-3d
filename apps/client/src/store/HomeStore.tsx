@@ -1,15 +1,15 @@
 import { create } from "zustand";
-import { HomeConfig, Building, Floorplan, MoreInfoAction } from "@/types/";
+import { IHomeConfig, IBuilding, Floorplan, IMoreInfoAction } from "@/types/";
 import { renderCard, getCard } from "@/renderer/Components";
 import { loadUI } from "@/hooks/useUI";
 
 export interface HomeState {
-  home: HomeConfig | null;
-  buildings: Building[];
+  home: IHomeConfig | null;
+  buildings: IBuilding[];
   floorplans: any[];
   setHome: (
-    _home: HomeConfig,
-    _buildings: Building[],
+    _home: IHomeConfig,
+    _buildings: IBuilding[],
     _floorplans: any,
   ) => void;
   reload: () => void;
@@ -41,7 +41,7 @@ interface BottomSheetState {
   setIsOpen: (open: boolean) => void;
   maxHeight: number;
   setMaxHeight: (height: number) => void;
-  openBottomSheet: (data: MoreInfoAction) => void;
+  openBottomSheet: (data: IMoreInfoAction) => void;
 }
 
 function renderUI(ui) {

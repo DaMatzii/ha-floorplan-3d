@@ -8,43 +8,41 @@ import { useFrame } from "@react-three/fiber";
 import { useConfigStore } from "@/store/";
 import type { EntityName } from "@hakit/core";
 import type { Component } from "@/renderer/Components";
-import type { Light, Room, Action } from "@/types";
+import type { ILight } from "@/types";
+import { useClickAction, DefaultAction } from "@/hooks/useClickAction";
 
 const LightComponent: Component = {
   name: "LightComponent",
-  component: (props: Light) => <LightComp {...props} />,
+  component: (props: ILight) => <LightComp {...props} />,
 };
 
-const LightComp: React.FC<Light> = ({
+const LightComp: React.FC<ILight> = ({
   position,
   entity_id,
   tap_action,
   double_tap_action,
+  hold_action,
 }) => {
   const hassEntity = useEntity(entity_id as EntityName);
   const { evaluateAction } = useEvaluateAction();
-  const [rotation, setRotation] = React.useState(0);
 
   const editorMode = useConfigStore((state) => state.editorMode);
-  const clickTimeout = React.useRef(null);
-  const isLightOn = () => {
-    return (hassEntity as any).state.toLowerCase() === "on" ? 3 : 0;
-  };
-
-  const intensity = React.useRef(motionValue(isLightOn() ? 1 : 0)).current;
-
+  const isLightOn = (hassEntity as any).state.toLowerCase() === "on";
+  const intensity = React.useRef(motionValue(isLightOn ? 1 : 0)).current;
   const lightRef = React.useRef<any>(undefined);
+  const [rotation, setRotation] = React.useState(0);
 
-  React.useEffect(() => {
-    return () => clearTimeout(clickTimeout.current);
-  }, []);
-
-  const handleTapAction = (action: Action) => {
-    console.log(action);
-    evaluateAction(action, {}, { id: entity_id });
-
-    if (action.action === "call-service") setRotation(rotation + 360);
-  };
+  const clickHandlers = useClickAction({
+    onSingleClick: () => {
+      evaluateAction(tap_action ?? DefaultAction(entity_id));
+      setRotation(rotation + 360);
+    },
+    onDoubleClick: () => {
+      evaluateAction(double_tap_action);
+      if (double_tap_action) setRotation(rotation + 360);
+    },
+    onHold: () => evaluateAction(hold_action),
+  });
 
   React.useEffect(() => {
     const controls = animate(
@@ -64,25 +62,6 @@ const LightComp: React.FC<Light> = ({
     if (lightRef.current) lightRef.current.intensity = intensity.get();
   });
 
-  const handleClick = (e) => {
-    e.stopPropagation();
-    if (e.detail === 1) {
-      clickTimeout.current = setTimeout(() => {
-        console.log("single click");
-        handleTapAction(tap_action);
-      }, 150);
-    } else if (e.detail === 2) {
-      clearTimeout(clickTimeout.current);
-      if (double_tap_action === undefined) {
-        //Default action to more-info if not set maybe in thefuture load from defalt-action
-        double_tap_action = {
-          action: "more-info",
-          card: "light",
-        };
-      }
-      handleTapAction(double_tap_action);
-    }
-  };
   return (
     <>
       <mesh>
@@ -108,7 +87,7 @@ const LightComp: React.FC<Light> = ({
               duration: 0.4,
               scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
             }}
-            onClick={handleClick}
+            {...clickHandlers}
           >
             <Lightbulb className={`stroke-1`} size={24} />
           </motion.div>

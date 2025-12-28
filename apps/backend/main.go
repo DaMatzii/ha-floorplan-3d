@@ -156,7 +156,7 @@ func main() {
 		})
 	} else {
 		r.NoRoute(func(c *gin.Context) {
-			proxyURL := "http://192.168.2.61:5173" + c.Request.RequestURI
+			proxyURL := "http://localhost:5173" + c.Request.RequestURI
 
 			resp, err := http.Get(proxyURL)
 			if err != nil {

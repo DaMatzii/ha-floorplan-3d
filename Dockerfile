@@ -48,8 +48,8 @@ COPY --from=backend /backend-exec /app/backend-exec
 ENV MODE=prod 
 ENV CONFIG_PATH=/testing/config
 
-COPY ./scripts/downloadAssets.sh /scripts/downloadAssets.sh
-COPY ./temp/download.zip /zips/download.zip
+# COPY ./scripts/downloadAssets.sh /scripts/downloadAssets.sh
+# COPY ./temp/download.zip /zips/download.zip
 COPY ./scripts/run.sh /run.sh
 RUN chmod +x /run.sh
 # COPY --from=backend /app/pro2 /homeassistant/floorplan

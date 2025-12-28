@@ -3,6 +3,7 @@ import { tv } from "tailwind-variants";
 
 import { motion } from "framer-motion";
 import { useEvaluateAction } from "@/utils/EvaluateAction";
+import { ISceneIcon } from "@/types";
 
 const card = tv({
   slots: {
@@ -17,16 +18,17 @@ const card = tv({
 
 const { iconc, island, full_icon } = card();
 
-interface Icon {
-  icon: string;
-  tap_action: any;
-  title: string;
-}
 interface SceneSelectProps {
   scenes: any[];
 }
 
-function Icon({ icon, tap_action, title }: Icon) {
+function Icon({
+  icon,
+  tap_action,
+  double_tap_action,
+  hold_action,
+  title,
+}: ISceneIcon) {
   // const { _evaluateAction } = useEvaluateAction();
 
   function handle_click() {

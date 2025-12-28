@@ -3,33 +3,32 @@ import { Html } from "@react-three/drei";
 import { useEntities } from "@hakit/core";
 import { motion } from "framer-motion";
 import type { Component } from "@/renderer/Components";
+import { useEvaluateAction } from "@/utils/EvaluateAction";
+import type { ITemperatureDisplay } from "@/types";
 
-type Point = { x: number; y: number };
-type TemperatureSensor = { temperature: number; humidity: number };
-interface TemperatureDisplayProps {
-  hassId: any;
-  topSensor: string;
-  bottomSensor: string;
-  position: any;
-  fontSize: number;
-  // points: Point[];
-}
 const TemperatureDisplayComponent: Component = {
   name: "LightComponent",
-  component: (props: TemperatureDisplayProps) => (
-    <TemperatureDisplay {...props} />
-  ),
+  component: (props: ITemperatureDisplay) => <TemperatureDisplay {...props} />,
 };
 
-const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
-  hassId,
-  topSensor,
-  bottomSensor,
+//TODO: Add unit of measurement
+const TemperatureDisplay: React.FC<ITemperatureDisplay> = ({
+  top_sensor_id,
+  bottom_sensor_id,
   position,
-  fontSize,
+  font_size,
+  tap_action,
 }) => {
-  const lightStrip = useEntities([topSensor as any, bottomSensor as any]);
+  const sensors = useEntities([top_sensor_id as any, bottom_sensor_id as any]);
+  console.log(sensors);
+  const { evaluateAction } = useEvaluateAction();
 
+  const topValue = sensors[0]["state"] ?? "null";
+  const bottomValue = sensors[1]["state"] ?? "null";
+
+  const fontSizeWithPixels = (factor: number) => {
+    return font_size * factor + "px";
+  };
   return (
     <>
       <Html
@@ -38,7 +37,6 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
         distanceFactor={1}
         transform
         zIndexRange={[10, 0]}
-        pointerEvents="none"
         style={{
           userSelect: "none",
         }}
@@ -46,7 +44,6 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
         <motion.div
           style={{
             color: "white",
-            fontSize: fontSize + "px",
             userSelect: "none",
             cursor: "default",
           }}
@@ -55,28 +52,33 @@ const TemperatureDisplay: React.FC<TemperatureDisplayProps> = ({
             opacity: 1,
           }}
           initial={{ scale: 0.5, opacity: 0 }}
-          whileHover={{ scale: 1.1 }}
           transition={{
             duration: 0.2,
             scale: { type: "spring", visualDuration: 0.2, bounce: 0.5 },
           }}
+          onClick={() => evaluateAction(tap_action)}
         >
-          <div className="flex flex-col items-center justify-center z-0">
-            <div className="flex items-start text-white">
-              <span className={"text-[" + fontSize + "px] font-bold"}>
-                {lightStrip[0]["state"]}
-              </span>
-              <span className={"text-[" + (fontSize - 100) + "px] mt-30"}>
+          <div
+            className="text-white flex flex-col "
+            style={{ fontSize: fontSizeWithPixels(1) }}
+          >
+            <div>
+              <span className={"font-bold"}>{topValue}</span>
+              <span
+                className="align-text-top"
+                style={{ fontSize: fontSizeWithPixels(0.4) }}
+              >
                 °C
               </span>
             </div>
 
-            <div className="flex items-start -mt-40 text-white">
-              <span className={"text-[" + fontSize + "px]"}>
-                {lightStrip[1]["state"]}
+            <div className="text-white  -mt-30 text-center ">
+              <span style={{ fontSize: fontSizeWithPixels(0.75) }}>
+                {bottomValue}
               </span>
               <span
-                className={"text-[" + (fontSize - 100) + "px] font-bold mt-30"}
+                className="font-bold"
+                style={{ fontSize: fontSizeWithPixels(0.4) }}
               >
                 %
               </span>

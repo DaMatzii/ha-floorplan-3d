@@ -1,19 +1,19 @@
 import { useMemo } from "react";
 import { useHomeStore } from "@/store";
-import type { Building, Room, Floorplan } from "@/types";
+import type { IBuilding, IRoom, Floorplan } from "@/types";
 
-export function useBuilding(building: number): Building | undefined {
+export function useBuilding(building: number): IBuilding | undefined {
   const { buildings } = useHomeStore();
   return buildings[building];
 }
 
 export function useFloorplan({
   floorplan_name,
-}: Building): Floorplan | undefined {
+}: IBuilding): Floorplan | undefined {
   const { floorplans } = useHomeStore();
   return floorplans[floorplan_name];
 }
-export function useRooms(): Room[] {
+export function useRooms(): IRoom[] {
   const { buildings } = useHomeStore();
   return useMemo(() => {
     if (!buildings) return [];
@@ -29,7 +29,7 @@ export function useRooms(): Room[] {
   }, [buildings]);
 }
 
-export function useRoom(id: string): Room | undefined {
+export function useRoom(id: string): IRoom | undefined {
   const rooms = useRooms();
   // const { buildings } = useHome();
 

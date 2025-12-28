@@ -20,4 +20,33 @@ cards:
     entities:
       - entity_id: "light.hue_lightstrip_plus_1"
         size: "md"
+      - entity_id: "light.hue_lightstrip_plus_1"
+        size: "sm"
+      - entity_id: "light.hue_lightstrip_plus_1"
+        size: "sm"
+      - entity_id: "light.matiaksen_huone_2"
+        size: "wide"
+      - entity_id: "light.matiaksen_huone_2"
+        size: "wide"
+        double_tap_action:
+          action: call-service
+          service: light.toggle
+          target:
+            entity_id: "light.hue_lightstrip_plus_1"
+      - entity_id: "light.matiaksen_huone_2"
+        size: "wide"
+      - entity_id: "light.matiaksen_huone_2"
+        size: "wide"
+      - entity_id: "light.matiaksen_huone_2"
+        size: "md"
+      - entity_id: "light.matiaksen_huone_2"
+        size: "md"
+
+
+
+
+
+
+
+
 
