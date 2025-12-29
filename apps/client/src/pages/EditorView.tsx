@@ -21,7 +21,7 @@ import Toolbar from "@/components/Toolbar";
 import { IBuilding } from "@/types";
 import { XMLParser } from "fast-xml-parser";
 import { parse } from "yaml";
-import { loadHome } from "@/app/Home";
+import { useLoadHome } from "@/app/Home";
 
 export default function EditorView() {
   // const { reload } = useHomeStore();
@@ -30,6 +30,10 @@ export default function EditorView() {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const { setHome, setReloadFunction } = useHomeStore();
   const { addError, reset, errors } = useErrorStore();
+  const fetchHomeData = useLoadHome(
+    () => {},
+    () => {},
+  );
 
   const url = "./api/events";
 
@@ -63,13 +67,7 @@ export default function EditorView() {
 
     eventSource.onmessage = (event) => {
       console.log("Reloading!");
-      loadHome(
-        () => {},
-        () => {},
-        addError,
-        reset,
-        setHome,
-      );
+      fetchHomeData();
       setLastRefreshed(Date.now());
     };
 

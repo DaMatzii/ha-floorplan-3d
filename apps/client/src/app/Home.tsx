@@ -27,7 +27,10 @@ function resolveWebsocketParams() {
   return { websocket, auth_token };
 }
 
-export function loadHome(setIsLoading, setConfig, addError, reset, setHome) {
+export function useLoadHome(setIsLoading, setConfig) {
+  const { setHome, setReloadFunction } = useHomeStore();
+  const { addError, reset, errors } = useErrorStore();
+
   const fetchResource = async (url: string, parser?: (text: string) => any) => {
     try {
       const response = await fetch(url, { cache: "reload" });
@@ -104,7 +107,7 @@ export function loadHome(setIsLoading, setConfig, addError, reset, setHome) {
     return () => controller.abort();
   };
 
-  fetchHomeData();
+  return fetchHomeData;
 }
 
 export default function Home({ children }) {
@@ -115,9 +118,10 @@ export default function Home({ children }) {
   const { addError, reset, errors } = useErrorStore();
   const [config, setConfig] = useState(null);
   const { websocket, auth_token } = resolveWebsocketParams();
+  const fetchHomeData = useLoadHome(setIsLoading, setConfig);
 
   useEffect(() => {
-    loadHome(setIsLoading, setConfig, addError, reset, setHome);
+    fetchHomeData();
   }, []);
 
   if (isLoading) {
