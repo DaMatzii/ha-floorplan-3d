@@ -4,7 +4,6 @@ import { useSearchParams } from "react-router-dom";
 import ErrorBoundary from "@/utils/3DErrorBoundary";
 import { renderComponent } from "@/renderer/Components";
 import { useErrorStore, ErrorType } from "@/store/ErrorStore";
-import Camera from "./Camera";
 
 function Building({ building_id }) {
   const building = useBuilding(building_id);
@@ -53,13 +52,6 @@ function Scene({ activeCamera, editorMode }) {
 
   return (
     <>
-      <Camera
-        activeCamera={activeCamera}
-        currentRoom={{
-          id: view,
-        }}
-      />
-
       <ambientLight intensity={1.5} color="#f4fffa" />
       <Building building_id={0} />
     </>

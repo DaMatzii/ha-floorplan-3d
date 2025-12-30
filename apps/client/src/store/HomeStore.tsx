@@ -6,7 +6,7 @@ import { loadUI } from "@/hooks/useUI";
 export interface HomeState {
   home: IHomeConfig | null;
   buildings: IBuilding[];
-  floorplans: any[];
+  floorplans: Floorplan[];
   setHome: (
     _home: IHomeConfig,
     _buildings: IBuilding[],

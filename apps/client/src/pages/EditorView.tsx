@@ -80,6 +80,7 @@ export default function EditorView() {
     };
   }, [url]);
 
+  //TODO: Some way to view what the fuck is the room id
   return (
     <>
       <Toolbar date={elapsedSeconds} />
@@ -103,6 +104,9 @@ export default function EditorView() {
             cellColor="white"
             sectionColor="white"
           />
+
+          <PerspectiveCamera position={[0, 10, 0]} makeDefault />
+          <OrbitControls />
           <ambientLight intensity={3} color="#f4fffa" />
           <Scene activeCamera={0} editorMode={true} />
         </Canvas>

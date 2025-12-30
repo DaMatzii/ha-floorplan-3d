@@ -27,6 +27,7 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
   const { currentRoom } = useCurrentRoom();
   const editorMode = useConfigStore((state) => state.editorMode);
   const { errors, addError } = useErrorStore();
+  const { isPreview } = useCurrentRoom();
 
   const comps = useMemo(() => {
     if (!room?.entities) return null;
@@ -35,7 +36,8 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
     const toRender = isRoomFocused
       ? room.entities
       : room.entities.filter((entity) => {
-          if (getComponent(entity?.type).visibleOnPreview) return entity;
+          if (getComponent(entity?.type).visibleOnPreview && isPreview)
+            return entity;
         });
 
     return toRender.map((entity, index) => {

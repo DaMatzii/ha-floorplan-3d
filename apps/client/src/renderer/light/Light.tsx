@@ -65,7 +65,7 @@ const LightComp: React.FC<LightProps> = ({
     );
 
     return () => controls.stop();
-  }, [isRoomFocused]);
+  }, [isRoomFocused, isLightOn]);
 
   useFrame(() => {
     if (lightRef.current) lightRef.current.intensity = intensity.get();

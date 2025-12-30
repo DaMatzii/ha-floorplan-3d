@@ -19,10 +19,12 @@ export function useCurrentRoom() {
   }, [searchParams]);
 
   function setCurrentRoom(id) {
-    navigate("?id=" + id);
+    searchParams.set("id", id);
+    navigate(`${location.pathname}?${searchParams.toString()}`);
   }
   function setIsPreview(is: boolean) {
-    navigate("?preview=" + is);
+    searchParams.set("preview", is ? "true" : "false");
+    navigate(`${location.pathname}?${searchParams.toString()}`);
   }
 
   return {

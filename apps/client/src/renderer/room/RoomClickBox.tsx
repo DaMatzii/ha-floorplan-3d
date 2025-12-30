@@ -3,8 +3,9 @@ import { Shape } from "three";
 import * as THREE from "three";
 import { useHass } from "@hakit/core";
 import { useEvaluateAction } from "@/utils/EvaluateAction";
-
 import { useRoom } from "@/hooks/";
+import { useCurrentRoom } from "@/hooks";
+import { useClickAction, DefaultAction } from "@/hooks/useClickAction";
 
 export function RoomClickBox({ id, points }: any) {
   const colors = [
@@ -20,11 +21,29 @@ export function RoomClickBox({ id, points }: any) {
   const [opacity, setOpacity] = useState(0);
   const { evaluateAction } = useEvaluateAction();
   const roomConfig = useRoom(id);
+  const { isPreview, setCurrentRoom, setIsPreview } = useCurrentRoom();
 
   const randomColor = React.useMemo(() => {
     const idx = Math.floor(Math.random() * colors.length);
     return colors[idx];
   }, []);
+
+  const clickHandlers = useClickAction({
+    onSingleClick: () => {
+      if (isPreview) {
+        setCurrentRoom(id);
+        setIsPreview(false);
+        return;
+      }
+      evaluateAction(roomConfig["tap_action"]);
+    },
+    onDoubleClick: () => {
+      evaluateAction(roomConfig["double_tap_action"]);
+    },
+    onHold: () => {
+      evaluateAction(roomConfig["hold_action"]);
+    },
+  });
 
   const geometry = React.useMemo(() => {
     const shape = new Shape();
@@ -52,37 +71,17 @@ export function RoomClickBox({ id, points }: any) {
     return geom;
   }, []);
 
-  const clickTimeout = React.useRef(null);
-
-  function handleTapAction(actionType) {
-    evaluateAction(roomConfig[actionType]);
-    console.log("ACTION!!");
-  }
-
-  const handleClick = (e) => {
-    e.stopPropagation();
-    if (e.detail === 1) {
-      clickTimeout.current = setTimeout(() => {
-        handleTapAction("tap_action");
-      }, 150);
-    } else if (e.detail === 2) {
-      clearTimeout(clickTimeout.current);
-
-      handleTapAction("double_tap_action");
-    }
-  };
-
   return (
     <>
       <mesh
         geometry={geometry}
         rotation={[Math.PI / 2, 0, 0]}
-        onClick={(e) => handleClick(e)}
+        {...clickHandlers}
       >
         <meshBasicMaterial
           color={randomColor}
           transparent={true}
-          opacity={opacity}
+          opacity={0}
           alphaTest={0}
           side={THREE.DoubleSide}
         />

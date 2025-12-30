@@ -24,10 +24,6 @@ export const RoomSelector = () => {
   }, [currentRoom]);
 
   useEffect(() => {
-    if (!real_rooms[currentItem]) return;
-
-    setCurrentRoom(real_rooms[currentItem].id);
-    setIsPreview(false);
     let to = currentItem * itemWidth * -1;
     animate(x, to, {
       type: "spring",
@@ -51,6 +47,8 @@ export const RoomSelector = () => {
           let currentItem1 = Math.round(Math.abs(currentScroll) / itemWidth);
 
           setCurrentItem(currentItem1);
+          setCurrentRoom(real_rooms[currentItem1].id);
+          setIsPreview(false);
         }}
         style={{ x }}
         dragConstraints={{
@@ -80,7 +78,11 @@ export const RoomSelector = () => {
                 damping: 30,
               }}
               onClick={() => {
+                console.log("Clicked moving");
                 setCurrentItem(index);
+                setCurrentRoom(real_rooms[index].id);
+
+                setIsPreview(false);
               }}
             >
               <div
@@ -94,7 +96,7 @@ export const RoomSelector = () => {
                         : ""
                 }`}
               >
-                {room.alias ?? "Not named"}
+                {room.alias ?? "testi"}
               </div>
             </motion.div>
           );

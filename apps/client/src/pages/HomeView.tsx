@@ -11,6 +11,7 @@ import { ErrorList } from "@/components/ErrorList";
 import useIsMobile from "@/hooks/useIsMobile";
 import { NoMobile } from "@/components/NoMobile";
 import { useCurrentRoom } from "@/hooks";
+import Camera from "@/renderer/Camera";
 
 const DEBUG_CAMERA = 1;
 const NORMAL_CAMERA = 0;
@@ -96,6 +97,7 @@ export default function HomeView() {
                 position: [10, 15, 20],
               }}
             >
+              <Camera />
               <Stats />
               <Scene activeCamera={activeCamera} editorMode={false} />
             </Canvas>
