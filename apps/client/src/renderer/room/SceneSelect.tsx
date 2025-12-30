@@ -2,7 +2,6 @@ import { DynamicIcon } from "lucide-react/dynamic";
 import { tv } from "tailwind-variants";
 
 import { motion } from "framer-motion";
-import { useEvaluateAction } from "@/utils/EvaluateAction";
 import { ISceneIcon } from "@/types";
 
 const card = tv({
@@ -22,6 +21,7 @@ interface SceneSelectProps {
   scenes: any[];
 }
 
+//TODO: Implement clicking
 function Icon({
   icon,
   tap_action,

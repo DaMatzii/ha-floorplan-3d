@@ -8,6 +8,7 @@ import DoorOrWindow from "./furniture/DoorOrWindow";
 export interface Component {
   name: string;
   component?: any;
+  visibleOnPreview: boolean;
 }
 export type Components = {
   [key: string]: Component;
@@ -24,7 +25,7 @@ export type Cards = {
 
 const defaultComponents: Components = {
   pieceoffurniture: Furniture,
-  light: Light,
+  icon: Light,
   room: RoomComponent,
   wall: Wall,
   temperaturedisplay: TempDisplay,

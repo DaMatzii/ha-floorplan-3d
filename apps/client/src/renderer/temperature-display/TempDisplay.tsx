@@ -9,6 +9,7 @@ import type { ITemperatureDisplay } from "@/types";
 const TemperatureDisplayComponent: Component = {
   name: "LightComponent",
   component: (props: ITemperatureDisplay) => <TemperatureDisplay {...props} />,
+  visibleOnPreview: true,
 };
 
 //TODO: Add unit of measurement

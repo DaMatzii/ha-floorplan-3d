@@ -6,13 +6,15 @@ import * as THREE from "three";
 import DebugCamera from "@/utils/DebugCamera";
 import { useHomeStore } from "@/store";
 import type { IRoom } from "@/types";
+import { useCurrentRoom } from "@/hooks";
 
 interface CameraProps {
   activeCamera: number;
-  currentRoom: IRoom;
 }
 
-export default function Camera({ activeCamera, currentRoom }: CameraProps) {
+export default function Camera({ activeCamera }: CameraProps) {
+  const { currentRoom, isPreview } = useCurrentRoom();
+
   const [target, setTarget] = useState([0, 0, 10]);
   const { floorplans } = useHomeStore();
   const camera = useRef<THREE.PerspectiveCamera>(null);
@@ -50,12 +52,18 @@ export default function Camera({ activeCamera, currentRoom }: CameraProps) {
   };
 
   useEffect(() => {
+    if (isPreview) {
+      setTarget([10, 20, 10]);
+      camera.current.rotation.set(-Math.PI / 2, 0, 0);
+      return;
+    }
+
     for (const floorplan in Object.keys(floorplans)) {
       const index = Object.keys(floorplans)[floorplan];
-      focus(floorplans[index]?.room.find((b) => b.id === currentRoom?.id));
+      focus(floorplans[index]?.room.find((b) => b.id === currentRoom));
       break;
     }
-  }, [currentRoom]);
+  }, [currentRoom, isPreview]);
 
   return (
     <>

@@ -58,9 +58,10 @@ const ActionSchema = z.discriminatedUnion("action", [
 ]);
 
 
-const LightEntitySchema = z.object({
-	type: z.literal("light"),
+const IconEntitySchema = z.object({
+	type: z.literal("icon"),
 	entity_id: z.string(),
+	icon: z.string(),
 	tap_action: ActionSchema.optional(),
 	double_tap_action: ActionSchema.optional(),
 	hold_action: ActionSchema.optional(),
@@ -77,7 +78,7 @@ const TemperatureDisplayEntitySchema = z.object({
 });
 
 const EntitySchema = z.discriminatedUnion("type", [
-	LightEntitySchema,
+	IconEntitySchema,
 	TemperatureDisplayEntitySchema,
 ]);
 
@@ -138,7 +139,7 @@ export type IRoom = z.infer<typeof RoomSchema>
 export type IAction = z.infer<typeof ActionSchema>
 export type IPosition = z.infer<typeof PositionSchema>
 export type IHomeConfig = z.infer<typeof HomeConfigSchema>
-export type ILight = z.infer<typeof LightEntitySchema>
+export type IIcon = z.infer<typeof IconEntitySchema>
 export type ISceneIcon = z.infer<typeof SceneSchema>
 export type IRoomCard = z.infer<typeof RoomCardSchema>
 export type IDeviceCard = z.infer<typeof EntityCard>

@@ -1,6 +1,5 @@
 import React from "react";
 import { Html } from "@react-three/drei";
-import { Lightbulb } from "lucide-react";
 import { motion, animate, motionValue } from "framer-motion";
 import { useEntity } from "@hakit/core";
 import { useEvaluateAction } from "@/utils/EvaluateAction";
@@ -8,20 +7,30 @@ import { useFrame } from "@react-three/fiber";
 import { useConfigStore } from "@/store/";
 import type { EntityName } from "@hakit/core";
 import type { Component } from "@/renderer/Components";
-import type { ILight } from "@/types";
+import type { IIcon, IRoom } from "@/types";
 import { useClickAction, DefaultAction } from "@/hooks/useClickAction";
+import { DynamicIcon } from "lucide-react/dynamic";
+import { useCurrentRoom } from "@/hooks";
 
 const LightComponent: Component = {
   name: "LightComponent",
-  component: (props: ILight) => <LightComp {...props} />,
+  component: (props: LightProps) => <LightComp {...props} />,
+  visibleOnPreview: true,
 };
 
-const LightComp: React.FC<ILight> = ({
+interface LightProps extends IIcon {
+  isRoomFocused: boolean;
+}
+
+//TODO: Animation when focusing on rooM!!
+const LightComp: React.FC<LightProps> = ({
   position,
   entity_id,
   tap_action,
   double_tap_action,
   hold_action,
+  icon,
+  isRoomFocused,
 }) => {
   const hassEntity = useEntity(entity_id as EntityName);
   const { evaluateAction } = useEvaluateAction();
@@ -56,7 +65,7 @@ const LightComp: React.FC<ILight> = ({
     );
 
     return () => controls.stop();
-  });
+  }, [isRoomFocused]);
 
   useFrame(() => {
     if (lightRef.current) lightRef.current.intensity = intensity.get();
@@ -89,11 +98,17 @@ const LightComp: React.FC<ILight> = ({
             }}
             {...clickHandlers}
           >
-            <Lightbulb className={`stroke-1`} size={24} />
+            {/* <Lightbulb className={`stroke-1`} size={24} /> */}
+
+            <DynamicIcon
+              name={icon ?? ("lightbulb" as any)}
+              size={24}
+              className="stroke-1 "
+            />
           </motion.div>
         </Html>
       </mesh>
-      {!editorMode && (
+      {!editorMode && isRoomFocused && (
         <pointLight
           ref={lightRef}
           position={[

@@ -61,7 +61,6 @@ function Scene({ activeCamera, editorMode }) {
       />
 
       <ambientLight intensity={1.5} color="#f4fffa" />
-      {/* <Environment preset="apartment" /> */}
       <Building building_id={0} />
     </>
   );

@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { useRoom } from "@/hooks/";
 import { useConfigStore } from "@/store/";
 import { RoomClickBox } from "./RoomClickBox";
-import { renderComponent } from "@/renderer/Components";
+import { renderComponent, getComponent } from "@/renderer/Components";
 import { useCurrentRoom } from "@/hooks";
 import { Point } from "@/types";
 import ErrorBoundary from "@/utils/3DErrorBoundary";
@@ -31,7 +31,14 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
   const comps = useMemo(() => {
     if (!room?.entities) return null;
 
-    return room?.entities.map((entity, index) => {
+    const isRoomFocused = editorMode || room?.id === (currentRoom ?? 0);
+    const toRender = isRoomFocused
+      ? room.entities
+      : room.entities.filter((entity) => {
+          if (getComponent(entity?.type).visibleOnPreview) return entity;
+        });
+
+    return toRender.map((entity, index) => {
       const Comp = renderComponent(entity?.type);
 
       function onError(error) {
@@ -44,7 +51,13 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
 
       return (
         <ErrorBoundary key={index} onError={onError}>
-          <Comp key={entity?.type + "-" + index} {...entity} />;
+          <Comp
+            key={entity?.type + "-" + index}
+            {...entity}
+            room={room}
+            isRoomFocused={isRoomFocused}
+          />
+          ;
         </ErrorBoundary>
       );
     });
@@ -54,7 +67,7 @@ const Room: React.FC<RoomProps> = ({ id, point, building }) => {
     <>
       {!editorMode && <RoomClickBox id={id} points={point} />}
       <RoomMesh points={point} />
-      {(editorMode || room?.id === (currentRoom ?? 0)) && <>{comps}</>}
+      <>{comps}</>
     </>
   );
 };
