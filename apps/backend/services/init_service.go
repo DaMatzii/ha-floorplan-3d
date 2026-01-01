@@ -75,14 +75,6 @@ func saveHome(zf *zip.File) error {
 	return nil
 }
 
-type SweetHome3DHome struct {
-	Home any `xml:"Home"`
-}
-type Room struct {
-	Id   string `yaml:"id"`
-	Name string `yaml:"alias"`
-}
-
 // save home.xml --> generate home.yml --> generate main building yml that has all rooms and nicks inside --> set app conf inited=true
 func HandleUpload(file *multipart.FileHeader) error {
 	sh3d, err := openUpload(file)
@@ -130,12 +122,6 @@ func HandleUpload(file *multipart.FileHeader) error {
 	return nil
 }
 
-type BuildingConfig struct {
-	Title         string `yaml:"title"`
-	FloorplanPath string `yaml:"floorplan_name"`
-	Rooms         []Room `yaml:"rooms"`
-}
-
 func writeConfig(config any, basePath string, filename string) error {
 	yml, err := yaml.Marshal(config)
 	if err != nil {
@@ -160,7 +146,7 @@ func writeConfig(config any, basePath string, filename string) error {
 
 	return nil
 }
-func GenerateBaseConfigs(home_name string, rooms []Room) error {
+func GenerateBaseConfigs(home_name string, rooms []models.Room) error {
 	basePath := config.AppConfig.ExternalConfig
 
 	homeConfig := models.HomeConfig{
@@ -168,7 +154,7 @@ func GenerateBaseConfigs(home_name string, rooms []Room) error {
 		Buildings: []string{"building.yml"},
 	}
 
-	buildingConfig := BuildingConfig{
+	buildingConfig := models.BuildingConfig{
 		Title:         "My first building",
 		FloorplanPath: "home.xml",
 		Rooms:         rooms,

@@ -4,17 +4,18 @@ import (
 	"bytes"
 	"errors"
 
+	"backend/models"
 	"fmt"
 	"github.com/clbanning/mxj/v2"
 )
 
-func GetRooms(fileBuf *bytes.Buffer) ([]Room, error) {
+func GetRooms(fileBuf *bytes.Buffer) ([]models.Room, error) {
 	mv, err := mxj.NewMapXml(fileBuf.Bytes())
 	if err != nil {
 		return nil, fmt.Errorf("failed to unmarshal XML: %w", err)
 	}
 
-	var roomList []Room
+	var roomList []models.Room
 
 	homeAny, ok := mv["home"]
 	if !ok {
@@ -52,7 +53,7 @@ func GetRooms(fileBuf *bytes.Buffer) ([]Room, error) {
 					name = "unnamed"
 				}
 
-				roomList = append(roomList, Room{Id: id, Name: name})
+				roomList = append(roomList, models.Room{Id: id, Name: name})
 			} else {
 				fmt.Printf("Warning: Room is missing 'id'. Invalid file? %v\n", r)
 			}

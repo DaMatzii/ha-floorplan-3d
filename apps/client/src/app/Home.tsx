@@ -114,8 +114,7 @@ export default function Home({ children }) {
   //Load home.yaml --> load buildings --> parse --> save to zustand store
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { setHome, setReloadFunction } = useHomeStore();
-  const { addError, reset, errors } = useErrorStore();
+  const { errors } = useErrorStore();
   const [config, setConfig] = useState(null);
   const { websocket, auth_token } = resolveWebsocketParams();
   const fetchHomeData = useLoadHome(setIsLoading, setConfig);

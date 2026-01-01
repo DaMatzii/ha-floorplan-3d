@@ -21,7 +21,6 @@ const TemperatureDisplay: React.FC<ITemperatureDisplay> = ({
   tap_action,
 }) => {
   const sensors = useEntities([top_sensor_id as any, bottom_sensor_id as any]);
-  console.log(sensors);
   const { evaluateAction } = useEvaluateAction();
 
   const topValue = sensors[0]["state"] ?? "null";

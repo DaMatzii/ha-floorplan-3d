@@ -13,14 +13,6 @@ import { NoMobile } from "@/components/NoMobile";
 import { useCurrentRoom } from "@/hooks";
 import Camera from "@/renderer/Camera";
 
-const DEBUG_CAMERA = 1;
-const NORMAL_CAMERA = 0;
-
-function Comp() {
-  throw Error("LOL");
-  return <></>;
-}
-
 const Button = ({ onClick, children }) => {
   return (
     <button
@@ -45,7 +37,6 @@ export default function HomeView() {
   const { addError } = useErrorStore();
   const isMobile = useIsMobile();
   const { setIsPreview, isPreview } = useCurrentRoom();
-  console.log(cardsNode);
 
   if (!isMobile && !import.meta.env.DEV) {
     return <NoMobile />;
