@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-dark: var(--color-dark);
+  --color-normal: var(--color-normal);
+  --color-light: var(--color-light);
+  --color-border: var(--color-border);
+
+  --color-text: var(--color-text);
+  --icon-stroke: 1;
+}
+
+:root {
+  --color-dark: hsl(0, 0%, 0%);
+  --color-normal: hsl(0, 0%, 5%);
+  --color-light: hsl(0, 0%, 10%);
+  --color-border: hsl(0, 0%, 30%);
+
+  --color-wall: hsl(0, 0%, 40%);
+  --color-furniture: hsl(0, 0%, 35%);
+  --color-text: hsl(0, 0%, 90%);
+  --color-floor: hsl(0, 0%, 20%);
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.canvas-container {
+}

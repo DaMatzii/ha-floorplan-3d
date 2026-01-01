@@ -1,0 +1,465 @@
+{
+  "accessors": [
+    {
+      "name": "rail_1_0_positions",
+      "componentType": 5126,
+      "count": 24,
+      "min": [
+        -0.739549994468689,
+        2.4579999446868896,
+        -0.07970000058412552
+      ],
+      "max": [
+        0.8004500269889832,
+        2.5,
+        0.0001500000071246177
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 0
+    },
+    {
+      "name": "rail_1_0_indices",
+      "componentType": 5123,
+      "count": 132,
+      "min": [
+        0
+      ],
+      "max": [
+        23
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 0
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_1_edge2_1_0_positions",
+      "componentType": 5126,
+      "count": 20,
+      "min": [
+        -0.000859999970998615,
+        0.009999999776482582,
+        -0.034460000693798065
+      ],
+      "max": [
+        0.019139999523758888,
+        2.4800000190734863,
+        -0.004230000078678131
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 288
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_1_edge2_1_0_indices",
+      "componentType": 5123,
+      "count": 60,
+      "min": [
+        0
+      ],
+      "max": [
+        19
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 264
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_2_edge2_1_0_positions",
+      "componentType": 5126,
+      "count": 20,
+      "min": [
+        0.037780001759529114,
+        0.010409999638795853,
+        -0.07265999913215637
+      ],
+      "max": [
+        0.05778000131249428,
+        2.480410099029541,
+        -0.04242999851703644
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 528
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_2_edge2_1_0_indices",
+      "componentType": 5123,
+      "count": 60,
+      "min": [
+        0
+      ],
+      "max": [
+        19
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 384
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_1_door_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        0.002839999971911311,
+        0.011029999703168869,
+        -0.021570000797510147
+      ],
+      "max": [
+        0.7928400039672852,
+        2.481029987335205,
+        -0.01157000008970499
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 768
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_1_door_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 504
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_2_door_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.7397199869155884,
+        0.011029999703168869,
+        -0.05973999947309494
+      ],
+      "max": [
+        0.050280001014471054,
+        2.481029987335205,
+        -0.04974000155925751
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 864
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_2_door_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 576
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_1_edge1_1_0_positions",
+      "componentType": 5126,
+      "count": 20,
+      "min": [
+        0.7803400158882141,
+        0.010409999638795853,
+        -0.03449000045657158
+      ],
+      "max": [
+        0.8003399968147278,
+        2.480410099029541,
+        -0.004269999917596579
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 960
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_1_edge1_1_0_indices",
+      "componentType": 5123,
+      "count": 60,
+      "min": [
+        0
+      ],
+      "max": [
+        19
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 648
+    },
+    {
+      "name": "sweethome3d_unique_rail_1_0_positions",
+      "componentType": 5126,
+      "count": 50,
+      "min": [
+        -0.7397300004959106,
+        0.00019999999494757503,
+        -0.07603999972343445
+      ],
+      "max": [
+        0.8002700209617615,
+        0.005309999920427799,
+        -0.01995999924838543
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 1200
+    },
+    {
+      "name": "sweethome3d_unique_rail_1_0_indices",
+      "componentType": 5123,
+      "count": 144,
+      "min": [
+        0
+      ],
+      "max": [
+        49
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 768
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_2_edge1_1_0_positions",
+      "componentType": 5126,
+      "count": 20,
+      "min": [
+        -0.7431600093841553,
+        0.009999999776482582,
+        -0.07265999913215637
+      ],
+      "max": [
+        -0.7231600284576416,
+        2.4800000190734863,
+        -0.04242999851703644
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 1800
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_2_edge1_1_0_indices",
+      "componentType": 5123,
+      "count": 60,
+      "min": [
+        0
+      ],
+      "max": [
+        19
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1056
+    }
+  ],
+  "asset": {
+    "generator": "obj2gltf",
+    "version": "2.0"
+  },
+  "buffers": [
+    {
+      "name": "slidingDoors",
+      "byteLength": 3216,
+      "uri": "data:application/octet-stream;base64,S+pMPwAAIEDBOaO9S+pMP99PHUBMGqO9JlM9v99PHUBMGqO9JlM9vwAAIEDBOaO9S+pMPzvfH0DeVCS9S+pMP99PHUBiSiS9JlM9v99PHUBiSiS9JlM9vzvfH0DeVCS9JlM9v99PHUBSSR05S+pMP99PHUBSSR05S+pMPwAAIEAXt1G4JlM9vwAAIEAXt1G4JlM9v99PHUBoeZ69S+pMP99PHUBoeZ69S+pMPzvfH0AiiZ69JlM9vzvfH0AiiZ69S+pMP99PHUBR2hu9S+pMPzvfH0BK7xu9JlM9vzvfH0BK7xu9JlM9v99PHUBR2hu9S+pMPzvfH0BLWQa7JlM9vzvfH0BLWQa7JlM9v99PHUD3WPq6S+pMP99PHUD3WPq6n3FhulK4HkDuJQ29fcucPFK4HkDuJQ29fcucPArXIzzuJQ29n3FhugrXIzzuJQ29eV0/ugrXIzzdmJ67eV0/ulK4HkDdmJ67DyibPArXIzwxJZK7DyibPFK4HkAxJZK7YoTwO1K4HkABGM+7YoTwOwrXIzwBGM+7BK1APArXIzwuVtS7BK1APFK4HkAuVtS7Vd6OOlK4HkDQm4q7Vd6OOgrXIzzQm4q75+NaOwrXIzz3zJK75+NaO1K4HkD3zJK7mN2TPFK4HkAAUpu7mN2TPArXIzwAUpu7JuSDPFK4HkAk0cu7JuSDPArXIzwk0cu7uapsPbSOKjzEzpS9NL8aPbSOKjzEzpS9NL8aPQq/HkDEzpS9uapsPQq/HkDEzpS9aCJsPQq/HkAyVTC9aCJsPbSOKjwyVTC965AbPQq/HkBBvC6965AbPbSOKjxBvC69AK5kPbSOKjwUyy29AK5kPQq/HkAUyy29tHZbPQq/HkC22y69tHZbPbSOKjy22y69ZhRLPQq/HkCbWja9ZhRLPbSOKjybWja9o0AfPbSOKjza4S+9o0AfPQq/HkDa4S+93zInPbSOKjy/8TW93zInPQq/HkC/8TW9sfk4PbSOKjxgAje9sfk4PQq/HkBgAje9Sx86Oyy3NDwZkD28Sx86Oyy3NDySs7C8kPdKPyy3NDySs7C8kPdKPyy3NDwZkD28Sx86OzLJHkAZkD28Sx86OzLJHkCSs7C8kPdKPzLJHkAZkD28kPdKPzLJHkCSs7C8Sl49vyy3NDwsvEu9Sl49vyy3NDzusXS9Z/JNPSy3NDzusXS9Z/JNPSy3NDwsvEu9Sl49vzLJHkAsvEu9Z/JNPTLJHkAsvEu9Sl49vzLJHkDusXS9Z/JNPTLJHkDusXS9FeNMP7SOKjxjRQ29XcRHP7SOKjxjRQ29XcRHPwq/HkBjRQ29FeNMPwq/HkBjRQ29kNpMPwq/HkBo6J+7kNpMP7SOKjxo6J+7eNFHP7SOKjzaIJO7eNFHPwq/HkDaIJO7XadJP7SOKjzXUdW7XadJPwq/HkDXUdW78IpIPwq/HkCwIM278IpIP7SOKjywIM27SWNMPwq/HkBb64u7SWNMP7SOKjxb64u7Lc9LPwq/HkCCHJS7sMlKPwq/HkCpE9C7sMlKP7SOKjypE9C7Lc9LP7SOKjyCHJS7zAtIP7SOKjyMoZy7zAtIPwq/HkCMoZy78l49vxe3UTki4JC9f95MPxe3UTki4JC9f95MP8Nkqjsi4JC98l49v8Nkqjsi4JC9f95MP8NkqjtrZYK9f95MPxe3UTlrZYK98l49vxe3UTlrZYK98l49v8NkqjtrZYK98l49v8Nkqjslr868f95MP8Nkqjslr868f95MPxe3UTk0hc688l49vxe3UTk0hc688l49vxe3UTlnCh29f95MPxe3UTlnCh29f95MPxe3UTk1JG698l49vxe3UTk1JG69f95MPxe3UTkQkgW98l49vxe3UTkQkgW9f95MPx7hNDsJpwW9f95MP4L/rTuFsQW98l49v4L/rTuFsQW98l49vx7hNDsJpwW9f95MP0UvozsjvpO98l49v0UvozsjvpO98l49vyeDozuWsgy9f95MPyeDozuWsgy9f95MP3+kiDtIxBS98l49v3+kiDtIxBS98l49v7PvCjtG66i8f95MP7PvCjtG66i8f95MP3+kiDsdA7K88l49v3+kiDsdA7K8f95MP69aGTuVYHG98l49v69aGTuVYHG9f95MP5ZDizvxLpe98l49v5ZDizvxLpe98l49v482DjvC3Zm9f95MP482DjvC3Zm9f95MPxe3UTncupu98l49vxe3UTncupu98l49vw1slTtVana9f95MPw1slTtVana9f95MP1XBqDuoHX698l49v1XBqDuoHX698l49v+1HCjuE2Bm9f95MP+1HCjuE2Bm98l49v9aLoTvRP8G8f95MP9aLoTvRP8G88l49vxe3UTkng6O8f95MPxe3UTkng6O8BCE5v1K4HkDEzpS9Hy45v1K4HkBBvC69Hy45vwrXIzxBvC69BCE5vwrXIzzEzpS9vD8+v1K4HkDEzpS9vD8+vwrXIzzEzpS9Nzc+vwrXIzy2SjC9Nzc+v1K4HkC2SjC98L89vwrXIzwUyy298L89v1K4HkAUyy29fCw9vwrXIzw50S69fCw9v1K4HkA50S69c2g5v1K4HkDa4S+9c2g5vwrXIzza4S+9Pug5v1K4HkC/8TW9Pug5vwrXIzy/8TW9qwQ7v1K4HkBgAje9qwQ7vwrXIzxgAje9VyY8vwrXIzybWja9VyY8v1K4HkCbWja9AQADAAAAAwABAAIABQAHAAQABwAFAAYACgALAAgACAAJAAoADgAPAAwADAANAA4AAgABAA0ADQAMAAIAAwAKAAAACgADAAsABwAPAA4ADgAEAAcAEgATABAAEAARABIAEwAGAAUABQAQABMAFQASABEAEQAUABUAFQAXABYAFwAVABQACQAIABYAFgAXAAkAEwAHAAYABwATABIAAgAPAAMADwACAAwAFAAKAAkACQAXABQAAwAPAAcAEgAVAAsAAAAOAA0ADQABAAAAFgALABUACwAWAAgACgAUABEABAAOAAAABQAEABEAEQAQAAUAAAAKABEAEQAEAAAAAwASAAsAEgADAAcAAQADAAAAAwABAAIAAwAFAAAABQADAAQAAQAHAAYABgACAAEACgALAAgACAAJAAoADgAPAAwADAANAA4ABgAHABAAEAARAAYAEQAQABIAEgATABEAEwASAAsACwAKABMADQAMAAUABQAEAA0ACAAPAA4ADgAJAAgAAQADAAAAAwABAAIABAAFAAAAAAADAAQAAgAHAAYABwACAAEACgALAAgACAAJAAoADAANAAsACwAKAAwABgAHAA4ADgAPAAYACQAIAAUABQAEAAkADwAOABAAEAARAA8AEQAQABIAEgATABEAEwASAA0ADQAMABMAAgADAAAAAAABAAIABAABAAAAAQAEAAUABAAAAAMAAwAGAAQAAgAHAAYABgADAAIAAgAFAAcABQACAAEABAAHAAUABwAEAAYAAgADAAAAAAABAAIAAwAFAAQABAAAAAMABAAHAAYABwAEAAUABgACAAEAAgAGAAcABQADAAIAAgAHAAUABAABAAAAAQAEAAYAAQADAAAAAwABAAIABAAFAAAAAAADAAQABgACAAEAAgAGAAcACgALAAgACAAJAAoADAANAAUABQAEAAwAEAARAA4ADgAPABAABwAGABIAEgATAAcACQAIABAAEAAPAAkADgARAA0ADQAMAA4AEwASAAsACwAKABMAAgADAAAAAAABAAIABQAHAAQABwAFAAYACQALAAgACwAJAAoADQAPAAwADwANAA4ACgARAAsAEQAKABAABgABAAAAAQAGAAUAEQAQABIAEgATABQAFQARABIAEgAUABUAAgAXAAMAFwACABYAGQAbABgAGwAZABoAHgAfABwAHAAdAB4AIAAhAA8ADwAOACAAFgAjABcAIwAWACIAJQAnACQAJwAlACYAKQArACgAKwApACoALQAMACwADAAtAA0AKQAoACEAIQAgACkAIgAkACMAJAAiACUALwAIAC4ACAAvAAkAHQAcADAAMAAxAB0AEwAYABQAGAATABkAKgAHACsABwAqAAQAGgAsABsALAAaAC0AHgAuAB8ALgAeAC8AAgADAAAAAAABAAIABQAHAAQABwAFAAYAAAAFAAQABQAAAAMACAAJAAcABwAGAAgACgALAAkACQAIAAoAAgABAAwADAANAAIADQAMAA4ADgAPAA0ADwAOABAAEAARAA8AEgATAAsACwAKABIAEQAQABMAEwASABEA"
+    }
+  ],
+  "bufferViews": [
+    {
+      "name": "bufferView_0",
+      "buffer": 0,
+      "byteLength": 2040,
+      "byteOffset": 0,
+      "byteStride": 12,
+      "target": 34962
+    },
+    {
+      "name": "bufferView_1",
+      "buffer": 0,
+      "byteLength": 1176,
+      "byteOffset": 2040,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "white",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      },
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    }
+  ],
+  "meshes": [
+    {
+      "name": "rail_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_1_edge2_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_2_edge2_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 4
+          },
+          "indices": 5,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_1_door_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 6
+          },
+          "indices": 7,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_2_door_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 8
+          },
+          "indices": 9,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_1_edge1_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 10
+          },
+          "indices": 11,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "sweethome3d_unique_rail_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 12
+          },
+          "indices": 13,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_2_edge1_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 14
+          },
+          "indices": 15,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "rail",
+      "mesh": 0
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_1_edge2",
+      "mesh": 1
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_2_edge2",
+      "mesh": 2
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_1_door",
+      "mesh": 3
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_2_door",
+      "mesh": 4
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_1_edge1",
+      "mesh": 5
+    },
+    {
+      "name": "sweethome3d_unique_rail",
+      "mesh": 6
+    },
+    {
+      "name": "sweethome3d_opening_on_rail_2_edge1",
+      "mesh": 7
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    }
+  ]
+}
