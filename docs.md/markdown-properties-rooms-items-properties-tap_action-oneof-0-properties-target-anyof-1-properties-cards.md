@@ -1,0 +1,15 @@
+# Untitled string in \[object Object] Schema
+
+```txt
+undefined#/properties/rooms/items/properties/tap_action/oneOf/0/properties/target/anyOf/1/properties/cards
+```
+
+
+
+| Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                   |
+| :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :--------------------------------------------------------------------------- |
+| Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [markdown.schema.json\*](../out/markdown.schema.json "open original schema") |
+
+## cards Type
+
+`string`

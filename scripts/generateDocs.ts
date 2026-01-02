@@ -1,12 +1,5 @@
-import { zod2md } from 'zod2md';
-import fs from "fs"
-
-const markdown = zod2md({
-	entry: 'apps/client/src/types/types.ts',
-	title: 'Models reference',
-});
+import * as z from "../apps/client/node_modules/zod/v4/index.js";
+import { BuildingSchema, SceneSchema, myRegistry } from "../apps/client/src/types/types.ts";
 
 
-markdown.then((m) => fs.write())
-
-
+console.log(JSON.stringify(z.toJSONSchema(BuildingSchema)))
