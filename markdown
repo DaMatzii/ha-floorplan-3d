@@ -1,4 +1,4 @@
-# test
+# Models reference
 
 ## Building
 
@@ -38,3 +38,4 @@ _Object containing the following properties:_
 | `hold_action`       | _Object with properties:_<ul><li>**`action`** (\*): `'more-info'`</li><li>**`target`** (\*): _Object with properties:_<ul><li>**`path`** (\*): `string`</li></ul> _or_ _Object with properties:_<ul><li>**`cards`** (\*): `string`</li><li>**`bottomSheet`** (\*): `string`</li></ul></li></ul>, _Object with properties:_<ul><li>**`action`** (\*): `'call-service'`</li><li>**`service`** (\*): `string`</li><li>**`target`** (\*): _Object with properties:_<ul><li>**`entity_id`** (\*): `string`</li></ul></li></ul> _or_ _Object with properties:_<ul><li>**`action`** (\*): `'hass-more-info'`</li><li>**`target`** (\*): _Object with properties:_<ul><li>**`entity_id`** (\*): `string`</li></ul></li></ul> |
 
 _(\*) Required._
+

@@ -7,7 +7,8 @@
 		"generate:types": "bash scripts/generate-types.sh"
 	},
 	"workspaces": [],
-	"dependencies": {
-		"zod-to-json-schema": "^3.25.0"
+	"devDependencies": {
+		"@adobe/jsonschema2md": "8.0.7",
+		"zod2md": "^0.2.4"
 	}
 }

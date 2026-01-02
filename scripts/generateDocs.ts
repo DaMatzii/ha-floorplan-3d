@@ -1,14 +1,12 @@
-import * as z from "../apps/client/node_modules/zod/v4/index.js";
-import { BuildingSchema, SceneSchema, myRegistry } from "../apps/client/src/types/types.ts";
+import { zod2md } from 'zod2md';
+import fs from "fs"
+
+const markdown = zod2md({
+	entry: 'apps/client/src/types/types.ts',
+	title: 'Models reference',
+});
 
 
-// console.log(RoomCardSchema.shape)
+markdown.then((m) => fs.write())
 
-for (const [key, schema] of Object.entries(BuildingSchema.shape)) {
-	console.log(key + ": ")
-	if (schema.def.type === 'array') {
-		// console.log(key)
-		console.log(Object.keys(schema.def?.element.def?.shape))
-	}
-}
 
