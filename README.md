@@ -80,7 +80,8 @@ rooms:
         bottom_sensor_id: sensor.atc_efaf_humidity
         position:
           x: 800 
-             y: 750         z: 0
+          y: 750         
+          z: 0
    
  
 ```
