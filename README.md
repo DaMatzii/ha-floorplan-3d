@@ -5,3 +5,14 @@
   <img src="https://placehold.co/600x200/000000/ffffff alt="Black placeholder">
 </p>
 
+## Features
+
+- Rendering floorplan based on Swet Home 3D file (.sh3d)
+
+
+## Table of Contents
+
+- [🖤 Introduction](#-features)
+- [📦 Getting started](#-installation)
+- [🧪 Configuring](#-usage)
+  - [Sub category](#stop-any-running-project)
