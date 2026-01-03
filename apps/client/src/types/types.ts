@@ -3,29 +3,13 @@ import * as z from "zod"
 
 export const myRegistry = z.registry<{ description: string }>();
 
-const PositionSchema = z.object({
+export const PositionSchema = z.object({
 	x: z.number(),
 	y: z.number(),
 	z: z.number(),
 });
 
-const PathTargetSchema = z.object({
-	path: z.string().optional(),
-	bottomSheetY: z.number().optional(),
-});
-const ActionEntityTargetSchema = z.object({
-	entity_id: z.string(),
-});
-
-// const MoreInfoActionSchema = z.object({
-// 	action: z.literal("more-info"),
-// 	target: z.discriminatedUnion("type", [
-// 		z.object({ type: z.literal("path"), path: z.string() }),
-// 		z.object({ type: z.literal("cards"), cards: z.string(), bottomSheetY: z.number() })
-// 	])
-//
-// })
-const MoreInfoActionSchema = z.object({
+export const MoreInfoActionSchema = z.object({
 	action: z.literal("more-info"),
 	target: z.union([
 		z.object({ path: z.string() }),
@@ -35,30 +19,31 @@ const MoreInfoActionSchema = z.object({
 		}),
 	]),
 })
-// cards: z.string().optional(),
-// path: z.string().optional(),
-// })
 
-const MoreInfoHass = z.object({
+export const MoreInfoHass = z.object({
 	action: z.literal("hass-more-info"),
-	target: ActionEntityTargetSchema
+	target: z.object({
+		entity_id: z.string()
+	})
 
 });
 
-const CallServiceActionSchema = z.object({
+export const CallServiceActionSchema = z.object({
 	action: z.literal("call-service"),
 	service: z.string(),
-	target: ActionEntityTargetSchema,
+	target: z.object({
+		entity_id: z.string()
+	})
 });
 
-const ActionSchema = z.discriminatedUnion("action", [
+export const ActionSchema = z.discriminatedUnion("action", [
 	MoreInfoActionSchema,
 	CallServiceActionSchema,
 	MoreInfoHass
 ]);
 
 
-const IconEntitySchema = z.object({
+export const IconEntitySchema = z.object({
 	type: z.literal("icon"),
 	entity_id: z.string(),
 	icon: z.string(),
@@ -68,7 +53,7 @@ const IconEntitySchema = z.object({
 	position: PositionSchema.optional(),
 });
 
-const TemperatureDisplayEntitySchema = z.object({
+export const TemperatureDisplayEntitySchema = z.object({
 	type: z.literal("temperature_display"),
 	font_size: z.number().optional(),
 	top_sensor_id: z.string(),
@@ -77,12 +62,12 @@ const TemperatureDisplayEntitySchema = z.object({
 	tap_action: ActionSchema.optional(),
 });
 
-const EntitySchema = z.discriminatedUnion("type", [
+export const EntitySchema = z.discriminatedUnion("type", [
 	IconEntitySchema,
 	TemperatureDisplayEntitySchema,
 ]);
 
-const RoomSchema = z.object({
+export const RoomSchema = z.object({
 	id: z.string(),
 	alias: z.string().optional(),
 	// ha_id: z.string().optional(),
@@ -91,7 +76,7 @@ const RoomSchema = z.object({
 	entities: z.array(EntitySchema).optional(),
 });
 
-const HomeConfigSchema = z.object({
+export const HomeConfigSchema = z.object({
 	title: z.string(),
 	buildings: z.array(z.string())
 })
@@ -112,7 +97,7 @@ export const SceneSchema = z.object({
 
 }).strict();
 
-const EntityCard = z.object({
+export const EntityCard = z.object({
 	entity_id: z.string(),
 	size: z.enum(["md", "sm", "wide"]),
 	tap_action: ActionSchema.optional(),
@@ -125,13 +110,6 @@ export const RoomCardSchema = z.object({
 	scenes: z.array(SceneSchema).min(1),
 	entities: z.array(EntityCard).min(1),
 }).strict().register(myRegistry, { description: "xd" });
-
-
-// export const ConfigSchema = z.object({
-// 	bottomSheetY: z.number().min(0).max(1),
-// 	cards: z.array(RoomCardSchema).min(1)
-// }).strict();
-
 
 export type IBuilding = z.infer<typeof BuildingSchema>;
 export type IEntity = z.infer<typeof EntitySchema>

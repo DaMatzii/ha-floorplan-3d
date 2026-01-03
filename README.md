@@ -22,7 +22,8 @@
 
 # Configuration
 ```yaml
-title: "Home"oorplan_name: "home.xml"
+title: "Home"
+foorplan_name: "home.xml"
 
 rooms:
   - id: room-ae706306-67b2-4bf3-a5aa-b14c97cde769
