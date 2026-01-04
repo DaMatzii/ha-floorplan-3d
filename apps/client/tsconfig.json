@@ -1,20 +1,26 @@
 {
-  "compilerOptions": {
-    "composite": true,
-    "jsx": "react-jsx",
-    "esModuleInterop": true,
-    "module": "esnext",
-    "target": "esnext",
-    "lib": ["DOM", "ES2021"],
-    "outDir": "./dist",
-    "rootDir": "src",
-    "baseUrl": "./src",
-    "types": ["node", "monaco-editor"],
-    "moduleResolution": "bundler",
-    "skipLibCheck": true,
-    "paths": {
-      "@/*": ["./*"]
-    }
-  },
-  "include": ["src"]
+	"compilerOptions": {
+		"composite": true,
+		"jsx": "react-jsx",
+		"esModuleInterop": true,
+		"module": "esnext",
+		"target": "esnext",
+		"lib": [
+			"DOM",
+			"ES2021"
+		],
+		"outDir": "./dist",
+		"rootDir": "src",
+		"baseUrl": "./src",
+		"moduleResolution": "bundler",
+		"skipLibCheck": true,
+		"paths": {
+			"@/*": [
+				"./*"
+			]
+		}
+	},
+	"include": [
+		"src"
+	]
 }
