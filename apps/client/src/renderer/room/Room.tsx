@@ -24,10 +24,9 @@ interface RoomProps {
 
 const Room: React.FC<RoomProps> = ({ id, point, building }) => {
   const room = useRoom(id);
-  const { currentRoom } = useCurrentRoom();
+  const { currentRoom, isPreview } = useCurrentRoom();
   const editorMode = useConfigStore((state) => state.editorMode);
   const { errors, addError } = useErrorStore();
-  const { isPreview } = useCurrentRoom();
 
   const comps = useMemo(() => {
     if (!room?.entities) return null;

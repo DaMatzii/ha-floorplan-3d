@@ -46,6 +46,8 @@ export const IconEntitySchema = z.object({
 	type: z.literal("icon"),
 	entity_id: z.string(),
 	icon: z.string().optional(),
+	render_light: z.boolean().optional().default(true),
+	visible_preview: z.boolean().optional().default(false),
 	tap_action: ActionSchema.optional(),
 	double_tap_action: ActionSchema.optional(),
 	hold_action: ActionSchema.optional(),
@@ -55,6 +57,7 @@ export const IconEntitySchema = z.object({
 export const TemperatureDisplayEntitySchema = z.object({
 	type: z.literal("temperatureDisplay"),
 	font_size: z.number().optional(),
+	text_color: z.string().optional(),
 	top_sensor_id: z.string(),
 	bottom_sensor_id: z.string(),
 	position: PositionSchema.optional(),

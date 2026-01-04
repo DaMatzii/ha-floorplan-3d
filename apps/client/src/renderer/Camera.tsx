@@ -59,6 +59,7 @@ function XYCameraControls({ reached }) {
   return null;
 }
 
+//ISSUE: Coming of preview doesnt always focus back to whole room
 export default function Camera() {
   const { currentRoom, isPreview } = useCurrentRoom();
   const [target, setTarget] = useState([0, 0, 10]);

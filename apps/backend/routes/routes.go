@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/viper"
 	"io"
 	"net/http"
+	"os"
 	"path/filepath"
 )
 
@@ -53,8 +54,17 @@ func RegisterRoutes(r *gin.Engine) {
 			handlers.SSEHandler(c)
 		})
 		api.GET("/configuration", func(c *gin.Context) {
-			c.JSON(http.StatusOK, viper.AllSettings())
+			//TODO: Improve this, because this is shit
+			if _, err := os.Stat(config.AppConfig.ExternalConfig + "home.yml"); err == nil {
+				c.JSON(http.StatusOK, gin.H{
+					"configured": true,
+				})
 
+			} else {
+				c.JSON(http.StatusOK, gin.H{
+					"configured": false,
+				})
+			}
 		})
 
 	}

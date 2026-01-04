@@ -3,6 +3,7 @@ import { RoomSelector } from "@/components/RoomSelector";
 import { motion, useMotionValue, animate } from "framer-motion";
 import { useHomeStore, useBottomSheetStore } from "@/store";
 
+//TODO: Fix scrolling on safari
 export const BottomSheet = ({ children }) => {
   const targetRef = useRef<HTMLDivElement>(null);
   const y = useMotionValue(0);

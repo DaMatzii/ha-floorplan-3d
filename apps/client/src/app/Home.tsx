@@ -12,27 +12,10 @@ import { BuildingSchema } from "@/types";
 import * as z from "zod";
 
 import { Building } from "lucide-react";
-function resolveWebsocketParams() {
-  let websocket = "";
-  let auth_token = "";
-  if (import.meta.env.DEV) {
-    websocket = import.meta.env.VITE_HA_API;
-    auth_token = import.meta.env.VITE_HA_TOKEN;
-  }
-
-  if (import.meta.env.PROD) {
-    websocket =
-      (location.protocol === "https:" ? "wss://" : "ws://") +
-      location.host +
-      "/api/websocket";
-  }
-
-  return { websocket, auth_token };
-}
 
 export function useLoadHome(setIsLoading, setConfig) {
-  const { setHome, setReloadFunction } = useHomeStore();
-  const { addError, reset, errors } = useErrorStore();
+  const { setHome } = useHomeStore();
+  const { addError, reset } = useErrorStore();
 
   const fetchResource = async (url: string, parser?: (text: string) => any) => {
     try {
@@ -126,7 +109,6 @@ export default function Home({ children }) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { errors } = useErrorStore();
   const [config, setConfig] = useState(null);
-  const { websocket, auth_token } = resolveWebsocketParams();
   const fetchHomeData = useLoadHome(setIsLoading, setConfig);
 
   useEffect(() => {
@@ -145,15 +127,5 @@ export default function Home({ children }) {
     return <ErrorList isOpen={true} closeModal={undefined} />;
   }
 
-  return (
-    <>
-      <HassConnect
-        hassUrl={websocket}
-        hassToken={auth_token}
-        loading={<LoadingCircleSpinner />}
-      >
-        {children}
-      </HassConnect>
-    </>
-  );
+  return <>{children}</>;
 }

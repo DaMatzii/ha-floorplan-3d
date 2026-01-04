@@ -31,7 +31,10 @@ const LightComp: React.FC<LightProps> = ({
   hold_action,
   icon,
   isRoomFocused,
+  render_light = true,
+  visible_preview = false,
 }) => {
+  const { isPreview } = useCurrentRoom();
   const hassEntity = useEntity(entity_id as EntityName);
   const { evaluateAction } = useEvaluateAction();
 
@@ -71,6 +74,8 @@ const LightComp: React.FC<LightProps> = ({
     if (lightRef.current) lightRef.current.intensity = intensity.get();
   });
 
+  if (isPreview && !visible_preview) return <></>;
+
   return (
     <>
       <mesh>
@@ -98,8 +103,6 @@ const LightComp: React.FC<LightProps> = ({
             }}
             {...clickHandlers}
           >
-            {/* <Lightbulb className={`stroke-1`} size={24} /> */}
-
             <DynamicIcon
               name={icon ?? ("lightbulb" as any)}
               size={24}
@@ -108,7 +111,7 @@ const LightComp: React.FC<LightProps> = ({
           </motion.div>
         </Html>
       </mesh>
-      {!editorMode && isRoomFocused && (
+      {render_light && !editorMode && isRoomFocused && !isPreview && (
         <pointLight
           ref={lightRef}
           position={[
