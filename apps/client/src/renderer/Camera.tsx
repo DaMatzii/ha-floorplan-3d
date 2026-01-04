@@ -125,6 +125,7 @@ export default function Camera() {
   };
 
   useEffect(() => {
+    console.log("Camera tsx: ", currentRoom);
     if (isPreview) {
       focusOnHouse();
       return;

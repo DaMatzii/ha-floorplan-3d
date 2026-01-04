@@ -27,7 +27,6 @@ export const RoomSelector = () => {
     if (!real_rooms[currentItem]) return;
 
     setCurrentRoom(real_rooms[currentItem].id);
-    setIsPreview(false);
     let to = currentItem * itemWidth * -1;
     animate(x, to, {
       type: "spring",

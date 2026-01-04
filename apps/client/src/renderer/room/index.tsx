@@ -5,6 +5,7 @@ import _RoomCard from "./HassRoom";
 export const RoomComponent: Component = {
   name: "LightComponent",
   component: (props: any) => <Room {...props} />,
+  visibleOnPreview: true,
 };
 
 export const RoomCard: Card = {

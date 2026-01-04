@@ -38,9 +38,10 @@ export default function HomeView() {
   const isMobile = useIsMobile();
   const { setIsPreview, isPreview } = useCurrentRoom();
 
-  if (!isMobile && !import.meta.env.DEV) {
+  if (!isMobile && !(import.meta.env.DEV ?? false)) {
     return <NoMobile />;
   }
+  console.log("Mobile");
 
   function onError(err) {
     addError({

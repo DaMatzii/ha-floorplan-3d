@@ -1,4 +1,4 @@
-export { Home, Floorplan } from "./Home"
+export * from "./Home"
 export * from "./types"
 export type BottomSheetType =
 	| `card_${string}`

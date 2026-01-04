@@ -8,7 +8,10 @@ import ErrorList from "@/components/ErrorList";
 import SetupWizard from "@/pages/SetupView";
 import { LoadingCircleSpinner } from "@/components/LoadingSpinner";
 import { parse } from "yaml";
+import { BuildingSchema } from "@/types";
+import * as z from "zod";
 
+import { Building } from "lucide-react";
 function resolveWebsocketParams() {
   let websocket = "";
   let auth_token = "";
@@ -78,11 +81,18 @@ export function useLoadHome(setIsLoading, setConfig) {
         },
       );
 
-      const building: IBuilding = {
+      const building = {
         title: parsedBuilding.title,
         floorplan_name: parsedBuilding.floorplan_name,
         rooms: parsedBuilding.rooms,
       };
+
+      const result = BuildingSchema.safeParse(building);
+      if (!result.success) {
+        console.log(result.error);
+      } else {
+        console.log("cool");
+      }
 
       setHome(parsedHome, [building], {
         [floorplanName]: parsedFloorplanXML,

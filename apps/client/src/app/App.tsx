@@ -76,7 +76,7 @@ const App: React.FC = () => {
       >
         <Home>
           <Routes>
-            <Route path="/" element={<HomeView />} />
+            <Route path="/*" element={<HomeView />} />
             <Route path="/editor" element={<Editor />} />
             <Route path="/setup" element={<SetupWizard />} />
             <Route path="/test" element={<Lol fontSize={200} />} />

@@ -5,6 +5,7 @@ import type { Component } from "@/renderer/Components";
 const DoorOrWindowComponent: Component = {
   name: "DoorOrWindow",
   component: (props: DoorOrWindowProps) => <DoorOrWindow {...props} />,
+  visibleOnPreview: true,
 };
 
 interface DoorOrWindowProps {

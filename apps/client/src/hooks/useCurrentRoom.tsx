@@ -2,8 +2,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export function useCurrentRoom() {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [currentRoom, setView] = useState(searchParams.get("id") || "");
   const [isPreview, setPreview] = useState<boolean>(
@@ -19,12 +18,20 @@ export function useCurrentRoom() {
   }, [searchParams]);
 
   function setCurrentRoom(id) {
-    searchParams.set("id", id);
-    navigate(`${location.pathname}?${searchParams.toString()}`);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("id", id);
+      next.set("preview", "false");
+      return next;
+    });
   }
-  function setIsPreview(is: boolean) {
-    searchParams.set("preview", is ? "true" : "false");
-    navigate(`${location.pathname}?${searchParams.toString()}`);
+  function setIsPreview(preview: boolean) {
+    setSearchParams((prev) => {
+      console.log(prev);
+      const next = new URLSearchParams(prev);
+      next.set("preview", preview ? "true" : "false");
+      return next;
+    });
   }
 
   return {

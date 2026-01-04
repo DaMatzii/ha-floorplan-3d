@@ -18,6 +18,7 @@ interface FurnitureProps {
 const FurnitureComponent: Component = {
   name: "LightComponent",
   component: (props: FurnitureProps) => <Furniture {...props} />,
+  visibleOnPreview: true,
 };
 
 function useFurnitureInfo(id) {
@@ -67,6 +68,11 @@ export const Furniture: React.FC<FurnitureProps> = ({
   if (loading) return <></>;
 
   const split = data.model.split("/");
+
+  if (split > 6) {
+    return <></>;
+  }
+
   const objName = split[6];
 
   if (objName.toLowerCase().includes("texturable")) return;

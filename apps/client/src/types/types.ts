@@ -1,6 +1,5 @@
 import * as z from "zod"
 
-
 export const myRegistry = z.registry<{ description: string }>();
 
 export const PositionSchema = z.object({
@@ -46,7 +45,7 @@ export const ActionSchema = z.discriminatedUnion("action", [
 export const IconEntitySchema = z.object({
 	type: z.literal("icon"),
 	entity_id: z.string(),
-	icon: z.string(),
+	icon: z.string().optional(),
 	tap_action: ActionSchema.optional(),
 	double_tap_action: ActionSchema.optional(),
 	hold_action: ActionSchema.optional(),
@@ -54,7 +53,7 @@ export const IconEntitySchema = z.object({
 });
 
 export const TemperatureDisplayEntitySchema = z.object({
-	type: z.literal("temperature_display"),
+	type: z.literal("temperatureDisplay"),
 	font_size: z.number().optional(),
 	top_sensor_id: z.string(),
 	bottom_sensor_id: z.string(),
