@@ -13,7 +13,6 @@ import (
 )
 
 func RegisterRoutes(r *gin.Engine) {
-
 	r.Use(static.Serve("/config/", static.LocalFile(config.AppConfig.ExternalConfig, true)))
 	r.Use(static.Serve("/resources/", static.LocalFile(config.AppConfig.Resources, true)))
 
