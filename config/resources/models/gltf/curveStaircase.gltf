@@ -1,0 +1,1965 @@
+{
+  "accessors": [
+    {
+      "name": "Rampe_1_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        0.3572399914264679,
+        1.5750000476837158,
+        -0.5227400064468384
+      ],
+      "max": [
+        0.3672400116920471,
+        2.5250000953674316,
+        -0.4927400052547455
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 0
+    },
+    {
+      "name": "Rampe_1_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 0
+    },
+    {
+      "name": "Cote_5_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        2.1105000972747803,
+        -1.2422399520874023
+      ],
+      "max": [
+        0.3572399914264679,
+        2.315500020980835,
+        -1.2322399616241455
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 96
+    },
+    {
+      "name": "Cote_5_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 72
+    },
+    {
+      "name": "Cote_1_0_positions",
+      "componentType": 5126,
+      "count": 16,
+      "min": [
+        -0.34275999665260315,
+        0.019999999552965164,
+        0.04575999826192856
+      ],
+      "max": [
+        0.3672400116920471,
+        0.8525000214576721,
+        0.7597600221633911
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 192
+    },
+    {
+      "name": "Cote_1_0_indices",
+      "componentType": 5123,
+      "count": 72,
+      "min": [
+        0
+      ],
+      "max": [
+        15
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 144
+    },
+    {
+      "name": "Rampe_9_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        0.3522399961948395,
+        3.4574999809265137,
+        -1.6122339963912964
+      ],
+      "max": [
+        0.37224000692367554,
+        3.490499973297119,
+        -1.3322340250015259
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 384
+    },
+    {
+      "name": "Rampe_9_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 288
+    },
+    {
+      "name": "Marche_1_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        1.4739999771118164,
+        -0.6912400126457214
+      ],
+      "max": [
+        0.3572399914264679,
+        1.4839999675750732,
+        -0.491239994764328
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 480
+    },
+    {
+      "name": "Marche_1_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 360
+    },
+    {
+      "name": "Rampe_8_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        0.3572399914264679,
+        2.4110000133514404,
+        -1.258739948272705
+      ],
+      "max": [
+        0.3672400116920471,
+        3.3610000610351562,
+        -1.228734016418457
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 576
+    },
+    {
+      "name": "Rampe_8_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 432
+    },
+    {
+      "name": "Marche_12_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        0.6380000114440918,
+        0.044429998844861984
+      ],
+      "max": [
+        0.35624998807907104,
+        0.6480000019073486,
+        0.46421000361442566
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 672
+    },
+    {
+      "name": "Marche_12_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 504
+    },
+    {
+      "name": "Cote_3_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        1.065500020980835,
+        -0.3222399950027466
+      ],
+      "max": [
+        0.3572399914264679,
+        1.2704999446868896,
+        -0.31224000453948975
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 768
+    },
+    {
+      "name": "Cote_3_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 576
+    },
+    {
+      "name": "Marche_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        0.847000002861023,
+        -0.13923999667167664
+      ],
+      "max": [
+        0.3572399914264679,
+        0.8569999933242798,
+        0.060759998857975006
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 864
+    },
+    {
+      "name": "Marche_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 648
+    },
+    {
+      "name": "Rampe_3_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        0.3572399914264679,
+        1.3660000562667847,
+        -0.3387399911880493
+      ],
+      "max": [
+        0.3672400116920471,
+        2.315999984741211,
+        -0.3087399899959564
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 960
+    },
+    {
+      "name": "Rampe_3_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 720
+    },
+    {
+      "name": "Rampe_4_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        0.3572399914264679,
+        1.156999945640564,
+        -0.15474000573158264
+      ],
+      "max": [
+        0.3672400116920471,
+        2.1070001125335693,
+        -0.12473999708890915
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 1056
+    },
+    {
+      "name": "Rampe_4_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 792
+    },
+    {
+      "name": "Rampe_6_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        0.3572399914264679,
+        2.2019999027252197,
+        -1.0747400522232056
+      ],
+      "max": [
+        0.3672400116920471,
+        3.1519999504089355,
+        -1.044739007949829
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 1152
+    },
+    {
+      "name": "Rampe_6_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 864
+    },
+    {
+      "name": "Cote_6_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        2.319499969482422,
+        -1.4262399673461914
+      ],
+      "max": [
+        0.3572399914264679,
+        2.5244998931884766,
+        -1.4162399768829346
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 1248
+    },
+    {
+      "name": "Cote_6_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 936
+    },
+    {
+      "name": "Marche_4_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        1.055999994277954,
+        -0.3232400119304657
+      ],
+      "max": [
+        0.3572399914264679,
+        1.065999984741211,
+        -0.12324000149965286
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 1344
+    },
+    {
+      "name": "Marche_4_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1008
+    },
+    {
+      "name": "Marche_8_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        1.6829999685287476,
+        -0.8752400279045105
+      ],
+      "max": [
+        0.3572399914264679,
+        1.6929999589920044,
+        -0.6752399802207947
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 1440
+    },
+    {
+      "name": "Marche_8_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1080
+    },
+    {
+      "name": "Marche_11_1_0_positions",
+      "componentType": 5126,
+      "count": 10,
+      "min": [
+        -0.34275999665260315,
+        0.42899999022483826,
+        0.05316999927163124
+      ],
+      "max": [
+        0.36274999380111694,
+        0.4390000104904175,
+        0.7577599883079529
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 1536
+    },
+    {
+      "name": "Marche_11_1_0_indices",
+      "componentType": 5123,
+      "count": 48,
+      "min": [
+        0
+      ],
+      "max": [
+        9
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1152
+    },
+    {
+      "name": "Cote_8_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        1.6924999952316284,
+        -0.874239981174469
+      ],
+      "max": [
+        0.3572399914264679,
+        1.8975000381469727,
+        -0.8642399907112122
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 1656
+    },
+    {
+      "name": "Cote_8_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1248
+    },
+    {
+      "name": "Marche_10_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.052570000290870667,
+        0.2199999988079071,
+        0.05976000055670738
+      ],
+      "max": [
+        0.37224000692367554,
+        0.23000000417232513,
+        0.7597600221633911
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 1752
+    },
+    {
+      "name": "Marche_10_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1320
+    },
+    {
+      "name": "Marche_7_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        2.5190000534057617,
+        -1.612239956855774
+      ],
+      "max": [
+        0.3572399914264679,
+        2.5290000438690186,
+        -1.4112399816513062
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 1848
+    },
+    {
+      "name": "Marche_7_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1392
+    },
+    {
+      "name": "Bord_3_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.35275998711586,
+        0.019999999552965164,
+        0.7577599883079529
+      ],
+      "max": [
+        0.37224000692367554,
+        0.5325800180435181,
+        0.7677599787712097
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 1944
+    },
+    {
+      "name": "Bord_3_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1464
+    },
+    {
+      "name": "Rampe_11_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        0.3522399961948395,
+        1.8484899997711182,
+        -1.3907740116119385
+      ],
+      "max": [
+        0.37224000692367554,
+        3.490499973297119,
+        0.06026000156998634
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 2040
+    },
+    {
+      "name": "Rampe_11_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1536
+    },
+    {
+      "name": "Rampe_5_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        0.3572399914264679,
+        1.9930000305175781,
+        -0.8907399773597717
+      ],
+      "max": [
+        0.3672400116920471,
+        2.943000078201294,
+        -0.8607400059700012
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 2136
+    },
+    {
+      "name": "Rampe_5_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1608
+    },
+    {
+      "name": "Marche_5_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        2.1010000705718994,
+        -1.2432399988174438
+      ],
+      "max": [
+        0.3572399914264679,
+        2.1110000610351562,
+        -1.043239951133728
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 2232
+    },
+    {
+      "name": "Marche_5_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1680
+    },
+    {
+      "name": "Rampe_7_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        0.3572399914264679,
+        2.5230000019073486,
+        -1.4287400245666504
+      ],
+      "max": [
+        0.3672400116920471,
+        3.4730000495910645,
+        -1.3987339735031128
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 2328
+    },
+    {
+      "name": "Rampe_7_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1752
+    },
+    {
+      "name": "Cote_7_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.3413040041923523,
+        1.274533987045288,
+        -0.5064610242843628
+      ],
+      "max": [
+        0.35869601368904114,
+        1.4795340299606323,
+        -0.4964599907398224
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 2424
+    },
+    {
+      "name": "Cote_7_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1824
+    },
+    {
+      "name": "Marche_9_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        1.8919999599456787,
+        -1.0592399835586548
+      ],
+      "max": [
+        0.3572399914264679,
+        1.9019999504089355,
+        -0.8592399954795837
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 2520
+    },
+    {
+      "name": "Marche_9_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1896
+    },
+    {
+      "name": "Bord_2_1_0_positions",
+      "componentType": 5126,
+      "count": 16,
+      "min": [
+        -0.35275998711586,
+        0.019999999552965164,
+        -1.612239956855774
+      ],
+      "max": [
+        -0.34274598956108093,
+        2.5299999713897705,
+        0.758430004119873
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 2616
+    },
+    {
+      "name": "Bord_2_1_0_indices",
+      "componentType": 5123,
+      "count": 84,
+      "min": [
+        0
+      ],
+      "max": [
+        15
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 1968
+    },
+    {
+      "name": "Cote_10_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.05982999876141548,
+        0.22949999570846558,
+        0.04125000163912773
+      ],
+      "max": [
+        0.36250999569892883,
+        0.4345000088214874,
+        0.7577599883079529
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 2808
+    },
+    {
+      "name": "Cote_10_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2136
+    },
+    {
+      "name": "Rampe_10_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        0.3572399914264679,
+        2.5230000019073486,
+        -1.612239956855774
+      ],
+      "max": [
+        0.3672400116920471,
+        3.4730000495910645,
+        -1.5822340250015259
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 2904
+    },
+    {
+      "name": "Rampe_10_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2208
+    },
+    {
+      "name": "Cote_1_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        1.9014999866485596,
+        -1.0582400560379028
+      ],
+      "max": [
+        0.3572399914264679,
+        2.1064999103546143,
+        -1.0482399463653564
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 3000
+    },
+    {
+      "name": "Cote_1_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2280
+    },
+    {
+      "name": "Marche_6_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        2.309999942779541,
+        -1.427240014076233
+      ],
+      "max": [
+        0.3572399914264679,
+        2.319999933242798,
+        -1.227239966392517
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 3096
+    },
+    {
+      "name": "Marche_6_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2352
+    },
+    {
+      "name": "Marche_3_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        1.2649999856948853,
+        -0.5072399973869324
+      ],
+      "max": [
+        0.3572399914264679,
+        1.274999976158142,
+        -0.30724000930786133
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 3192
+    },
+    {
+      "name": "Marche_3_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2424
+    },
+    {
+      "name": "Rampe_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        0.3572399914264679,
+        0.019999999552965164,
+        0.011260000057518482
+      ],
+      "max": [
+        0.3672400116920471,
+        1.9110000133514404,
+        0.06125999987125397
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 3288
+    },
+    {
+      "name": "Rampe_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2496
+    },
+    {
+      "name": "Cote_2_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        1.4835000038146973,
+        -0.6902400255203247
+      ],
+      "max": [
+        0.3572399914264679,
+        1.6885000467300415,
+        -0.6802399754524231
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 3384
+    },
+    {
+      "name": "Cote_2_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2568
+    },
+    {
+      "name": "Bord_4_1_0_positions",
+      "componentType": 5126,
+      "count": 10,
+      "min": [
+        0.3572399914264679,
+        0.554889976978302,
+        -1.612239956855774
+      ],
+      "max": [
+        0.3672400116920471,
+        2.5299999713897705,
+        0.05375999957323074
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 3480
+    },
+    {
+      "name": "Bord_4_1_0_indices",
+      "componentType": 5123,
+      "count": 48,
+      "min": [
+        0
+      ],
+      "max": [
+        9
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2640
+    },
+    {
+      "name": "Rampe_2_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        0.3572399914264679,
+        1.784000039100647,
+        -0.7067400217056274
+      ],
+      "max": [
+        0.3672400116920471,
+        2.7339999675750732,
+        -0.6767399907112122
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 3600
+    },
+    {
+      "name": "Rampe_2_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2736
+    },
+    {
+      "name": "Cote_9_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        0.43849998712539673,
+        0.04904000088572502
+      ],
+      "max": [
+        0.3577499985694885,
+        0.6434999704360962,
+        0.4621399939060211
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 3696
+    },
+    {
+      "name": "Cote_9_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2808
+    },
+    {
+      "name": "Cote_4_1_0_positions",
+      "componentType": 5126,
+      "count": 8,
+      "min": [
+        -0.34275999665260315,
+        0.8565000295639038,
+        -0.1382399946451187
+      ],
+      "max": [
+        0.3572399914264679,
+        1.0614999532699585,
+        -0.12824000418186188
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 3792
+    },
+    {
+      "name": "Cote_4_1_0_indices",
+      "componentType": 5123,
+      "count": 36,
+      "min": [
+        0
+      ],
+      "max": [
+        7
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 2880
+    }
+  ],
+  "asset": {
+    "generator": "obj2gltf",
+    "version": "2.0"
+  },
+  "buffers": [
+    {
+      "name": "curveStaircase",
+      "byteLength": 6840,
+      "uri": "data:application/octet-stream;base64,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BQABAAAAAQAFAAcAAQAHAAYABgACAAEABwAEAAYABAAHAAUAAgADAAAAAAABAAIAAgAFAAQABAADAAIABgADAAQAAwAGAAAAAQAHAAUABQACAAEABgABAAAAAQAGAAcABwAEAAUABAAHAAYAAgADAAAAAAABAAIABQAHAAQABwAFAAYABAAAAAUAAAAEAAEABQADAAYAAwAFAAAAAgABAAQABAAHAAIABwAGAAMAAwACAAcAAgADAAAAAAABAAIABQAHAAQABwAFAAYABAAAAAUAAAAEAAEABQADAAYAAwAFAAAABwAGAAMAAwACAAcAAgABAAQABAAHAAIAAgADAAAAAAABAAIAAwAFAAQABQADAAIABgACAAEAAgAGAAUAAAAHAAYABgABAAAABQAHAAQABwAFAAYAAwAEAAcABwAAAAMAAgADAAAAAAABAAIAAgAFAAQABAADAAIABgADAAQAAwAGAAAAAQAHAAUABQACAAEABgABAAAAAQAGAAcABwAEAAUABAAHAAYAAgADAAAAAAABAAIABQADAAQAAwAFAAAABgAAAAUAAAAGAAEAAQAGAAcABwACAAEAAgAHAAQABAADAAIABQAHAAYABwAFAAQAAgADAAAAAAABAAIAAgAFAAQABAADAAIABgADAAQAAwAGAAAAAQAHAAUABQACAAEABgABAAAAAQAGAAcABwAEAAUABAAHAAYAAQADAAAAAwABAAIABgAHAAQABAAFAAYABwAJAAgACAAEAAcAAQAGAAUABgABAAAAAwAIAAkACAADAAIABQAEAAEABwAGAAAAAQAIAAIACAABAAQACQAHAAAAAAADAAkAAgADAAAAAAABAAIAAgAFAAQABAADAAIABgADAAQAAwAGAAAAAQAHAAUABQACAAEABgABAAAAAQAGAAcABwAEAAUABAAHAAYAAgADAAAAAAABAAIAAAAFAAEABQAAAAQAAgAHAAYABgADAAIABwAEAAYABAAHAAUAAQAFAAcABwACAAEABgAAAAMAAAAGAAQAAgADAAAAAAABAAIABQAHAAQABwAFAAYABgADAAcAAwAGAAAABAACAAEAAQAFAAQAAgAEAAcABwADAAIAAQAGAAUABgABAAAAAQADAAAAAwABAAIABQABAAQAAQAFAAIABgAHAAAAAAADAAYAAwACAAUABQAGAAMABwABAAAAAQAHAAQABgAFAAQABAAHAAYAAQADAAAAAwABAAIAAgABAAQABAAFAAIABwAFAAQABAAGAAcABgADAAcAAwAGAAAAAAAEAAEABAAAAAYABQAHAAMAAwACAAUAAgADAAAAAAABAAIABQADAAIAAgAEAAUABQAAAAMAAAAFAAYABAACAAEAAQAHAAQABgAEAAcABAAGAAUAAQAGAAcABgABAAAAAgADAAAAAAABAAIAAQAFAAQABAACAAEABgADAAIAAgAEAAYABwABAAAAAQAHAAUABwADAAYAAwAHAAAABQAGAAQABgAFAAcAAgADAAAAAAABAAIABQAHAAQABwAFAAYABAAAAAUAAAAEAAEABQADAAYAAwAFAAAAAgABAAQABAAHAAIABwAGAAMAAwACAAcAAgADAAAAAAABAAIABQAHAAQABwAFAAYAAQAAAAUABQAEAAEABwADAAIAAwAHAAYAAwAGAAUABQAAAAMABAACAAEAAgAEAAcAAgADAAAAAAABAAIABQAHAAQABwAFAAYABwACAAEAAQAEAAcABgACAAcAAgAGAAMAAAAGAAUABgAAAAMAAQAAAAUABQAEAAEAAgADAAAAAAABAAIABQAHAAQABwAFAAYACQABAAgAAQAJAAUACgAJAAgACQAKAAsABwAEAAkACQALAAcADAAKAAgACgAMAA0ABAAFAAkADgAMAAAACAAAAAwAAAAIAAEADgANAAwADQAOAA8AAAAPAA4ADwAAAAMABgABAAUAAQAGAAIACwAKAAIAAgAGAAsABwALAAYADwADAA0ACgANAAMAAwACAAoAAQADAAAAAwABAAIABAAFAAEAAQAAAAQABwACAAYAAgAHAAMABwAGAAUABQAEAAcABAADAAcAAwAEAAAABgACAAEAAQAFAAYAAQADAAAAAwABAAIAAwAFAAAABQADAAQABgAEAAMAAwACAAYABQAEAAYABgAHAAUAAQAFAAcABQABAAAABgACAAEAAQAHAAYAAgADAAAAAAABAAIAAAADAAQABAAFAAAABgAFAAQABQAGAAcAAgAHAAYABwACAAEAAwAGAAQABgADAAIAAAAFAAcABwABAAAAAgADAAAAAAABAAIAAQAFAAQABAACAAEAAwACAAQABAAGAAMABwADAAYAAwAHAAAABQAGAAQABgAFAAcAAQAHAAUABwABAAAAAgADAAAAAAABAAIAAgAFAAQABAADAAIABgADAAQAAwAGAAAAAQAHAAUABQACAAEABgABAAAAAQAGAAcABwAEAAUABAAHAAYAAQADAAAAAwABAAIABQACAAEAAQAEAAUABAAHAAYABgAFAAQAAAAGAAcABgAAAAMAAAAHAAQABAABAAAABQADAAIAAwAFAAYAAgADAAAAAAABAAIABQAHAAQABwAFAAYAAQAAAAUABQAEAAEABwADAAIAAwAHAAYAAwAGAAUABQAAAAMABAACAAEAAgAEAAcAAQADAAAAAwABAAIABQACAAEAAQAEAAUAAAAHAAYABwAAAAMACAAJAAUABQAEAAgABgAJAAgACQAGAAcAAwACAAcAAAAGAAEABQAJAAcABwACAAUAAQAIAAQACAABAAYAAgADAAAAAAABAAIABQAHAAQABwAFAAYAAgAHAAYABgADAAIAAQAFAAQABQABAAAAAQAEAAcABwACAAEAAAAGAAUABgAAAAMAAgADAAAAAAABAAIAAAAFAAQABQAAAAMABwACAAEAAQAGAAcAAwAHAAUABwADAAIAAAAEAAYABgABAAAABgAFAAcABQAGAAQAAgADAAAAAAABAAIABQADAAQAAwAFAAAABAADAAIAAgAGAAQABQABAAAAAQAFAAcAAQAHAAYABgACAAEABwAEAAYABAAHAAUA"
+    }
+  ],
+  "bufferViews": [
+    {
+      "name": "bufferView_0",
+      "buffer": 0,
+      "byteLength": 3888,
+      "byteOffset": 0,
+      "byteStride": 12,
+      "target": 34962
+    },
+    {
+      "name": "bufferView_1",
+      "buffer": 0,
+      "byteLength": 2952,
+      "byteOffset": 3888,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "flblonde",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      },
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Rampe_1_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Cote_5_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Cote_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 4
+          },
+          "indices": 5,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Rampe_9_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 6
+          },
+          "indices": 7,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Marche_1_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 8
+          },
+          "indices": 9,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Rampe_8_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 10
+          },
+          "indices": 11,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Marche_12_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 12
+          },
+          "indices": 13,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Cote_3_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 14
+          },
+          "indices": 15,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Marche_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 16
+          },
+          "indices": 17,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Rampe_3_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 18
+          },
+          "indices": 19,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Rampe_4_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 20
+          },
+          "indices": 21,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Rampe_6_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 22
+          },
+          "indices": 23,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Cote_6_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 24
+          },
+          "indices": 25,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Marche_4_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 26
+          },
+          "indices": 27,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Marche_8_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 28
+          },
+          "indices": 29,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Marche_11_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 30
+          },
+          "indices": 31,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Cote_8_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 32
+          },
+          "indices": 33,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Marche_10_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 34
+          },
+          "indices": 35,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Marche_7_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 36
+          },
+          "indices": 37,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Bord_3_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 38
+          },
+          "indices": 39,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Rampe_11_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 40
+          },
+          "indices": 41,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Rampe_5_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 42
+          },
+          "indices": 43,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Marche_5_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 44
+          },
+          "indices": 45,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Rampe_7_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 46
+          },
+          "indices": 47,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Cote_7_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 48
+          },
+          "indices": 49,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Marche_9_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 50
+          },
+          "indices": 51,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Bord_2_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 52
+          },
+          "indices": 53,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Cote_10_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 54
+          },
+          "indices": 55,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Rampe_10_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 56
+          },
+          "indices": 57,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Cote_1_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 58
+          },
+          "indices": 59,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Marche_6_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 60
+          },
+          "indices": 61,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Marche_3_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 62
+          },
+          "indices": 63,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Rampe_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 64
+          },
+          "indices": 65,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Cote_2_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 66
+          },
+          "indices": 67,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Bord_4_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 68
+          },
+          "indices": 69,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Rampe_2_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 70
+          },
+          "indices": 71,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Cote_9_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 72
+          },
+          "indices": 73,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Cote_4_1",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 74
+          },
+          "indices": 75,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Rampe_1",
+      "mesh": 0
+    },
+    {
+      "name": "Cote_5",
+      "mesh": 1
+    },
+    {
+      "name": "Cote",
+      "mesh": 2
+    },
+    {
+      "name": "Rampe_9",
+      "mesh": 3
+    },
+    {
+      "name": "Marche_1",
+      "mesh": 4
+    },
+    {
+      "name": "Rampe_8",
+      "mesh": 5
+    },
+    {
+      "name": "Marche_12",
+      "mesh": 6
+    },
+    {
+      "name": "Cote_3",
+      "mesh": 7
+    },
+    {
+      "name": "Marche",
+      "mesh": 8
+    },
+    {
+      "name": "Rampe_3",
+      "mesh": 9
+    },
+    {
+      "name": "Rampe_4",
+      "mesh": 10
+    },
+    {
+      "name": "Rampe_6",
+      "mesh": 11
+    },
+    {
+      "name": "Cote_6",
+      "mesh": 12
+    },
+    {
+      "name": "Marche_4",
+      "mesh": 13
+    },
+    {
+      "name": "Marche_8",
+      "mesh": 14
+    },
+    {
+      "name": "Marche_11",
+      "mesh": 15
+    },
+    {
+      "name": "Cote_8",
+      "mesh": 16
+    },
+    {
+      "name": "Marche_10",
+      "mesh": 17
+    },
+    {
+      "name": "Marche_7",
+      "mesh": 18
+    },
+    {
+      "name": "Bord_3",
+      "mesh": 19
+    },
+    {
+      "name": "Rampe_11",
+      "mesh": 20
+    },
+    {
+      "name": "Rampe_5",
+      "mesh": 21
+    },
+    {
+      "name": "Marche_5",
+      "mesh": 22
+    },
+    {
+      "name": "Rampe_7",
+      "mesh": 23
+    },
+    {
+      "name": "Cote_7",
+      "mesh": 24
+    },
+    {
+      "name": "Marche_9",
+      "mesh": 25
+    },
+    {
+      "name": "Bord_2",
+      "mesh": 26
+    },
+    {
+      "name": "Cote_10",
+      "mesh": 27
+    },
+    {
+      "name": "Rampe_10",
+      "mesh": 28
+    },
+    {
+      "name": "Cote_1",
+      "mesh": 29
+    },
+    {
+      "name": "Marche_6",
+      "mesh": 30
+    },
+    {
+      "name": "Marche_3",
+      "mesh": 31
+    },
+    {
+      "name": "Rampe",
+      "mesh": 32
+    },
+    {
+      "name": "Cote_2",
+      "mesh": 33
+    },
+    {
+      "name": "Bord_4",
+      "mesh": 34
+    },
+    {
+      "name": "Rampe_2",
+      "mesh": 35
+    },
+    {
+      "name": "Cote_9",
+      "mesh": 36
+    },
+    {
+      "name": "Cote_4",
+      "mesh": 37
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ]
+    }
+  ]
+}
