@@ -30,4 +30,5 @@ mutagen.yml.lock
 apps/backend/new-app-config-system
 apps/backend/app-config
 .devcontainer/
+./config
 rootfs/
