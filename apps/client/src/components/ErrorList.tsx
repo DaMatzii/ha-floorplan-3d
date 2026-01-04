@@ -30,7 +30,6 @@ export function ErrorList() {
       <Divider />
       <div className="flex mt-2 flex-col gap-1 pl-1">
         {errors.map((item, index) => {
-          console.log(item);
           return <ErrorDisplay key={index} error={item} />;
         })}
       </div>

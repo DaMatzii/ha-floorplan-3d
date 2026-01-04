@@ -16,7 +16,6 @@ export function NoMobile() {
             <span
               className="underline hover:cursor-pointer"
               onClick={() => {
-                console.log("CLICKED");
                 navigate("./editor");
               }}
             >

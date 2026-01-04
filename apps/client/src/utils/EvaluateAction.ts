@@ -40,7 +40,6 @@ const _evaluateAction = async (action: IAction, callService, openBottomSheet, ca
 			if (typeof callbacks["more-info"] === "function") {
 				callbacks["more-info"](action);
 			}
-			console.log(action)
 			openBottomSheet(action);
 
 			break;

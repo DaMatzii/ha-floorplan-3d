@@ -41,16 +41,3 @@ export const ProgressButton = ({
     </motion.button>
   );
 };
-
-// // --- Example Usage ---
-//
-// export const Button = () => (
-//   <div
-//     style={{ padding: "50px", display: "flex", justifyContent: "center" }}
-//     className="bg-black w-screen h-screen"
-//   >
-//     <ProgressButton onClick={() => console.log("Task started!")}>
-//       Deploy Application
-//     </ProgressButton>
-//   </div>
-// );

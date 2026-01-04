@@ -12,6 +12,7 @@ import useIsMobile from "@/hooks/useIsMobile";
 import { NoMobile } from "@/components/NoMobile";
 import { useCurrentRoom } from "@/hooks";
 import Camera from "@/renderer/Camera";
+import { ScanEye } from "lucide-react";
 
 const Button = ({ onClick, children }) => {
   return (
@@ -41,7 +42,6 @@ export default function HomeView() {
   if (!isMobile && !(import.meta.env.DEV ?? false)) {
     return <NoMobile />;
   }
-  console.log("Mobile");
 
   function onError(err) {
     addError({
@@ -53,24 +53,14 @@ export default function HomeView() {
 
   return (
     <>
-      <div
-        style={{
-          position: "absolute",
-          zIndex: 10,
-          top: 20,
-          left: 20,
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
+      <div className="absolute z-10 right-0 flex">
         {true ? (
           <Button
             onClick={() => {
               setIsPreview(!isPreview);
             }}
           >
-            Switch Camera ({activeCamera})
+            <ScanEye size={34} />
           </Button>
         ) : (
           <></>

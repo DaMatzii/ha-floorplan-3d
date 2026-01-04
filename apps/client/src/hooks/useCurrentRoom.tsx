@@ -27,7 +27,6 @@ export function useCurrentRoom() {
   }
   function setIsPreview(preview: boolean) {
     setSearchParams((prev) => {
-      console.log(prev);
       const next = new URLSearchParams(prev);
       next.set("preview", preview ? "true" : "false");
       return next;

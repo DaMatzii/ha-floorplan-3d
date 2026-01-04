@@ -92,8 +92,6 @@ export default function Camera() {
     const y_vals = room.point.map((p) => p.y / 100);
     const center = centerOfPoints(x_vals, y_vals);
 
-    console.log("connectors: ", center.x, center.y);
-
     setTarget([center.x, center.z + 5, center.y]);
     camera.current.rotation.set(-Math.PI / 2, 0, 0);
   };
@@ -125,7 +123,6 @@ export default function Camera() {
   };
 
   useEffect(() => {
-    console.log("Camera tsx: ", currentRoom);
     if (isPreview) {
       focusOnHouse();
       return;

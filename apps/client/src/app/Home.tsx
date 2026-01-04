@@ -87,11 +87,11 @@ export function useLoadHome(setIsLoading, setConfig) {
         rooms: parsedBuilding.rooms,
       };
 
+      //TODO: handle the safe parse :)
       const result = BuildingSchema.safeParse(building);
       if (!result.success) {
         console.log(result.error);
       } else {
-        console.log("cool");
       }
 
       setHome(parsedHome, [building], {

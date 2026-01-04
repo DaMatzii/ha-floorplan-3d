@@ -3,6 +3,7 @@ import React from "react";
 import { ProgressButton } from "@/components/Button";
 import { useNavigate } from "react-router-dom";
 
+//TODO: NAVIGATE TO THE EDITOR AFTERWARDS
 export default function SetupWizard() {
   const [loading, setLoading] = React.useState(false);
   const fileInputRef = React.useRef(undefined);
@@ -13,11 +14,6 @@ export default function SetupWizard() {
     const file = e.target.files[0];
     if (!file) return;
     console.log(file);
-
-    // setTimeout(() => {
-    //   setLoading(false);
-    //   navigate("../editor");
-    // }, 500);
 
     const formData = new FormData();
     formData.append("file", file);

@@ -129,7 +129,6 @@ export function DeviceCard({
       evaluateAction(double_tap_action);
     },
     onHold: () => evaluateAction(hold_action),
-    ms: 250,
   });
 
   const entity = useEntity(entity_id as EntityName);

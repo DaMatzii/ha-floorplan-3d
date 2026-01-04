@@ -5,23 +5,13 @@ import (
 	"fmt"
 	"github.com/fsnotify/fsnotify"
 	"github.com/gin-gonic/gin"
+	"io"
 	"log"
 	"net/http"
 )
 
 func SSEHandler(c *gin.Context) {
 	fmt.Println("REQUEST IN")
-	c.Writer.Header().Set("Content-Type", "text/event-stream")
-	c.Writer.Header().Set("Cache-Control", "no-cache")
-	c.Writer.Header().Set("Connection", "keep-alive")
-	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-
-	flusher, ok := c.Writer.(http.Flusher)
-	if !ok {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Streaming not supported"})
-		return
-	}
-
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		log.Fatal(err)
@@ -39,23 +29,21 @@ func SSEHandler(c *gin.Context) {
 
 	defer watcher.Close()
 
-	for {
+	c.Stream(func(w io.Writer) bool {
 		select {
-		case <-c.Request.Context().Done():
-			return
-
 		case event, ok := <-watcher.Events:
 			if !ok {
-				return
+				return true
 			}
 			if event.Has(fsnotify.Create) || event.Has(fsnotify.Write) {
-				fmt.Println("EVENT")
-
-				fmt.Fprintf(c.Writer, "data: %s\n\n", event.Name)
-				flusher.Flush()
-
+				c.SSEvent("reload", "lol")
 			}
+
+		case <-c.Request.Context().Done():
+			return true
+
 		}
-	}
+		return true
+	})
 
 }

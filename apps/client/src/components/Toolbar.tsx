@@ -22,9 +22,12 @@ const ErrorCounter = ({ count, onClick }) => {
   );
 };
 
-const RefreshTime = ({ elapsed }) => {
+const RefreshTime = ({ elapsed, onClick }) => {
   return (
-    <div className="flex items-center space-x-2  py-1 rounded-full cursor-default bg-normal">
+    <div
+      className="flex items-center space-x-2  py-1 rounded-full cursor-default bg-normal"
+      onClick={onClick}
+    >
       <RefreshCcw className="w-5 h-5 text-text font-regular" />
       <span
         className={`inline-flex items-center justify-center h-5 w-5 rounded-full text-xs font-regular text-text`}
@@ -47,7 +50,7 @@ const SettingsButton = ({ onClick }) => {
   );
 };
 
-const Toolbar = ({ date }) => {
+const Toolbar = ({ date, manualReload }) => {
   const errors = useErrorStore((state) => state.errors);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
@@ -75,7 +78,7 @@ const Toolbar = ({ date }) => {
               count={errors.length}
               onClick={() => setIsModalOpen(!isModalOpen)}
             />
-            <RefreshTime elapsed={date} />
+            <RefreshTime elapsed={date} onClick={manualReload} />
             <SettingsButton onClick={handleSettingsClick} />
           </div>
         </header>

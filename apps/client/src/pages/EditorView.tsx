@@ -67,8 +67,7 @@ export default function EditorView() {
 
     eventSource.onmessage = (event) => {
       console.log("Reloading!");
-      fetchHomeData();
-      setLastRefreshed(Date.now());
+      reload();
     };
 
     eventSource.onerror = (error) => {
@@ -80,10 +79,15 @@ export default function EditorView() {
     };
   }, [url]);
 
+  function reload() {
+    fetchHomeData();
+    setLastRefreshed(Date.now());
+  }
+
   //TODO: Some way to view what the fuck is the room id
   return (
     <>
-      <Toolbar date={elapsedSeconds} />
+      <Toolbar date={elapsedSeconds} manualReload={reload} />
       <div className="bg-black   h-screen w-screen">
         <Canvas
           shadows

@@ -32,7 +32,6 @@ export function RoomClickBox({ id, points }: any) {
     onSingleClick: () => {
       if (isPreview) {
         setCurrentRoom(id);
-        setIsPreview(false);
         return;
       }
       evaluateAction(roomConfig["tap_action"]);
