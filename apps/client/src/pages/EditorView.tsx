@@ -63,21 +63,31 @@ export default function EditorView() {
   }, [lastRefreshed]);
 
   React.useEffect(() => {
-    const eventSource = new EventSource(url);
+    const loc = window.location;
+    const wsProtocol = loc.protocol === "https:" ? "wss" : "ws";
 
-    eventSource.onmessage = (event) => {
-      console.log("Reloading!");
+    let wsUrl = `${wsProtocol}://${loc.host}/api/events`;
+    if (import.meta.env.PROD) {
+      const parts = window.location.pathname.split("/");
+      wsUrl =
+        (location.protocol === "https:" ? "wss://" : "ws://") +
+        loc.host +
+        "/api/hassio_ingress/" +
+        parts[3] +
+        "/api/events";
+    }
+
+    const ws = new WebSocket(wsUrl);
+
+    ws.onmessage = (event) => {
       reload();
-    };
-
-    eventSource.onerror = (error) => {
-      eventSource.close();
+      console.log("Received:", event.data);
     };
 
     return () => {
-      eventSource.close();
+      // ws.close();
     };
-  }, [url]);
+  }, []);
 
   function reload() {
     fetchHomeData();

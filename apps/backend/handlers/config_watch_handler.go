@@ -5,12 +5,23 @@ import (
 	"fmt"
 	"github.com/fsnotify/fsnotify"
 	"github.com/gin-gonic/gin"
-	"io"
+	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
+	"time"
 )
 
+var upgrader = websocket.Upgrader{
+	CheckOrigin: func(r *http.Request) bool { return true },
+}
+
 func SSEHandler(c *gin.Context) {
+	conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
+	if err != nil {
+		return
+	}
+	defer conn.Close()
+
 	fmt.Println("REQUEST IN")
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
@@ -29,21 +40,24 @@ func SSEHandler(c *gin.Context) {
 
 	defer watcher.Close()
 
-	c.Stream(func(w io.Writer) bool {
+	ticker := time.NewTicker(10 * time.Second)
+	defer ticker.Stop()
+
+	for {
 		select {
+		case <-ticker.C:
+			conn.WriteMessage(websocket.TextMessage, []byte("timer"))
 		case event, ok := <-watcher.Events:
 			if !ok {
-				return true
+				return
 			}
+			fmt.Println("Event")
 			if event.Has(fsnotify.Create) || event.Has(fsnotify.Write) {
-				c.SSEvent("reload", "lol")
-			}
 
-		case <-c.Request.Context().Done():
-			return true
+				conn.WriteMessage(websocket.TextMessage, []byte("reload"))
+			}
 
 		}
-		return true
-	})
+	}
 
 }
