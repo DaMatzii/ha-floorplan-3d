@@ -1,4 +1,4 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect } from "react";
 import { IAction } from "@/types";
 
 export const DefaultAction = (entity_id: string) => {
@@ -11,43 +11,77 @@ export const DefaultAction = (entity_id: string) => {
   } as IAction;
 };
 
-//fix holding plesae
 export const useClickAction = ({
   onSingleClick,
   onDoubleClick,
   onHold,
-  ms = 300,
+  doubleTapMs = 300,
   holdMs = 600,
+  moveThreshold = 10,
 }) => {
   const lastTap = useRef(0);
   const singleTimer = useRef(null);
   const holdTimer = useRef(null);
   const didHold = useRef(false);
 
+  const touchStartPosition = useRef({ x: 0, y: 0 });
+  const isScrolling = useRef(false);
+
+  const clearTimers = () => {
+    if (singleTimer.current) clearTimeout(singleTimer.current);
+    if (holdTimer.current) clearTimeout(holdTimer.current);
+  };
+
+  useEffect(() => {
+    return clearTimers;
+  }, []);
+
   const onPointerDown = useCallback(
     (e) => {
       e.stopPropagation();
 
       didHold.current = false;
+      isScrolling.current = false;
+
+      touchStartPosition.current = {
+        x: e.clientX,
+        y: e.clientY,
+      };
+
       holdTimer.current = setTimeout(() => {
-        didHold.current = true;
-        onHold?.();
+        if (!isScrolling.current) {
+          didHold.current = true;
+          onHold?.();
+        }
       }, holdMs);
     },
     [onHold, holdMs],
   );
 
+  const onPointerMove = useCallback(
+    (e) => {
+      let current = { x: e.clientX, y: e.clientY };
+      const dx = Math.abs(current.x - touchStartPosition.current.x);
+      const dy = Math.abs(current.y - touchStartPosition.current.y);
+
+      if (dx > moveThreshold || dy > moveThreshold) {
+        isScrolling.current = true;
+        clearTimeout(holdTimer.current);
+      }
+    },
+    [moveThreshold],
+  );
+
   const onPointerUp = useCallback(
     (e) => {
       e.stopPropagation();
-
       clearTimeout(holdTimer.current);
-      if (didHold.current) return;
+      if (didHold.current || isScrolling.current) return;
 
       const now = Date.now();
-      const delta = now - lastTap.current;
+      const sinceLastTap = now - lastTap.current;
 
-      if (delta > 0 && delta < ms) {
+      if (sinceLastTap > 0 && sinceLastTap < doubleTapMs) {
         clearTimeout(singleTimer.current);
         lastTap.current = 0;
         onDoubleClick?.();
@@ -55,30 +89,22 @@ export const useClickAction = ({
         lastTap.current = now;
         singleTimer.current = setTimeout(() => {
           onSingleClick?.();
-        }, ms);
+        }, doubleTapMs);
       }
     },
-    [onSingleClick, onDoubleClick, ms],
+    [onSingleClick, onDoubleClick, doubleTapMs],
   );
 
-  const onPointerCancel = useCallback((e) => {
-    e.stopPropagation();
-    clearTimeout(holdTimer.current);
-  }, []);
-
-  const onPointerLeave = useCallback((e) => {
-    e.stopPropagation();
-    clearTimeout(holdTimer.current);
+  const cancelAction = useCallback(() => {
+    if (holdTimer.current) clearTimeout(holdTimer.current);
   }, []);
 
   return {
     onPointerDown,
+    onPointerMove,
     onPointerUp,
-    onPointerCancel,
-    onPointerLeave,
-    onClick: (e) => {
-      e.stopPropagation();
-      e.preventDefault();
-    },
+    onPointerCancel: cancelAction,
+    onPointerLeave: cancelAction,
+    onClick: (e) => e.stopPropagation(),
   };
 };

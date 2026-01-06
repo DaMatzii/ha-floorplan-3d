@@ -1,4 +1,4 @@
-import { useSpring } from "@react-spring/three";
+import { useSpring, animated } from "@react-spring/three";
 import { useEffect, useState, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { PerspectiveCamera } from "@react-three/drei";
@@ -13,7 +13,7 @@ const getPinchDistance = (touch1, touch2) => {
   return Math.sqrt(dx * dx + dy * dy);
 };
 
-export function XYCameraControls({ reached }) {
+export function XYCameraControls({}) {
   const { camera } = useThree();
   const isDragging = useRef(false);
   const isPinching = useRef(false);
@@ -48,7 +48,7 @@ export function XYCameraControls({ reached }) {
     };
 
     const handleTouchMove = (event) => {
-      if (!reached.current || !event.touches) return;
+      if (!event.touches) return;
 
       if (event.touches.length === 1 && isDragging.current) {
         const touch = event.touches[0];
@@ -106,38 +106,27 @@ export function XYCameraControls({ reached }) {
       window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [camera, reached]);
+  }, [camera]);
 
   return null;
 }
 
+const AnimatedCamera = animated(PerspectiveCamera);
+
 //ISSUE: Coming of preview doesnt always focus back to whole room
 export default function Camera() {
   const { currentRoom, isPreview } = useCurrentRoom();
-  const [target, setTarget] = useState([0, 0, 10]);
   const { floorplans } = useHomeStore();
   const camera = useRef<THREE.PerspectiveCamera>(null);
   const reachedRef = useRef(false);
 
-  const { position } = useSpring({
-    position: target,
-    config: { mass: 1000, tension: 10, friction: 0, duration: 100 },
-    onRest: ({ finished }) => {
-      if (!finished) return;
-      reachedRef.current = true;
-    },
-  });
-
-  useEffect(() => {
-    reachedRef.current = false;
-  }, [target]);
-
-  useFrame(() => {
-    if (reachedRef.current) return;
-
-    const [x, y, z] = position.get();
-    camera.current.position.set(x, y, z);
-  });
+  const [springs, api] = useSpring(
+    () => ({
+      position: undefined,
+      config: { mass: 1, tension: 10000, friction: 1000, velocity: [0, 0, 0] },
+    }),
+    [],
+  );
 
   const focus = (room: any) => {
     if (!room) return;
@@ -145,8 +134,10 @@ export default function Camera() {
     const y_vals = room.point.map((p) => p.y / 100);
     const center = centerOfPoints(x_vals, y_vals);
 
-    setTarget([center.x, center.z + 5, center.y]);
     camera.current.rotation.set(-Math.PI / 2, 0, 0);
+    api.start({
+      to: { position: [center.x, center.z + 5, center.y] },
+    });
   };
 
   const focusOnHouse = () => {
@@ -155,8 +146,10 @@ export default function Camera() {
     const y_vals = floorplan.room.flatMap((d) => d.point.map((p) => p.y / 100));
     const center = centerOfPoints(x_vals, y_vals);
 
-    setTarget([center.x, center.z, center.y]);
     camera.current.rotation.set(-Math.PI / 2, 0, 0);
+    api.start({
+      to: { position: [center.x, center.z + 5, center.y] },
+    });
   };
 
   const centerOfPoints = (x_vals, y_vals) => {
@@ -190,8 +183,8 @@ export default function Camera() {
 
   return (
     <>
-      <PerspectiveCamera position={[0, 0, 10]} ref={camera} makeDefault />
-      {isPreview && <XYCameraControls reached={reachedRef} />}
+      <AnimatedCamera position={springs.position} ref={camera} makeDefault />
+      {isPreview && <XYCameraControls />}
     </>
   );
 }
