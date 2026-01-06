@@ -68,7 +68,7 @@ export default function HomeView() {
       </div>
       <div className="flex flex-col h-screen bg-gray-100 overscroll-none">
         <div className="flex-1 flex items-center justify-center  z-0">
-          <div className="canvas-container bg-normal w-screen h-screen touch-none">
+          <div className="canvas-container  bg-[rgb(17,17,17)] w-screen h-screen touch-none">
             <Canvas
               gl={{ antialias: false }}
               dpr={[1, 1.5]}

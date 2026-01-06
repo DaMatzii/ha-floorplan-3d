@@ -30,6 +30,7 @@ export function RoomClickBox({ id, points }: any) {
 
   const clickHandlers = useClickAction({
     onSingleClick: () => {
+      console.log("clcking room");
       if (isPreview) {
         setCurrentRoom(id);
         return;
