@@ -3,6 +3,8 @@ import { tv } from "tailwind-variants";
 
 import { motion } from "framer-motion";
 import { ISceneIcon } from "@/types";
+import { useClickAction, DefaultAction } from "@/hooks/useClickAction";
+import { useEvaluateAction } from "@/utils/EvaluateAction";
 
 const card = tv({
   slots: {
@@ -29,15 +31,21 @@ function Icon({
   hold_action,
   title,
 }: ISceneIcon) {
-  // const { _evaluateAction } = useEvaluateAction();
+  const { evaluateAction } = useEvaluateAction();
 
-  function handle_click() {
-    // _evaluateAction(tap_action, {}, {});
-  }
+  const clickHandlers = useClickAction({
+    onSingleClick: () => {
+      evaluateAction(tap_action);
+    },
+    onDoubleClick: () => {
+      evaluateAction(double_tap_action);
+    },
+    onHold: () => evaluateAction(hold_action),
+  });
   return (
     <>
       <div className={full_icon()}>
-        <div className={iconc()} onClick={handle_click}>
+        <div className={iconc()} {...clickHandlers}>
           <DynamicIcon name={icon as any} size={26} className="stroke-1 " />
         </div>
 
