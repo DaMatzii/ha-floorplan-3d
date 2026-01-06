@@ -113,7 +113,6 @@ const WideDeviceCard: React.FC<WideDeviceCardProps> = ({
   );
 };
 
-//TODO: implement alias for this, and then for switches on off
 export function DeviceCard({
   size,
   entity_id,
@@ -124,13 +123,12 @@ export function DeviceCard({
   const { evaluateAction } = useEvaluateAction();
 
   const clickHandlers = useClickAction({
-    onSingleClick: () => console.log("single"),
-    // evaluateAction(tap_action ?? default_action(entity_id)),
+    onSingleClick: () =>
+      evaluateAction(tap_action ?? default_action(entity_id)),
     onDoubleClick: () => {
       evaluateAction(double_tap_action);
     },
-    onHold: () => console.log("lol"),
-    // evaluateAction(hold_action),
+    onHold: () => evaluateAction(hold_action),
   });
 
   const entity = useEntity(entity_id as EntityName);
