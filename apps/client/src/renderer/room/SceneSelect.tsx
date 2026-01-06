@@ -23,7 +23,7 @@ interface SceneSelectProps {
   scenes: any[];
 }
 
-//TODO: Implement clicking
+//TODO: Feedback on click.
 function Icon({
   icon,
   tap_action,

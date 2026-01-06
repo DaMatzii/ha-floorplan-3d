@@ -19,43 +19,48 @@ export const useClickAction = ({
   ms = 300,
   holdMs = 600,
 }) => {
-  const clickTimer = useRef(null);
+  const lastTap = useRef(0);
+  const singleTimer = useRef(null);
   const holdTimer = useRef(null);
-  const isHoldAction = useRef(false);
+  const didHold = useRef(false);
 
-  const handleMouseDown = useCallback(() => {
-    isHoldAction.current = false;
+  const onPointerDown = useCallback(() => {
+    didHold.current = false;
+
     holdTimer.current = setTimeout(() => {
-      isHoldAction.current = true;
-      if (onHold) onHold();
+      didHold.current = true;
+      onHold?.();
     }, holdMs);
   }, [onHold, holdMs]);
 
-  const handleClick = useCallback(
-    (e) => {
-      e.stopPropagation();
-      if (isHoldAction.current) {
-        clearTimeout(holdTimer.current);
-        return;
-      }
+  const onPointerUp = useCallback(() => {
+    clearTimeout(holdTimer.current);
 
-      clearTimeout(holdTimer.current);
+    if (didHold.current) return;
 
-      if (e.detail === 1) {
-        clickTimer.current = setTimeout(() => {
-          if (onSingleClick) onSingleClick();
-        }, ms);
-      } else if (e.detail === 2) {
-        clearTimeout(clickTimer.current);
-        if (onDoubleClick) onDoubleClick();
-      }
-    },
-    [onSingleClick, onDoubleClick, ms],
-  );
+    const now = Date.now();
+    const delta = now - lastTap.current;
+
+    if (delta > 0 && delta < ms) {
+      clearTimeout(singleTimer.current);
+      lastTap.current = 0;
+      onDoubleClick?.();
+    } else {
+      lastTap.current = now;
+      singleTimer.current = setTimeout(() => {
+        onSingleClick?.();
+      }, ms);
+    }
+  }, [onSingleClick, onDoubleClick, ms]);
+
+  const onPointerLeave = useCallback(() => {
+    clearTimeout(holdTimer.current);
+  }, []);
 
   return {
-    onMouseDown: handleMouseDown,
-    onClick: handleClick,
-    onTouchStart: handleMouseDown,
+    onPointerDown,
+    onPointerUp,
+    onPointerCancel: onPointerLeave,
+    onPointerLeave,
   };
 };
