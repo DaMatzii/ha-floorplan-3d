@@ -86,7 +86,7 @@ const TemperatureDisplay: React.FC<ITemperatureDisplay> = ({
           }
         >
           <div
-            className="flex flex-col "
+            className="flex flex-col items-center w-200 h-170 "
             style={{ fontSize: fontSizeWithPixels(1), color: text_color }}
           >
             {top_sensor_id && (
