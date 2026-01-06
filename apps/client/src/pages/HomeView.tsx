@@ -80,7 +80,7 @@ export default function HomeView() {
               }}
             >
               <Camera />
-              <Stats />
+              {/* <Stats /> */}
               <Scene activeCamera={activeCamera} editorMode={false} />
             </Canvas>
           </div>
