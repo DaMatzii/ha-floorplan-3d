@@ -24,43 +24,61 @@ export const useClickAction = ({
   const holdTimer = useRef(null);
   const didHold = useRef(false);
 
-  const onPointerDown = useCallback(() => {
-    didHold.current = false;
+  const onPointerDown = useCallback(
+    (e) => {
+      e.stopPropagation();
 
-    holdTimer.current = setTimeout(() => {
-      didHold.current = true;
-      onHold?.();
-    }, holdMs);
-  }, [onHold, holdMs]);
+      didHold.current = false;
+      holdTimer.current = setTimeout(() => {
+        didHold.current = true;
+        onHold?.();
+      }, holdMs);
+    },
+    [onHold, holdMs],
+  );
 
-  const onPointerUp = useCallback(() => {
+  const onPointerUp = useCallback(
+    (e) => {
+      e.stopPropagation();
+
+      clearTimeout(holdTimer.current);
+      if (didHold.current) return;
+
+      const now = Date.now();
+      const delta = now - lastTap.current;
+
+      if (delta > 0 && delta < ms) {
+        clearTimeout(singleTimer.current);
+        lastTap.current = 0;
+        onDoubleClick?.();
+      } else {
+        lastTap.current = now;
+        singleTimer.current = setTimeout(() => {
+          onSingleClick?.();
+        }, ms);
+      }
+    },
+    [onSingleClick, onDoubleClick, ms],
+  );
+
+  const onPointerCancel = useCallback((e) => {
+    e.stopPropagation();
     clearTimeout(holdTimer.current);
+  }, []);
 
-    if (didHold.current) return;
-
-    const now = Date.now();
-    const delta = now - lastTap.current;
-
-    if (delta > 0 && delta < ms) {
-      clearTimeout(singleTimer.current);
-      lastTap.current = 0;
-      onDoubleClick?.();
-    } else {
-      lastTap.current = now;
-      singleTimer.current = setTimeout(() => {
-        onSingleClick?.();
-      }, ms);
-    }
-  }, [onSingleClick, onDoubleClick, ms]);
-
-  const onPointerLeave = useCallback(() => {
+  const onPointerLeave = useCallback((e) => {
+    e.stopPropagation();
     clearTimeout(holdTimer.current);
   }, []);
 
   return {
     onPointerDown,
     onPointerUp,
-    onPointerCancel: onPointerLeave,
+    onPointerCancel,
     onPointerLeave,
+    onClick: (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+    },
   };
 };
