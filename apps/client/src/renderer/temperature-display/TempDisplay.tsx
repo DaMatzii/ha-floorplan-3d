@@ -21,6 +21,12 @@ const default_action = (entity_id) => {
   } as IAction;
 };
 
+const roundWithDecimals = (number: number, precision: number) => {
+  return Number(
+    Math.round(Number(number + "e" + precision)) + "e-" + precision,
+  );
+};
+
 //TODO: Add unit of measurement,
 //ISSUE: fix jumping around
 const TemperatureDisplay: React.FC<ITemperatureDisplay> = ({
@@ -30,13 +36,14 @@ const TemperatureDisplay: React.FC<ITemperatureDisplay> = ({
   font_size,
   tap_action,
   text_color = "#fffff",
+  precision = 1,
 }) => {
   const topValue = top_sensor_id
-    ? useEntity(top_sensor_id as any)["state"]
+    ? roundWithDecimals(useEntity(top_sensor_id as any)["state"], precision)
     : "null";
 
   const bottomValue = bottom_sensor_id
-    ? useEntity(bottom_sensor_id as any)["state"]
+    ? roundWithDecimals(useEntity(bottom_sensor_id as any)["state"], precision)
     : "null";
 
   const { evaluateAction } = useEvaluateAction();

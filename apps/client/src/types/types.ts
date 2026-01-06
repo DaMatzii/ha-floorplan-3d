@@ -60,6 +60,7 @@ export const TemperatureDisplayEntitySchema = z.object({
 	text_color: z.string().optional(),
 	top_sensor_id: z.string(),
 	bottom_sensor_id: z.string(),
+	precision: z.number().optional(),
 	position: PositionSchema.optional(),
 	tap_action: ActionSchema.optional(),
 });
