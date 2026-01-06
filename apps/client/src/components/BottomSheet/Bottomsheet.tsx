@@ -31,7 +31,7 @@ export const BottomSheet = ({ children }) => {
 
       const newConstraints = {
         top: 0.25 * window.innerHeight,
-        bottom: window.innerHeight - (rect.bottom - rect.top) - 10,
+        bottom: window.innerHeight - (rect.bottom - rect.top) - 40,
       };
 
       setConstraints(newConstraints);
